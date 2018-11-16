@@ -40,5 +40,7 @@ def open(document):
 			opener = "cygstart"
 		else:
 			opener = "xdg-open"
-		subprocess.call([opener, document])
-
+		try:
+			subprocess.call([opener, document])
+		except:
+			pass

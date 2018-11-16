@@ -71,7 +71,7 @@ Atlas.launch("Connect", head, Blank)
 
 ## *TodoMVC*
 
-And here's how the *Atlas* toolkit version of the [*TodoMVC*](http://todomvc.com/) application looks like: 
+And here's how the *Atlas* toolkit version of the [*TodoMVC*](http://todomvc.com/) application looks like:
 
 [![TodoMVC](http://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")](https://github.com/epeios-q37/todomvc-java)
 
@@ -85,7 +85,7 @@ The `Atlas` directory contains the *Python* source code of the *Atlas* toolkit, 
 
 All other directories are examples.
 
-To run an example, launch `python <Name>`, where `<Name>` is the name of the application (`Blank`, `Chatroom`…).
+To run an example, launch `python <Name>`, where `<Name>` is the name of the example (`Blank`, `Chatroom`…).
 
 The *Atlas* toolkit is also available for:
 
