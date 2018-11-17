@@ -43,6 +43,7 @@ head = """
  .vcenter-in { display: table-cell; vertical-align: middle; }
 </style>
 """
+
 body = """
 <div class="vcenter-out">
  <div class="vcenter-in">
