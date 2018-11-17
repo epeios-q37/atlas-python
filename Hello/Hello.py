@@ -24,23 +24,19 @@ if not "EPEIOS_SRV" in os.environ:
 
 import Atlas
 
-class Blank(Atlas.DOM):
-	def __init__(this):
-		Atlas.DOM.__init__(this)
+def acConnect(this, dom, id):
+	dom.setLayout("", body )
+	dom.focus( "input")
 
-	def _acConnect(this, dom, id):
-		dom.setLayout("", body )
-		dom.focus( "input")
-
-	_callbacks = {
-			"Connect": _acConnect,
-			"Typing": lambda this, dom, id: dom.setContent("name", dom.getContent(id)),
-			"Clear": lambda this, dom, id: dom.setContents( {  "input": "", "name": ""} ) if dom.confirm( "Are you sure ?" ) else None
-		}
+callbacks = {
+		"Connect": acConnect,
+		"Typing": lambda this, dom, id:
+			dom.setContent("name", dom.getContent(id)),
+		"Clear": lambda this, dom, id:
+			dom.setContents( {  "input": "", "name": ""} )
+			if dom.confirm( "Are you sure ?" ) else None
+	}
 		
-	def handle(this,dom,action,id):
-		this._callbacks[action](this,dom,id)
-
 head = """
 <title>"Hello, World !" example</title>
 <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAMFBMVEUEAvyEhsxERuS8urQsKuycnsRkYtzc2qwUFvRUVtysrrx0ctTs6qTMyrSUksQ0NuyciPBdAAABHklEQVR42mNgwAa8zlxjDd2A4POfOXPmzZkFCAH2M8fNzyALzDlzg2ENssCbMwkMOsgCa858YOjBKxBzRoHhD7LAHiBH5swCT9HQ6A9ggZ4zp7YCrV0DdM6pBpAAG5Blc2aBDZA68wCsZPuZU0BDH07xvHOmAGKKvgMP2NA/Zw7ADIYJXGDgLQeBBSCBFu0aoAPYQUadMQAJAE29zwAVWMCWpgB08ZnDQGsbGhpsgCqBQHNfzRkDEIPlzFmo0T5nzoMovjPHoAK8Zw5BnA5yDosDSAVYQOYMKIDZzkoDzagAsjhqzjRAfXTmzAQgi/vMQZA6pjtAvhEk0E+ATWRRm6YBZuScCUCNN5szH1D4TGdOoSrggtiNAH3vBBjwAQCglIrSZkf1MQAAAABJRU5ErkJggg==" />
@@ -84,4 +80,4 @@ body = """
 </div>
 """
 
-Atlas.launch("Connect", head, Blank)
+Atlas.launch("Connect", callbacks, lambda: None, head)

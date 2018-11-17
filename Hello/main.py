@@ -27,24 +27,16 @@ import Atlas
 def readAsset(path):
 	return Atlas.readAsset(path, "Hello")
 
-class Blank(Atlas.DOM):
-	def __init__(this):
-		Atlas.DOM.__init__(this)
+def acConnect(this, dom, id):
+	dom.setLayout("", readAsset( "Main.html") )
+	dom.focus( "input")
 
-	def _acConnect(this, dom, id):
-		dom.setLayout("", readAsset( "Main.html") )
-		dom.focus( "input")
-
-	_callbacks = {
-			"Connect": _acConnect,
-			"Typing": lambda this, dom, id: dom.setContent("name", dom.getContent(id)),
-			"Clear": lambda this, dom, id: dom.setContents( {  "input": "", "name": ""} ) if dom.confirm( "Are you sure ?" ) else None
-		}
+callbacks = {
+		"Connect": acConnect,
+		"Typing": lambda this, dom, id: dom.setContent("name", dom.getContent(id)),
+		"Clear": lambda this, dom, id:
+			dom.setContents( {  "input": "", "name": ""} )
+			if dom.confirm( "Are you sure ?" ) else None
+	}
 		
-	def handle(this,dom,action,id):
-		this._callbacks[action](this,dom,id)
-
-Atlas.launch("Connect", readAsset("Head.html"), Blank, "Hello")
-
-
-
+Atlas.launch("Connect", callbacks, lambda: None, readAsset("Head.html"))

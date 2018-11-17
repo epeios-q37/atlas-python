@@ -19,30 +19,20 @@
 
 import XDHq
 from threading import Thread
+import threading
 
 readAsset = XDHq.readAsset
 
-def createXML( rootTag ):
+def createXML(rootTag):
 	return XDHq.XML(rootTag)
 
-class DOM(Thread):
-	def __init__(this):
-		Thread.__init__(this)
-		this._dom = XDHq.DOM()
+def worker(userObject,dom,callbacks):
+	while True:
+		[action,id] = dom.getAction()
+		callbacks[action](userObject, dom, id )
 
-	def run(this):
-		while True:
-			[action,id] = this._dom.getAction()
-			this.handle(this._dom,action,id)
-
-def launch(newSessionAction, headContent, new, dir = ""):
+def launch(newSessionAction, callbacks, new = lambda: None, headContent = "", dir = ""):
 	XDHq.launch(newSessionAction,headContent,dir)
 
 	while True:
-		new().start()
-
-
-
-
-
-
+		threading.Thread(target=worker, args=(new(), XDHq.DOM(), callbacks)).start()

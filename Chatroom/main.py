@@ -24,32 +24,31 @@ if not "EPEIOS_SRV" in os.environ:
 
 import Atlas
 
-_messages = []
-_pseudos = []
-_lock = threading.Lock()
+messages = []
+pseudos = []
+lock = threading.Lock()
 
-def _readAsset(path):
+def readAsset(path):
 	return Atlas.readAsset(path, "chatroom")
 
-class Chatroom(Atlas.DOM):
+class Chatroom:
 	def __init__(this):
-		Atlas.DOM.__init__(this)
-		this._lastMessage = 0
-		this._pseudo = ""
+		this.lastMessage = 0
+		this.pseudo = ""
 
-	def _buildXML(this):
+	def buildXML(this):
 		xml = Atlas.createXML("XDHTML")
 		xml.pushTag( "Messages" )
-		xml.setAttribute( "pseudo", this._pseudo )
+		xml.setAttribute( "pseudo", this.pseudo )
 
-		global _messages, _pseudos, _lock
+		global messages, pseudos, lock
 
-		_lock.acquire()
+		lock.acquire()
 
-		index = len( _messages ) - 1
+		index = len( messages ) - 1
 
-		while index >= this._lastMessage:
-			message = _messages[index]
+		while index >= this.lastMessage:
+			message = messages[index]
 
 			xml.pushTag( "Message" )
 			xml.setAttribute( "id", index )
@@ -59,92 +58,89 @@ class Chatroom(Atlas.DOM):
 
 			index -= 1
 
-		this._lastMessage = len(_messages)
+		this.lastMessage = len(messages)
 
-		_lock.release()
+		lock.release()
 
 		xml.popTag()
 
 		return xml
 
-	def _displayMessages(this, dom):
-		global _messages
+	def displayMessages(this, dom):
+		global messages
 		
-		if len(_messages) >= this._lastMessage:
+		if len(messages) >= this.lastMessage:
 			id = dom.createElement("span")
-			dom.setLayoutXSL(id, this._buildXML(), "Messages.xsl")
+			dom.setLayoutXSL(id, this.buildXML(), "Messages.xsl")
 			dom.insertChild(id, "Board")
 
-	def _acConnect(this, dom, id):
-		dom.setLayout("", _readAsset("Main.html"))
-		dom.focus("Pseudo")
-		dom.setTimeout(1000, "Update")
-		this._displayMessages(dom)
-	
-	def _handlePseudo(this, pseudo):
-		global _pseudos, _lock
+	def handlePseudo(this, pseudo):
+		global pseudos, lock
 
-		_lock.acquire()
+		lock.acquire()
 
-		if pseudo in _pseudos:
+		if pseudo in pseudos:
 			result = False
 		else:
-			_pseudos.append(pseudo)
+			pseudos.append(pseudo)
 			result= True
 
-		_lock.release()
+		lock.release()
 
 		return result
 
-	def _acSubmitPseudo(this, dom, id):
-		pseudo = dom.getContent("Pseudo").strip()
-
-		if not pseudo:
-			dom.alert("Pseudo. can not be empty !")
-			dom.setContent("Pseudo", "")
-			dom.focus("Pseudo")
-		elif this._handlePseudo(pseudo.upper()):
-			this._pseudo = pseudo
-			dom.addClass("PseudoButton", "hidden")
-			dom.disableElements(["Pseudo", "PseudoButton"])
-			dom.enableElements(["Message", "MessageButton"])
-			dom.setContent("Pseudo", pseudo)
-			dom.focus("Message")
-			print("\t>>>> New user: " + pseudo)
-		else:
-			dom.alert("Pseudo. not available !")
-			dom.setContent("Pseudo", pseudo)
-			dom.focus("Pseudo")
-
-	def _addMessage(this, pseudo, message):
-		global _messages, _lock
+	def addMessage(this, pseudo, message):
+		global messages, lock
 		message = message.strip()
 
 		if message:
 			print("'" + pseudo + "': " + message)
-			_lock.acquire()
-			_messages.append({'pseudo': pseudo, 'content': message})
-			_lock.release()
+			lock.acquire()
+			messages.append({'pseudo': pseudo, 'content': message})
+			lock.release()
 
-	def _acSubmitMessage(this, dom, id):
-		message = dom.getContent("Message")
-		dom.setContent("Message", "")
+def acConnect(this, dom, id):
+	dom.setLayout("", readAsset("Main.html"))
+	dom.focus("Pseudo")
+	dom.setTimeout(1000, "Update")
+	this.displayMessages(dom)
+	
+def acSubmitPseudo(this, dom, id):
+	pseudo = dom.getContent("Pseudo").strip()
+
+	if not pseudo:
+		dom.alert("Pseudo. can not be empty !")
+		dom.setContent("Pseudo", "")
+		dom.focus("Pseudo")
+	elif this.handlePseudo(pseudo.upper()):
+		this.pseudo = pseudo
+		dom.addClass("PseudoButton", "hidden")
+		dom.disableElements(["Pseudo", "PseudoButton"])
+		dom.enableElements(["Message", "MessageButton"])
+		dom.setContent("Pseudo", pseudo)
 		dom.focus("Message")
-		this._addMessage(this._pseudo, message)
-		this._displayMessages(dom)
+		print("\t>>>> New user: " + pseudo)
+	else:
+		dom.alert("Pseudo. not available !")
+		dom.setContent("Pseudo", pseudo)
+		dom.focus("Pseudo")
 
-	def _acUpdate(this, dom, id):
-		this._displayMessages(dom)
-		dom.setTimeout(1000, "Update")
+def acSubmitMessage(this, dom, id):
+	message = dom.getContent("Message")
+	dom.setContent("Message", "")
+	dom.focus("Message")
+	this.addMessage(this.pseudo, message)
+	this.displayMessages(dom)
 
-	_callbacks = {
-			"Connect": _acConnect,
-			"SubmitPseudo": _acSubmitPseudo,
-			"SubmitMessage": _acSubmitMessage,
-			"Update": _acUpdate,
-		}
+def acUpdate(this, dom, id):
+	this.displayMessages(dom)
+	dom.setTimeout(1000, "Update")
+
+callbacks = {
+		"Connect": acConnect,
+		"SubmitPseudo": acSubmitPseudo,
+		"SubmitMessage": acSubmitMessage,
+		"Update": acUpdate,
+	}
 		
-	def handle(this,dom,action,id):
-		this._callbacks[action](this,dom,id)
-
-Atlas.launch("Connect", _readAsset("Head.html"), Chatroom, "chatroom")
+Atlas.launch("Connect", callbacks, Chatroom, readAsset("Head.html"), "chatroom")

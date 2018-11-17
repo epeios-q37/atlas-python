@@ -24,12 +24,13 @@ if not "EPEIOS_SRV" in os.environ:
 	sys.path.append("Atlas.python.zip")
 
 import Atlas
-_viewModeElements = ["Pattern", "CreateButton", "DescriptionToggling", "ViewNotes"]
 
-def _readAsset(path):
+viewModeElements = ["Pattern", "CreateButton", "DescriptionToggling", "ViewNotes"]
+
+def readAsset(path):
 	return Atlas.readAsset(path, "notes")
 
-def _put(note, id, xml ):
+def put(note, id, xml ):
 	xml.pushTag("Note")
 	xml.setAttribute("id", id)
 
@@ -40,13 +41,12 @@ def _put(note, id, xml ):
 
 	xml.popTag()
 
-class Notes(Atlas.DOM):
+class Notes:
 	def __init__(this):
-		Atlas.DOM.__init__(this)
-		this._pattern = ""
-		this._hideDescriptions = False
-		this._index = 0
-		this._notes = [
+		this.pattern = ""
+		this.hideDescriptions = False
+		this.index = 0
+		this.notes = [
 			{
 			'title': '',
 			'description': '',
@@ -65,104 +65,101 @@ class Notes(Atlas.DOM):
 			},
 		]
 
-	def _handleDescriptions(this,dom):
-		if this._hideDescriptions:
+	def handleDescriptions(this,dom):
+		if this.hideDescriptions:
 			dom.disableElement("ViewDescriptions")
 		else:
 			dom.enableElement("ViewDescriptions")
 
-	def _displayList(this,dom):
+	def displayList(this,dom):
 		xml = Atlas.createXML("XDHTML")
 		contents = {}
 
 		xml.pushTag("Notes")
 
-		for index in range(len(this._notes)):
+		for index in range(len(this.notes)):
 			if index == 0: # 0 skipped, as it serves as buffer for the new ones.
 				continue
-			if this._notes[index]['title'][:len(this._pattern)].lower() == this._pattern:
-				_put(this._notes[index], index, xml)
-				contents["Description." + str(index)] = this._notes[index]['description']
+			if this.notes[index]['title'][:len(this.pattern)].lower() == this.pattern:
+				put(this.notes[index], index, xml)
+				contents["Description." + str(index)] = this.notes[index]['description']
 
 		dom.setLayoutXSL("Notes", xml, "Notes.xsl")
 		dom.setContents(contents)
-		dom.enableElements(_viewModeElements)
+		dom.enableElements(viewModeElements)
 
-	def _view(this, dom):
-		dom.enableElements(_viewModeElements)
-		dom.setContent("Edit." + str(this._index), "")
-		this._index = -1
+	def view(this, dom):
+		dom.enableElements(viewModeElements)
+		dom.setContent("Edit." + str(this.index), "")
+		this.index = -1
 
-	def _acConnect(this, dom, id):
-			dom.setLayout("", _readAsset( "Main.html") )
-			this._displayList(dom)
+def acConnect(this, dom, id):
+		dom.setLayout("", readAsset( "Main.html") )
+		this.displayList(dom)
 
-	def _acToggleDescriptions(this, dom, id):
-			this._hideDescriptions = dom.getContent(id)=="true"
-			this._handleDescriptions(dom)
+def acToggleDescriptions(this, dom, id):
+		this.hideDescriptions = dom.getContent(id)=="true"
+		this.handleDescriptions(dom)
 
-	def _acSearch(this, dom, id):
-			this._pattern = dom.getContent("Pattern").lower()
-			this._displayList(dom)
+def acSearch(this, dom, id):
+		this.pattern = dom.getContent("Pattern").lower()
+		this.displayList(dom)
 
-	def _acEdit(this, dom, id):
-		index = dom.getContent(id)
-		this._index = int(index)
-		note = this._notes[this._index]
+def acEdit(this, dom, id):
+	index = dom.getContent(id)
+	this.index = int(index)
+	note = this.notes[this.index]
 
-		dom.setLayout("Edit." + index, _readAsset( "Note.html") )
-		dom.setContents({ "Title": note['title'], "Description": note['description'] })
-		dom.disableElements(_viewModeElements)
-		dom.dressWidgets("Notes")
+	dom.setLayout("Edit." + index, readAsset( "Note.html") )
+	dom.setContents({ "Title": note['title'], "Description": note['description'] })
+	dom.disableElements(viewModeElements)
+	dom.dressWidgets("Notes")
+	dom.focus("Title")
+
+def acDelete(this, dom, id):
+	if dom.confirm("Are you sure you want to delete this entry ?"):
+		this.notes.pop(int(dom.getContent(id)))
+		this.displayList(dom)
+
+def acSubmit(this, dom, id):
+	result = dom.getContents(["Title", "Description"])
+	title = result["Title"].strip()
+	description = result["Description"]
+
+	if title:
+		this.notes[this.index] = { "title": title, "description": description }
+
+		if this.index == 0:
+			this.notes.insert(0, { 'title': '', 'description': ''})
+			this.displayList( dom )
+		else:
+			dom.setContents( { "Title." + str(this.index): title, "Description." + str(this.index): description })
+			this.view( dom )
+	else:
+		dom.alert("Title can not be empty !")
 		dom.focus("Title")
 
-	def _acDelete(this, dom, id):
-		if dom.confirm("Are you sure you want to delete this entry ?"):
-			this._notes.pop(int(dom.getContent(id)))
-			this._displayList(dom)
+def acCancel( this, dom, id):
+	note = this.notes[this.index]
 
-	def _acSubmit(this, dom, id):
-		result = dom.getContents(["Title", "Description"])
-		title = result["Title"].strip()
-		description = result["Description"]
+	result = dom.getContents(["Title", "Description"])
+	title = result["Title"].strip()
+	description = result["Description"]
 
-		if title:
-			this._notes[this._index] = { "title": title, "description": description }
+	if (title != note['title']) or (description != note['description']):
+		if dom.confirm("Are you sure you want to cancel your modifications ?"):
+			this.view( dom )
+	else:
+		this.view( dom )
 
-			if this._index == 0:
-				this._notes.insert(0, { 'title': '', 'description': ''})
-				this._displayList( dom )
-			else:
-				dom.setContents( { "Title." + str(this._index): title, "Description." + str(this._index): description })
-				this._view( dom )
-		else:
-			dom.alert("Title can not be empty !")
-			dom.focus("Title")
+callbacks = {	
+	"Connect": acConnect,
+	"ToggleDescriptions": acToggleDescriptions,
+	"Search": acSearch,
+	"Edit": acEdit,
+	"Delete": acDelete,
+	"Submit": acSubmit,
+	"Cancel": acCancel,
+}
 
-	def _acCancel( this, dom, id):
-		note = this._notes[this._index]
-
-		result = dom.getContents(["Title", "Description"])
-		title = result["Title"].strip()
-		description = result["Description"]
-
-		if (title != note['title']) or (description != note['description']):
-			if dom.confirm("Are you sure you want to cancel your modifications ?"):
-				this._view( dom )
-		else:
-			this._view( dom )
-
-	_callbacks = {	
-		"Connect": _acConnect,
-		"ToggleDescriptions": _acToggleDescriptions,
-		"Search": _acSearch,
-		"Edit": _acEdit,
-		"Delete": _acDelete,
-		"Submit": _acSubmit,
-		"Cancel": _acCancel,
-	}
-
-	def handle(this,dom,action,id):
-		this._callbacks[action](this,dom,id)			
-
-Atlas.launch("Connect", _readAsset("Head.html"), Notes, "notes")
+Atlas.launch("Connect", callbacks, Notes, readAsset("Head.html"), "notes")

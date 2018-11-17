@@ -27,26 +27,19 @@ import Atlas
 def readAsset(path):
 	return Atlas.readAsset(path, "blank")
 
-class Blank(Atlas.DOM):
-	def __init__(this):
-		Atlas.DOM.__init__(this)
+def acConnect(this,dom,id):
+	dom.setLayout("", readAsset("Main.html"))
+	dom.addClass("Input","hidden")
 
-	def _acConnect(this,dom,id):
-		dom.setLayout("", readAsset("Main.html"))
-		dom.addClass("Input","hidden")
+def acShowInput(this,dom,id):
+	dom.removeClass("Input", "hidden")
+	dom.focus("Pattern")
 
-	def _acShowInput(this,dom,id):
-		dom.removeClass("Input", "hidden")
-		dom.focus("Pattern")
+callbacks = {
+	"Connect": acConnect,
+	"Submit": lambda this, dom, id: dom.setContent("Pattern", dom.getContent("Pattern").upper() ),
+	"HideInput": lambda this, dom, id: dom.addClass("Input", "hidden"),
+	"ShowInput": acShowInput,
+}
 
-	_callbacks = {
-		"Connect": _acConnect,
-		"Submit": lambda this, dom, id: dom.setContent("Pattern", dom.getContent("Pattern").upper() ),
-		"HideInput": lambda this, dom, id: dom.addClass("Input", "hidden"),
-		"ShowInput": _acShowInput,
-	}
-		
-	def handle(this,dom,action,id):
-		this._callbacks[action](this,dom,id)
-
-Atlas.launch("Connect", readAsset("Head.html"), Blank, "blank")
+Atlas.launch("Connect", callbacks, lambda: None, readAsset("Head.html"), "blank")
