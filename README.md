@@ -10,7 +10,7 @@ Here's how a [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22
 
 ![Little demonstration](http://q37.info/download/assets/Hello.gif "A basic example")
 
-For an online demonstration: <http://q37.info/runkit/Hello>.
+For an live demonstration: <http://q37.info/runkit/Hello>.
 
 Source code:
 
@@ -71,7 +71,7 @@ And here's how the *Atlas* toolkit version of the [*TodoMVC*](http://todomvc.com
 
 [![TodoMVC](http://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")](https://github.com/epeios-q37/todomvc-java)
 
-For an online demonstration: <http://q37.info/runkit/TodoMVC>.
+For an live demonstration: <http://q37.info/runkit/TodoMVC>.
 
 ## Content of the repository
 
