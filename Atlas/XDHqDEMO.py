@@ -48,7 +48,7 @@ _token = ""
 
 def _getEnv( name, value= "" ):
 	if name in os.environ:
-		return os.envviron[name].strip()
+		return os.environ[name].strip()
 	else:
 		return value.strip()
 

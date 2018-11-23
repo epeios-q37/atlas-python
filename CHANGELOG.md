@@ -5,6 +5,12 @@
 
 ---
 
+## 2018-11-23
+
+- *Node.js* and *Python* bindings:
+  - fixing error in handling environment variables for proxy/web address/port,
+  - switching to version 0.5.1a,
+
 ## 2018-11-22
 
 - both application (web) address/port and proxy address/port can now be set with environment variables,
