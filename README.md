@@ -23,8 +23,8 @@ sys.path.append("Atlas.python.zip") # Add the path to 'Atlas.python.zip' if need
 import Atlas
 
 def acConnect(this, dom, id):
-dom.setLayout("", body )
-dom.focus( "input")
+  dom.setLayout("", body )
+  dom.focus( "input")
 
 callbacks = {
   "Connect": acConnect,
@@ -75,7 +75,7 @@ For an live demonstration: <http://q37.info/runkit/TodoMVC>.
 
 ## Content of the repository
 
-The `Atlas` directory contains the *Python* source code of the *Atlas* toolkit, which is not needed to run the examples.s
+The `Atlas` directory contains the *Python* source code of the *Atlas* toolkit, which is not needed to run the examples.
 
 `Atlas.python.zip` is the file you have to reference in `PYTHONPATH` in order to use the *Atlas* toolkit in your own application.
 
