@@ -5,6 +5,11 @@
 
 ---
 
+## 2018-11-24
+
+- *Node.js*:
+  - fixing error message displayed when not able to connect,
+
 ## 2018-11-23
 
 - *Node.js* and *Python* bindings:

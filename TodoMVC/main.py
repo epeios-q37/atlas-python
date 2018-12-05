@@ -19,8 +19,8 @@
 
 import os, sys
 
-if not "EPEIOS_SRV" in os.environ:
-	sys.path.append("Atlas.python.zip")
+sys.path.append("./Atlas.python.zip")
+sys.path.append("../Atlas.python.zip")
 
 import Atlas
 def readAsset(path):
@@ -32,7 +32,7 @@ class TodoMVC:
 		this.index = -1
 		this.todos = []
 
-		if False:	# At 'True' for testing purpose.
+		if False:	# Set to 'True' for testing purpose.
 			this.todos.append({"label": "Todo 1", "completed": False })
 			this.todos.append({"label": "Todo 2", "completed": True })
 
@@ -100,7 +100,7 @@ class TodoMVC:
 		index = this.index
 		this.index = -1
 
-		content = dom.getContent("Input." + str(index).strip())
+		content = dom.getContent("Input." + str(index)).strip()
 		dom.setContent("Input." + str(index), "")
 
 		if content:
@@ -117,7 +117,7 @@ def acConnect(this, dom, id):
 	dom.setLayout("", readAsset("Main.html"))
 	dom.focus("Input")
 	this.displayTodos(dom)
-	dom.disableElements([ "HideActive", "HideCompleted"])
+	dom.disableElements(["HideActive", "HideCompleted"])
 
 def acDestroy(this, dom, id):
 	this.todos.pop(int(dom.getContent(id)))

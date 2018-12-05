@@ -1,5 +1,5 @@
 """ 
-  Copyright (C) 2018 Claude SIMON (http://q37.info/contact/).
+	Copyright (C) 2018 Claude SIMON (http://q37.info/contact/).
 
 	This file is part of XDHq.
 
@@ -94,10 +94,6 @@ class DOM_DEMO:
 
 		return strings
 
-	def _getQuery(this):
-		c = this._socket.rec(1)
-		query = ""
-
 	def __init__(this):
 		global _protocolLabel, _protocolVersion, _newSessionAction,_headContent, _token
 		pAddr = "atlastk.org"
@@ -130,7 +126,7 @@ class DOM_DEMO:
 			wPort = ":" + wPort
 
 		if this._isTokenEmpty():
-			token = _getEnv("ATK_TOKEN", "")
+			token = _getEnv("ATK_TOKEN")
 
 			if token:
 				_token = "&" + token

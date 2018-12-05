@@ -34,7 +34,6 @@ def writeString(socket, string):
 def writeStringNUL(socket, string):
 	socket.send(string + "\0")
 
-
 def _getByte(socket):
 	return ord(socket.recv(1))
 
@@ -44,7 +43,7 @@ def getSize(socket):
 
 	while byte & 0x80:
 		byte = _getByte(socket)
-		size = (size << 7) + byte & 0x7f
+		size = (size << 7) + (byte & 0x7f)
 
 	return size
 

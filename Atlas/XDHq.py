@@ -53,8 +53,9 @@ def _split(keysAndValues):
 def _unsplit(keys,values):
 	i = 0
 	keysAndValues = {}
+	length = len(keys)
 
-	while i < len(keys):
+	while i < length:
 		keysAndValues[keys[i]] = values[i]
 		i += 1
 
@@ -83,7 +84,7 @@ class DOM:
 		return this._dom.call("Execute_1" ,_STRING, 1, script, 0)
 
 	def alert(this,message):
-		this._dom.call( "Alert_1", _VOID, 1, message, 0 ) == "true"
+		this._dom.call( "Alert_1", _VOID, 1, message, 0 )
 
 	def confirm(this,message):
 		return this._dom.call( "Confirm_1", _STRING, 1, message, 0 ) == "true"
@@ -165,7 +166,7 @@ class DOM:
 		this.disableElements([id])
 
 	def setAttribute(this, id, name, value ):
-		return this._dom.call("SetAttribute_1", _VOID, 2, id, value, 0 )
+		this._dom.call("SetAttribute_1", _VOID, 2, id, value, 0 )
 
 	def getAttribute(this, id, name):
 		return this._dom.call("GetAttribute_1", _STRING, 2, id, name, 0 )
@@ -174,7 +175,7 @@ class DOM:
 		this._dom.call("RemoveAttribute_1", _VOID, 1, id, 0 )
 
 	def setProperty(this, id, name, value ):
-		return this._dom.call("SetProperty_1", _VOID, 3, id, name, value, 0 )
+		this._dom.call("SetProperty_1", _VOID, 3, id, name, value, 0 )
 
 	def getProperty(this, id, name ):
 		return this._dom.call("GetProperty_1", _STRING, 2, id, name, 0 );
