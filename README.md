@@ -83,6 +83,8 @@ All other directories are examples.
 
 To run an example, launch `python <Name>`, where `<Name>` is the name of the example (`Blank`, `Chatroom`…).
 
+The `GPIO` application was designed to be used on a *Odroid C2*. Although it may be work on other systems, like *Raspberry Pi*, this application was only tested on a *Odroid C2*. The *Python* version of *WringPi* must be installed, and the application has to be launched with `sudo`.
+
 The *Atlas* toolkit is also available for:
 
 - *Java*: <http://github.com/epeios-q37/atlas-java>
