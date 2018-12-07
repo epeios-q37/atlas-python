@@ -45,8 +45,8 @@ def _split(keysAndValues):
 	values = []
 
 	for key in keysAndValues:
-		keys.append(key)
-		values.append(keysAndValues[key])
+		keys.append(str(key))
+		values.append(str(keysAndValues[key]))
 
 	return [keys,values]
 
@@ -166,13 +166,13 @@ class DOM:
 		this.disableElements([id])
 
 	def setAttribute(this, id, name, value ):
-		this._dom.call("SetAttribute_1", _VOID, 2, id, value, 0 )
+		this._dom.call("SetAttribute_1", _VOID, 3, id, name, str(value), 0 )
 
 	def getAttribute(this, id, name):
 		return this._dom.call("GetAttribute_1", _STRING, 2, id, name, 0 )
 
 	def removeAttribute(this, id, name ):
-		this._dom.call("RemoveAttribute_1", _VOID, 1, id, 0 )
+		this._dom.call("RemoveAttribute_1", _VOID, 2, id, name, 0 )
 
 	def setProperty(this, id, name, value ):
 		this._dom.call("SetProperty_1", _VOID, 3, id, name, value, 0 )

@@ -39,8 +39,8 @@ else:
 	print("Unhandled python version!")
 	os._exit(1)
 
-_protocolLabel = "712a58bf-2c9a-47b2-ba5e-d359a99966de"
-_protocolVersion = "1"
+_protocolLabel = "3f0aef6b-b893-4ccd-9316-d468588fc572"
+_protocolVersion = "0"
 
 _newSessionAction = ""
 _headContent = ""
@@ -154,9 +154,15 @@ class DOM_DEMO:
 		elif this._getString() != _token:
 				sys.exit("Unmatched token !!!")
 
-		this._getString()	# Language.
 		this._writeString(_protocolLabel)
 		this._writeString(_protocolVersion)
+
+		errorMessage = this._getString()
+
+		if ( errorMessage != "" ):
+			sys.exit(errorMessage)
+
+		this._getString()	# Language.
 		this._writeString("PYH")
 
 	def getAction(this):

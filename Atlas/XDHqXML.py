@@ -36,11 +36,11 @@ class XML:
 	def setAttribute(this,name,value):
 		this._xml += "A"
 		this._write(name)
-		this._write(value)
+		this._write(str(value))
 
 	def setValue(this,value):
 		this._xml += "V"
-		this._write(value)
+		this._write(str(value))
 
 	def toString(this):
 		return this._xml

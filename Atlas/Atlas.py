@@ -35,4 +35,6 @@ def launch(newSessionAction, callbacks, new = lambda: None, headContent = "", di
 	XDHq.launch(newSessionAction,headContent,dir)
 
 	while True:
-		threading.Thread(target=worker, args=(new(), XDHq.DOM(), callbacks)).start()
+		thread = threading.Thread(target=worker, args=(new(), XDHq.DOM(), callbacks))
+		thread.daemon = True
+		thread.start()
