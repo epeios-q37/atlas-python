@@ -29,10 +29,12 @@ def createXML(rootTag):
 def worker(userObject,dom,callbacks):
 	while True:
 		[action,id] = dom.getAction()
-		callbacks[action](userObject, dom, id )
+		if action=="" or not "_PreProcessing" in callbacks or callbacks["_PreProcessing"](userObject, dom, action, id):
+			if callbacks[action](userObject, dom, id ) and "_PostProcessing" in callbacks:
+				callbacks["_PostProcessing"](userObject, dom, action, id)
 
-def launch(newSessionAction, callbacks, new = lambda: None, headContent = "", dir = ""):
-	XDHq.launch(newSessionAction,headContent,dir)
+def launch(callbacks, new = lambda: None, headContent = "", dir = ""):
+	XDHq.launch(headContent,dir)
 
 	while True:
 		thread = threading.Thread(target=worker, args=(new(), XDHq.DOM(), callbacks))

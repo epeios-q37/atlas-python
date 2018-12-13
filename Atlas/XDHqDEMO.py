@@ -42,7 +42,6 @@ else:
 _protocolLabel = "3f0aef6b-b893-4ccd-9316-d468588fc572"
 _protocolVersion = "0"
 
-_newSessionAction = ""
 _headContent = ""
 _token = ""
 
@@ -52,10 +51,9 @@ def _getEnv( name, value= "" ):
 	else:
 		return value.strip()
 
-def launch(newSessionAction,headContent):
-	global _newSessionAction,_headContent
+def launch(headContent):
+	global _headContent
 
-	_newSessionAction = newSessionAction
 	_headContent = headContent
 
 
@@ -95,7 +93,7 @@ class DOM_DEMO:
 		return strings
 
 	def __init__(this):
-		global _protocolLabel, _protocolVersion, _newSessionAction,_headContent, _token
+		global _protocolLabel, _protocolVersion,_headContent, _token
 		pAddr = "atlastk.org"
 		pPort = 53800
 		wAddr = ""
@@ -173,9 +171,6 @@ class DOM_DEMO:
 
 		id = this._getString();
 		action = this._getString()
-
-		if not action:
-			action = _newSessionAction
 
 		return [action,id]
 

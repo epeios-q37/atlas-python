@@ -183,9 +183,9 @@ class DOM:
 	def focus(this, id):
 		this._dom.call("Focus_1", _VOID,1, id, 0)
 
-def launch(newSessionAction, headContent, dir):
+def launch(headContent, dir):
 	global _dir
-	XDHqDEMO.launch(newSessionAction,headContent)
+	XDHqDEMO.launch(headContent)
 	_dir = dir
 
 

@@ -15,6 +15,7 @@
 		<table>
 			<thead>
 				<tr>
+					<th/>
 					<th>wPi</th>
 					<th>Mode</th>
 					<th>Value</th>
@@ -24,18 +25,35 @@
 				<xsl:apply-templates select="GPIO"/>
 			</tbody>
 		</table>
+		<div>
+			<fieldset style="text-align: center;">
+				<button data-xdh-onevent="All">All</button>
+				<button data-xdh-onevent="None">None</button>
+				<button data-xdh-onevent="Invert">Invert</button>
+			</fieldset>
+			<fieldset style="text-align: center;">
+				<xsl:apply-templates select="/XDHTML/Corpus/Modes/Mode" mode="Button"/>
+			</fieldset>
+		</div>
 	</xsl:template>
 	<xsl:template match="GPIO">
 		<xsl:variable name="ModeLabel">
 			<xsl:call-template name="GetModeLabel"/>
 		</xsl:variable>
 		<tr>
+			<td>
+				<input id="Selector.{@id}" type="checkbox" data-xdh-onevent="Toggle">
+					<xsl:if test="@Selected='True'">
+						<xsl:attribute name="checked">checked</xsl:attribute>
+					</xsl:if>
+				</input>
+			</td>
 			<td title="WringPi id.">
 				<xsl:value-of select="@id"/>
 			</td>
 			<td>
 				<select data-xdh-onevent="SwitchMode" id="Mode.{@id}" title="Select pin mode.">
-					<xsl:apply-templates select="/XDHTML/Corpus/Modes/Mode">
+					<xsl:apply-templates select="/XDHTML/Corpus/Modes/Mode" mode="Select">
 						<xsl:with-param name="Mode" select="@Mode"/>
 					</xsl:apply-templates>
 				</select>
@@ -54,7 +72,7 @@
 			</td>
 		</tr>
 	</xsl:template>
-	<xsl:template match="/XDHTML/Corpus/Modes/Mode">
+	<xsl:template match="/XDHTML/Corpus/Modes/Mode" mode="Select">
 		<xsl:param name="Mode"/>
 		<option value="{@id}">
 			<xsl:if test="$Mode=@id">
@@ -62,5 +80,10 @@
 			</xsl:if>
 			<xsl:value-of select="@Label"/>
 		</option>
+	</xsl:template>
+	<xsl:template match="/XDHTML/Corpus/Modes/Mode" mode="Button">
+		<button id="{@Label}" data-xdh-onevent="{@Label}">
+			<xsl:value-of select="@Label"/>
+		</button>
 	</xsl:template>
 </xsl:stylesheet>

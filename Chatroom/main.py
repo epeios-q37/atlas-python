@@ -137,10 +137,10 @@ def acUpdate(this, dom, id):
 	dom.setTimeout(1000, "Update")
 
 callbacks = {
-		"Connect": acConnect,
+		"": acConnect,
 		"SubmitPseudo": acSubmitPseudo,
 		"SubmitMessage": acSubmitMessage,
 		"Update": acUpdate,
 	}
 		
-Atlas.launch("Connect", callbacks, Chatroom, readAsset("Head.html"), "chatroom")
+Atlas.launch(callbacks, Chatroom, readAsset("Head.html"), "chatroom")

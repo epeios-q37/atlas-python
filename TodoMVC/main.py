@@ -182,7 +182,7 @@ def acCancel(this, dom, id):
 	dom.removeClasses({"View." + index: "hide", "Todo." + index: "editing"})
 
 callbacks = {
-	"Connect": acConnect,
+	"": acConnect,
 	"Submit": lambda this, dom, id: this.submitNew(dom) if this.index == -1 else this.submitModification(dom),
 	"Destroy": acDestroy,
 	"Toggle": acToggle,
@@ -194,4 +194,4 @@ callbacks = {
 	"Cancel": acCancel,
 }
 
-Atlas.launch("Connect", callbacks, TodoMVC, readAsset("HeadDEMO.html"), "TodoMVC")
+Atlas.launch(callbacks, TodoMVC, readAsset("HeadDEMO.html"), "TodoMVC")

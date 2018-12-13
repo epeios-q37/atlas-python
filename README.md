@@ -27,7 +27,7 @@ def acConnect(this, dom, id):
   dom.focus( "input")
 
 callbacks = {
-  "Connect": acConnect,
+  "": acConnect,
   "Typing": lambda this, dom, id:
     dom.setContent("name", dom.getContent(id)),
   "Clear": lambda this, dom, id:
@@ -62,7 +62,7 @@ body = """
 </div>
 """
 
-Atlas.launch("Connect", callbacks, lambda: None, head)
+Atlas.launch(callbacks, lambda: None, head)
 ```
 
 ## *TodoMVC*

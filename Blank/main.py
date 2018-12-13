@@ -36,10 +36,10 @@ def acShowInput(this,dom,id):
 	dom.focus("Pattern")
 
 callbacks = {
-	"Connect": acConnect,
+	"": acConnect,
 	"Submit": lambda this, dom, id: dom.setContent("Pattern", dom.getContent("Pattern").upper() ),
 	"HideInput": lambda this, dom, id: dom.addClass("Input", "hidden"),
 	"ShowInput": acShowInput,
 }
 
-Atlas.launch("Connect", callbacks, lambda: None, readAsset("Head.html"), "blank")
+Atlas.launch(callbacks, lambda: None, readAsset("Head.html"), "blank")

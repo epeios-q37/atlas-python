@@ -153,7 +153,7 @@ def acCancel( this, dom, id):
 		this.view( dom )
 
 callbacks = {	
-	"Connect": acConnect,
+	"": acConnect,
 	"ToggleDescriptions": acToggleDescriptions,
 	"Search": acSearch,
 	"Edit": acEdit,
@@ -162,4 +162,4 @@ callbacks = {
 	"Cancel": acCancel,
 }
 
-Atlas.launch("Connect", callbacks, Notes, readAsset("Head.html"), "notes")
+Atlas.launch(callbacks, Notes, readAsset("Head.html"), "notes")

@@ -3,6 +3,9 @@
 - Common to **all** bindings,
 - does **not** concern the native code,
 
+## 2018-12-11
+- removing the new session related stuff,
+
 ## 2018-12-07
 
 - *Python*
