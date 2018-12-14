@@ -83,9 +83,11 @@ All other directories are examples.
 
 To run an example, launch `python <Name>`, where `<Name>` is the name of the example (`Blank`, `Chatroom`…).
 
-The `GPIO` application was designed to be used on a *Odroid C2*. Although it may be work on other systems, like *Raspberry Pi*, this application was only tested on a *Odroid C2*. The *Python* version of *WringPi* must be installed, and the application has to be launched with `sudo`. Here a video to see how it works:
+The *GPIO*  application was designed to be used on a *Odroid C2*. Although it may be work on other systems, like *Raspberry Pi*, this application was only tested on a *Odroid C2*. The *Python* version of *WringPi* must be installed, and the application has to be launched with `sudo`. Here a video to see how it works:
 
 [![GPIO video](https://img.youtube.com/vi/I-cVCivRb9o/0.jpg)](https://www.youtube.com/watch?v=I-cVCivRb9o)
+
+Same video on a *PeerTube* instance: https://peertube.video/videos/watch/4028de7d-267d-4ecb-a13f-7745171ba5ae
 
 The *Atlas* toolkit is also available for:
 
