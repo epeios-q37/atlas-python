@@ -3,6 +3,14 @@
 - Common to **all** bindings,
 - does **not** concern the native code,
 
+## 2018-12-22
+
+- the opening of the web browser does no more block the entire app under some *Linux* distribution,
+
+## 2018-12-18
+
+- handling error on token,
+
 ## 2018-12-14
 
 - switching to version 0.6,

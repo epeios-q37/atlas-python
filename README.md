@@ -10,7 +10,7 @@ Here's how a [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22
 
 ![Little demonstration](http://q37.info/download/assets/Hello.gif "A basic example")
 
-For an live demonstration: <http://q37.info/runkit/Hello>.
+For a live demonstration: <http://q37.info/runkit/Hello>.
 
 Source code:
 
@@ -71,7 +71,7 @@ And here's how the *Atlas* toolkit version of the [*TodoMVC*](http://todomvc.com
 
 [![TodoMVC](http://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")](https://github.com/epeios-q37/todomvc-java)
 
-For an live demonstration: <http://q37.info/runkit/TodoMVC>.
+For a live demonstration: <http://q37.info/runkit/TodoMVC>.
 
 ## Content of the repository
 
@@ -81,13 +81,25 @@ The `Atlas` directory contains the *Python* source code of the *Atlas* toolkit, 
 
 All other directories are examples.
 
-To run an example, launch `python <Name>`, where `<Name>` is the name of the example (`Blank`, `Chatroom`…).
+To run an example, launch `python <Name>`, where `<Name>` is the name of the example (`Blank`, `Chatroom`…), except for the *GPIO* and *RGB* applications, which are detailed just below.
 
-The *GPIO*  application was designed to be used on a *Odroid C2*. Although it may be work on other systems, like *Raspberry Pi*, this application was only tested on a *Odroid C2*. The *Python* version of *WringPi* must be installed, and the application has to be launched with `sudo`. Here a video to see how it works:
+## *Raspberry Pi*/*ODROID-C2*
+
+The *GPIO* and *RGB* applications are designed to be used on a *Raspberry Pi* or a *ODROID-C2*. The *Python* version of *WiringPi* must be installed (`pip install wiringpi`), and the application has to be launched with `sudo` (`sudo python GPIO` or `sudo python RGB`).
+
+### *GPIO*
+
+The *GPIO* allows to control the basic pins. Here is a video to see how it works:
 
 [![GPIO video](https://img.youtube.com/vi/I-cVCivRb9o/0.jpg)](https://www.youtube.com/watch?v=I-cVCivRb9o)
 
 Same video on a *PeerTube* instance: https://peertube.video/videos/watch/4028de7d-267d-4ecb-a13f-7745171ba5ae
+
+### RGB
+
+The *RGB* application is dedicated to the control of an RGB led. A dedicated video will be soon available.
+
+## Miscellaneous
 
 The *Atlas* toolkit is also available for:
 

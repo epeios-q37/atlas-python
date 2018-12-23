@@ -140,7 +140,7 @@ class DOM_DEMO:
 			_token = this._getString()
 
 			if this._isTokenEmpty():
-				sys.exit("Invalid connection information !!!")
+				sys.exit(this._getString())
 
 			if ( wPort != ":0" ):
 				url = "http://" + wAddr + wPort + "/" + cgi + ".php?_token=" + _token
@@ -149,7 +149,13 @@ class DOM_DEMO:
 				print("Open above URL in a web browser. Enjoy!\n")
 				XDHqSHRD.open(url)
 
-		elif this._getString() != _token:
+		else:
+			returnedToken = this._getString();
+
+			if ( returnedToken == "" ):
+				sys.exit(this._getString())
+			  
+			if ( returnedToken != _token ):
 				sys.exit("Unmatched token !!!")
 
 		this._writeString(_protocolLabel)

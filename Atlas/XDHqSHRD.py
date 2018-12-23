@@ -32,7 +32,7 @@ def isDev():
 def open(document):
 	platform = sys.platform
 	if platform == "win32":
-		os.startfile(document)
+		os.startfile(document)	# Exists only on Windows!
 	else:
 		if platform == "darwin":
 			opener = "open"
@@ -41,6 +41,6 @@ def open(document):
 		else:
 			opener = "xdg-open"
 		try:
-			subprocess.call([opener, document])
+			subprocess.call(opener + " " + document + " &", shell=True)
 		except:
 			pass

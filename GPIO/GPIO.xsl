@@ -43,6 +43,13 @@
 		<tr>
 			<td>
 				<input id="Selector.{@id}" type="checkbox" data-xdh-onevent="Toggle">
+					<xsl:attribute name="tabindex">
+						<xsl:text>1</xsl:text>
+						<xsl:if test="number(@id)&lt;10">
+							<xsl:text>0</xsl:text>
+						</xsl:if>
+						<xsl:value-of select="@id"/>
+					</xsl:attribute>
 					<xsl:if test="@Selected='True'">
 						<xsl:attribute name="checked">checked</xsl:attribute>
 					</xsl:if>
@@ -53,6 +60,13 @@
 			</td>
 			<td>
 				<select data-xdh-onevent="SwitchMode" id="Mode.{@id}" title="Select pin mode.">
+					<xsl:attribute name="tabindex">
+						<xsl:text>2</xsl:text>
+						<xsl:if test="number(@id)&lt;10">
+							<xsl:text>0</xsl:text>
+						</xsl:if>
+						<xsl:value-of select="@id"/>
+					</xsl:attribute>
 					<xsl:apply-templates select="/XDHTML/Corpus/Modes/Mode" mode="Select">
 						<xsl:with-param name="Mode" select="@Mode"/>
 					</xsl:apply-templates>
