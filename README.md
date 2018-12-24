@@ -87,17 +87,19 @@ To run an example, launch `python <Name>`, where `<Name>` is the name of the exa
 
 The *GPIO* and *RGB* applications are designed to be used on a *Raspberry Pi* or a *ODROID-C2*. The *Python* version of *WiringPi* must be installed (`pip install wiringpi`), and the application has to be launched with `sudo` (`sudo python GPIO` or `sudo python RGB`).
 
+Below applications are only examples. You can easily write your own applications.
+
+### RGB
+
+The *RGB* application is dedicated to the control of a RGB led. Here is a video to see how it works:
+
+[![RGB video](https://img.youtube.com/vi/4m5CyhT7yiA/0.jpg)](https://www.youtube.com/watch?v=4m5CyhT7yiA)
+
 ### *GPIO*
 
 The *GPIO* allows to control the basic pins. Here is a video to see how it works:
 
 [![GPIO video](https://img.youtube.com/vi/I-cVCivRb9o/0.jpg)](https://www.youtube.com/watch?v=I-cVCivRb9o)
-
-Same video on a *PeerTube* instance: https://peertube.video/videos/watch/4028de7d-267d-4ecb-a13f-7745171ba5ae
-
-### RGB
-
-The *RGB* application is dedicated to the control of an RGB led. A dedicated video will be soon available.
 
 ## Miscellaneous
 
