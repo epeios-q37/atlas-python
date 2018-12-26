@@ -1,4 +1,6 @@
-# *Python* version of the *Atlas* toolkit
+# *Python* version of the *Atlas* toolkit(i
+
+(If you are looking for the *WebGPIO* application, you will find it at the bottom of this page).
 
 ![Python logo](https://q37.info/download/assets/Python.png "Python")
 
@@ -69,7 +71,7 @@ Atlas.launch(callbacks, lambda: None, head)
 
 And here's how the *Atlas* toolkit version of the [*TodoMVC*](http://todomvc.com/) application looks like:
 
-[![TodoMVC](http://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")](https://github.com/epeios-q37/todomvc-java)
+[![TodoMVC](http://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")]
 
 For a live demonstration: <http://q37.info/runkit/TodoMVC>.
 
@@ -95,7 +97,7 @@ The *RGB* application is dedicated to the control of a RGB led. Here is a video 
 
 [![RGB video](https://img.youtube.com/vi/4m5CyhT7yiA/0.jpg)](https://www.youtube.com/watch?v=4m5CyhT7yiA)
 
-### *GPIO*
+### *GPIO* (aka *WebGPIO*)
 
 The *GPIO* allows to control the basic pins. Here is a video to see how it works:
 
