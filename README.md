@@ -1,4 +1,4 @@
-# *Python* version of the *Atlas* toolkit(i
+# *Python* version of the *Atlas* toolkit
 
 (If you are looking for the *WebGPIO* application, you will find it at the bottom of this page).
 
