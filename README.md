@@ -1,6 +1,6 @@
 # *Python* version of the *Atlas* toolkit
 
-(If you are looking for the *WebGPIO* application, you will find it at the bottom of this page).
+**If you are looking for the *WebGPIO* application, you will find it at the bottom of this page.**
 
 ![Python logo](https://q37.info/download/assets/Python.png "Python")
 
