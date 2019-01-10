@@ -71,7 +71,7 @@ Atlas.launch(callbacks, lambda: None, head)
 
 And here's how the *Atlas* toolkit version of the [*TodoMVC*](http://todomvc.com/) application looks like:
 
-[![TodoMVC](http://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")]
+![TodoMVC](http://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")
 
 For a live demonstration: <http://q37.info/runkit/TodoMVC>.
 
@@ -83,11 +83,13 @@ The `Atlas` directory contains the *Python* source code of the *Atlas* toolkit, 
 
 All other directories are examples.
 
-To run an example, launch `python <Name>`, where `<Name>` is the name of the example (`Blank`, `Chatroom`…), except for the *GPIO* and *RGB* applications, which are detailed just below.
+To run an example, launch `python <Name>`, where `<Name>` is the name of the example (`Blank`, `Chatroom`…), except for the *ErgoJr*, *GPIO* and *RGB* applications, which are detailed just below.
 
 ## *Raspberry Pi*/*ODROID-C2*
 
 The *GPIO* and *RGB* applications are designed to be used on a *Raspberry Pi* or a *ODROID-C2*. The *Python* version of *WiringPi* must be installed (`pip install wiringpi`), and the application has to be launched with `sudo` (`sudo python GPIO` or `sudo python RGB`).
+
+The *ErgoJr* application is experimental and to control a *Poppy* *Ergo Jr* robot.
 
 Below applications are only examples. You can easily write your own applications.
 
@@ -110,5 +112,6 @@ The *Atlas* toolkit is also available for:
 - *Java*: <http://github.com/epeios-q37/atlas-java>
 - *Node.js*: <http://github.com/epeios-q37/atlas-node>
 - *PHP*: <http://github.com/epeios-q37/atlas-php>
+- *Ruby*: <http://github.com/epeios-q37/atlas-ruby>
 
 For more information about the *Atlas* toolkit, go to <http://atlastk.org/>.
