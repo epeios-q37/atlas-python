@@ -1,6 +1,6 @@
 # *Python* version of the *Atlas* toolkit
 
-**If you are looking for the *WebGPIO* application, you will find it at the bottom of this page.**
+**If you are looking for the *WebGPIO* application, you will find it at the bottom of this page (in the *Raspberry Pi*/*ODROID-C2* section).**
 
 ![Python logo](https://q37.info/download/assets/Python.png "Python")
 
@@ -87,7 +87,11 @@ To run an example, launch `python <Name>`, where `<Name>` is the name of the exa
 
 ## *Raspberry Pi*/*ODROID-C2*
 
-The *GPIO* and *RGB* applications are designed to be used on a *Raspberry Pi* or a *ODROID-C2*. The *Python* version of *WiringPi* must be installed (`pip install wiringpi`), and the application has to be launched with `sudo` (`sudo python GPIO` or `sudo python RGB`).
+The *GPIO* and *RGB* applications are designed to be used on a *Raspberry Pi* or a *ODROID-C2*.
+
+For the *Raspberry Pi*, the `RPi.GPIO` *Python* module have to be installed (this is probably already the case).
+
+For the *ODROID-C2*, The *Python* version of *WiringPi* must be installed, and the application has to be launched with `sudo` (`sudo python GPIO` or `sudo python RGB`).
 
 The *ErgoJr* application is experimental and to control a *Poppy* *Ergo Jr* robot.
 

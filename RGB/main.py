@@ -17,8 +17,7 @@
 	along with XDHq If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os, pprint, sys
-import wiringpi
+import GPIOq, sys
 
 sys.path.append("./Atlas.python.zip")
 sys.path.append("../Atlas.python.zip")
@@ -59,9 +58,9 @@ def acSelect(RGB, dom, id):
 		G = convert(id[2:4])
 		B = convert(id[4:6])
 		print (R, G, B)
-		wiringpi.softPwmWrite(rPin,100 - R)
-		wiringpi.softPwmWrite(gPin,100 - G)
-		wiringpi.softPwmWrite(bPin,100 - B)
+		GPIOq.softPWMWrite(rPin,100 - R)
+		GPIOq.softPWMWrite(gPin,100 - G)
+		GPIOq.softPWMWrite(bPin,100 - B)
 
 def getPin(dom, id):
 	pin = None
@@ -78,7 +77,7 @@ def getPin(dom, id):
 		dom.setContent(id, "")
 		dom.focus(id)
 	elif pin != None:
-		wiringpi.softPwmCreate(pin,0,100)
+		GPIOq.softPWMCreate(pin)
 
 	return pin
 
@@ -102,6 +101,6 @@ callbacks = {
 		"Blue": acBlue,
 	}
 
-wiringpi.wiringPiSetup()
+GPIOq.setup()
 
 Atlas.launch(callbacks, RGB, readAsset("Head.html"), "RGB")

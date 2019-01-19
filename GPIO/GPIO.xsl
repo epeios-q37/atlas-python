@@ -16,7 +16,7 @@
 			<thead>
 				<tr>
 					<th/>
-					<th>wPi</th>
+					<th>Pin</th>
 					<th>Mode</th>
 					<th>Value</th>
 				</tr>

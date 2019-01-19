@@ -17,8 +17,7 @@
 	along with XDHq If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os, pprint, sys, threading
-import wiringpi
+import GPIOq, sys, threading
 
 sys.path.append("./Atlas.python.zip")
 sys.path.append("../Atlas.python.zip")
@@ -33,101 +32,97 @@ currentUserId = None
 settings = {}
 
 mappings = {
-	"ODROID-C2":
-	{
-		0: {},
-		1: {},
-		2: {},
+	GPIOq.D_ODROID_C2:
+	sorted({
+#		1: {},
+#		2: {},
 		3: {},
-		4: {},
+#		4: {},
 		5: {},
-		6: {},
-		7: {},
-# 8: {},
-# 9: {},
-		10: {},
-		11: {},
-		12: {},
-		13: {},
-		14: {},
-#	15: {},
-#	16: {},
-		21: {},
-		22: {},
-		23: {},
-		24: {},
-#	25: {},
-		26: {},
-		27: {},
-#	28: {},
-#	29: {},
-#	30: {},
-#	31: {},
-	},
-	"Raspberry Pi":
-	{
-		0: {},
-		1: {},
-		2: {},
-		3: {},
-		4: {},
-		5: {},
-		6: {},
+#		6: {},
 		7: {},
 #		8: {},
 #		9: {},
 #		10: {},
-#		11: {},
-#		12: {},
-#		13: {},
+		11: {},
+		12: {},
+		13: {},
 #		14: {},
-#		15: {},
-#		16: {},
+		15: {},
+		16: {},
+#		17: {},
+		18: {},
+		19: {},
+#		20: {},
 		21: {},
 		22: {},
 		23: {},
 		24: {},
-		25: {},
+#		25: {},
 		26: {},
-		27: {},
-		28: {},
+#		27: {},
+#		28: {},
 		29: {},
 #		30: {},
-#		31: {},
-	}
+		31: {},
+		32: {},
+		33: {},
+#		34: {},
+		35: {},
+		36: {},
+#		37: {},
+#		38: {},
+#		39: {},
+#		40: {},
+	}),
+	GPIOq.D_RASPBERRY_PI:
+	sorted({
+#		1: {},
+#		2: {},
+		3: {},
+#		4: {},
+		5: {},
+#		6: {},
+		7: {},
+		8: {},
+#		9: {},
+		10: {},
+		11: {},
+		12: {},
+		13: {},
+#		14: {},
+		15: {},
+		16: {},
+#		17: {},
+		18: {},
+		19: {},
+#		20: {},
+		21: {},
+		22: {},
+		23: {},
+		24: {},
+#		25: {},
+		26: {},
+#		27: {},
+#		28: {},
+		29: {},
+#		30: {},
+		31: {},
+		32: {},
+		33: {},
+#		34: {},
+		35: {},
+		36: {},
+		37: {},
+		38: {},
+#		39: {},
+		40: {},
+	}),
 }
 
-mappings["Testing"] = mappings["ODROID-C2"]
+mappings[GPIOq.D_TESTING] = mappings[GPIOq.D_ODROID_C2]
 
-mapping = None
-
-def getModel():
-	file = "/proc/device-tree/model"
-	if os.path.isfile(file):
-		return open(file).read()
-	elif os.path.isfile("./wiringpi.py"):	# true in development environment.
-		return "Testing environment"
-	else:
-		sys.exit("Unable to identify device!")
-
-def detectDevice(model):
-	global mappings
-	for key in mappings.keys():
-		if model.startswith(key):
-			return key
-
-	return None
-
-def setMapping(model):
-	global mapping, mappings
-	key = detectDevice(model)
-
-	if ( key == None ):
-		sys.exit( "Unable to find device from '" + model + "'.")
-
-	print( "Using mapping '" + key + "' deduced from '" + model + "'.")
-
-	mapping = mappings[key]
+mapping = mappings[GPIOq.device]
 
 class Setting:
 	MODE = 0
@@ -135,9 +130,9 @@ class Setting:
 	SELECTED = 2
 
 class Mode:
-	IN = 0
-	OUT = 1
-	PWM = 2
+	IN = GPIOq.M_IN
+	OUT = GPIOq.M_OUT
+	PWM = GPIOq.M_PWM
 	label = {
 		IN: "IN",
 		OUT: "OUT",
@@ -171,10 +166,10 @@ def set(wId,field,value):
 	lock.release()
 
 def retrieveMode(wId):
-	return 0
+	return Mode.IN
 
 def retrieveValue(wId):
-	return wiringpi.digitalRead(wId)
+	return 0
 
 def retrieveSelected(wId):
 	return False
@@ -191,7 +186,7 @@ def retrieveSettings():
 
 	for key in mapping:
 		settings[key] = retrieveSetting(key)
-		wiringpi.pinMode(key,0)	# Default to IN mode, to avoid short-circuit.
+		GPIOq.pinMode(key,Mode.IN)	# Default to IN mode, to avoid short-circuit.
 
 	return settings
 
@@ -242,10 +237,10 @@ class GPIO:
 
 	def _setMode(this,wId,mode):
 		set(wId,Setting.MODE,mode)
-		wiringpi.pinMode(wId,1 if mode > 1 else mode)
+		GPIOq.pinMode(wId,1 if mode > 1 else mode)
 		if ( mode == Mode.PWM ):
-			wiringpi.softPwmCreate(wId,0,100)
-		set(wId,Setting.VALUE,wiringpi.digitalRead(wId))
+			GPIOq.softPWMCreate(wId)
+		set(wId,Setting.VALUE,GPIOq.digitalRead(wId))
 
 	def _getValue(this,wId):
 		value = this._getSetting(wId)[Setting.VALUE]
@@ -261,9 +256,9 @@ class GPIO:
 		if ( mode == Mode.IN ):
 			sys.exit("Can not set value for a pin in IN mode !")
 		elif (mode == Mode.OUT):
-			wiringpi.digitalWrite( wId, 1 if value > 0 else 0 )
+			GPIOq.digitalWrite( wId, 1 if value > 0 else 0 )
 		elif (mode == Mode.PWM):
-			wiringpi.softPwmWrite(wId,value)
+			GPIOq.softPWMWrite(wId,value)
 		else:
 			sys.exit("Unknown mode !")
 
@@ -395,9 +390,7 @@ callbacks = {
 		"PWM": lambda GPIO, dom, id: GPIO.setAllMode(dom,Mode.PWM),
 	}
 
-wiringpi.wiringPiSetup()
-
-setMapping(getModel())
+GPIOq.setup()
 
 syncSettings()
 		
