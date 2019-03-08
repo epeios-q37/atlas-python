@@ -4,7 +4,7 @@
 
 ![Python logo](https://q37.info/download/assets/Python.png "Python")
 
-The [*Atlas* toolkit](https://atlastk.org/) is a library dedicated to the handling of web interfaces.
+A fast and easy way to add web interfaces to *Python* applications.
 
 ## *Hello, World!*
 
@@ -16,55 +16,46 @@ For a live demonstration: <http://q37.info/runkit/Hello>.
 
 Source code:
 
-```Python
-
+```python
 # Following two lines can be removed if the 'Atlas.python.zip' file is referenced in 'PYTHONPATH'
 import os, sys
 sys.path.append("Atlas.python.zip") # Add the path to 'Atlas.python.zip' if needed.
 
 import Atlas
 
-def acConnect(this, dom, id):
-  dom.setLayout("", body )
-  dom.focus( "input")
-
-callbacks = {
-  "": acConnect,
-  "Typing": lambda this, dom, id:
-    dom.setContent("name", dom.getContent(id)),
-  "Clear": lambda this, dom, id:
-    dom.setContents( {  "input": "", "name": ""} )
-    if dom.confirm( "Are you sure ?" ) else None
-}
-  
-head = """
-<title>"Hello, World !" example</title>
-<style type="text/css">
- html, body { height: 100%; padding: 0; margin: 0; }
- .vcenter-out, .hcenter { display: table; height: 100%; margin: auto; }
- .vcenter-in { display: table-cell; vertical-align: middle; }
-</style>
-"""
-
 body = """
-<div class="vcenter-out">
- <div class="vcenter-in">
-  <fieldset>
-   <label>Name:</label>
-   <input id="input" maxlength="20" placeholder="Enter your name here" type="text" data-xdh-onevent="input|Typing" />
+<div style="display: table; margin: 50px auto auto auto;">
+ <fieldset>
+  <input id="input" maxlength="20" placeholder="Enter a name here" type="text"
+         data-xdh-onevent="Submit" value="World"/>
+  <div style="display: flex; justify-content: space-around; margin: 5px auto auto auto;">
+   <button data-xdh-onevent="Submit">Submit</button>
    <button data-xdh-onevent="Clear">Clear</button>
-   <hr />
-   <h1>
-    <span>Hello </span>
-    <span style="font-style: italic;" id="name"></span>
-    <span>!</span>
-   </h1>
-  </fieldset>
- </div>
+  </div>
+ </fieldset>
 </div>
 """
 
-Atlas.launch(callbacks, lambda: None, head)
+def acConnect(this, dom, id):
+  dom.setLayout("", body)
+  dom.focus("input")
+
+def acSubmit(this, dom, id):
+  dom.alert("Hello, " + dom.getContent("input") + "!")
+  dom.focus("input")
+
+def acClear(this, dom, id):
+  if ( dom.confirm("Are you sure?") ):
+    dom.setContent("input", "")
+  dom.focus("input")
+
+callbacks = {
+  "": acConnect,  # This key is the action label for a new connection.
+  "Submit": acSubmit,
+  "Clear": acClear,
+}
+  
+Atlas.launch(callbacks)
 ```
 
 ## *TodoMVC*

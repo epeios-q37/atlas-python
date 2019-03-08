@@ -69,7 +69,7 @@ class Chatroom:
 	def displayMessages(this, dom):
 		global messages
 		
-		if len(messages) >= this.lastMessage:
+		if len(messages) > this.lastMessage:
 			id = dom.createElement("span")
 			dom.setLayoutXSL(id, this.buildXML(), "Messages.xsl")
 			dom.insertChild(id, "Board")

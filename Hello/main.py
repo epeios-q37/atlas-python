@@ -31,12 +31,19 @@ def acConnect(this, dom, id):
 	dom.setLayout("", readAsset( "Main.html") )
 	dom.focus( "input")
 
+def acSubmit(this, dom, id):
+	dom.alert("Hello, " + dom.getContent("input") + "!")
+	dom.focus( "input")
+
+def acClear(this, dom, id):
+	if ( dom.confirm("Are you sure?" ) ):
+		dom.setContent("input", "" )
+	dom.focus( "input")
+
 callbacks = {
-		"": acConnect,
-		"Typing": lambda this, dom, id: dom.setContent("name", dom.getContent(id)),
-		"Clear": lambda this, dom, id:
-			dom.setContents( {  "input": "", "name": ""} )
-			if dom.confirm( "Are you sure ?" ) else None
-	}
+	"": acConnect,
+	"Submit": acSubmit,
+	"Clear": acClear,
+}
 		
 Atlas.launch(callbacks, lambda: None, readAsset("Head.html"))

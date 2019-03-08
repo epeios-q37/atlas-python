@@ -33,10 +33,12 @@ def worker(userObject,dom,callbacks):
 			if callbacks[action](userObject, dom, id ) and "_PostProcessing" in callbacks:
 				callbacks["_PostProcessing"](userObject, dom, action, id)
 
-def launch(callbacks, new = lambda: None, headContent = "", dir = ""):
-	XDHq.launch(headContent,dir)
+def callback(userObject,callbacks,instance):
+	thread = threading.Thread(target=worker, args=(userObject, XDHq.DOM(instance), callbacks))
+	thread.daemon = True
+	thread.start()
+	return thread
 
-	while True:
-		thread = threading.Thread(target=worker, args=(new(), XDHq.DOM(), callbacks))
-		thread.daemon = True
-		thread.start()
+def launch(callbacks, userCallback = lambda: None, headContent = "", dir = ""):
+	XDHq.launch(callback,userCallback,callbacks,headContent,dir)
+

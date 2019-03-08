@@ -17,6 +17,15 @@
 	along with XDHq If not, see <http://www.gnu.org/licenses/>.
  """
 
+import inspect
+
+def l():
+	frameInfo = inspect.getouterframes(inspect.currentframe())[1]
+	print(frameInfo.filename + ":" + str(frameInfo.lineno))
+
+def writeByte(socket, byte):
+	socket.send(bytes([byte]))
+
 def writeSize(socket, size):
 	result = bytes([size & 0x7f])
 	size >>= 7
@@ -35,16 +44,16 @@ def writeString(socket, string):
 def writeStringNUL(socket, string):
 	socket.send(bytes(string + "\0", "utf-8"))
 
-def _getByte(socket):
+def getByte(socket):
 	return ord(socket.recv(1))
 
 def getSize(socket):
-	byte = _getByte(socket)
+	byte = getByte(socket)
 	size = byte & 0x7f
 
 	while byte & 0x80:
-		byte = _getByte(socket)
-		size = (size << 7) + byte & 0x7f
+		byte = getByte(socket)
+		size = (size << 7) + (byte & 0x7f)
 
 	return size
 

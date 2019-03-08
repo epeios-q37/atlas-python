@@ -74,8 +74,8 @@ def readAsset(path, dir=""):
 	return open(_getAssetFilename(path, dir)).read()
 
 class DOM:
-	def __init__(this):
-		this._dom = XDHqDEMO.DOM_DEMO()
+	def __init__(this,instance):
+		this._dom = XDHqDEMO.DOM_DEMO(instance)
 
 	def getAction(this):
 		return this._dom.getAction()
@@ -84,7 +84,9 @@ class DOM:
 		return this._dom.call("Execute_1" ,_STRING, 1, script, 0)
 
 	def alert(this,message):
-		this._dom.call( "Alert_1", _VOID, 1, message, 0 )
+		this._dom.call( "Alert_1", _STRING, 1, message, 0 )
+		# For the return value being 'STRING' instead of 'VOID',
+		# see the 'alert' primitive in 'XDHqXDH'.
 
 	def confirm(this,message):
 		return this._dom.call( "Confirm_1", _STRING, 1, message, 0 ) == "true"
@@ -183,11 +185,7 @@ class DOM:
 	def focus(this, id):
 		this._dom.call("Focus_1", _VOID,1, id, 0)
 
-def launch(headContent, dir):
+def launch(callback, userCallback, callbacks, headContent, dir):
 	global _dir
-	XDHqDEMO.launch(headContent)
 	_dir = dir
-
-
-
-
+	XDHqDEMO.launch(callback, userCallback,callbacks,headContent)

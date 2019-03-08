@@ -19,176 +19,298 @@
 
 import XDHqSHRD
 
-import os, socket, sys
+import inspect, os, socket, sys, threading
 
 if sys.version_info[0] == 2:
 	import XDHqDEMO2
+	l = XDHqDEMO2.l
+	_writeByte = XDHqDEMO2.writeByte
 	_writeSize = XDHqDEMO2.writeSize
 	_writeString = XDHqDEMO2.writeString
 	_writeStringNUL = XDHqDEMO2.writeStringNUL
+	_getByte = XDHqDEMO2.getByte
 	_getSize = XDHqDEMO2.getSize
 	_getString = XDHqDEMO2.getString
 elif sys.version_info[0] == 3:
 	import XDHqDEMO3
+	l = XDHqDEMO3.l
+	_writeByte = XDHqDEMO3.writeByte
 	_writeSize = XDHqDEMO3.writeSize
 	_writeString = XDHqDEMO3.writeString
 	_writeStringNUL = XDHqDEMO3.writeStringNUL
+	_getByte = XDHqDEMO3.getByte
 	_getSize = XDHqDEMO3.getSize
 	_getString = XDHqDEMO3.getString
 else:
 	print("Unhandled python version!")
 	os._exit(1)
 
-_protocolLabel = "3f0aef6b-b893-4ccd-9316-d468588fc572"
-_protocolVersion = "0"
+_demoProtocolLabel = "877c913f-62df-40a1-bf5d-4bb5e66a6dd9"
+_demoProtocolVersion = "0"
+_mainProtocolLabel = "6e010737-31d8-4be3-9195-c5b5b2a9d5d9"
+_mainProtocolVersion = "0"
+
+_writeLock = threading.Lock()
+_globalCondition = threading.Condition()
 
 _headContent = ""
 _token = ""
+_instances = {}
 
-def _getEnv( name, value= "" ):
+class Instance:
+	def __init__(this):
+		this.condVar = threading.Condition()
+		this.handshakeDone = False
+	def set(this,thread,id):
+		this.thread = thread
+		this.id = id
+	def IsHandshakeDone(this):
+		if this.handshakeDone:
+			return True
+		else:
+			this.handshakeDone = True
+			return False
+	def getId(this):
+		return this.id
+	def wait(this):
+		with this.condVar:
+			this.condVar.wait()
+	def signal(this):
+		with this.condVar:
+			this.condVar.notify()
+
+def isTokenEmpty():
+	return not _token or _token[0] == "&"
+
+def getEnv( name, value= "" ):
 	if name in os.environ:
 		return os.environ[name].strip()
 	else:
 		return value.strip()
 
-def launch(headContent):
+def writeByte(byte):
+	global _socket
+	_writeByte( _socket, byte )
+
+def writeSize(size):
+	global _socket
+	_writeSize( _socket, size )
+
+def writeString(string):
+	global _socket
+	_writeString(_socket, string)
+
+def writeStrings(strings):
+	writeSize(len(strings))
+
+	for string in strings:
+		writeString(string)
+
+def writeStringNUL(string):
+	global _socket
+	_writeStringNUL(_socket, string)
+
+def getByte():
+	global _socket
+	return _getByte( _socket)
+
+def getSize():
+	global _socket
+	return _getSize( _socket)
+
+def getString():
+	global _socket
+	return _getString(_socket)
+
+def getStrings():
+	amount = getSize()
+	strings = []
+
+	while amount:
+		strings.append(getString())
+		amount -= 1
+
+	return strings
+
+def _init():
+	global _token, _socket, _wAddr, _wPort, _cgi
+	pAddr = "atlastk.org"
+	pPort = 53800
+	_wAddr = ""
+	_wPort = ""
+	_cgi = "xdh"
+
+	atk = getEnv("ATK")
+
+	if atk == "DEV":
+		pAddr = "localhost"
+		_wPort = "8080"
+		print("\tDEV mode !")
+	elif atk == "TEST":
+		_cgi = "xdh_"
+		print("\tTEST mode!")
+	elif atk:
+		sys.exit("Bad 'ATK' environment variable value : should be 'DEV' or 'TEST' !")
+
+	pAddr = getEnv("ATK_PADDR", pAddr)
+	pPort = int(getEnv("ATK_PPORT", str(pPort)))
+	_wAddr = getEnv("ATK_WADDR", _wAddr)
+	_wPort = getEnv("ATK_WPORT", _wPort)
+
+	if _wAddr == "":
+		_wAddr = pAddr
+
+	if _wPort != "":
+		_wPort = ":" + _wPort
+
+	if isTokenEmpty():
+		_token = getEnv("ATK_TOKEN")
+
+	if _token:
+		_token = "&" + _token
+
+	_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	_socket.connect((pAddr,pPort))
+
+def _demoHandshake():
+	global _writeLock
+
+	_writeLock.acquire()
+
+	writeString(_demoProtocolLabel)
+	writeString(_demoProtocolVersion)
+
+	_writeLock.release()
+
+	error = getString()
+
+	if error:
+		sys.exit(error)
+
+	notification = getString()
+
+	if notification:
+		print(notification)
+
+def _ignition():
+	global _token
+	_writeLock.acquire()
+
+	writeString( _token)
+	writeString(_headContent)
+
+	_writeLock.release()
+
+	_token = getString()
+
+	if isTokenEmpty():
+		sys.exit(getString())
+
+	if ( _wPort != ":0" ):
+		url = "http://" + _wAddr + _wPort + "/" + _cgi + ".php?_token=" + _token
+
+		print(url)
+		print("".rjust(len(url),'^'))
+		print("Open above URL in a web browser. Enjoy!\n")
+		XDHqSHRD.open(url)
+
+def _serve(callback, userCallback, callbacks ):
+	global _writeLock, _globalCondition
+	while True:
+
+#		l()
+
+		id = getByte()
+		
+		if id == 255:    # Value reporting a new front-end.
+			id = getByte()  # The id of the new front-end.
+
+			if id in _instances:
+				sys.exit("Instance of id '" + id + "' exists but should not !")
+
+			instance = Instance()
+			instance.set(callback(userCallback(), callbacks, instance),id)
+			_instances[id] = instance
+
+			_writeLock.acquire()
+			writeByte(id)
+			writeString(_mainProtocolLabel)
+			writeString(_mainProtocolVersion)
+			_writeLock.release()
+
+		elif not id in _instances:
+			sys.exit("Unknown instance of id '" + str(id) + "'!")
+		elif not _instances[id].IsHandshakeDone():
+			error = getString()
+
+			if error:
+				sys.exit(error)
+
+			getString()	# Language. Not handled yet.
+
+			_writeLock.acquire()
+			writeByte(id)
+			writeString("PYH")
+			_writeLock.release()
+		else:
+			_instances[id].signal()
+
+			with _globalCondition:
+				_globalCondition.wait()
+
+def launch(callback, userCallback,callbacks,headContent):
 	global _headContent
 
 	_headContent = headContent
 
+	_init()
+
+	_demoHandshake()
+
+	_ignition()
+
+	_serve(callback, userCallback, callbacks)
 
 class DOM_DEMO:
 	_firstLaunch = True
 
-	def _isTokenEmpty(this):
-		global _token
-		return not _token or _token[0] == "&"
-
-	def _writeSize(this, size):
-		_writeSize( this._socket, size )
-
-	def _writeString(this, string):
-		_writeString(this._socket, string)
-
-	def _writeStrings(this, strings):
-		this._writeSize(len(strings))
-
-		for string in strings:
-			this._writeString(string)
-
-	def _getSize(this):
-		return _getSize( this._socket)
-
-	def _getString(this):
-		return _getString(this._socket)
-
-	def _getStrings(this):
-		amount = this._getSize()
-		strings = []
-
-		while amount:
-			strings.append(this._getString())
-			amount -= 1
-
-		return strings
-
-	def __init__(this):
-		global _protocolLabel, _protocolVersion,_headContent, _token
-		pAddr = "atlastk.org"
-		pPort = 53800
-		wAddr = ""
-		wPort = ""
-		cgi = "xdh"
-
-		atk = _getEnv("ATK")
-
-		if atk == "DEV":
-			pAddr = "localhost"
-			wPort = "8080"
-			print("\tDEV mode !")
-		elif atk == "TEST":
-			cgi = "xdh_"
-			print("\tTEST mode!")
-		elif atk:
-			sys.exit("Bad 'ATK' environment variable value : should be 'DEV' or 'TEST' !")
-
-		pAddr = _getEnv("ATK_PADDR", pAddr)
-		pPort = int(_getEnv("ATK_PPORT", str(pPort)))
-		wAddr = _getEnv("ATK_WADDR", wAddr)
-		wPort = _getEnv("ATK_WPORT",wPort)
-
-		if wAddr == "":
-			wAddr = pAddr
-
-		if wPort != "":
-			wPort = ":" + wPort
-
-		if this._isTokenEmpty():
-			token = _getEnv("ATK_TOKEN")
-
-			if token:
-				_token = "&" + token
-		
-		this._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		this._socket.connect((pAddr,pPort))
-
-		this._writeString(_token)
-
-		if this._isTokenEmpty():
-			this._writeString(_headContent)
-
-			_token = this._getString()
-
-			if this._isTokenEmpty():
-				sys.exit(this._getString())
-
-			if ( wPort != ":0" ):
-				url = "http://" + wAddr + wPort + "/" + cgi + ".php?_token=" + _token
-
-				print(url)
-				print("Open above URL in a web browser. Enjoy!\n")
-				XDHqSHRD.open(url)
-
-		else:
-			returnedToken = this._getString();
-
-			if ( returnedToken == "" ):
-				sys.exit(this._getString())
-			  
-			if ( returnedToken != _token ):
-				sys.exit("Unmatched token !!!")
-
-		this._writeString(_protocolLabel)
-		this._writeString(_protocolVersion)
-
-		errorMessage = this._getString()
-
-		if ( errorMessage != "" ):
-			sys.exit(errorMessage)
-
-		this._getString()	# Language.
-		this._writeString("PYH")
-
+	def __init__(this, instance):
+		this.instance = instance
+	def wait(this):
+		this.instance.wait()
+	def signal(this):
+		with _globalCondition:
+			_globalCondition.notify()
 	def getAction(this):
 		if this._firstLaunch:
 			this._firstLaunch = False
 		else:
-			_writeStringNUL( this._socket, "StandBy_1")
+			_writeLock.acquire()
+			writeByte(this.instance.getId())
+			writeStringNUL("StandBy_1")
+			_writeLock.release()
 
-		id = this._getString();
-		action = this._getString()
+		this.wait()
+
+		id = getString();
+		action = getString()
+
+		this.signal()
 
 		return [action,id]
 
 	def call(this, command, type, *args):
 		i=0
-		_writeStringNUL( this._socket, command )
+
+		_writeLock.acquire()
+		writeByte(this.instance.getId())
+		writeStringNUL(command )
 
 		amount = args[i]
 		i += 1
 
 		while amount:
-			this._writeString(args[i])
+			writeString(args[i])
 			i += 1
 			amount -= 1
 
@@ -196,15 +318,20 @@ class DOM_DEMO:
 		i += 1
 
 		while amount:
-			this._writeStrings(args[i])
+			writeStrings(args[i])
 			i += 1
 			amount -= 1
+		_writeLock.release()
 
 		if type == XDHqSHRD.RT_STRING:
-			return this._getString();
+			this.wait()
+			string = getString();
+			this.signal()
+			return string
 		elif type == XDHqSHRD.RT_STRINGS:
-			return this._getStrings()
+			this.wait()
+			strings = getStrings()
+			this.signal()
+			return strings
 		elif type != XDHqSHRD.RT_VOID:
 			sys.exit("Unknown return type !!!")
-
-		
