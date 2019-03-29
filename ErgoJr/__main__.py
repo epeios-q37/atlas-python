@@ -1,1 +1,1 @@
-import main.py
+import main
