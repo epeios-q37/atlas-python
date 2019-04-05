@@ -53,7 +53,7 @@ class Notes:
 			},
 			{
 			'title': 'Improve design',
-			'description': "Tastes and colors... (aka «CSS aren't my cup of tea...»)",
+			'description': "Tastes and colors… (aka «CSS aren't my cup of tea…»)",
 			},
 			{
 			'title': 'Fixing bugs',
@@ -61,7 +61,7 @@ class Notes:
 			},
 			{
 			'title': 'Implement new functionalities',
-			'description': "Although it's almost perfect..., isn't it ?",
+			'description': "Although it's almost perfect…, isn't it ?",
 			},
 		]
 
