@@ -1,5 +1,5 @@
 ---
-title: 'Atlas toolkit for Python: adding sharable web interfaces to Python programs'
+title: 'Atlas toolkit for Python: adding graphical user interfaces to Python programs'
 tags:
   - Python
   - web
