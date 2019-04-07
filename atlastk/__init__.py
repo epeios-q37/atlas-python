@@ -17,33 +17,6 @@
 	along with XDHq If not, see <http://www.gnu.org/licenses/>.
  """
 
-import os, sys
+name = "atlastk"
 
-sys.path.append("./Atlas.python.zip")
-sys.path.append("../Atlas.python.zip")
-
-import atlastk as Atlas
-
-def readAsset(path):
-	return Atlas.readAsset(path, "Hello")
-
-def acConnect(this, dom, id):
-	dom.setLayout("", readAsset( "Main.html") )
-	dom.focus( "input")
-
-def acSubmit(this, dom, id):
-	dom.alert("Hello, " + dom.getContent("input") + "!")
-	dom.focus( "input")
-
-def acClear(this, dom, id):
-	if ( dom.confirm("Are you sure?" ) ):
-		dom.setContent("input", "" )
-	dom.focus( "input")
-
-callbacks = {
-	"": acConnect,
-	"Submit": acSubmit,
-	"Clear": acClear,
-}
-		
-Atlas.launch(callbacks, lambda: None, readAsset("Head.html"))
+from .atlastk import *

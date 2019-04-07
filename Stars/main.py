@@ -36,7 +36,7 @@ sys.path.append("./Atlas.python.zip")
 sys.path.append("../Atlas.python.zip")
 sys.path.append("../../Atlas.python.zip")
 
-import Atlas
+import atlastk as Atlas
 
 #constants
 WINSIZE = [640, 480]

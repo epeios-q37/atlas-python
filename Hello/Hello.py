@@ -22,7 +22,7 @@ import os, sys
 sys.path.append("./Atlas.python.zip")
 sys.path.append("../Atlas.python.zip")
 
-import Atlas
+import atlastk as Atlas
 
 head = """
 <title>"Hello, World !" example</title>
@@ -40,7 +40,6 @@ body = """
   </div>
  </fieldset>
 </div>
-EOT;
 """
 
 def acConnect(this, dom, id):

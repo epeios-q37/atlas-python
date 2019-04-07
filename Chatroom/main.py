@@ -22,7 +22,7 @@ import os, sys, threading
 sys.path.append("./Atlas.python.zip")
 sys.path.append("../Atlas.python.zip")
 
-import Atlas
+import atlastk as Atlas
 
 messages = []
 pseudos = []

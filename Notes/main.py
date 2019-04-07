@@ -23,7 +23,7 @@ import os, sys
 if not "EPEIOS_SRV" in os.environ:
 	sys.path.append("Atlas.python.zip")
 
-import Atlas
+import atlastk as Atlas
 
 viewModeElements = ["Pattern", "CreateButton", "DescriptionToggling", "ViewNotes"]
 

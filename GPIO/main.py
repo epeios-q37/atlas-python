@@ -23,7 +23,7 @@ sys.path.append("./Atlas.python.zip")
 sys.path.append("../Atlas.python.zip")
 sys.path.append("./Atlas")
 
-import Atlas
+import atlastk as Atlas
 
 lock = threading.Lock()
 

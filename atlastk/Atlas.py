@@ -20,8 +20,7 @@
 import XDHq
 from threading import Thread
 import threading
-
-readAsset = XDHq.readAsset
+from XDHq import readAsset
 
 def createXML(rootTag):
 	return XDHq.XML(rootTag)

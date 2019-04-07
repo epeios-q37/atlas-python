@@ -170,6 +170,7 @@ def _init():
 		_token = "&" + _token
 
 	_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	print("Connection to '" + str(pAddr) + ":" + str(pPort) + "'...")
 	_socket.connect((pAddr,pPort))
 
 def _demoHandshake():
