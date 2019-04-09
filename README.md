@@ -8,7 +8,11 @@
 
 A fast and easy way to add sharable web interfaces to *Python* programs.
 
+*Sharable* means that you can use your program on your smartphone without having to reconfigure it (to connect it to the local network), or the router to which the computer running the program is connected (to open a port to your computer). And by sending the URL of the program to someone, they can immediately use it on their own smartphone or other device with a modern web browser connected to internet.
+
 If you want to use the *Atlas* toolkit without installing the examples, simply install the [*atlastk* package from *PyPI*](https://q37.info/s/9srmskcm) (`pip install atlastk`).
+
+*To support this project, please upvote this [pull request](https://github.com/vinta/awesome-python/pull/1272).*
 
 ## *Hello, World!*
 
