@@ -26,7 +26,7 @@ Here's how a [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22
 
 You can also put below code source in a file and launch it after having installed the [*atlastk* package](http://q37.info/s/9srmskcm) (`pip install atlastk`).
 
-For a live demonstration: <http://q37.info/runkit/Hello>.
+For a live demonstration: <http://q37.info/runkit/Hello> ([live demonstrations of other examples](https://q37.info/s/sssznrb4)).
 
 Source code:
 
