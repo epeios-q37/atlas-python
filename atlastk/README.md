@@ -2,15 +2,15 @@
 
 **If you are looking for the *WebGPIO* application, you will find it at the bottom of this page (in the *Raspberry Pi*/*ODROID-C2* section).**
 
-![For Python](https://q37.info/download/assets/Python.png "Python logo")
+![For Python](http://q37.info/download/assets/Python.png "Python logo")
 
-[![Version 0.7](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.7)](https://q37.info/s/gei0veus)
+[![Version 0.7](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.7)](http://q37.info/s/gei0veus)
 
-A fast and easy way to add sharable web interfaces to *Python* programs.
+A fast and easy way to add a graphical user interface to your *Python* programs.
 
-*Sharable* means that you can use your program on your smartphone without having to reconfigure it (to connect it to the local network), or the router to which the computer running the program is connected (to open a port to your computer). And by sending the URL of the program to someone, they can immediately use it on their own smartphone or other device with a modern web browser connected to internet.
+With the *Atlas* toolkit, you obtain hybrid programs. Like desktop applications, the same code can handle both [front and back ends](http://q37.info/s/px7hhztd), and, like web applications, the programs will be reachable from all over the internet.
 
-If you want to use the *Atlas* toolkit without installing the examples, simply install the [*atlastk* package from *PyPI*](https://q37.info/s/9srmskcm) (`pip install atlastk`).
+If you want to use the *Atlas* toolkit without installing the examples, simply install the [*atlastk* package from *PyPI*](http://q37.info/s/9srmskcm) (`pip install atlastk`).
 
 *To support this project, please upvote this [pull request](https://github.com/vinta/awesome-python/pull/1272).*
 
@@ -26,7 +26,7 @@ Here's how a [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22
 
 You can also put below code source in a file and launch it after having installed the [*atlastk* package](http://q37.info/s/9srmskcm) (`pip install atlastk`).
 
-For a live demonstration: <http://q37.info/runkit/Hello> ([live demonstrations of other examples](https://q37.info/s/sssznrb4)).
+For a live demonstration: <http://q37.info/runkit/Hello> ([live demonstrations of other examples](http://q37.info/s/sssznrb4)).
 
 Source code:
 
