@@ -3,6 +3,20 @@
 - Common to **all** bindings,
 - does **not** concern the native code,
 
+## 2019-04-18
+
+- switching to 0.9.0 due to a *RunKit* issue,
+
+## 2019-04-17
+
+- *Node.js*, *Python*
+  - switching to 0.8.0
+
+## 2019-04-16
+
+- *Node.js*, *Python*
+  - `setLayout(...)` accepts now an *XML* (from the *Atlas* toolkit) object in addition to *HTML* string.
+
 ## 2019-04-03
 
 - *Ruby*:

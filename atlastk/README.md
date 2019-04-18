@@ -4,7 +4,7 @@
 
 ![For Python](http://q37.info/download/assets/Python.png "Python logo")
 
-[![Version 0.7](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.7)](http://q37.info/s/gei0veus)
+[![Version 0.9](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.9)](http://q37.info/s/gei0veus)
 
 A fast and easy way to add a graphical user interface to your *Python* programs.
 
@@ -13,6 +13,10 @@ With the *Atlas* toolkit, you obtain hybrid programs. Like desktop applications,
 If you want to use the *Atlas* toolkit without installing the examples, simply install the [*atlastk* package from *PyPI*](http://q37.info/s/9srmskcm) (`pip install atlastk`).
 
 *To support this project, please upvote this [pull request](https://github.com/vinta/awesome-python/pull/1272).*
+
+## *15-puzzle* game
+
+Before we dive into source code, let's begin with a live demonstration of the [*15-puzzle* game](http://q37.info/s/jn9zg3bn) made with *Atlas* toolkit: <http://q37.info/s/bmbgtt47> (other live demonstrations are available [here](http://q37.info/s/zgvcwv7j))!
 
 ## *Hello, World!*
 
@@ -26,7 +30,7 @@ Here's how a [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22
 
 You can also put below code source in a file and launch it after having installed the [*atlastk* package](http://q37.info/s/9srmskcm) (`pip install atlastk`).
 
-For a live demonstration: <http://q37.info/runkit/Hello> ([live demonstrations of other examples](http://q37.info/s/sssznrb4)).
+For a live demonstration: <http://q37.info/runkit/Hello>.
 
 Source code:
 
