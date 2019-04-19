@@ -22,13 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import atlastk as Atlas
 import sys
 from random import *
 
 sys.path.append("./Atlas.python.zip")
 sys.path.append("../Atlas.python.zip")
 
+import atlastk as Atlas
 
 class Puzzle:
     pass
