@@ -22,6 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import os, sys
+
 name = "atlastk"
 
-from .atlastk import *
+sys.path = sys.path + [os.path.abspath(os.path.dirname(__file__))]
+
+from Atlas import *

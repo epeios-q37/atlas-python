@@ -4,7 +4,7 @@
 
 ![For Python](http://q37.info/download/assets/Python.png "Python logo")
 
-[![Version 0.9](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.9)](http://q37.info/s/gei0veus)
+[![Version 0.9.1](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.9.1)](http://q37.info/s/gei0veus)
 
 A fast and easy way to add a graphical user interface to your *Python* programs.
 
@@ -16,7 +16,7 @@ If you want to use the *Atlas* toolkit without installing the examples, simply i
 
 ## *15-puzzle* game
 
-Before we dive into source code, let's begin with a live demonstration of the [*15-puzzle* game](http://q37.info/s/jn9zg3bn) made with *Atlas* toolkit: <http://q37.info/s/bmbgtt47> (other live demonstrations are available [here](http://q37.info/s/zgvcwv7j))!
+Before we dive into source code, let's begin with a live demonstration of the [*15-puzzle* game](http://q37.info/s/jn9zg3bn) made with *Atlas* toolkit: <http://q37.info/s/bmbgtt47> ([more about live demonstrations](http://q37.info/s/zgvcwv7j))!
 
 ## *Hello, World!*
 

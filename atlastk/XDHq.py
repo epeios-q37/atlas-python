@@ -70,7 +70,7 @@ def _getAssetPath(dir):
 	if XDHqSHRD.isDev():
 		return os.path.join("/cygdrive/h/hg/epeios/tools/xdhq/examples/common/", dir )
 	else:
-		return os.path.realpath(sys.path[0])
+		return os.path.abspath(os.path.dirname(sys.argv[0]))
 
 def _getAssetFilename(path, dir):
 	return os.path.join(_getAssetPath(dir), path )
