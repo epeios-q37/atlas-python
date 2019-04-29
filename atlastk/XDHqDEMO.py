@@ -27,6 +27,7 @@ import XDHqSHRD
 import inspect, os, socket, sys, threading
 
 if sys.version_info[0] == 2:
+	from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer	# For 'repl.it'.
 	import XDHqDEMO2
 	l = XDHqDEMO2.l
 	_writeByte = XDHqDEMO2.writeByte
@@ -36,7 +37,10 @@ if sys.version_info[0] == 2:
 	_getByte = XDHqDEMO2.getByte
 	_getSize = XDHqDEMO2.getSize
 	_getString = XDHqDEMO2.getString
+	def _REPLit_convert(str):
+		return str
 elif sys.version_info[0] == 3:
+	from http.server import BaseHTTPRequestHandler, HTTPServer	# For 'repl.it'.
 	import XDHqDEMO3
 	l = XDHqDEMO3.l
 	_writeByte = XDHqDEMO3.writeByte
@@ -46,9 +50,25 @@ elif sys.version_info[0] == 3:
 	_getByte = XDHqDEMO3.getByte
 	_getSize = XDHqDEMO3.getSize
 	_getString = XDHqDEMO3.getString
+	def _REPLit_convert(str):
+		return bytes(str,"utf-8")
 else:
 	print("Unhandled python version!")
 	os._exit(1)
+
+class _REPLit_class(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+        self.wfile.write(_REPLit_convert("<html><body><iframe style=\"border-style: none; width: 100%;height: 100%\" src=\"" + globals()['_REPLit_url'] + "\"</iframe></body></html>"))
+
+def _REPLit(url):
+    global _REPLit_url
+    _REPLit_url = url
+    server_address = ('', 8080)
+    httpd = HTTPServer(server_address, _REPLit_class)
+    httpd.handle_request()
 
 _demoProtocolLabel = "877c913f-62df-40a1-bf5d-4bb5e66a6dd9"
 _demoProtocolVersion = "0"
@@ -154,6 +174,8 @@ def _init():
 	elif atk == "TEST":
 		_cgi = "xdh_"
 		print("\tTEST mode!")
+	elif atk == "REPLit":
+		pass
 	elif atk:
 		sys.exit("Bad 'ATK' environment variable value : should be 'DEV' or 'TEST' !")
 
@@ -213,12 +235,15 @@ def _ignition():
 		sys.exit(getString())
 
 	if ( _wPort != ":0" ):
-		url = "http://" + _wAddr + _wPort + "/" + _cgi + ".php?_token=" + _token
+		url = "https://" + _wAddr + _wPort + "/" + _cgi + ".php?_token=" + _token
 
 		print(url)
 		print("".rjust(len(url),'^'))
 		print("Open above URL in a web browser. Enjoy!\n")
-		XDHqSHRD.open(url)
+		if ( getEnv("ATK") == "REPLit"):
+			_REPLit(url)
+		else:
+			XDHqSHRD.open(url)
 
 def _serve(callback, userCallback, callbacks ):
 	global _writeLock, _globalCondition

@@ -24,7 +24,7 @@ SOFTWARE.
 
 import setuptools
 
-version = "0.9.1"
+version = "0.9.3"
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -34,7 +34,7 @@ setuptools.setup(
     version=version,
     author="Claude SIMON",
 #    author_email="author@example.com",
-    description="A fast and easy way to add sharable web interfaces to Python programs.",
+    description="A fast and easy way to add a graphical user interface to your programs.",
     keywords="GUI graphical user interface web",
     long_description=long_description,
     long_description_content_type="text/markdown",
