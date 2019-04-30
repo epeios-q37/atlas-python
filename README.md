@@ -4,19 +4,21 @@
 
 ![For Python](http://q37.info/download/assets/Python.png "Python logo")
 
-[![Version 0.932](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.9.3)](http://q37.info/s/gei0veus)
+[![Version 0.9.4](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.9.4)](http://q37.info/s/gei0veus)
 
-A fast and easy way to add a graphical user interface to your *Python* programs.
+A fast and easy way to add a graphical user interface ([GUI](http://q37.info/s/hw9n3pjs)) to your *Python* programs.
 
 With the *Atlas* toolkit, you obtain hybrid programs. Like desktop applications, the same code can handle both [front and back ends](http://q37.info/s/px7hhztd), and, like web applications, the programs will be reachable from all over the internet.
 
-If you want to use the *Atlas* toolkit without installing the examples, simply install the [*atlastk* package from *PyPI*](http://q37.info/s/9srmskcm) (`pip install atlastk`).
+If you want to use the *Atlas* toolkit without installing the examples, simply install the [*atlastk* package from *PyPI*](http://q37.info/s/9srmskcm) (`pip install atlastk`). This package has no dependencies.
+
+You can also use the *Atlas* toolkit on [*Repl.it*](http://q37.info/s/mxmgq3qm), an [online IDE](http://q37.info/s/sssznrb4), so you have nothing to install. You will find some examples in the next sections.
 
 *To support this project, please upvote this [pull request](https://github.com/vinta/awesome-python/pull/1272).*
 
 ## *15-puzzle* game
 
-Before we dive into source code, let's begin with a live demonstration of the [*15-puzzle* game](http://q37.info/s/jn9zg3bn) made with *Atlas* toolkit: <http://q37.info/s/bmbgtt47> ([more about live demonstrations](http://q37.info/s/zgvcwv7j))!
+Before we dive into source code, let's begin with a live demonstration of the [*15-puzzle* game](http://q37.info/s/jn9zg3bn) made with *Atlas* toolkit: <http://q37.info/s/mdghbt3n> ([more about live demonstrations](http://q37.info/s/zgvcwv7j))!
 
 ## *Hello, World!*
 
@@ -28,17 +30,17 @@ Here's how a [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22
 - `cd atlas-python`
 - `python Hello/Hello.py`
 
-You can also put below code source in a file and launch it after having installed the [*atlastk* package](http://q37.info/s/9srmskcm) (`pip install atlastk`).
+You can also put below source code in a file and launch it after having installed the [*atlastk* package](http://q37.info/s/9srmskcm) (`pip install atlastk`), or, with absolutely no installation, paste the below code [here](http://q37.info/s/srnnb7hj), and open the displayed *URL* in a web browser.
 
-For a live demonstration: <https://q37.info/s/oe1hipoh>.
+For a live demonstration: <http://q37.info/s/vhnb3q3v>.
 
 Source code:
 
 ```python
 # Following two lines can be removed:
-# - if the 'Atlas.python.zip' file is referenced in 'PYTHONPATH'
-# or
-# - if you made a '[python -m] pip install [--user] atlastk'
+# - if the 'Atlas.python.zip' file is referenced in 'PYTHONPATH',
+# - if you made a '[python -m] pip install [--user] atlastk',
+# - if you paste this code in Repl.it.
 import os, sys
 sys.path.append("Atlas.python.zip") # Add the path to 'Atlas.python.zip' if needed.
 
@@ -85,7 +87,7 @@ And here's how the *Atlas* toolkit version of the [*TodoMVC*](http://todomvc.com
 
 ![TodoMVC](http://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")
 
-For a live demonstration: <https://q37.info/s/dfshrt4p>.
+For a live demonstration: <http://q37.info/s/n9nnwzcg>.
 
 ## Content of the repository
 

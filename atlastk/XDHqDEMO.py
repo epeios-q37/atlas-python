@@ -241,6 +241,7 @@ def _ignition():
 		print("".rjust(len(url),'^'))
 		print("Open above URL in a web browser. Enjoy!\n")
 		if ( getEnv("ATK") == "REPLit"):
+			print("IF THE PROGRAM DOES NOT WORK PROPERLY, PLEASE SEE http://q37.info/s/zbgfjtp9")
 			_REPLit(url)
 		else:
 			XDHqSHRD.open(url)
