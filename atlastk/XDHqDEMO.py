@@ -56,12 +56,48 @@ else:
 	print("Unhandled python version!")
 	os._exit(1)
 
+def _REPLHTML1(url):
+	return "<html><body><iframe style=\"border-style: none; width: 100%;height: 100%\" src=\"" + url + "\"</iframe></body></html>"
+
+def _REPLHTML2(url):
+	return(
+"""
+<html>
+	<head>
+		<script src="https://atlastk.org/xdh/qrcode.min.js"></script>
+		<script>
+function genQRCode(url) {
+"""
++ "\tnew QRCode('qrcode', {width:125, height:125, correctLevel: QRCode.CorrectLevel.L}).makeCode('" + url +"');" +
+"""
+}
+		</script>
+	</head>
+"""
++ "\t<body onload=\"genQRCode('" + url + "')\">\n"
++
+"""
+		<div style="display:table; margin: 10px auto 5px auto;">
+			<span style="display: table; margin: 15px auto 10px auto;font-style: oblique;">Click or scan this QR code:</span>
+			<div style="display: flex; justify-content: space-around;">
+"""
++ "\t\t\t\t<a target=\"_blank\" href=\"" + url + "\" alt=\"" + url + "\">" +
+"""
+ 					<div id="qrcode"></div>
+				</a>
+			</div>
+		</div>
+	</body>
+</html>
+"""
+)
+
 class _REPLit_class(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
-        self.wfile.write(_REPLit_convert("<html><body><iframe style=\"border-style: none; width: 100%;height: 100%\" src=\"" + globals()['_REPLit_url'] + "\"</iframe></body></html>"))
+        self.wfile.write(_REPLit_convert(_REPLHTML2(globals()['_REPLit_url'])))
 
 def _REPLit(url):
     global _REPLit_url

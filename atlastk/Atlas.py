@@ -30,6 +30,9 @@ from XDHq import readAsset
 def createXML(rootTag):
 	return XDHq.XML(rootTag)
 
+def createHTML(rootTag):
+	return XDHq.XML(rootTag)
+
 def worker(userObject,dom,callbacks):
 	while True:
 		[action,id] = dom.getAction()
