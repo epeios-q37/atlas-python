@@ -24,7 +24,9 @@ Before we dive into source code, let's begin with a live demonstration of the [*
 
 ## *Reversi* game
 
-Yet another game ; the [*Reversi* (aka *Othello*) game](http://q37.info/s/zz3dzmf7): <http://q37.info/s/jhv7dtsp>. This is intended as part of a future tutorial.
+Yet another game; the [*Reversi* (aka *Othello*) game](http://q37.info/s/zz3dzmf7): <http://q37.info/s/jhv7dtsp>.
+
+There are two other versions of this game: a version with less CSS stuff (<http://q37.info/s/kwck3t7n>), and another which demonstrates the use of XSL (http://q37.info/s/3cbd7w9n). There are intended as part of a future tutorial about the *Atlas* toolkit.
 
 ## *Hello, World!*
 

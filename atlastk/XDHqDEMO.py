@@ -271,7 +271,7 @@ def _ignition():
 		sys.exit(getString())
 
 	if ( _wPort != ":0" ):
-		url = "https://" + _wAddr + _wPort + "/" + _cgi + ".php?_token=" + _token
+		url = "http://" + _wAddr + _wPort + "/" + _cgi + ".php?_token=" + _token
 
 		print(url)
 		print("".rjust(len(url),'^'))
@@ -360,7 +360,7 @@ class DOM_DEMO:
 
 		this.wait()
 
-		id = getString();
+		id = getString()
 		action = getString()
 
 		this.signal()

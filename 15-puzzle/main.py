@@ -82,38 +82,38 @@ def convert(pos):
     return convertX(pos), convertY(pos)
 
 
-def drawSquare(xml, x, y):
-    xml.pushTag("use")
-    xml.setAttribute("id", y * 4 + x)
-    xml.setAttribute("data-xdh-onevent", "Swap")
-    xml.setAttribute("x", x * 100 + 24)
-    xml.setAttribute("y", y * 100 + 24)
-    xml.setAttribute("xlink:href", "#stone")
-    xml.popTag()
+def drawSquare(board, x, y):
+    board.pushTag("use")
+    board.setAttribute("id", y * 4 + x)
+    board.setAttribute("data-xdh-onevent", "Swap")
+    board.setAttribute("x", x * 100 + 24)
+    board.setAttribute("y", y * 100 + 24)
+    board.setAttribute("xlink:href", "#stone")
+    board.popTag()
 
 
 def drawGrid(dom):
-    xml = Atlas.createXML("g")
+    board = Atlas.createHTML("g")
     for x in range(0, 4):
         for y in range(0, 4):
-            drawSquare(xml, x, y)
-    dom.setLayout("Stones", xml)
+            drawSquare(board, x, y)
+    dom.setLayout("Stones", board)
 
 
-def setText(xml, x, y):
-    xml.pushTag("tspan")
-    xml.setAttribute("id", "t" + str(y * 4 + x))
-    xml.setAttribute("x", x * 100 + 72)
-    xml.setAttribute("y", y * 100 + 90)
-    xml.popTag()
+def setText(texts, x, y):
+    texts.pushTag("tspan")
+    texts.setAttribute("id", "t" + str(y * 4 + x))
+    texts.setAttribute("x", x * 100 + 72)
+    texts.setAttribute("y", y * 100 + 90)
+    texts.popTag()
 
 
 def setTexts(dom):
-    xml = Atlas.createXML("text")
+    texts = Atlas.createHTML("text")
     for x in range(0, 4):
         for y in range(0, 4):
-            setText(xml, x, y)
-    dom.setLayout("Texts", xml)
+            setText(texts, x, y)
+    dom.setLayout("Texts", texts)
 
 
 def scramble(puzzle, dom):
