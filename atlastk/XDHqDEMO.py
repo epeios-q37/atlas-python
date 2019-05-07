@@ -92,12 +92,15 @@ function genQRCode(url) {
 """
 )
 
+def _REPLHTML3(url):
+	return "<html><body><iframe style=\"border-style: none; width: 100%;height: 100%\" src=\"https://atlastk.org/repl_it.php?url=" + url + "\"</iframe></body></html>"
+
 class _REPLit_class(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
-        self.wfile.write(_REPLit_convert(_REPLHTML2(globals()['_REPLit_url'])))
+        self.wfile.write(_REPLit_convert(_REPLHTML3(globals()['_REPLit_url'])))
 
 def _REPLit(url):
     global _REPLit_url
@@ -119,26 +122,26 @@ _token = ""
 _instances = {}
 
 class Instance:
-	def __init__(this):
-		this.condVar = threading.Condition()
-		this.handshakeDone = False
-	def set(this,thread,id):
-		this.thread = thread
-		this.id = id
-	def IsHandshakeDone(this):
-		if this.handshakeDone:
+	def __init__(self):
+		self.condVar = threading.Condition()
+		self.handshakeDone = False
+	def set(self,thread,id):
+		self.thread = thread
+		self.id = id
+	def IsHandshakeDone(self):
+		if self.handshakeDone:
 			return True
 		else:
-			this.handshakeDone = True
+			self.handshakeDone = True
 			return False
-	def getId(this):
-		return this.id
-	def wait(this):
-		with this.condVar:
-			this.condVar.wait()
-	def signal(this):
-		with this.condVar:
-			this.condVar.notify()
+	def getId(self):
+		return self.id
+	def wait(self):
+		with self.condVar:
+			self.condVar.wait()
+	def signal(self):
+		with self.condVar:
+			self.condVar.notify()
 
 def isTokenEmpty():
 	return not _token or _token[0] == "&"
@@ -277,7 +280,9 @@ def _ignition():
 		print("".rjust(len(url),'^'))
 		print("Open above URL in a web browser. Enjoy!\n")
 		if ( getEnv("ATK") == "REPLit"):
-			print("IF THE PROGRAM DOES NOT WORK PROPERLY, PLEASE SEE http://q37.info/s/zbgfjtp9")
+#			print("IF THE PROGRAM DOES NOT WORK PROPERLY, PLEASE SEE http://q37.info/s/zbgfjtp9")
+			print("IF THE PROGRAM DOES NOT WORK PROPERLY, YOU PROBABLY FORGOT TO FORK!")
+			print( "See http://q37.info/s/zbgfjtp9 for more details.\n")
 			_REPLit(url)
 		else:
 			XDHqSHRD.open(url)
@@ -342,36 +347,36 @@ def launch(callback, userCallback,callbacks,headContent):
 class DOM_DEMO:
 	_firstLaunch = True
 
-	def __init__(this, instance):
-		this.instance = instance
-	def wait(this):
-		this.instance.wait()
-	def signal(this):
+	def __init__(self, instance):
+		self.instance = instance
+	def wait(self):
+		self.instance.wait()
+	def signal(self):
 		with _globalCondition:
 			_globalCondition.notify()
-	def getAction(this):
-		if this._firstLaunch:
-			this._firstLaunch = False
+	def getAction(self):
+		if self._firstLaunch:
+			self._firstLaunch = False
 		else:
 			_writeLock.acquire()
-			writeByte(this.instance.getId())
+			writeByte(self.instance.getId())
 			writeStringNUL("StandBy_1")
 			_writeLock.release()
 
-		this.wait()
+		self.wait()
 
 		id = getString()
 		action = getString()
 
-		this.signal()
+		self.signal()
 
 		return [action,id]
 
-	def call(this, command, type, *args):
+	def call(self, command, type, *args):
 		i=0
 
 		_writeLock.acquire()
-		writeByte(this.instance.getId())
+		writeByte(self.instance.getId())
 		writeStringNUL(command )
 
 		amount = args[i]
@@ -392,14 +397,14 @@ class DOM_DEMO:
 		_writeLock.release()
 
 		if type == XDHqSHRD.RT_STRING:
-			this.wait()
+			self.wait()
 			string = getString();
-			this.signal()
+			self.signal()
 			return string
 		elif type == XDHqSHRD.RT_STRINGS:
-			this.wait()
+			self.wait()
 			strings = getStrings()
-			this.signal()
+			self.signal()
 			return strings
 		elif type != XDHqSHRD.RT_VOID:
 			sys.exit("Unknown return type !!!")

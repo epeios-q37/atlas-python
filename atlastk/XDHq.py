@@ -78,6 +78,12 @@ def _getAssetFilename(path, dir):
 def readAsset(path, dir=""):
 	return open(_getAssetFilename(path, dir)).read()
 
+def _readXSLAsset(path, dir):
+	if (path.lstrip()[0]=='<'):
+		return path.lstrip()
+	else:
+		return readAsset(path, dir)
+
 class DOM:
 	def __init__(self,instance):
 		self._dom = XDHqDEMO.DOM_DEMO(instance)
@@ -107,7 +113,7 @@ class DOM:
 		xslURL = xsl
 
 		if True:	# Testing if 'PROD' or 'DEMO' mode when available.
-			xslURL = "data:text/xml;charset=utf-8," + _encode( readAsset( xsl, _dir ) )
+			xslURL = "data:text/xml;charset=utf-8," + _encode( _readXSLAsset( xsl, _dir ) )
 
 		self._setLayout( id, xml, xslURL )
 

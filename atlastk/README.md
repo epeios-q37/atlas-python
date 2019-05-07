@@ -4,7 +4,7 @@
 
 ![For Python](http://q37.info/download/assets/Python.png "Python logo")
 
-[![Version 0.9.5](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.9.5)](http://q37.info/s/gei0veus)
+[![Version 0.9.6](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.9.6)](http://q37.info/s/gei0veus)
 
 A fast and easy way to add a graphical user interface ([GUI](http://q37.info/s/hw9n3pjs)) to your *Python* programs.
 
@@ -14,9 +14,7 @@ Only basic knowledge of web technologies are required (no *JavaScript* knowledge
 
 If you want to use the *Atlas* toolkit without installing the examples, simply install the [*atlastk* package from *PyPI*](http://q37.info/s/9srmskcm) (`pip install atlastk`). This package has no dependencies.
 
-You can also use the *Atlas* toolkit on [*Repl.it*](http://q37.info/s/mxmgq3qm), an [online IDE](http://q37.info/s/sssznrb4), so you have nothing to install. You will find some examples in the next sections.
-
-*To support this project, please upvote this [pull request](https://github.com/vinta/awesome-python/pull/1272).*
+You can also use the *Atlas* toolkit on [*Repl.it*](http://q37.info/s/mxmgq3qm), an [online IDE](http://q37.info/s/sssznrb4), so you have nothing to install. You will find some examples in the next sections. **Important**: you have to ***fork*** this examples before launching them (by clicking the dedicated button or by modifying the source code), or they won't work properly! See <http://q37.info/s/zbgfjtp9> for more details.
 
 ## *15-puzzle* game
 
