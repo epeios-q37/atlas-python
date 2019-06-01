@@ -23,29 +23,34 @@ SOFTWARE.
 """
 
 class XML:
-	def _write(this,value):
-		this._xml += str(value) + "\0"
+	def _write(self,value):
+		self._xml += str(value) + "\0"
 
-	def __init__(this,rootTag):
-		this._xml = ""
-		this._write("dummy")
-		this._write(rootTag)
+	def __init__(self,rootTag):
+		self._xml = ""
+		self._write("dummy")
+		self._write(rootTag)
 
-	def pushTag(this,tag):
-		this._xml += ">"
-		this._write(tag)
+	def pushTag(self,tag):
+		self._xml += ">"
+		self._write(tag)
 
-	def popTag(this):
-		this._xml += "<"
+	def popTag(self):
+		self._xml += "<"
 
-	def setAttribute(this,name,value):
-		this._xml += "A"
-		this._write(name)
-		this._write(str(value))
+	def setTagAndValue(self,tag,value):
+		self.pushTag(tag)
+		self.setValue(value)
+		self.popTag()
 
-	def setValue(this,value):
-		this._xml += "V"
-		this._write(str(value))
+	def setAttribute(self,name,value):
+		self._xml += "A"
+		self._write(name)
+		self._write(str(value))
 
-	def toString(this):
-		return this._xml
+	def setValue(self,value):
+		self._xml += "V"
+		self._write(str(value))
+
+	def toString(self):
+		return self._xml

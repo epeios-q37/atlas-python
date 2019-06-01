@@ -37,14 +37,14 @@ def readAsset(path):
 	return Atlas.readAsset(path, "chatroom")
 
 class Chatroom:
-	def __init__(this):
-		this.lastMessage = 0
-		this.pseudo = ""
+	def __init__(self):
+		self.lastMessage = 0
+		self.pseudo = ""
 
-	def buildXML(this):
+	def buildXML(self):
 		xml = Atlas.createXML("XDHTML")
 		xml.pushTag( "Messages" )
-		xml.setAttribute( "pseudo", this.pseudo )
+		xml.setAttribute( "pseudo", self.pseudo )
 
 		global messages, pseudos, lock
 
@@ -52,7 +52,7 @@ class Chatroom:
 
 		index = len( messages ) - 1
 
-		while index >= this.lastMessage:
+		while index >= self.lastMessage:
 			message = messages[index]
 
 			xml.pushTag( "Message" )
@@ -63,7 +63,7 @@ class Chatroom:
 
 			index -= 1
 
-		this.lastMessage = len(messages)
+		self.lastMessage = len(messages)
 
 		lock.release()
 
@@ -71,15 +71,15 @@ class Chatroom:
 
 		return xml
 
-	def displayMessages(this, dom):
+	def displayMessages(self, dom):
 		global messages
 		
-		if len(messages) > this.lastMessage:
+		if len(messages) > self.lastMessage:
 			id = dom.createElement("span")
-			dom.setLayoutXSL(id, this.buildXML(), "Messages.xsl")
+			dom.setLayoutXSL(id, self.buildXML(), "Messages.xsl")
 			dom.insertChild(id, "Board")
 
-	def handlePseudo(this, pseudo):
+	def handlePseudo(self, pseudo):
 		global pseudos, lock
 
 		lock.acquire()
@@ -94,7 +94,7 @@ class Chatroom:
 
 		return result
 
-	def addMessage(this, pseudo, message):
+	def addMessage(self, pseudo, message):
 		global messages, lock
 		message = message.strip()
 
@@ -104,21 +104,21 @@ class Chatroom:
 			messages.append({'pseudo': pseudo, 'content': message})
 			lock.release()
 
-def acConnect(this, dom, id):
+def acConnect(self, dom, id):
 	dom.setLayout("", readAsset("Main.html"))
 	dom.focus("Pseudo")
 	dom.setTimeout(1000, "Update")
-	this.displayMessages(dom)
+	self.displayMessages(dom)
 	
-def acSubmitPseudo(this, dom, id):
+def acSubmitPseudo(self, dom, id):
 	pseudo = dom.getContent("Pseudo").strip()
 
 	if not pseudo:
 		dom.alert("Pseudo. can not be empty !")
 		dom.setContent("Pseudo", "")
 		dom.focus("Pseudo")
-	elif this.handlePseudo(pseudo.upper()):
-		this.pseudo = pseudo
+	elif self.handlePseudo(pseudo.upper()):
+		self.pseudo = pseudo
 		dom.addClass("PseudoButton", "hidden")
 		dom.disableElements(["Pseudo", "PseudoButton"])
 		dom.enableElements(["Message", "MessageButton"])
@@ -130,15 +130,15 @@ def acSubmitPseudo(this, dom, id):
 		dom.setContent("Pseudo", pseudo)
 		dom.focus("Pseudo")
 
-def acSubmitMessage(this, dom, id):
+def acSubmitMessage(self, dom, id):
 	message = dom.getContent("Message")
 	dom.setContent("Message", "")
 	dom.focus("Message")
-	this.addMessage(this.pseudo, message)
-	this.displayMessages(dom)
+	self.addMessage(self.pseudo, message)
+	self.displayMessages(dom)
 
-def acUpdate(this, dom, id):
-	this.displayMessages(dom)
+def acUpdate(self, dom, id):
+	self.displayMessages(dom)
 	dom.setTimeout(1000, "Update")
 
 callbacks = {

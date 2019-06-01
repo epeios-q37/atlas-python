@@ -122,31 +122,31 @@ def scramble(puzzle, dom):
     fill(puzzle, dom)
 
 
-def acConnect(this, dom, id):
+def acConnect(self, dom, id):
     dom.setLayout("", readAsset("Main.html"))
-    scramble(this, dom)
+    scramble(self, dom)
 
 
-def acSwap(this, dom, id):
+def acSwap(self, dom, id):
     ix, iy = convert(int(id))
-    bx, by = convert(this.blank)
+    bx, by = convert(self.blank)
 
     if (ix == bx):
         delta = 4 if by < iy else -4
         while(by != iy):
-            swap(this, dom, this.blank+delta)
-            by = convertY(this.blank)
+            swap(self, dom, self.blank+delta)
+            by = convertY(self.blank)
     elif (iy == by):
         delta = 1 if bx < ix else -1
         while(bx != ix):
-            swap(this, dom, this.blank+delta)
-            bx = convertX(this.blank)
+            swap(self, dom, self.blank+delta)
+            bx = convertX(self.blank)
 
 
 callbacks = {
     "": acConnect,
     "Swap": acSwap,
-    "Scramble": lambda this, dom, id: scramble(this, dom)
+    "Scramble": lambda self, dom, id: scramble(self, dom)
 }
 
 Atlas.launch(callbacks, Puzzle, readAsset("Head.html"), "15-puzzle")

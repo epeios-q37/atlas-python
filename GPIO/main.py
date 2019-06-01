@@ -209,12 +209,12 @@ def getWId(pattern):
 	return int(pattern[pattern.find('.')+1:])
 
 class GPIO:
-	def __init__(this):
-		this._userId = getNewUserId()
-		this._settings = {}
-# 	setCurrentUserId(this._userId)	To early ! Must be done at connection !
+	def __init__(self):
+		self._userId = getNewUserId()
+		self._settings = {}
+# 	setCurrentUserId(self._userId)	To early ! Must be done at connection !
 
-	def _handleModeButtons(this,dom):
+	def _handleModeButtons(self,dom):
 		global mapping
 		enable = False;
 		buttons=[]
@@ -232,32 +232,32 @@ class GPIO:
 		else:
 			dom.disableElements(buttons)
 
-	def _getSetting(this,wId):
+	def _getSetting(self,wId):
 		global settings
 
 		return settings[wId]
 
-	def _getMode(this,wId):
-		return this._getSetting(wId)[Setting.MODE]
+	def _getMode(self,wId):
+		return self._getSetting(wId)[Setting.MODE]
 
-	def _setMode(this,wId,mode):
+	def _setMode(self,wId,mode):
 		set(wId,Setting.MODE,mode)
 		GPIOq.pinMode(wId,1 if mode > 1 else mode)
 		if ( mode == Mode.PWM ):
 			GPIOq.softPWMCreate(wId)
 		set(wId,Setting.VALUE,GPIOq.digitalRead(wId))
 
-	def _getValue(this,wId):
-		value = this._getSetting(wId)[Setting.VALUE]
+	def _getValue(self,wId):
+		value = self._getSetting(wId)[Setting.VALUE]
 
-		if ( (value != 0) and (this._getMode(wId) != Mode.PWM) ):
+		if ( (value != 0) and (self._getMode(wId) != Mode.PWM) ):
 			value = 100
 
 		return value
 
-	def _setValue(this,wId,value):
+	def _setValue(self,wId,value):
 		set(wId,Setting.VALUE,value)
-		mode = this._getMode(wId)
+		mode = self._getMode(wId)
 		if ( mode == Mode.IN ):
 			sys.exit("Can not set value for a pin in IN mode !")
 		elif (mode == Mode.OUT):
@@ -267,16 +267,16 @@ class GPIO:
 		else:
 			sys.exit("Unknown mode !")
 
-	def _setSelected(this,wId,value):
-		set(wId,Setting.SELECTED, not this._getSetting(wId)[Setting.SELECTED] if value == None else value )
+	def _setSelected(self,wId,value):
+		set(wId,Setting.SELECTED, not self._getSetting(wId)[Setting.SELECTED] if value == None else value )
 
-	def _getModeLabel(this,wId):
-		return Mode.label[this._getSetting(wId)[Setting.MODE]]
+	def _getModeLabel(self,wId):
+		return Mode.label[self._getSetting(wId)[Setting.MODE]]
 
-	def _getSelected(this,wId):
-		return this._getSetting(wId)[Setting.SELECTED]
+	def _getSelected(self,wId):
+		return self._getSetting(wId)[Setting.SELECTED]
 
-	def _buildModeCorpus(this,xml):
+	def _buildModeCorpus(self,xml):
 		xml.pushTag("Modes")
 
 		for mode in Mode.label:
@@ -287,45 +287,45 @@ class GPIO:
 
 		xml.popTag()
 
-	def _buildCorpus(this,xml):
+	def _buildCorpus(self,xml):
 		xml.pushTag( "Corpus")
 
-		this._buildModeCorpus(xml)
+		self._buildModeCorpus(xml)
 
 		xml.popTag()
 
-	def _buildXML(this):
+	def _buildXML(self):
 		global mapping
 		xml = Atlas.createXML("XDHTML")
-		this._buildCorpus(xml)
+		self._buildCorpus(xml)
 		xml.pushTag("GPIOs")
 
 		for wId in mapping:
 			xml.pushTag("GPIO")
 			xml.setAttribute( "id", wId)
-			xml.setAttribute("Selected", this._getSelected(wId))
-			xml.setAttribute("Mode",this._getMode(wId))
-			xml.setAttribute("Value",this._getValue(wId))
+			xml.setAttribute("Selected", self._getSelected(wId))
+			xml.setAttribute("Mode",self._getMode(wId))
+			xml.setAttribute("Value",self._getValue(wId))
 			xml.popTag()
 
 		xml.popTag()
 
 		return xml
 
-	def take(this):
-		return setCurrentUserId(this._userId)
+	def take(self):
+		return setCurrentUserId(self._userId)
 
-	def display(this,dom):
-		dom.setLayoutXSL("GPIO", this._buildXML(), "GPIO.xsl")
-		this._handleModeButtons(dom)
+	def display(self,dom):
+		dom.setLayoutXSL("GPIO", self._buildXML(), "GPIO.xsl")
+		self._handleModeButtons(dom)
 
-	def setMode(this,dom,wId,mode):
+	def setMode(self,dom,wId,mode):
 		id = "Value."+str(wId);
 
-		this._setMode(wId, mode)
+		self._setMode(wId, mode)
 
-		dom.setContent("Value." + str(wId),this._getValue(wId))
-		dom.setAttribute(id,"value",this._getValue(wId))
+		dom.setContent("Value." + str(wId),self._getValue(wId))
+		dom.setAttribute(id,"value",self._getValue(wId))
 
 		if (mode==Mode.IN):
 			dom.disableElement(id)
@@ -339,29 +339,29 @@ class GPIO:
 		else:
 			sys.exit("???")
 
-	def setValue(this,dom,wId,value):
-		this._setValue(wId,value)
+	def setValue(self,dom,wId,value):
+		self._setValue(wId,value)
 
-	def setSelected(this,dom,wId,value):
-		this._setSelected(wId,value)
-		this._handleModeButtons(dom)
+	def setSelected(self,dom,wId,value):
+		self._setSelected(wId,value)
+		self._handleModeButtons(dom)
 
-	def setAllSelected(this,dom,value):
+	def setAllSelected(self,dom,value):
 		global mapping
 
 		for key in mapping:
-			this._setSelected(int(key),value)
+			self._setSelected(int(key),value)
 
-		this.display(dom)	
+		self.display(dom)	
 
-	def setAllMode(this,dom,mode):
+	def setAllMode(self,dom,mode):
 		global mapping,settings
 
 		for key in settings:
 			if settings[key][Setting.SELECTED]:
-				this._setMode(int(key),mode)
+				self._setMode(int(key),mode)
 
-		this.display(dom)
+		self.display(dom)
 	
 def preProcessing(GPIO,dom,action,id):
 	if GPIO.take():

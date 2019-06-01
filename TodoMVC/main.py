@@ -33,32 +33,32 @@ def readAsset(path):
 	return Atlas.readAsset(path, "TodoMVC")
 
 class TodoMVC:
-	def __init__(this):
-		this.exclude = None
-		this.index = -1
-		this.todos = []
+	def __init__(self):
+		self.exclude = None
+		self.index = -1
+		self.todos = []
 
 		if False:	# Set to 'True' for testing purpose.
-			this.todos.append({"label": "Todo 1", "completed": False })
-			this.todos.append({"label": "Todo 2", "completed": True })
+			self.todos.append({"label": "Todo 1", "completed": False })
+			self.todos.append({"label": "Todo 2", "completed": True })
 
-	def itemsLeft(this):
+	def itemsLeft(self):
 		count = 0
 
-		for index in range(len(this.todos)):
-			if not this.todos[index]['completed']:
+		for index in range(len(self.todos)):
+			if not self.todos[index]['completed']:
 				count += 1
 
 		return count
 
-	def push(this, todo, id, xml):
+	def push(self, todo, id, xml):
 		xml.pushTag("Todo")
 		xml.setAttribute("id", id)
 		xml.setAttribute("completed", "true" if todo['completed'] else "false")
 		xml.setValue(todo['label'])
 		xml.popTag()
 
-	def displayCount(this, dom, count):
+	def displayCount(self, dom, count):
 		text = ""
 
 		if count == 1:
@@ -68,128 +68,128 @@ class TodoMVC:
 
 		dom.setContent("Count", text)
 
-	def handleCount(this, dom):
-		count = this.itemsLeft()
+	def handleCount(self, dom):
+		count = self.itemsLeft()
 
-		if count != len(this.todos):
+		if count != len(self.todos):
 			dom.disableElement("HideClearCompleted")
 		else:
 			dom.enableElement("HideClearCompleted")
 
-		this.displayCount(dom, count)
+		self.displayCount(dom, count)
 
-	def displayTodos(this, dom):
+	def displayTodos(self, dom):
 		xml = Atlas.createXML("XDHTML")
 
 		xml.pushTag("Todos")
 
-		for index in range(len(this.todos)):
-			todo = this.todos[index]
+		for index in range(len(self.todos)):
+			todo = self.todos[index]
 
-			if (this.exclude == None) or (todo['completed'] != this.exclude):
-				this.push(todo, index, xml)
+			if (self.exclude == None) or (todo['completed'] != self.exclude):
+				self.push(todo, index, xml)
 
 		xml.popTag()
 
 		dom.setLayoutXSL("Todos", xml, "Todos.xsl")
-		this.handleCount(dom)
+		self.handleCount(dom)
 
-	def submitNew(this, dom):
+	def submitNew(self, dom):
 		content = dom.getContent("Input").strip()
 		dom.setContent("Input", "")
 
 		if content:
-			this.todos.insert(0, {'label': content, 'completed': False})
-			this.displayTodos(dom)
+			self.todos.insert(0, {'label': content, 'completed': False})
+			self.displayTodos(dom)
 
-	def submitModification(this, dom):
-		index = this.index
-		this.index = -1
+	def submitModification(self, dom):
+		index = self.index
+		self.index = -1
 
 		content = dom.getContent("Input." + str(index)).strip()
 		dom.setContent("Input." + str(index), "")
 
 		if content:
-			this.todos[index]['label'] = content
+			self.todos[index]['label'] = content
 
 			dom.setContent("Label." + str(index), content)
 
 			dom.removeClasses({"View." + str(index): "hide", "Todo." + str(index): "editing"})
 		else:
-			this.todos.pop(index)
-			this.displayTodos(dom)
+			self.todos.pop(index)
+			self.displayTodos(dom)
 
-def acConnect(this, dom, id):
+def acConnect(self, dom, id):
 	dom.setLayout("", readAsset("Main.html"))
 	dom.focus("Input")
-	this.displayTodos(dom)
+	self.displayTodos(dom)
 	dom.disableElements(["HideActive", "HideCompleted"])
 
-def acDestroy(this, dom, id):
-	this.todos.pop(int(dom.getContent(id)))
-	this.displayTodos(dom)
+def acDestroy(self, dom, id):
+	self.todos.pop(int(dom.getContent(id)))
+	self.displayTodos(dom)
 
-def acToggle(this, dom, id):
+def acToggle(self, dom, id):
 	index = int(id)
-	this.todos[index]['completed'] = not this.todos[index]['completed']
+	self.todos[index]['completed'] = not self.todos[index]['completed']
 
 	dom.toggleClass("Todo." + id, "completed")
 	dom.toggleClass("Todo." + id, "active")
 
-	this.handleCount(dom)
+	self.handleCount(dom)
 
-def acAll(this, dom, id):
-	this.exclude = None
+def acAll(self, dom, id):
+	self.exclude = None
 
 	dom.addClass("All", "selected")
 	dom.removeClasses({"Active": "selected", "Completed": "selected"})
 	dom.disableElements(["HideActive", "HideCompleted"])
 
-def acActive(this, dom, id):
-	this.exclude = True
+def acActive(self, dom, id):
+	self.exclude = True
 
 	dom.addClass("Active", "selected")
 	dom.removeClasses({"All": "selected", "Completed": "selected"})
 	dom.disableElement("HideActive")
 	dom.enableElement("HideCompleted")
 
-def acCompleted(this, dom, id):
-	this.exclude = False
+def acCompleted(self, dom, id):
+	self.exclude = False
 
 	dom.addClass("Completed", "selected")
 	dom.removeClasses({"All": "selected", "Active": "selected"})
 	dom.disableElement("HideCompleted")
 	dom.enableElement("HideActive")
 
-def acClear(this, dom, id):
-	index = len(this.todos)
+def acClear(self, dom, id):
+	index = len(self.todos)
 
 	while index:
 		index -= 1
 
-		if this.todos[index]['completed']:
-			this.todos.pop(index)
+		if self.todos[index]['completed']:
+			self.todos.pop(index)
 
-	this.displayTodos(dom)
+	self.displayTodos(dom)
 
-def acEdit(this, dom, id):
+def acEdit(self, dom, id):
 	content = dom.getContent(id)
-	this.index = int(content)
+	self.index = int(content)
 
 	dom.addClasses({"View." + content: "hide", id: "editing"})
-	dom.setContent("Input." + content, this.todos[this.index]['label'])
+	dom.setContent("Input." + content, self.todos[self.index]['label'])
 	dom.focus("Input." + content)
 
-def acCancel(this, dom, id):
-	index = str(this.index)
-	this.index = -1
+def acCancel(self, dom, id):
+	index = str(self.index)
+	self.index = -1
 
 	dom.setContent("Input." + index, "")
 	dom.removeClasses({"View." + index: "hide", "Todo." + index: "editing"})
 
 callbacks = {
 	"": acConnect,
-	"Submit": lambda this, dom, id: this.submitNew(dom) if this.index == -1 else this.submitModification(dom),
+	"Submit": lambda self, dom, id: self.submitNew(dom) if self.index == -1 else self.submitModification(dom),
 	"Destroy": acDestroy,
 	"Toggle": acToggle,
 	"All": acAll,

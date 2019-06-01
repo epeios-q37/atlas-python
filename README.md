@@ -2,7 +2,7 @@
 
 ![For Python](http://q37.info/download/assets/Python.png "Python logo")
 
-[![Version 0.9.6](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.9.6)](http://q37.info/s/gei0veus) [![Download stats](https://img.shields.io/pypi/dm/atlastk.svg)](https://pypistats.org/packages/atlastk) [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python)
+[![Version 0.9.7](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.9.7)](http://q37.info/s/gei0veus) [![Download stats](https://img.shields.io/pypi/dm/atlastk.svg)](https://pypistats.org/packages/atlastk) [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python)[![License](https://img.shields.io/pypi/l/atlastk.svg?style=plastic)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE)
 
 **If you are looking for the *WebGPIO* application, you will find it at the bottom of this page (in the *Raspberry Pi*/*ODROID-C2* section).**
 
@@ -24,7 +24,7 @@ Before we dive into source code, let's begin with a live demonstration of the [*
 
 Yet another game; the [*Reversi* (aka *Othello*) game](http://q37.info/s/zz3dzmf7): <http://q37.info/s/jhv7dtsp>.
 
-There are two other versions of this game: a version with less CSS stuff (<http://q37.info/s/kwck3t7n>), and another which demonstrates the use of XSL (http://q37.info/s/3cbd7w9n). There are intended as part of a future tutorial about the *Atlas* toolkit.
+There are two other versions of this game: a version with less CSS stuff (<http://q37.info/s/kwck3t7n>), and another which demonstrates the use of XSL (<http://q37.info/s/3cbd7w9n>). There are intended as part of a future tutorial about the *Atlas* toolkit.
 
 ## *Hello, World!*
 
@@ -43,13 +43,6 @@ For a live demonstration: <http://q37.info/s/vhnb3q3v>.
 Source code:
 
 ```python
-# Following two lines can be removed:
-# - if the 'Atlas.python.zip' file is referenced in 'PYTHONPATH',
-# - if you made a '[python -m] pip install [--user] atlastk',
-# - if you paste this code in Repl.it.
-import os, sys
-sys.path.append("Atlas.python.zip") # Add the path to 'Atlas.python.zip' if needed.
-
 import atlastk as Atlas
 
 body = """

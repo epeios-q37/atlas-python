@@ -103,6 +103,8 @@ class DOM:
 		return self._dom.call( "Confirm_1", _STRING, 1, message, 0 ) == "true"
 
 	def _setLayout(self, id, xml, xslFilename):
+	#	If 'xslFilename' is empty, 'xml' contents HTML.
+	# 	If 'xml' is HTML and uses the compressed form, if it has a root tag, only the children will be used.
 		self._dom.call("SetLayout_1", _VOID, 3, id, xml if isinstance(xml,str) else xml.toString(), xslFilename, 0)
 
 	def setLayout(self,id,html):
@@ -137,11 +139,20 @@ class DOM:
 	def createElement(self, name, id = "" ):
 		return self._dom.call( "CreateElement_1", _STRING, 2, name, id, 0 )
 
-	def insertChild(self,child, id):
-		self._dom.call( "InsertChild_1", _VOID, 2, child, id, 0 );
+	def insertChild(self,child,id):
+		self._dom.call( "InsertChild_1", _VOID, 2, child, id, 0 )
+
+	def insertCSSRule(self,rule,index,id=""):
+		self._dom.call("InsertCSSRule_1", _VOID, 3, id, rule, str(index), 0)
+
+	def appendCSSRule(self,rule,id=""):
+		return int(self._dom.call("AppendCSSRule_1", _STRING, 2, id, rule, 0))
+
+	def removeCSSRule(self,index,id=""):
+		self._dom.call("RemoveCSSRule_1", _VOID, 2, id, str(index), 0)
 
 	def dressWidgets(self,id):
-		return self._dom.call( "DressWidgets_1", _VOID, 1, id, 0 );
+		return self._dom.call( "DressWidgets_1", _VOID, 1, id, 0 )
 
 	def _handleClasses(self, command, idsAndClasses):
 		[ids, classes] = _split(idsAndClasses)
@@ -191,7 +202,7 @@ class DOM:
 		self._dom.call("SetProperty_1", _VOID, 3, id, name, value, 0 )
 
 	def getProperty(self, id, name ):
-		return self._dom.call("GetProperty_1", _STRING, 2, id, name, 0 );
+		return self._dom.call("GetProperty_1", _STRING, 2, id, name, 0 )
 
 	def focus(self, id):
 		self._dom.call("Focus_1", _VOID,1, id, 0)

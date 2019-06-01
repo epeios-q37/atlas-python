@@ -32,15 +32,15 @@ import atlastk as Atlas
 def readAsset(path):
 	return Atlas.readAsset(path, "Hello")
 
-def acConnect(this, dom, id):
+def acConnect(self, dom, id):
 	dom.setLayout("", readAsset( "Main.html") )
 	dom.focus( "input")
 
-def acSubmit(this, dom, id):
+def acSubmit(self, dom, id):
 	dom.alert("Hello, " + dom.getContent("input") + "!")
 	dom.focus( "input")
 
-def acClear(this, dom, id):
+def acClear(self, dom, id):
 	if ( dom.confirm("Are you sure?" ) ):
 		dom.setContent("input", "" )
 	dom.focus( "input")

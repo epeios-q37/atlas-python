@@ -38,7 +38,7 @@ def readAsset(path):
 	return Atlas.readAsset(path, "RGB")
 
 class RGB:
-	def __init__(this):
+	def __init__(self):
 		pass
 
 def set(dom, id, value):

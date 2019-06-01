@@ -30,18 +30,19 @@ from XDHq import readAsset
 def createXML(rootTag):
 	return XDHq.XML(rootTag)
 
-def createHTML(rootTag):
+def createHTML(rootTag=""):	# If 'rootTag' is empty, there will be no root tag in the tree.
 	return XDHq.XML(rootTag)
 
-def worker(userObject,dom,callbacks):
+def worker(userCallback,dom,callbacks):
+	userObject = userCallback()
 	while True:
 		[action,id] = dom.getAction()
 		if action=="" or not "_PreProcessing" in callbacks or callbacks["_PreProcessing"](userObject, dom, action, id):
 			if callbacks[action](userObject, dom, id ) and "_PostProcessing" in callbacks:
 				callbacks["_PostProcessing"](userObject, dom, action, id)
 
-def callback(userObject,callbacks,instance):
-	thread = threading.Thread(target=worker, args=(userObject, XDHq.DOM(instance), callbacks))
+def callback(userCallback,callbacks,instance):
+	thread = threading.Thread(target=worker, args=(userCallback, XDHq.DOM(instance), callbacks))
 	thread.daemon = True
 	thread.start()
 	return thread

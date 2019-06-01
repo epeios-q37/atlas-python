@@ -32,18 +32,18 @@ import atlastk as Atlas
 def readAsset(path):
 	return Atlas.readAsset(path, "blank")
 
-def acConnect(this,dom,id):
+def acConnect(self,dom,id):
 	dom.setLayout("", readAsset("Main.html"))
 	dom.addClass("Input","hidden")
 
-def acShowInput(this,dom,id):
+def acShowInput(self,dom,id):
 	dom.removeClass("Input", "hidden")
 	dom.focus("Pattern")
 
 callbacks = {
 	"": acConnect,
-	"Submit": lambda this, dom, id: dom.setContent("Pattern", dom.getContent("Pattern").upper() ),
-	"HideInput": lambda this, dom, id: dom.addClass("Input", "hidden"),
+	"Submit": lambda self, dom, id: dom.setContent("Pattern", dom.getContent("Pattern").upper() ),
+	"HideInput": lambda self, dom, id: dom.addClass("Input", "hidden"),
 	"ShowInput": acShowInput,
 }
 

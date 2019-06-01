@@ -47,11 +47,11 @@ def put(note, id, xml ):
 	xml.popTag()
 
 class Notes:
-	def __init__(this):
-		this.pattern = ""
-		this.hideDescriptions = False
-		this.index = 0
-		this.notes = [
+	def __init__(self):
+		self.pattern = ""
+		self.hideDescriptions = False
+		self.index = 0
+		self.notes = [
 			{
 			'title': '',
 			'description': '',
@@ -70,50 +70,50 @@ class Notes:
 			},
 		]
 
-	def handleDescriptions(this,dom):
-		if this.hideDescriptions:
+	def handleDescriptions(self,dom):
+		if self.hideDescriptions:
 			dom.disableElement("ViewDescriptions")
 		else:
 			dom.enableElement("ViewDescriptions")
 
-	def displayList(this,dom):
+	def displayList(self,dom):
 		xml = Atlas.createXML("XDHTML")
 		contents = {}
 
 		xml.pushTag("Notes")
 
-		for index in range(len(this.notes)):
+		for index in range(len(self.notes)):
 			if index == 0: # 0 skipped, as it serves as buffer for the new ones.
 				continue
-			if this.notes[index]['title'][:len(this.pattern)].lower() == this.pattern:
-				put(this.notes[index], index, xml)
-				contents["Description." + str(index)] = this.notes[index]['description']
+			if self.notes[index]['title'][:len(self.pattern)].lower() == self.pattern:
+				put(self.notes[index], index, xml)
+				contents["Description." + str(index)] = self.notes[index]['description']
 
 		dom.setLayoutXSL("Notes", xml, "Notes.xsl")
 		dom.setContents(contents)
 		dom.enableElements(viewModeElements)
 
-	def view(this, dom):
+	def view(self, dom):
 		dom.enableElements(viewModeElements)
-		dom.setContent("Edit." + str(this.index), "")
-		this.index = -1
+		dom.setContent("Edit." + str(self.index), "")
+		self.index = -1
 
-def acConnect(this, dom, id):
+def acConnect(self, dom, id):
 		dom.setLayout("", readAsset( "Main.html") )
-		this.displayList(dom)
+		self.displayList(dom)
 
-def acToggleDescriptions(this, dom, id):
-		this.hideDescriptions = dom.getContent(id)=="true"
-		this.handleDescriptions(dom)
+def acToggleDescriptions(self, dom, id):
+		self.hideDescriptions = dom.getContent(id)=="true"
+		self.handleDescriptions(dom)
 
-def acSearch(this, dom, id):
-		this.pattern = dom.getContent("Pattern").lower()
-		this.displayList(dom)
+def acSearch(self, dom, id):
+		self.pattern = dom.getContent("Pattern").lower()
+		self.displayList(dom)
 
-def acEdit(this, dom, id):
+def acEdit(self, dom, id):
 	index = dom.getContent(id)
-	this.index = int(index)
-	note = this.notes[this.index]
+	self.index = int(index)
+	note = self.notes[self.index]
 
 	dom.setLayout("Edit." + index, readAsset( "Note.html") )
 	dom.setContents({ "Title": note['title'], "Description": note['description'] })
@@ -121,31 +121,31 @@ def acEdit(this, dom, id):
 	dom.dressWidgets("Notes")
 	dom.focus("Title")
 
-def acDelete(this, dom, id):
+def acDelete(self, dom, id):
 	if dom.confirm("Are you sure you want to delete this entry ?"):
-		this.notes.pop(int(dom.getContent(id)))
-		this.displayList(dom)
+		self.notes.pop(int(dom.getContent(id)))
+		self.displayList(dom)
 
-def acSubmit(this, dom, id):
+def acSubmit(self, dom, id):
 	result = dom.getContents(["Title", "Description"])
 	title = result["Title"].strip()
 	description = result["Description"]
 
 	if title:
-		this.notes[this.index] = { "title": title, "description": description }
+		self.notes[self.index] = { "title": title, "description": description }
 
-		if this.index == 0:
-			this.notes.insert(0, { 'title': '', 'description': ''})
-			this.displayList( dom )
+		if self.index == 0:
+			self.notes.insert(0, { 'title': '', 'description': ''})
+			self.displayList( dom )
 		else:
-			dom.setContents( { "Title." + str(this.index): title, "Description." + str(this.index): description })
-			this.view( dom )
+			dom.setContents( { "Title." + str(self.index): title, "Description." + str(self.index): description })
+			self.view( dom )
 	else:
 		dom.alert("Title can not be empty !")
 		dom.focus("Title")
 
-def acCancel( this, dom, id):
-	note = this.notes[this.index]
+def acCancel( self, dom, id):
+	note = self.notes[self.index]
 
 	result = dom.getContents(["Title", "Description"])
 	title = result["Title"].strip()
@@ -153,9 +153,9 @@ def acCancel( this, dom, id):
 
 	if (title != note['title']) or (description != note['description']):
 		if dom.confirm("Are you sure you want to cancel your modifications ?"):
-			this.view( dom )
+			self.view( dom )
 	else:
-		this.view( dom )
+		self.view( dom )
 
 callbacks = {	
 	"": acConnect,
