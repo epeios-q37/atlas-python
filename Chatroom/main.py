@@ -104,21 +104,21 @@ class Chatroom:
 			messages.append({'pseudo': pseudo, 'content': message})
 			lock.release()
 
-def acConnect(self, dom, id):
+def acConnect(chatroom, dom, id):
 	dom.setLayout("", readAsset("Main.html"))
 	dom.focus("Pseudo")
 	dom.setTimeout(1000, "Update")
-	self.displayMessages(dom)
+	chatroom.displayMessages(dom)
 	
-def acSubmitPseudo(self, dom, id):
+def acSubmitPseudo(chatroom, dom, id):
 	pseudo = dom.getContent("Pseudo").strip()
 
 	if not pseudo:
 		dom.alert("Pseudo. can not be empty !")
 		dom.setContent("Pseudo", "")
 		dom.focus("Pseudo")
-	elif self.handlePseudo(pseudo.upper()):
-		self.pseudo = pseudo
+	elif chatroom.handlePseudo(pseudo.upper()):
+		chatroom.pseudo = pseudo
 		dom.addClass("PseudoButton", "hidden")
 		dom.disableElements(["Pseudo", "PseudoButton"])
 		dom.enableElements(["Message", "MessageButton"])
@@ -126,19 +126,19 @@ def acSubmitPseudo(self, dom, id):
 		dom.focus("Message")
 		print("\t>>>> New user: " + pseudo)
 	else:
-		dom.alert("Pseudo. not available !")
+		dom.alert("Pseudo. not available!")
 		dom.setContent("Pseudo", pseudo)
 		dom.focus("Pseudo")
 
-def acSubmitMessage(self, dom, id):
+def acSubmitMessage(chatroom, dom, id):
 	message = dom.getContent("Message")
 	dom.setContent("Message", "")
 	dom.focus("Message")
-	self.addMessage(self.pseudo, message)
-	self.displayMessages(dom)
+	chatroom.addMessage(chatroom.pseudo, message)
+	chatroom.displayMessages(dom)
 
-def acUpdate(self, dom, id):
-	self.displayMessages(dom)
+def acUpdate(chatroom, dom, id):
+	chatroom.displayMessages(dom)
 	dom.setTimeout(1000, "Update")
 
 callbacks = {

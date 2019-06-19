@@ -102,6 +102,8 @@ The *Stars* application is an example where the *Atlas* *toolkit* is used to con
 
 ## *Raspberry Pi*/*ODROID-C2*
 
+**If the applications do not work on your *Raspberry Pi*, please see this issue: <https://github.com/epeios-q37/atlas-python/issues/1>**
+
 The *GPIO* and *RGB* applications are designed to be used on a *Raspberry Pi* or a *ODROID-C2*.
 
 For the *Raspberry Pi*, the `RPi.GPIO` *Python* module have to be installed (this is probably already the case).
@@ -124,6 +126,7 @@ The *Atlas* toolkit is also available for:
 
 - *Java*: <http://github.com/epeios-q37/atlas-java>
 - *Node.js*: <http://github.com/epeios-q37/atlas-node>
+- *Perl*: <http://github.com/epeios-q37/atlas-perl>
 - *PHP*: <http://github.com/epeios-q37/atlas-php>
 - *Ruby*: <http://github.com/epeios-q37/atlas-ruby>
 

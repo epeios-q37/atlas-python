@@ -399,7 +399,7 @@ class DOM_DEMO:
 
 		if type == XDHqSHRD.RT_STRING:
 			self.wait()
-			string = getString();
+			string = getString()
 			self.signal()
 			return string
 		elif type == XDHqSHRD.RT_STRINGS:
