@@ -96,7 +96,7 @@ The `atlastk` directory contains the *Python* source code of the *Atlas* toolkit
 
 All other directories are examples.
 
-To run an example, launch `python <Name>`, where `<Name>` is the name of the example (`Blank`, `Chatroom`…), except for the *ErgoJr*, *GPIO* and *RGB* applications, which are detailed just below.
+To run an example, launch `python <Name>/` (don't forget the final `/`), where `<Name>` is the name of the example (`Blank`, `Chatroom`…), except for the *ErgoJr*, *GPIO* and *RGB* applications, which are detailed just below.
 
 The *Stars* application is an example where the *Atlas* *toolkit* is used to control a [*Pygame*](https://en.wikipedia.org/wiki/Pygame) based application. Of course, *Pygame* needs to be installed.
 
@@ -108,7 +108,7 @@ The *GPIO* and *RGB* applications are designed to be used on a *Raspberry Pi* or
 
 For the *Raspberry Pi*, the `RPi.GPIO` *Python* module have to be installed (this is probably already the case).
 
-For the *ODROID-C2*, The *Python* version of *WiringPi* must be installed, and the application has to be launched with `sudo` (`sudo python GPIO` or `sudo python RGB`).
+For the *ODROID-C2*, The *Python* version of *WiringPi* must be installed, and the application has to be launched with `sudo` (`sudo python GPIO/` or `sudo python RGB/`).
 
 The *ErgoJr* application is experimental and to control a *Poppy* *Ergo Jr* robot.
 
