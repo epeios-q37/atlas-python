@@ -26,7 +26,6 @@ import GPIOq, sys, threading
 
 sys.path.append("./Atlas.python.zip")
 sys.path.append("../Atlas.python.zip")
-sys.path.append("./Atlas")
 
 import atlastk as Atlas
 
@@ -363,7 +362,7 @@ class GPIO:
 
 		self.display(dom)
 	
-def preProcessing(GPIO,dom,action,id):
+def preProcess(GPIO,dom,action,id):
 	if GPIO.take():
 		return True
 	else:
@@ -382,7 +381,7 @@ def acChangeValue(GPIO,dom,id):
 	GPIO.setValue(dom,getWId(id),int(dom.getContent(id)))
 
 callbacks = {
-		"_PreProcessing": preProcessing,
+		"_PreProcess": preProcess,
 		"": acConnect,
 		"SwitchMode": acSwitchMode,
 		"ChangeValue": acChangeValue,

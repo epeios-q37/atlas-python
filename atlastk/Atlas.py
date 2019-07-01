@@ -25,6 +25,7 @@ SOFTWARE.
 import XDHq
 from threading import Thread
 import threading
+import inspect
 from XDHq import readAsset
 
 def createXML(rootTag):
@@ -33,13 +34,32 @@ def createXML(rootTag):
 def createHTML(rootTag=""):	# If 'rootTag' is empty, there will be no root tag in the tree.
 	return XDHq.XML(rootTag)
 
+def _call(func, userObject, dom, id, action):
+	amount = len(inspect.getfullargspec(func).args)
+	args = []
+
+	if ( amount == 4 ):
+		args.insert(0,action)
+
+	if( amount >= 3 ):
+		args.insert(0,id)
+
+	if( amount >= 2 ):
+		args.insert(0,dom)
+
+	if( amount >= 1 ):
+		args.insert(0,userObject)
+
+	return func(*args)
+
+
 def worker(userCallback,dom,callbacks):
 	userObject = userCallback()
 	while True:
 		[action,id] = dom.getAction()
-		if action=="" or not "_PreProcessing" in callbacks or callbacks["_PreProcessing"](userObject, dom, action, id):
-			if callbacks[action](userObject, dom, id ) and "_PostProcessing" in callbacks:
-				callbacks["_PostProcessing"](userObject, dom, action, id)
+		if action=="" or not "_PreProcess" in callbacks or callbacks["_PreProcess"](userObject, dom, action, id):
+			if _call(callbacks[action], userObject, dom, id, action ) and "_PostProcess" in callbacks:
+				callbacks["_PostProcess"](userObject, dom, action, id)
 
 def callback(userCallback,callbacks,instance):
 	thread = threading.Thread(target=worker, args=(userCallback, XDHq.DOM(instance), callbacks))
