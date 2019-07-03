@@ -228,7 +228,7 @@ def drawBoard(reversi, dom):
         dom.removeClass("scoreIMG", "hidden")
 
 
-def acConnect(reversi, dom, id):
+def acConnect(reversi, dom):
     reversi.player = BLACK
     reversi.weight_matrix = WEIGHT_MATRIX
     reversi.layout = TXT
@@ -264,11 +264,11 @@ def acPlay(reversi, dom, id):
             dom.alert('Egality!')
 
 
-def acNew(reversi, dom, id):
+def acNew(reversi, dom):
     reversi.reset()
     drawBoard(reversi, dom)
 
-def acToggleLayout(reversi, dom, id):
+def acToggleLayout(reversi, dom):
     if ( reversi.layout == TXT):
         reversi.layout = IMG
     else:

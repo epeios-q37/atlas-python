@@ -3,6 +3,12 @@
 - Common to **all** bindings,
 - does **not** concern the native code,
 
+## 2019-07-03
+
+- *Python*:
+  - fixing issue that prevented the toolkit from working with *Python* 2,
+  - switching to 0.9.9
+
 ## 2019-07-01
 
 - *Python*:

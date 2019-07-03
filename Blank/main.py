@@ -32,11 +32,11 @@ import atlastk as Atlas
 def readAsset(path):
 	return Atlas.readAsset(path, "blank")
 
-def acConnect(self,dom,id):
+def acConnect(self,dom):
 	dom.setLayout("", readAsset("Main.html"))
 	dom.addClass("Input","hidden")
 
-def acShowInput(self,dom,id):
+def acShowInput(self,dom):
 	dom.removeClass("Input", "hidden")
 	dom.focus("Pattern")
 

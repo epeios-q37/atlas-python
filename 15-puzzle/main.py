@@ -122,7 +122,7 @@ def scramble(puzzle, dom):
     fill(puzzle, dom)
 
 
-def acConnect(self, dom, id):
+def acConnect(self, dom):
     dom.setLayout("", readAsset("Main.html"))
     scramble(self, dom)
 

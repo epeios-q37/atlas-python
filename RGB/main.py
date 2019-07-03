@@ -45,7 +45,7 @@ def set(dom, id, value):
 	if value != None:
 		dom.setContent(id, value)
 
-def acConnect(RGB,dom,id):
+def acConnect(RGB,dom):
 	global rPin, gPin, bPin
 	dom.setLayout("", readAsset( "Main.html") )
 	set( dom, "Red", rPin)

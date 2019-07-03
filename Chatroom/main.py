@@ -104,13 +104,13 @@ class Chatroom:
 			messages.append({'pseudo': pseudo, 'content': message})
 			lock.release()
 
-def acConnect(chatroom, dom, id):
+def acConnect(chatroom, dom):
 	dom.setLayout("", readAsset("Main.html"))
 	dom.focus("Pseudo")
 	dom.setTimeout(1000, "Update")
 	chatroom.displayMessages(dom)
 	
-def acSubmitPseudo(chatroom, dom, id):
+def acSubmitPseudo(chatroom, dom):
 	pseudo = dom.getContent("Pseudo").strip()
 
 	if not pseudo:
@@ -130,14 +130,14 @@ def acSubmitPseudo(chatroom, dom, id):
 		dom.setContent("Pseudo", pseudo)
 		dom.focus("Pseudo")
 
-def acSubmitMessage(chatroom, dom, id):
+def acSubmitMessage(chatroom, dom):
 	message = dom.getContent("Message")
 	dom.setContent("Message", "")
 	dom.focus("Message")
 	chatroom.addMessage(chatroom.pseudo, message)
 	chatroom.displayMessages(dom)
 
-def acUpdate(chatroom, dom, id):
+def acUpdate(chatroom, dom):
 	chatroom.displayMessages(dom)
 	dom.setTimeout(1000, "Update")
 

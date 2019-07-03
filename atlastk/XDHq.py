@@ -142,6 +142,8 @@ class DOM:
 	def insertChild(self,child,id):
 		self._dom.call( "InsertChild_1", _VOID, 2, child, id, 0 )
 
+# NOTA: The 'CSSRule' related methods will be probably removed.
+# Enabling/disabling styles are easier to use.
 	def insertCSSRule(self,rule,index,id=""):
 		self._dom.call("InsertCSSRule_1", _VOID, 3, id, rule, str(index), 0)
 

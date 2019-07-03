@@ -119,7 +119,7 @@ class TodoMVC:
 			self.todos.pop(index)
 			self.displayTodos(dom)
 
-def acConnect(self, dom, id):
+def acConnect(self, dom):
 	dom.setLayout("", readAsset("Main.html"))
 	dom.focus("Input")
 	self.displayTodos(dom)
@@ -138,14 +138,14 @@ def acToggle(self, dom, id):
 
 	self.handleCount(dom)
 
-def acAll(self, dom, id):
+def acAll(self, dom):
 	self.exclude = None
 
 	dom.addClass("All", "selected")
 	dom.removeClasses({"Active": "selected", "Completed": "selected"})
 	dom.disableElements(["HideActive", "HideCompleted"])
 
-def acActive(self, dom, id):
+def acActive(self, dom):
 	self.exclude = True
 
 	dom.addClass("Active", "selected")
@@ -153,7 +153,7 @@ def acActive(self, dom, id):
 	dom.disableElement("HideActive")
 	dom.enableElement("HideCompleted")
 
-def acCompleted(self, dom, id):
+def acCompleted(self, dom):
 	self.exclude = False
 
 	dom.addClass("Completed", "selected")
@@ -161,7 +161,7 @@ def acCompleted(self, dom, id):
 	dom.disableElement("HideCompleted")
 	dom.enableElement("HideActive")
 
-def acClear(self, dom, id):
+def acClear(self, dom):
 	index = len(self.todos)
 
 	while index:
@@ -180,7 +180,7 @@ def acEdit(self, dom, id):
 	dom.setContent("Input." + content, self.todos[self.index]['label'])
 	dom.focus("Input." + content)
 
-def acCancel(self, dom, id):
+def acCancel(self, dom):
 	index = str(self.index)
 	self.index = -1
 
@@ -189,7 +189,7 @@ def acCancel(self, dom, id):
 
 callbacks = {
 	"": acConnect,
-	"Submit": lambda self, dom, id: self.submitNew(dom) if self.index == -1 else self.submitModification(dom),
+	"Submit": lambda self, dom: self.submitNew(dom) if self.index == -1 else self.submitModification(dom),
 	"Destroy": acDestroy,
 	"Toggle": acToggle,
 	"All": acAll,

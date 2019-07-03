@@ -2,7 +2,7 @@
 
 ![For Python](http://q37.info/download/assets/Python.png "Python logo")
 
-[![Version 0.9.8](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.9.8)](http://q37.info/s/gei0veus) [![Download stats](https://img.shields.io/pypi/dm/atlastk.svg)](https://pypistats.org/packages/atlastk) [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python)[![License](https://img.shields.io/pypi/l/atlastk.svg?style=plastic)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE)
+[![Version 0.9.9](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.9.9)](http://q37.info/s/gei0veus) [![Download stats](https://img.shields.io/pypi/dm/atlastk.svg)](https://pypistats.org/packages/atlastk) [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python)[![License](https://img.shields.io/pypi/l/atlastk.svg?style=plastic)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE)
 
 **If you are looking for the *WebGPIO* application, you will find it at the bottom of this page (in the *Raspberry Pi*/*ODROID-C2* section).**
 
@@ -58,15 +58,15 @@ body = """
 </div>
 """
 
-def acConnect(this, dom, id):
+def acConnect(hello, dom):
   dom.setLayout("", body)
   dom.focus("input")
 
-def acSubmit(this, dom, id):
+def acSubmit(hello, dom):
   dom.alert("Hello, " + dom.getContent("input") + "!")
   dom.focus("input")
 
-def acClear(this, dom, id):
+def acClear(hello, dom):
   if ( dom.confirm("Are you sure?") ):
     dom.setContent("input", "")
   dom.focus("input")

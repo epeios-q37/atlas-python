@@ -40,9 +40,7 @@ def put(note, id, xml ):
 	xml.setAttribute("id", id)
 
 	for key in note:
-		xml.pushTag(key)
-		xml.setValue(note[key])
-		xml.popTag()
+		xml.setTagAndValue(key, note[key])
 
 	xml.popTag()
 
@@ -98,22 +96,22 @@ class Notes:
 		dom.setContent("Edit." + str(self.index), "")
 		self.index = -1
 
-def acConnect(self, dom, id):
+def acConnect(notes, dom):
 		dom.setLayout("", readAsset( "Main.html") )
-		self.displayList(dom)
+		notes.displayList(dom)
 
-def acToggleDescriptions(self, dom, id):
-		self.hideDescriptions = dom.getContent(id)=="true"
-		self.handleDescriptions(dom)
+def acToggleDescriptions(notes, dom, id):
+		notes.hideDescriptions = dom.getContent(id)=="true"
+		notes.handleDescriptions(dom)
 
-def acSearch(self, dom, id):
-		self.pattern = dom.getContent("Pattern").lower()
-		self.displayList(dom)
+def acSearch(notes, dom):
+		notes.pattern = dom.getContent("Pattern").lower()
+		notes.displayList(dom)
 
-def acEdit(self, dom, id):
+def acEdit(notes, dom, id):
 	index = dom.getContent(id)
-	self.index = int(index)
-	note = self.notes[self.index]
+	notes.index = int(index)
+	note = notes.notes[notes.index]
 
 	dom.setLayout("Edit." + index, readAsset( "Note.html") )
 	dom.setContents({ "Title": note['title'], "Description": note['description'] })
@@ -121,41 +119,41 @@ def acEdit(self, dom, id):
 	dom.dressWidgets("Notes")
 	dom.focus("Title")
 
-def acDelete(self, dom, id):
-	if dom.confirm("Are you sure you want to delete this entry ?"):
-		self.notes.pop(int(dom.getContent(id)))
-		self.displayList(dom)
+def acDelete(notes, dom, id):
+	if dom.confirm("Are you sure you want to delete this entry?"):
+		notes.notes.pop(int(dom.getContent(id)))
+		notes.displayList(dom)
 
-def acSubmit(self, dom, id):
+def acSubmit(notes, dom):
 	result = dom.getContents(["Title", "Description"])
 	title = result["Title"].strip()
 	description = result["Description"]
 
 	if title:
-		self.notes[self.index] = { "title": title, "description": description }
+		notes.notes[notes.index] = { "title": title, "description": description }
 
-		if self.index == 0:
-			self.notes.insert(0, { 'title': '', 'description': ''})
-			self.displayList( dom )
+		if notes.index == 0:
+			notes.notes.insert(0, { 'title': '', 'description': ''})
+			notes.displayList( dom )
 		else:
-			dom.setContents( { "Title." + str(self.index): title, "Description." + str(self.index): description })
-			self.view( dom )
+			dom.setContents( { "Title." + str(notes.index): title, "Description." + str(notes.index): description })
+			notes.view( dom )
 	else:
-		dom.alert("Title can not be empty !")
+		dom.alert("Title can not be empty!")
 		dom.focus("Title")
 
-def acCancel( self, dom, id):
-	note = self.notes[self.index]
+def acCancel( notes, dom):
+	note = notes.notes[notes.index]
 
 	result = dom.getContents(["Title", "Description"])
 	title = result["Title"].strip()
 	description = result["Description"]
 
 	if (title != note['title']) or (description != note['description']):
-		if dom.confirm("Are you sure you want to cancel your modifications ?"):
-			self.view( dom )
+		if dom.confirm("Are you sure you want to cancel your modifications?"):
+			notes.view( dom )
 	else:
-		self.view( dom )
+		notes.view( dom )
 
 callbacks = {	
 	"": acConnect,

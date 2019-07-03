@@ -94,48 +94,48 @@ def move_stars(stars):
 def readAsset(path):
 	return Atlas.readAsset(path, "Stars")
 
-def acConnect(self,dom,id):
+def acConnect(self,dom):
 	dom.setLayout("", readAsset("Main.html"))
 
 pos = WINCENTER
 
-def acCenter(self,dom,id):
+def acCenter(self,dom):
     global pos;
     pos = [WINSIZE[0]/2, WINSIZE[1]/2]
 
-def acRight(self,dom,id):
+def acRight(self,dom):
     global pos;
     pos = [pos[0] + STEP, pos[1]]
 
-def acEnd(self,dom,id):
+def acEnd(self,dom):
     global pos;
     pos = [WINSIZE[0], pos[1]]
 
-def acDown(self,dom,id):
+def acDown(self,dom):
     global pos;
     pos = [pos[0], pos[1] + STEP]
 
-def acBottom(self,dom,id):
+def acBottom(self,dom):
     global pos;
     pos = [pos[0], WINSIZE[1]]
 
-def acLeft(self,dom,id):
+def acLeft(self,dom):
     global pos;
     pos = [pos[0] - STEP, pos[1]]
 
-def acBegin(self,dom,id):
+def acBegin(self,dom):
     global pos;
     pos = [0,pos[1]]
 
-def acUp(self,dom,id):
+def acUp(self,dom):
     global pos;
     pos = [pos[0], pos[1] - STEP]
 
-def acTop(self,dom,id):
+def acTop(self,dom):
     global pos;
     pos = [pos[0], 0]
 
-def acToggle(self,dom,id):
+def acToggle(self,dom):
     dom.toggleClass("Simple", "hidden")
     dom.toggleClass("Expert", "hidden")
 

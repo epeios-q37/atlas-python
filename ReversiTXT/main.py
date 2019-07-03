@@ -210,7 +210,7 @@ def drawBoard(reversi, dom, prefetch=False):
     })
 
 
-def acConnect(reversi, dom, id):
+def acConnect(reversi, dom):
     reversi.player = BLACK
     reversi.weight_matrix = WEIGHT_MATRIX
     dom.setLayout("", readAsset("Main.html"))
@@ -245,7 +245,7 @@ def acPlay(reversi, dom, id):
             dom.alert('Egality!')
 
 
-def acNew(reversi, dom, id):
+def acNew(reversi, dom):
     reversi.reset()
     drawBoard(reversi, dom)
 

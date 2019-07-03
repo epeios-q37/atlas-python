@@ -47,15 +47,15 @@ body = """
 </div>
 """
 
-def acConnect(self, dom, id):
+def acConnect(self, dom):
 	dom.setLayout("", body )
 	dom.focus( "input")
 
-def acSubmit(self, dom, id):
+def acSubmit(self, dom):
 	dom.alert("Hello, " + dom.getContent("input") + "!")
 	dom.focus( "input")
 
-def acClear(self, dom, id):
+def acClear(self, dom):
 	if ( dom.confirm("Are you sure?" ) ):
 		dom.setContent("input", "" )
 	dom.focus( "input")

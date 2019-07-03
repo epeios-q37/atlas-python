@@ -64,7 +64,7 @@ def readAsset(path):
 class Poppy:
   pass
 
-def acConnect(Poppy,dom,id):
+def acConnect(Poppy,dom):
 	dom.setLayout("", readAsset( "Main.html") )
 
 def acMove(Poppy,dom,id):
@@ -79,7 +79,7 @@ def set( dom, motor, position ):
 def reset( dom, motor ):
   set(dom, motor, 0)
 	
-def acReset(Poppy,dom,id):
+def acReset(Poppy,dom):
   global poppy
   reset( dom, "m1")
   reset( dom, "m2")

@@ -35,7 +35,7 @@ def createHTML(rootTag=""):	# If 'rootTag' is empty, there will be no root tag i
 	return XDHq.XML(rootTag)
 
 def _call(func, userObject, dom, id, action):
-	amount = len(inspect.getfullargspec(func).args)
+	amount = len(inspect.getargspec(func).args)
 	args = []
 
 	if ( amount == 4 ):
@@ -57,9 +57,9 @@ def worker(userCallback,dom,callbacks):
 	userObject = userCallback()
 	while True:
 		[action,id] = dom.getAction()
-		if action=="" or not "_PreProcess" in callbacks or callbacks["_PreProcess"](userObject, dom, action, id):
+		if action=="" or not "_PreProcess" in callbacks or _call(callbacks["_PreProcess"],userObject, dom, id, action):
 			if _call(callbacks[action], userObject, dom, id, action ) and "_PostProcess" in callbacks:
-				callbacks["_PostProcess"](userObject, dom, action, id)
+				_call(callbacks["_PostProcess"],userObject, dom, id, action)
 
 def callback(userCallback,callbacks,instance):
 	thread = threading.Thread(target=worker, args=(userCallback, XDHq.DOM(instance), callbacks))

@@ -362,14 +362,14 @@ class GPIO:
 
 		self.display(dom)
 	
-def preProcess(GPIO,dom,action,id):
+def preProcess(GPIO,dom):
 	if GPIO.take():
 		return True
 	else:
 		dom.alert("Out of sync! Resynchronizing !")
 		GPIO.display(dom)
 
-def acConnect(GPIO,dom,id):
+def acConnect(GPIO,dom):
 	dom.setLayout("", readAsset( "Main.html") )
 	GPIO.take()
 	GPIO.display(dom)
@@ -386,12 +386,12 @@ callbacks = {
 		"SwitchMode": acSwitchMode,
 		"ChangeValue": acChangeValue,
 		"Toggle": lambda GPIO, dom, id: GPIO.setSelected(dom,getWId(id),None),
-		"All": lambda GPIO, dom, id: GPIO.setAllSelected(dom, True),
-		"None": lambda GPIO, dom, id: GPIO.setAllSelected(dom, False),
-		"Invert": lambda GPIO, dom, id: GPIO.setAllSelected(dom, None),
-		"IN": lambda GPIO, dom, id: GPIO.setAllMode(dom,Mode.IN),
-		"OUT": lambda GPIO, dom, id: GPIO.setAllMode(dom,Mode.OUT),
-		"PWM": lambda GPIO, dom, id: GPIO.setAllMode(dom,Mode.PWM),
+		"All": lambda GPIO, dom: GPIO.setAllSelected(dom, True),
+		"None": lambda GPIO, dom: GPIO.setAllSelected(dom, False),
+		"Invert": lambda GPIO, dom: GPIO.setAllSelected(dom, None),
+		"IN": lambda GPIO, dom: GPIO.setAllMode(dom,Mode.IN),
+		"OUT": lambda GPIO, dom: GPIO.setAllMode(dom,Mode.OUT),
+		"PWM": lambda GPIO, dom: GPIO.setAllMode(dom,Mode.PWM),
 	}
 
 GPIOq.setup()
