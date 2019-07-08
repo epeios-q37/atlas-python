@@ -49,7 +49,7 @@ class XML:
 
 	def putTagAndValue(self,tag,value):
 		self.pushTag(tag)
-		self.setValue(value)
+		self.putValue(value)
 		self.popTag()		
 
 	def toString(self):
