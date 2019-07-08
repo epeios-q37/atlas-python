@@ -102,22 +102,37 @@ class DOM:
 	def confirm(self,message):
 		return self._dom.call( "Confirm_1", _STRING, 1, message, 0 ) == "true"
 
-	def _setLayout(self, id, xml, xslFilename):
-	#	If 'xslFilename' is empty, 'xml' contents HTML.
-	# 	If 'xml' is HTML and uses the compressed form, if it has a root tag, only the children will be used.
-		self._dom.call("SetLayout_1", _VOID, 3, id, xml if isinstance(xml,str) else xml.toString(), xslFilename, 0)
+	def _handleLayout(self, command, id, xml, xsl):
+		#	If 'xslFilename' is empty, 'xml' contents HTML.
+		# 	If 'xml' is HTML and uses the compressed form, if it has a root tag, only the children will be used.
+		self._dom.call(command, _VOID, 3, id, xml if isinstance(xml,str) else xml.toString(), xsl, 0)
+
+	def prependLayout(self,id,html):
+		self._handleLayout("PrependLayout_1",id,html,"")
 
 	def setLayout(self,id,html):
-		self._setLayout(id,html,"")
+		self._handleLayout("SetLayout_1",id,html,"")
 
-	def setLayoutXSL(self, id, xml, xsl ):
+	def appendLayout(self,id,html):
+		self._handleLayout("AppendLayout_1",id,html,"")
+
+	def _handleLayoutXSL(self, command, id, xml, xsl):
 		global _dir
 		xslURL = xsl
 
 		if True:	# Testing if 'PROD' or 'DEMO' mode when available.
 			xslURL = "data:text/xml;charset=utf-8," + _encode( _readXSLAsset( xsl, _dir ) )
 
-		self._setLayout( id, xml, xslURL )
+		self._handleLayout(command, id, xml, xslURL )
+
+	def prependLayoutXSL(self, id, xml, xsl):
+		self._handleLayoutXSL("PrependLayout_1",id,xml,xsl)
+
+	def setLayoutXSL(self, id, xml, xsl):
+		self._handleLayoutXSL("SetLayout_1",id,xml,xsl)
+
+	def appendLayoutXSL(self, id, xml, xsl):
+		self._handleLayoutXSL("AppendLayout_1",id,xml,xsl)
 
 	def getContents(self, ids):
 		return _unsplit(ids,self._dom.call("GetContents_1",_STRINGS, 0, 1, ids))
@@ -136,14 +151,20 @@ class DOM:
 	def setTimeout(self,delay,action ):
 		self._dom.call( "SetTimeout_1", _VOID, 2, str( delay ), action, 0 )
 
+	"""
+	# Following 4 methods will either be removed or redesigned.
+
+	# Will become a variation of 'createElementNS(…)',
+	# with a optional list of attributes.
 	def createElement(self, name, id = "" ):
 		return self._dom.call( "CreateElement_1", _STRING, 2, name, id, 0 )
 
+	# Will become 'prependChild(…)', with variations.
 	def insertChild(self,child,id):
 		self._dom.call( "InsertChild_1", _VOID, 2, child, id, 0 )
 
-# NOTA: The 'CSSRule' related methods will be probably removed.
-# Enabling/disabling styles are easier to use.
+	# NOTA: The 'CSSRule' related methods will be probably removed.
+	# Enabling/disabling styles are easier to use.
 	def insertCSSRule(self,rule,index,id=""):
 		self._dom.call("InsertCSSRule_1", _VOID, 3, id, rule, str(index), 0)
 
@@ -152,6 +173,7 @@ class DOM:
 
 	def removeCSSRule(self,index,id=""):
 		self._dom.call("RemoveCSSRule_1", _VOID, 2, id, str(index), 0)
+	"""
 
 	def dressWidgets(self,id):
 		return self._dom.call( "DressWidgets_1", _VOID, 1, id, 0 )

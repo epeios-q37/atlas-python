@@ -3,8 +3,17 @@
 - Common to **all** bindings,
 - does **not** concern the native code,
 
+## 2019-07-08:
+
+*ALL*:
+    - switching to 0.10.0,
+
 ## 2019-07-03
 
+- *Perl*
+  - updating the *API* to fit with the version 0.9 (not documented yet),
+  - switching to 0.9.0,
+  - (adding the *Notes* application),
 - *Python*:
   - fixing issue that prevented the toolkit from working with *Python* 2,
   - switching to 0.9.9

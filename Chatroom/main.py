@@ -75,9 +75,7 @@ class Chatroom:
 		global messages
 		
 		if len(messages) > self.lastMessage:
-			id = dom.createElement("span")
-			dom.setLayoutXSL(id, self.buildXML(), "Messages.xsl")
-			dom.insertChild(id, "Board")
+			dom.prependLayoutXSL("Board", self.buildXML(), "Messages.xsl")
 
 	def handlePseudo(self, pseudo):
 		global pseudos, lock

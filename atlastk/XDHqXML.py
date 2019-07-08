@@ -38,16 +38,16 @@ class XML:
 	def popTag(self):
 		self._xml += "<"
 
-	def setAttribute(self,name,value):
+	def putAttribute(self,name,value):
 		self._xml += "A"
 		self._write(name)
 		self._write(str(value))
 
-	def setValue(self,value):
+	def putValue(self,value):
 		self._xml += "V"
 		self._write(str(value))
 
-	def setTagAndValue(self,tag,value):
+	def putTagAndValue(self,tag,value):
 		self.pushTag(tag)
 		self.setValue(value)
 		self.popTag()		
