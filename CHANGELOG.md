@@ -3,7 +3,13 @@
 - Common to **all** bindings,
 - does **not** concern the native code,
 
-## 2019-07-08:
+## 2019-07-09
+
+- *Python*
+  - fixing encoding issue under *Python* 2,
+  - using ordered dictionaries under *Python* 2, to facilitate the retrieving of values, by using `values()` method, with methods returning dictionaries (dictionaries are ordered by default under *Python* 3),
+
+## 2019-07-08
 
 *ALL*:
     - switching to 0.10.0,

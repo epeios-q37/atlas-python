@@ -88,7 +88,7 @@ def drawSquare(board, x, y):
     board.setAttribute("data-xdh-onevent", "Swap")
     board.setAttribute("x", x * 100 + 24)
     board.setAttribute("y", y * 100 + 24)
-    board.setAttribute("xlink:href", "#stone")
+    board.setAttribute("href", "#stone")
     board.popTag()
 
 
