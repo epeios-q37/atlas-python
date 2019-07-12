@@ -84,11 +84,11 @@ def convert(pos):
 
 def drawSquare(board, x, y):
     board.pushTag("use")
-    board.setAttribute("id", y * 4 + x)
-    board.setAttribute("data-xdh-onevent", "Swap")
-    board.setAttribute("x", x * 100 + 24)
-    board.setAttribute("y", y * 100 + 24)
-    board.setAttribute("href", "#stone")
+    board.putAttribute("id", y * 4 + x)
+    board.putAttribute("data-xdh-onevent", "Swap")
+    board.putAttribute("x", x * 100 + 24)
+    board.putAttribute("y", y * 100 + 24)
+    board.putAttribute("href", "#stone")
     board.popTag()
 
 
@@ -102,9 +102,9 @@ def drawGrid(dom):
 
 def setText(texts, x, y):
     texts.pushTag("tspan")
-    texts.setAttribute("id", "t" + str(y * 4 + x))
-    texts.setAttribute("x", x * 100 + 72)
-    texts.setAttribute("y", y * 100 + 90)
+    texts.putAttribute("id", "t" + str(y * 4 + x))
+    texts.putAttribute("x", x * 100 + 72)
+    texts.putAttribute("y", y * 100 + 90)
     texts.popTag()
 
 

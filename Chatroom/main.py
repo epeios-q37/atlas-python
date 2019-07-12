@@ -44,7 +44,7 @@ class Chatroom:
 	def buildXML(self):
 		xml = Atlas.createXML("XDHTML")
 		xml.pushTag( "Messages" )
-		xml.setAttribute( "pseudo", self.pseudo )
+		xml.putAttribute( "pseudo", self.pseudo )
 
 		global messages, pseudos, lock
 
@@ -56,9 +56,9 @@ class Chatroom:
 			message = messages[index]
 
 			xml.pushTag( "Message" )
-			xml.setAttribute( "id", index )
-			xml.setAttribute( "pseudo", message['pseudo'] )
-			xml.setValue( message['content'] )
+			xml.putAttribute( "id", index )
+			xml.putAttribute( "pseudo", message['pseudo'] )
+			xml.putValue( message['content'] )
 			xml.popTag()
 
 			index -= 1

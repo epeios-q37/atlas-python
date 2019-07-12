@@ -53,9 +53,9 @@ class TodoMVC:
 
 	def push(self, todo, id, xml):
 		xml.pushTag("Todo")
-		xml.setAttribute("id", id)
-		xml.setAttribute("completed", "true" if todo['completed'] else "false")
-		xml.setValue(todo['label'])
+		xml.putAttribute("id", id)
+		xml.putAttribute("completed", "true" if todo['completed'] else "false")
+		xml.putValue(todo['label'])
 		xml.popTag()
 
 	def displayCount(self, dom, count):

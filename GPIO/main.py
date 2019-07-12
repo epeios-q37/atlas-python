@@ -215,7 +215,7 @@ class GPIO:
 
 	def _handleModeButtons(self,dom):
 		global mapping
-		enable = False;
+		enable = False
 		buttons=[]
 
 		for label in Mode.label:
@@ -280,8 +280,8 @@ class GPIO:
 
 		for mode in Mode.label:
 			xml.pushTag("Mode")
-			xml.setAttribute("id", mode)
-			xml.setAttribute("Label", Mode.label[mode])
+			xml.putAttribute("id", mode)
+			xml.putAttribute("Label", Mode.label[mode])
 			xml.popTag()
 
 		xml.popTag()
@@ -301,10 +301,10 @@ class GPIO:
 
 		for wId in mapping:
 			xml.pushTag("GPIO")
-			xml.setAttribute( "id", wId)
-			xml.setAttribute("Selected", self._getSelected(wId))
-			xml.setAttribute("Mode",self._getMode(wId))
-			xml.setAttribute("Value",self._getValue(wId))
+			xml.putAttribute( "id", wId)
+			xml.putAttribute("Selected", self._getSelected(wId))
+			xml.putAttribute("Mode",self._getMode(wId))
+			xml.putAttribute("Value",self._getValue(wId))
 			xml.popTag()
 
 		xml.popTag()

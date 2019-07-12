@@ -54,7 +54,13 @@ def _call(func, userObject, dom, id, action):
 
 
 def worker(userCallback,dom,callbacks):
-	userObject = userCallback()
+	args=[]
+
+	if ( not(inspect.isclass(userCallback)) and len(inspect.getargspec(userCallback).args) == 1 ):
+		args.append(dom)
+
+	userObject = userCallback(*args)
+	
 	while True:
 		[action,id] = dom.getAction()
 		if action=="" or not "_PreProcess" in callbacks or _call(callbacks["_PreProcess"],userObject, dom, id, action):

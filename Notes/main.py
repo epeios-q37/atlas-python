@@ -37,7 +37,7 @@ def readAsset(path):
 
 def put(note, id, xml ):
 	xml.pushTag("Note")
-	xml.setAttribute("id", id)
+	xml.putAttribute("id", id)
 
 	for key in note:
 		xml.setTagAndValue(key, note[key])

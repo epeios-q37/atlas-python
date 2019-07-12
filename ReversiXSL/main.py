@@ -196,13 +196,13 @@ def drawBoard(reversi, dom):
     board = Atlas.createXML("Board")
     for y, row in enumerate(reversi.board):
         board.pushTag("Row")
-        board.setAttribute("y", str(y))
+        board.putAttribute("y", str(y))
         for x, r in enumerate(row):
             board.pushTag("Square")
-            board.setAttribute( "x", str(x))
+            board.putAttribute( "x", str(x))
             if (r == EMPTY) and (reversi.isAllowed(y, x, reversi.player)):
-                board.setAttribute("Playable", "true")
-            board.setValue({EMPTY: 'None', BLACK: 'Dark', WHITE: 'Light'}[r])
+                board.putAttribute("Playable", "true")
+            board.putValue({EMPTY: 'None', BLACK: 'Dark', WHITE: 'Light'}[r])
             board.popTag()
         board.popTag()
 
@@ -284,4 +284,4 @@ callbacks = {
     "ToggleLayout": acToggleLayout,
 }
 
-Atlas.launch(callbacks, lambda: Reversi(), readAsset("Head.html"), "ReversiXSL")
+Atlas.launch(callbacks, Reversi, readAsset("Head.html"), "ReversiXSL")

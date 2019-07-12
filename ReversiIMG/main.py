@@ -193,14 +193,14 @@ def drawBoard(reversi, dom, prefetch=False):
         board.pushTag("tr")
         for x, r in enumerate(row):
             board.pushTag("td")
-            board.setAttribute("id", str(x) + str(y))
+            board.putAttribute("id", str(x) + str(y))
             if (r == EMPTY) and (reversi.isAllowed(y, x, reversi.player)):
-                board.setAttribute("data-xdh-onevent", "Play")
+                board.putAttribute("data-xdh-onevent", "Play")
                 if (prefetch == True):
                     r = reversi.player
-                    board.setAttribute(
+                    board.putAttribute(
                         "style", "opacity: 0.1; background-color: white;")
-            board.setAttribute(
+            board.putAttribute(
                 "class", {EMPTY: 'none', BLACK: 'black', WHITE: 'white'}[r])
             board.popTag()
         board.popTag()
