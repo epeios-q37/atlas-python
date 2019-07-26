@@ -40,7 +40,7 @@ def put(note, id, xml ):
 	xml.putAttribute("id", id)
 
 	for key in note:
-		xml.setTagAndValue(key, note[key])
+		xml.putTagAndValue(key, note[key])
 
 	xml.popTag()
 

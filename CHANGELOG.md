@@ -3,9 +3,19 @@
 - Common to **all** bindings,
 - does **not** concern the native code,
 
+## 2019-07-26
+
+- *Python*:
+  - switching to 0.10.4,
+
+## 2019-07-17
+
+- *Python*:
+  - *CTRL-C* does no more display messages,
+
 ## 2019-07-09
 
-- *Python*
+- *Python*:
   - fixing encoding issue under *Python* 2,
   - using ordered dictionaries under *Python* 2, to facilitate the retrieving of values, by using `values()` method, with methods returning dictionaries (dictionaries are ordered by default under *Python* 3),
 

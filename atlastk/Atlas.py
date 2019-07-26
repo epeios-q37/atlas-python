@@ -28,6 +28,13 @@ import threading
 import inspect
 from XDHq import readAsset
 
+import signal, sys
+
+def signal_handler(sig, frame):
+  sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+
 def createXML(rootTag):
 	return XDHq.XML(rootTag)
 
