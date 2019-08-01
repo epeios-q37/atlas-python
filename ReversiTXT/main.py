@@ -34,8 +34,8 @@ import random
 import itertools
 import time
 
-sys.path.append("./Atlas.python.zip")
-sys.path.append("../Atlas.python.zip")
+sys.path.append("./atlastk")
+sys.path.append("../atlastk")
 
 import atlastk as Atlas
 
@@ -256,4 +256,4 @@ callbacks = {
     "New": acNew
 }
 
-Atlas.launch(callbacks, lambda: Reversi(), readAsset("Head.html"), "ReversiTXT")
+Atlas.launch(callbacks, Reversi, readAsset("Head.html"), "ReversiTXT")

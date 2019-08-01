@@ -100,6 +100,9 @@ class DOM:
 	def execute(self,script):
 		return self._dom.call("Execute_1" ,_STRING, 1, script, 0)
 
+	def flush(self):	# Returns when all the pending command were executed.
+		self.execute("''")
+
 	def alert(self,message):
 		self._dom.call( "Alert_1", _STRING, 1, message, 0 )
 		# For the return value being 'STRING' instead of 'VOID',

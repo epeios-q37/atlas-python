@@ -24,23 +24,23 @@ SOFTWARE.
 
 import os, sys
 
-sys.path.append("./Atlas.python.zip")
-sys.path.append("../Atlas.python.zip")
+sys.path.append("./atlastk")
+sys.path.append("../atlastk")
 
 import atlastk as Atlas
 
 def readAsset(path):
 	return Atlas.readAsset(path, "Hello")
 
-def acConnect(self, dom):
+def acConnect(dom):
 	dom.setLayout("", readAsset( "Main.html") )
 	dom.focus( "input")
 
-def acSubmit(self, dom):
+def acSubmit(dom):
 	dom.alert("Hello, " + dom.getContent("input") + "!")
 	dom.focus( "input")
 
-def acClear(self, dom):
+def acClear(dom):
 	if ( dom.confirm("Are you sure?" ) ):
 		dom.setContent("input", "" )
 	dom.focus( "input")
@@ -51,4 +51,4 @@ callbacks = {
 	"Clear": acClear,
 }
 		
-Atlas.launch(callbacks, lambda: None, readAsset("Head.html"))
+Atlas.launch(callbacks, None, readAsset("Head.html"))

@@ -24,27 +24,27 @@ SOFTWARE.
 
 import os, sys
 
-sys.path.append("./Atlas.python.zip")
-sys.path.append("../Atlas.python.zip")
+sys.path.append("./atlastk")
+sys.path.append("../atlastk")
 
 import atlastk as Atlas
 
 def readAsset(path):
 	return Atlas.readAsset(path, "blank")
 
-def acConnect(self,dom):
+def acConnect(dom):
 	dom.setLayout("", readAsset("Main.html"))
 	dom.addClass("Input","hidden")
 
-def acShowInput(self,dom):
+def acShowInput(dom):
 	dom.removeClass("Input", "hidden")
 	dom.focus("Pattern")
 
 callbacks = {
 	"": acConnect,
-	"Submit": lambda self, dom, id: dom.setContent("Pattern", dom.getContent("Pattern").upper() ),
-	"HideInput": lambda self, dom, id: dom.addClass("Input", "hidden"),
+	"Submit": lambda dom, id: dom.setContent("Pattern", dom.getContent("Pattern").upper() ),
+	"HideInput": lambda dom, id: dom.addClass("Input", "hidden"),
 	"ShowInput": acShowInput,
 }
 
-Atlas.launch(callbacks, lambda: None, readAsset("Head.html"), "blank")
+Atlas.launch(callbacks, None, readAsset("Head.html"), "blank")

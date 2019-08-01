@@ -45,6 +45,9 @@ def _call(func, userObject, dom, id, action):
 	amount = len(inspect.getargspec(func).args)
 	args = []
 
+	if ( not(userObject)) :
+		amount += 1
+
 	if ( amount == 4 ):
 		args.insert(0,action)
 
@@ -54,7 +57,7 @@ def _call(func, userObject, dom, id, action):
 	if( amount >= 2 ):
 		args.insert(0,dom)
 
-	if( amount >= 1 ):
+	if( userObject and (amount >= 1 )):
 		args.insert(0,userObject)
 
 	return func(*args)
@@ -62,11 +65,14 @@ def _call(func, userObject, dom, id, action):
 
 def worker(userCallback,dom,callbacks):
 	args=[]
+	userObject = None
 
-	if ( not(inspect.isclass(userCallback)) and len(inspect.getargspec(userCallback).args) == 1 ):
-		args.append(dom)
+	if ( userCallback != None ):
 
-	userObject = userCallback(*args)
+		if ( not(inspect.isclass(userCallback)) and len(inspect.getargspec(userCallback).args) == 1 ):
+			args.append(dom)
+
+		userObject = userCallback(*args)
 	
 	while True:
 		[action,id] = dom.getAction()
@@ -80,6 +86,6 @@ def callback(userCallback,callbacks,instance):
 	thread.start()
 	return thread
 
-def launch(callbacks, userCallback = lambda: None, headContent = "", dir = ""):
+def launch(callbacks, userCallback = None, headContent = "", dir = ""):
 	XDHq.launch(callback,userCallback,callbacks,headContent,dir)
 

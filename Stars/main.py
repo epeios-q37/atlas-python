@@ -37,9 +37,9 @@ from pygame.locals import *
 from threading import Thread
 import threading
 
-sys.path.append("./Atlas.python.zip")
-sys.path.append("../Atlas.python.zip")
-sys.path.append("../../Atlas.python.zip")
+sys.path.append("./atlastk")
+sys.path.append("../atlastk")
+sys.path.append("../../atlastk")
 
 import atlastk as Atlas
 
@@ -94,48 +94,48 @@ def move_stars(stars):
 def readAsset(path):
 	return Atlas.readAsset(path, "Stars")
 
-def acConnect(self,dom):
+def acConnect(,dom):
 	dom.setLayout("", readAsset("Main.html"))
 
 pos = WINCENTER
 
-def acCenter(self,dom):
+def acCenter(dom):
     global pos;
     pos = [WINSIZE[0]/2, WINSIZE[1]/2]
 
-def acRight(self,dom):
+def acRight(dom):
     global pos;
     pos = [pos[0] + STEP, pos[1]]
 
-def acEnd(self,dom):
+def acEnd(dom):
     global pos;
     pos = [WINSIZE[0], pos[1]]
 
-def acDown(self,dom):
+def acDown(dom):
     global pos;
     pos = [pos[0], pos[1] + STEP]
 
-def acBottom(self,dom):
+def acBottom(dom):
     global pos;
     pos = [pos[0], WINSIZE[1]]
 
-def acLeft(self,dom):
+def acLeft(dom):
     global pos;
     pos = [pos[0] - STEP, pos[1]]
 
-def acBegin(self,dom):
+def acBegin(dom):
     global pos;
     pos = [0,pos[1]]
 
-def acUp(self,dom):
+def acUp(dom):
     global pos;
     pos = [pos[0], pos[1] - STEP]
 
-def acTop(self,dom):
+def acTop(dom):
     global pos;
     pos = [pos[0], 0]
 
-def acToggle(self,dom):
+def acToggle(dom):
     dom.toggleClass("Simple", "hidden")
     dom.toggleClass("Expert", "hidden")
 
@@ -154,7 +154,7 @@ callbacks = {
 }
 
 def atlas():
-    Atlas.launch(callbacks, lambda: None, readAsset("Head.html"), "Stars")
+    Atlas.launch(callbacks, None, readAsset("Head.html"), "Stars")
 
 def main():
     global pos;

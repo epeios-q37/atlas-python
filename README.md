@@ -2,7 +2,7 @@
 
 ![For Python](http://q37.info/download/assets/Python.png "Python logo")
 
-[![Version 0.10.4](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.10.4)](http://q37.info/s/gei0veus) [![Download stats](https://img.shields.io/pypi/dm/atlastk.svg)](https://pypistats.org/packages/atlastk) [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python)[![License](https://img.shields.io/pypi/l/atlastk.svg?style=plastic)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE)
+[![Version 0.10.7](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.10.7)](http://q37.info/s/gei0veus) [![Download stats](https://img.shields.io/pypi/dm/atlastk.svg)](https://pypistats.org/packages/atlastk) [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python)[![License](https://img.shields.io/pypi/l/atlastk.svg?style=plastic)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE)
 
 **If you are looking for the *WebGPIO* application, you will find it at the bottom of this page (in the *Raspberry Pi*/*ODROID-C2* section).**
 
@@ -60,21 +60,21 @@ body = """
 </div>
 """
 
-def acConnect(hello, dom):
+def acConnect(dom):
   dom.setLayout("", body)
   dom.focus("input")
 
-def acSubmit(hello, dom):
+def acSubmit(dom):
   dom.alert("Hello, " + dom.getContent("input") + "!")
   dom.focus("input")
 
-def acClear(hello, dom):
+def acClear(dom):
   if ( dom.confirm("Are you sure?") ):
     dom.setContent("input", "")
   dom.focus("input")
 
 callbacks = {
-  "": acConnect,  # This key is the action label for a new connection.
+  "": acConnect,  # The action label for a new connection is an empty string.
   "Submit": acSubmit,
   "Clear": acClear,
 }
@@ -92,9 +92,7 @@ For a live demonstration: <http://q37.info/s/n9nnwzcg>.
 
 ## Content of the repository
 
-The `atlastk` directory contains the *Python* source code of the *Atlas* toolkit, which is not needed to run the examples.
-
-`Atlas.python.zip` is the file you have to reference in `PYTHONPATH` in order to use the *Atlas* toolkit in your own program (unless you have installed the [*atlastk* package](http://q37.info/s/9srmskcm) with `pip install atlastk`).
+The `atlastk` directory contains the *Python* source code of the *Atlas* toolkit, and is the directory you have to reference in `PYTHONPATH` in order to use the *Atlas* toolkit in your own program (unless you have installed the [*atlastk* package](http://q37.info/s/9srmskcm) with `pip install atlastk`).
 
 All other directories are examples.
 
@@ -104,7 +102,7 @@ The *Stars* application is an example where the *Atlas* *toolkit* is used to con
 
 ## *Raspberry Pi*/*ODROID-C2*
 
-**If the applications do not work on your *Raspberry Pi*, please see this issue: <https://github.com/epeios-q37/atlas-python/issues/1>**
+**If the applications does not work on your *Raspberry Pi*, please see this issue: <https://github.com/epeios-q37/atlas-python/issues/1>**
 
 The *GPIO* and *RGB* applications are designed to be used on a *Raspberry Pi* or a *ODROID-C2*.
 

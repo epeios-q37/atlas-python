@@ -3,6 +3,21 @@
 - Common to **all** bindings,
 - does **not** concern the native code,
 
+## 2019-08-01
+
+- *Python*
+  - switching to 0.10.7,
+
+## 2019-07-31
+
+- *Python*:
+  - if the `userCallback` parameter of the `Launch(…)` function is or returns `None`, the (optional) first parameter passed to the callbacks will be the *DOM* object (which is otherwise passed as second parameter, the user object returned by the user callback being the first),
+
+## 2019-07-28
+
+- *Python*:
+  - the user callback can now be `None`,
+
 ## 2019-07-26
 
 - *Python*:

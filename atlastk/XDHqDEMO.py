@@ -281,9 +281,9 @@ def _ignition():
 		print("Open above URL in a web browser. Enjoy!\n")
 		if ( getEnv("ATK") == "REPLit"):
 #			print("IF THE PROGRAM DOES NOT WORK PROPERLY, PLEASE SEE http://q37.info/s/zbgfjtp9")
-			print("IF THE PROGRAM DOES NOT WORK PROPERLY, YOU PROBABLY FORGOT TO FORK!")
-			print("IF IT STILL DOES NOT WORK AFTER FORKING, RELOAD THE COMPLETE PAGE!")
-			print( "See http://q37.info/s/zbgfjtp9 for more details.\n")
+#			print("IF THE PROGRAM DOES NOT WORK PROPERLY, YOU PROBABLY FORGOT TO FORK!")
+#			print("IF IT STILL DOES NOT WORK AFTER FORKING, RELOAD THE COMPLETE PAGE!")
+			print( "If the program does not work properly, see http://q37.info/s/zbgfjtp9.\n")
 			_REPLit(url)
 		else:
 			XDHqSHRD.open(url)

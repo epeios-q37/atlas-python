@@ -24,7 +24,7 @@ SOFTWARE.
 
 import setuptools
 
-version = "0.10.4"
+version = "0.10.7"
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -35,17 +35,11 @@ setuptools.setup(
     author="Claude SIMON",
 #    author_email="author@example.com",
     description="A fast and easy way to add a graphical user interface (GUI) to your programs.",
-    keywords="GUI web",
+    keywords="GUI, web",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="http://q37.info/s/c7hfkzvs",
+    url="https://github.com/epeios-q37/atlas-python",
     packages=setuptools.find_packages(),
-    project_urls= {
-    'Contact': 'http://q37.info/s/ggq7x4w7',
-    'Homepage': 'http://atlastk.org',
-    'Source': 'http://q37.info/s/c7hfkzvs',
-    'API': 'http://q37.info/s/gei0veus',
-    },
     classifiers=[
       "Environment :: Web Environment",
       "Development Status :: 5 - Production/Stable",
