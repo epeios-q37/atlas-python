@@ -1,0 +1,7 @@
+# Note pour le mainteneur.
+# -----------------------
+# Ce fichier est destiné à 'http://repl.it'.
+# Il est renommé en '.replit' lors de la publication.
+
+language = "bash"
+run = "python3 replit"

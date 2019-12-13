@@ -30,7 +30,7 @@ sys.path.append("../atlastk")
 import atlastk as Atlas
 
 def readAsset(path):
-	return Atlas.readAsset(path, "blank")
+	return Atlas.readAsset(path, "Blank")
 
 def acConnect(dom):
 	dom.setLayout("", readAsset("Main.html"))
@@ -47,4 +47,4 @@ callbacks = {
 	"ShowInput": acShowInput,
 }
 
-Atlas.launch(callbacks, None, readAsset("Head.html"), "blank")
+Atlas.launch(callbacks, None, readAsset("Head.html"), "Blank")

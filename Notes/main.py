@@ -33,7 +33,7 @@ import atlastk as Atlas
 viewModeElements = ["Pattern", "CreateButton", "DescriptionToggling", "ViewNotes"]
 
 def readAsset(path):
-	return Atlas.readAsset(path, "notes")
+	return Atlas.readAsset(path, "Notes")
 
 def put(note, id, xml ):
 	xml.pushTag("Note")
@@ -165,4 +165,4 @@ callbacks = {
 	"Cancel": acCancel,
 }
 
-Atlas.launch(callbacks, Notes, readAsset("Head.html"), "notes")
+Atlas.launch(callbacks, Notes, readAsset("Head.html"), "Notes")

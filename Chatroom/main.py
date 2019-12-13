@@ -34,7 +34,7 @@ pseudos = []
 lock = threading.Lock()
 
 def readAsset(path):
-	return Atlas.readAsset(path, "chatroom")
+	return Atlas.readAsset(path, "Chatroom")
 
 class Chatroom:
 	def __init__(self):
@@ -146,4 +146,4 @@ callbacks = {
 		"Update": acUpdate,
 	}
 		
-Atlas.launch(callbacks, Chatroom, readAsset("Head.html"), "chatroom")
+Atlas.launch(callbacks, Chatroom, readAsset("Head.html"), "Chatroom")

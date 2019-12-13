@@ -74,7 +74,7 @@ def _unsplit(keys,values):
 
 def _getAssetPath(dir):
 	if XDHqSHRD.isDev():
-		return os.path.join("/cygdrive/h/hg/epeios/tools/xdhq/examples/common/", dir )
+		return os.path.join(os.environ["Q37_EPEIOS"],"tools/xdhq/examples/common/", dir )
 	else:
 		return os.path.abspath(os.path.dirname(sys.argv[0]))
 
