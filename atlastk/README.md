@@ -2,31 +2,29 @@
 
 ![For Python](http://q37.info/download/assets/Python.png "Python logo")
 
-[![Version](https://img.shields.io/pypi/v/atlastk?color=90b4ed&label=PyPi)](http://q37.info/s/9srmskcm) [![Download stats](https://img.shields.io/pypi/dm/atlastk.svg)](https://pypistats.org/packages/atlastk) [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python)[![license: MIT](https://img.shields.io/github/license/epeios-q37/atlas-python)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE) [![Documentation](https://img.shields.io/static/v1?label=support&message=atlastk.org&color=yellow)](https://atlastk.org)
+[![Run on Repl.it](https://repl.it/badge/github/epeios-q37/atlas-python)](https://q37.info/s/vwpsw73v)[![Version](https://img.shields.io/pypi/v/atlastk?color=90b4ed&label=PyPi)](http://q37.info/s/9srmskcm) [![Download stats](https://img.shields.io/pypi/dm/atlastk.svg)](https://pypistats.org/packages/atlastk) [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python)[![license: MIT](https://img.shields.io/github/license/epeios-q37/atlas-python)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE) [![Documentation](https://img.shields.io/static/v1?label=support&message=atlastk.org&color=yellow)](https://atlastk.org)
 
-**If you are looking for the *WebGPIO* application, you will find it at the bottom of this page (in the *Raspberry Pi*/*ODROID-C2* section).**
+**If you are looking for the *WebGPIO* application, you will find it at the bottom of this page, in the *Raspberry Pi*/*ODROID-C2* section.**
 
-A fast and easy way to add a graphical user interface ([GUI](http://q37.info/s/hw9n3pjs)) to your *Python* programs.
+The *Atlas* toolkit is probably the fastest and easiest way to add a graphical user interface ([GUI](http://q37.info/s/hw9n3pjs)) to your *Python* programs.
 
-With the *Atlas* toolkit, both [front and back ends](http://q37.info/s/px7hhztd) are handled by the same code, and the programs will also be reachable from all over the internet.
+With the *Atlas* toolkit, both [front and back ends](http://q37.info/s/px7hhztd) are handled by the same code, and the programs will also be easily reachable from all over the internet.
 
-Only basic knowledge of web technologies are required (no *JavaScript* knowledge required). And, with the *Atlas* toolkit, you can easily add a GUI to a programs originally designed to have a [CLI](https://q37.info/s/cnh9nrw9), so the users of this programs can choose which interface they want to use.
+Only basic knowledge of web technologies are required (no *JavaScript* knowledge required). And, with the *Atlas* toolkit, you can easily add a GUI to programs originally designed to have a [CLI](https://q37.info/s/cnh9nrw9), so the users of this programs can choose which interface they want to use.
 
 If you want to use the *Atlas* toolkit without installing the examples, simply install the [*atlastk* package from *PyPI*](http://q37.info/s/9srmskcm) (`pip install atlastk`). This package has no dependencies.
 
-You can also use the *Atlas* toolkit on [*Repl.it*](http://q37.info/s/mxmgq3qm), an [online IDE](https://q37.info/s/zzkzbdw7), so you have nothing to install. You will find some examples in the next sections.
+You can also use the *Atlas* toolkit on [*Repl.it*](http://q37.info/s/mxmgq3qm), an [online IDE](https://q37.info/s/zzkzbdw7), so you have nothing to install, as you will see in the next section.
 
-The *Atlas* toolkit can also be used for educational purposes, to write modern exercises, i.e. with a true graphical interface instead of the usual outdated textual one, to be used in programming tutorials. There is a project to show how to do this. It can be found at <http://q37.info/s/tpkx4cfk>.
+The *Atlas* toolkit can also be used for educational purposes, to write modern programming exercises, i.e. with a true graphical interface instead of the usual outdated textual one. More about this can be found [here](https://q37.info/s/cbms43s9).
 
-## *15-puzzle* game
+## Live demonstrations
 
-Before we dive into source code, let's begin with a live demonstration of the [*15-puzzle* game](http://q37.info/s/jn9zg3bn) made with *Atlas* toolkit: <http://q37.info/s/mdghbt3n> ([more about live demonstrations](http://q37.info/s/zgvcwv7j))!
+Before diving into source code, you can take a look on some live demonstrations to see how applications based on the *Atlas* toolkit look like. You will find some games, like the [*15-puzzle* game](http://q37.info/s/jn9zg3bn) and the [*Reversi* (aka *Othello*) game](http://q37.info/s/zz3dzmf7). And you will also find the *Atlas* toolkit version of the [*TodoMVC*](http://todomvc.com/) application, which looks like:
 
-## *Reversi* game
+![TodoMVC](http://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")
 
-Yet another game; the [*Reversi* (aka *Othello*) game](http://q37.info/s/zz3dzmf7): <http://q37.info/s/jhv7dtsp>.
-
-There are two other versions of this game: a version with less CSS stuff (<http://q37.info/s/kwck3t7n>), and another which demonstrates the use of XSL (<http://q37.info/s/3cbd7w9n>). There are intended as part of a future tutorial about the *Atlas* toolkit.
+To see all this live demonstrations, simply go [here](https://q37.info/s/vwpsw73v), click on the green `run` button, select the demonstration you want to see, and then click (or scan with your smartphone) the then displayed [QR code](https://q37.info/s/3pktvrj7).
 
 ## *Hello, World!*
 
@@ -38,9 +36,7 @@ Here's how a [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22
 - `cd atlas-python`
 - `python Hello/Hello.py`
 
-You can also put below source code in a file and launch it after having installed the [*atlastk* package](http://q37.info/s/9srmskcm) (`pip install atlastk`), or, with absolutely no installation, paste the below code [here](http://q37.info/s/srnnb7hj), and open the displayed *URL* in a web browser.
-
-For a live demonstration: <http://q37.info/s/vhnb3q3v>.
+You can also put below source code in a file and launch it after having installed the [*atlastk* package](http://q37.info/s/9srmskcm) (`pip install atlastk`), or, with absolutely nothing to install, by pasting and launch the below code [here](http://q37.info/s/srnnb7hj), and then open the displayed *URL* in a web browser.
 
 Source code:
 
@@ -78,23 +74,28 @@ callbacks = {
   "Submit": acSubmit,
   "Clear": acClear,
 }
-  
+
 Atlas.launch(callbacks)
 ```
 
-## *TodoMVC*
-
-And here's how the *Atlas* toolkit version of the [*TodoMVC*](http://todomvc.com/) application looks like:
-
-![TodoMVC](http://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")
-
-For a live demonstration: <http://q37.info/s/n9nnwzcg>.
-
 ## Content of the repository
 
-The `atlastk` directory contains the *Python* source code of the *Atlas* toolkit, and is the directory you have to reference in `PYTHONPATH` in order to use the *Atlas* toolkit in your own program (unless you have installed the [*atlastk* package](http://q37.info/s/9srmskcm) with `pip install atlastk`).
+The `atlastk` directory contains the *Python* source code of the *Atlas* toolkit, which is the directory you have to reference in `PYTHONPATH` in order to use the *Atlas* toolkit in your own program, unless you have installed the [*atlastk* package](http://q37.info/s/9srmskcm) with `pip install atlastk`.
 
-All other directories are examples.
+All other directories are examples:
+
+- *Blank*: very basic example,
+- *Hello*: ["*Hello, World!*"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program),
+- *Chatroom*: multi-user chatroom ,
+- *ReversiTXT*: [*Reversi game*](http://q37.info/s/zz3dzmf7) with `X` and `O` for token,
+- *Notes*: note taking program,
+- *TodoMVC*: [*TodoMVC*](http://todomvc.com/),
+- *Hangman*: [Hangman game](http://q37.info/s/gtdtk4hp),
+- *15-puzzle*: [*15-puzzle* game](http://atlastk.org/home/%3Chttp:/q37.info/s/dggtbvd4%3E),
+- *ReversiIMG*: [*Reversi game*](http://q37.info/s/zz3dzmf7) with more evolved graphics,
+- *ReversiXSL*: [*Reversi game*](http://q37.info/s/zz3dzmf7) using *XSL*.
+
+Other exemples are detailed in the next section.
 
 To run an example, launch `python <Name>/` (don't forget the final `/`), where `<Name>` is the name of the example (`Blank`, `Chatroom`…), except for the *ErgoJr*, *GPIO* and *RGB* applications, which are detailed just below.
 
@@ -117,8 +118,6 @@ The *RGB* application is dedicated to the control of a RGB led, and the *GPIO* (
 [![RGB video](https://img.youtube.com/vi/C4p2iX6gc-Q/0.jpg)](https://www.youtube.com/watch?v=C4p2iX6gc-Q)
 
 Same video on [*PeerTube*](https://en.wikipedia.org/wiki/PeerTube) : <https://peertube.video/videos/watch/e7e02356-c9c3-4590-8ec0-8f8da06ff312>
-
-This applications are only examples to show how easily it is to write your own applications.
 
 ## Miscellaneous
 

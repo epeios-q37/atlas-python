@@ -20,21 +20,16 @@ except NameError:
 success = False
 
 demos = (
-    "15-puzzle",
     "Blank",
-    "Chatroom",
-#    "Contacts",
-#    "ErgoJr",
-#    "GPIO",
-    "Hangman",
     "Hello",
-    "Notes",
-    "ReversiIMG",
+    "Chatroom",
     "ReversiTXT",
+    "Notes",
+    "TodoMVC",
+    "Hangman",
+    "15-puzzle",
+    "ReversiIMG",
     "ReversiXSL",
-#    "RGB",
-#    "Stars",
-    "TodoMVC"
 )
 
 demosAmount = len(demos)
