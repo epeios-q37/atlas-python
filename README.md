@@ -86,7 +86,7 @@ All other directories are examples:
 
 - *Blank*: very basic example,
 - *Hello*: ["*Hello, World!*"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program),
-- *Chatroom*: multi-user chatroom ,
+- *Chatroom*: multi-user chatroom,
 - *ReversiTXT*: [*Reversi game*](http://q37.info/s/zz3dzmf7) with `X` and `O` for token,
 - *Notes*: note taking program,
 - *TodoMVC*: [*TodoMVC*](http://todomvc.com/),
