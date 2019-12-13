@@ -91,7 +91,7 @@ All other directories are examples:
 - *Notes*: note taking program,
 - *TodoMVC*: [*TodoMVC*](http://todomvc.com/),
 - *Hangman*: [Hangman game](http://q37.info/s/gtdtk4hp),
-- *15-puzzle*: [*15-puzzle* game](http://atlastk.org/home/%3Chttp:/q37.info/s/dggtbvd4%3E),
+- *15-puzzle*: [*15-puzzle* game](https://q37.info/s/jn9zg3bn),
 - *ReversiIMG*: [*Reversi game*](http://q37.info/s/zz3dzmf7) with more evolved graphics,
 - *ReversiXSL*: [*Reversi game*](http://q37.info/s/zz3dzmf7) using *XSL*.
 
