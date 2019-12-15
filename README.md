@@ -1,3 +1,10 @@
+
+<!--
+    For Repl.it users: click on the green 'run' button,
+    select a demonstration, and click on (or scan) the then
+    displayed QR code.
+-->
+
 # *Python* version of the *Atlas* toolkit
 
 ![For Python](http://q37.info/download/assets/Python.png "Python logo")
@@ -97,7 +104,7 @@ All other directories are examples:
 
 Other exemples are detailed in the next section.
 
-To run an example, launch `python <Name>/` (don't forget the final `/`), where `<Name>` is the name of the example (`Blank`, `Chatroom`…), except for the *ErgoJr*, *GPIO* and *RGB* applications, which are detailed just below.
+Except for the *ErgoJr*, *GPIO* and *RGB* applications, which are detailed in the next section, to run an example, launch `python main.py`, and select the example you want to run. You can also  launch `python <Name>/` (don't forget the final `/`), where `<Name>` is the name of the example (`Blank`, `Chatroom`…).
 
 The *Stars* application is an example where the *Atlas* *toolkit* is used to control a [*Pygame*](https://en.wikipedia.org/wiki/Pygame) based application. Of course, *Pygame* needs to be installed.
 

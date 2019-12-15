@@ -37,7 +37,7 @@ demosAmount = len(demos)
 
 while not success:
     for id in range(0,demosAmount):
-        print(chr(id + ord('a')), ": " + demos[id]) 
+        print(chr(id + ord('a')) + ": " + demos[id]) 
         
     lastChar = chr(demosAmount + ord('a') - 1)
         
@@ -45,6 +45,8 @@ while not success:
    
     try:
         demo = demos[ord(demoId) - ord('a')] + "." + "main"
+        
+        # Below line is needed by 'Repl.it'.
         sys.argv[0]=demos[ord(demoId) - ord('a')] + "/"
 
         if True:  # Simplifies debugging when set to False
