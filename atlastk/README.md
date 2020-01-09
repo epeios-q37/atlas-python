@@ -11,7 +11,7 @@
 
 [![Run on Repl.it](https://repl.it/badge/github/epeios-q37/atlas-python)](https://q37.info/s/vwpsw73v) [![Version](https://img.shields.io/pypi/v/atlastk?color=90b4ed&label=PyPi)](http://q37.info/s/9srmskcm) [![Download stats](https://img.shields.io/pypi/dm/atlastk.svg)](https://pypistats.org/packages/atlastk) [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python)[![license: MIT](https://img.shields.io/github/license/epeios-q37/atlas-python)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE) [![Documentation](https://img.shields.io/static/v1?label=support&message=atlastk.org&color=yellow)](https://atlastk.org)
 
-**If you are looking for the *WebGPIO* application, you will find it at the bottom of this page, in the *Raspberry Pi*/*ODROID-C2* section.**
+**If you are looking for the *WebGPIO* application, an application with which you can control the Raspberry Pi (or other similar devices) GPIO with your smartphone, you will find it at the bottom of this page, in the *Raspberry Pi*/*ODROID-C2* section.**
 
 The *Atlas* toolkit is probably the fastest and easiest way to add a graphical user interface ([GUI](http://q37.info/s/hw9n3pjs)) to your *Python* programs.
 
