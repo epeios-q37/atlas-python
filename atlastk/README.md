@@ -25,6 +25,8 @@ You can also use the *Atlas* toolkit on [*Repl.it*](http://q37.info/s/mxmgq3qm),
 
 The *Atlas* toolkit can also be used for educational purposes, to write modern programming exercises, i.e. with a true graphical interface instead of the usual outdated textual one. More about this can be found [here](https://q37.info/s/cbms43s9).
 
+There is also a stub to for this library at address <https://q37.info/s/zzcn3wnx>.
+
 ## Live demonstrations
 
 Before diving into source code, you can take a look on some live demonstrations to see how applications based on the *Atlas* toolkit look like. You will find some games, like the [*15-puzzle* game](http://q37.info/s/jn9zg3bn) and the [*Reversi* (aka *Othello*) game](http://q37.info/s/zz3dzmf7). And you will also find the *Atlas* toolkit version of the [*TodoMVC*](http://todomvc.com/) application, which looks like:

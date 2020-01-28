@@ -118,9 +118,10 @@ def acSubmitPseudo(chatroom, dom):
 	elif chatroom.handlePseudo(pseudo.upper()):
 		chatroom.pseudo = pseudo
 		dom.addClass("PseudoButton", "hidden")
-		dom.disableElements(["Pseudo", "PseudoButton"])
+#		dom.disableElements(["Pseudo", "PseudoButton"])
+		dom.disableElement("Pseudo")
 		dom.enableElements(["Message", "MessageButton"])
-		dom.setContent("Pseudo", pseudo)
+#		dom.setContent("Pseudo", pseudo)
 		dom.focus("Message")
 		print("\t>>>> New user: " + pseudo)
 	else:
