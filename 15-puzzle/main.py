@@ -56,20 +56,6 @@ def fill(puzzle, dom):
     dom.toggleClass(puzzle.blank, "hidden")
 
 
-def swap(puzzle, dom, source):
-    dom.setContents({
-        "t"+str(puzzle.blank): dom.getContent("t"+str(source)),
-        "t"+str(source): ""
-    })
-
-    dom.toggleClasses({
-        puzzle.blank: "hidden",
-        source: "hidden"
-    })
-
-    puzzle.blank = source
-
-
 def convertX(pos):
     return pos % 4
 
@@ -127,20 +113,51 @@ def acConnect(self, dom):
     scramble(self, dom)
 
 
+def build(sourceIds,targetIds,sourceIdsAndContents, blank):
+
+    targetIdsAndContents = {}
+
+    for i in range(len(sourceIds)):
+        targetIdsAndContents[targetIds[i]] = sourceIdsAndContents[sourceIds[i]]
+        
+    targetIdsAndContents["t" + blank] = ""
+        
+    print(sourceIds, targetIds, sourceIdsAndContents, targetIdsAndContents)
+
+    return targetIdsAndContents
+
 def acSwap(self, dom, id):
-    ix, iy = convert(int(id))
-    bx, by = convert(self.blank)
+    target = int(id)
+    source = self.blank
+    sourceIds = []
+    targetIds = []
+
+    ix, iy = convert(target)
+    bx, by = convert(source)
 
     if (ix == bx):
         delta = 4 if by < iy else -4
         while(by != iy):
-            swap(self, dom, self.blank+delta)
-            by = convertY(self.blank)
+            targetIds.append("t"+str(source))
+            source += delta
+            sourceIds.append("t"+str(source))
+            by = convertY(source)
     elif (iy == by):
         delta = 1 if bx < ix else -1
         while(bx != ix):
-            swap(self, dom, self.blank+delta)
-            bx = convertX(self.blank)
+            targetIds.append("t"+str(source))
+            source += delta
+            sourceIds.append("t"+str(source))
+            bx = convertX(source)
+
+    dom.setContents(build(sourceIds, targetIds, dom.getContents(sourceIds), id))
+
+    dom.toggleClasses({
+        self.blank: "hidden",
+        target: "hidden"
+    })
+
+    self.blank = target
 
 
 callbacks = {
