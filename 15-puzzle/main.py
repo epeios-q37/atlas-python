@@ -30,6 +30,7 @@ sys.path.append("../atlastk")
 
 import atlastk as Atlas
 
+
 class Puzzle:
     pass
 
@@ -121,10 +122,9 @@ def build(sourceIds,targetIds,sourceIdsAndContents, blank):
         targetIdsAndContents[targetIds[i]] = sourceIdsAndContents[sourceIds[i]]
         
     targetIdsAndContents["t" + blank] = ""
-        
-    print(sourceIds, targetIds, sourceIdsAndContents, targetIdsAndContents)
 
     return targetIdsAndContents
+
 
 def acSwap(self, dom, id):
     target = int(id)
@@ -165,5 +165,6 @@ callbacks = {
     "Swap": acSwap,
     "Scramble": lambda self, dom, id: scramble(self, dom)
 }
+
 
 Atlas.launch(callbacks, Puzzle, readAsset("Head.html"), "15-puzzle")
