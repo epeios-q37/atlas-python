@@ -28,28 +28,22 @@ import inspect, os, socket, sys, threading
 
 if sys.version_info[0] == 2:
 	from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer	# For 'repl.it'.
-	import XDHqDEMO2
-	l = XDHqDEMO2.l
-	_writeByte = XDHqDEMO2.writeByte
-	_writeSize = XDHqDEMO2.writeSize
-	_writeString = XDHqDEMO2.writeString
-	_writeStringNUL = XDHqDEMO2.writeStringNUL
-	_getByte = XDHqDEMO2.getByte
-	_getSize = XDHqDEMO2.getSize
-	_getString = XDHqDEMO2.getString
+	import XDHqFaaS2
+	l = XDHqFaaS2.l
+	_writeUInt = XDHqFaaS2.writeUInt
+	_writeString = XDHqFaaS2.writeString
+	_readUInt = XDHqFaaS2.readUInt
+	_getString = XDHqFaaS2.getString
 	def _REPLit_convert(str):
 		return str
 elif sys.version_info[0] == 3:
 	from http.server import BaseHTTPRequestHandler, HTTPServer	# For 'repl.it'.
-	import XDHqDEMO3
-	l = XDHqDEMO3.l
-	_writeByte = XDHqDEMO3.writeByte
-	_writeSize = XDHqDEMO3.writeSize
-	_writeString = XDHqDEMO3.writeString
-	_writeStringNUL = XDHqDEMO3.writeStringNUL
-	_getByte = XDHqDEMO3.getByte
-	_getSize = XDHqDEMO3.getSize
-	_getString = XDHqDEMO3.getString
+	import XDHqFaaS3
+	l = XDHqFaaS3.l
+	_writeUInt = XDHqFaaS3.writeUInt
+	_writeString = XDHqFaaS3.writeString
+	_readUInt = XDHqFaaS3.readUInt
+	_getString = XDHqFaaS3.getString
 	def _REPLit_convert(str):
 		return bytes(str,"utf-8")
 else:
@@ -109,9 +103,9 @@ def _REPLit(url):
     httpd = HTTPServer(server_address, _REPLit_class)
     httpd.handle_request()
 
-_demoProtocolLabel = "877c913f-62df-40a1-bf5d-4bb5e66a6dd9"
-_demoProtocolVersion = "0"
-_mainProtocolLabel = "6e010737-31d8-4be3-9195-c5b5b2a9d5d9"
+_FaaSProtocolLabel = "9efcf0d1-92a4-4e88-86bf-38ce18ca2894"
+_FaaSProtocolVersion = "0"
+_mainProtocolLabel = "bf077e9f-baca-48a1-bd3f-bf5181a78666"
 _mainProtocolVersion = "0"
 
 _writeLock = threading.Lock()
@@ -125,6 +119,7 @@ class Instance:
 	def __init__(self):
 		self.condVar = threading.Condition()
 		self.handshakeDone = False
+		self.quit = False;
 	def set(self,thread,id):
 		self.thread = thread
 		self.id = id
@@ -152,42 +147,37 @@ def getEnv( name, value= "" ):
 	else:
 		return value.strip()
 
-def writeByte(byte):
+def writeUInt(value):
 	global _socket
-	_writeByte( _socket, byte )
+	_writeUInt( _socket, value )
 
-def writeSize(size):
-	global _socket
-	_writeSize( _socket, size )
+def writeSInt(value):
+	writeUInt( ( ( -value - 1 ) << 1 ) | 1 if value < 0 else value << 1 )
 
 def writeString(string):
 	global _socket
 	_writeString(_socket, string)
 
 def writeStrings(strings):
-	writeSize(len(strings))
+	writeUInt(len(strings))
 
 	for string in strings:
 		writeString(string)
 
-def writeStringNUL(string):
+def readUInt():
 	global _socket
-	_writeStringNUL(_socket, string)
+	return _readUInt( _socket)
 
-def getByte():
-	global _socket
-	return _getByte( _socket)
-
-def getSize():
-	global _socket
-	return _getSize( _socket)
+def readSInt():
+	value = readUInt()
+	return -( ( value >> 1 ) + 1 ) if ( value & 1 ) else value >> 1
 
 def getString():
 	global _socket
 	return _getString(_socket)
 
 def getStrings():
-	amount = getSize()
+	amount = readUInt()
 	strings = []
 
 	while amount:
@@ -198,8 +188,8 @@ def getStrings():
 
 def _init():
 	global _token, _socket, _wAddr, _wPort, _cgi
-	pAddr = "atlastk.org"
-	pPort = 53800
+	pAddr = "faas1.q37.info"
+	pPort = 53700
 	_wAddr = ""
 	_wPort = ""
 	_cgi = "xdh"
@@ -213,9 +203,7 @@ def _init():
 	elif atk == "TEST":
 		_cgi = "xdh_"
 		print("\tTEST mode!")
-	elif atk == "REPLit":
-		pass
-	elif atk:
+	elif atk and ( atk != "REPLit" ):
 		sys.exit("Bad 'ATK' environment variable value : should be 'DEV' or 'TEST' !")
 
 	pAddr = getEnv("ATK_PADDR", pAddr)
@@ -237,15 +225,21 @@ def _init():
 
 	_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	print("Connection to '" + str(pAddr) + ":" + str(pPort) + "'...")
-	_socket.connect((pAddr,pPort))
+	try:
+		_socket.connect((pAddr,pPort))
+	except:
+		exit("Unable to connect to '" + str(pAddr) + ":" + str(pPort) + "'!")
+	else:
+		print("Connected to '" + str(pAddr) + ":" + str(pPort) + "'.")
+		
 
-def _demoHandshake():
+def _handshake():
 	global _writeLock
 
 	_writeLock.acquire()
 
-	writeString(_demoProtocolLabel)
-	writeString(_demoProtocolVersion)
+	writeString(_FaaSProtocolLabel)
+	writeString(_FaaSProtocolVersion)
 
 	_writeLock.release()
 
@@ -265,6 +259,8 @@ def _ignition():
 
 	writeString( _token)
 	writeString(_headContent)
+	writeString(_wAddr);
+	writeString("PYH")
 
 	_writeLock.release()
 
@@ -274,7 +270,7 @@ def _ignition():
 		sys.exit(getString())
 
 	if ( _wPort != ":0" ):
-		url = "http://" + _wAddr + _wPort + "/" + _cgi + ".php?_token=" + _token
+		url = getString()
 
 		print(url)
 		print("".rjust(len(url),'^'))
@@ -288,16 +284,18 @@ def _ignition():
 		else:
 			XDHqSHRD.open(url)
 
-def _serve(callback, userCallback, callbacks ):
+def _serve(callback,userCallback,callbacks ):
 	global _writeLock, _globalCondition
 	while True:
 
 #		l()
 
-		id = getByte()
+		id = readSInt()
 		
-		if id == 255:    # Value reporting a new front-end.
-			id = getByte()  # The id of the new front-end.
+		if id == -1:	# Should never happen. 
+			sys.exit("Received unexpected undefined command id!")
+		if id == -2:    # Value reporting a new session.
+			id = readSInt()  # The id of the new session.
 
 			if id in _instances:
 				sys.exit("Instance of id '" + id + "' exists but should not !")
@@ -307,11 +305,19 @@ def _serve(callback, userCallback, callbacks ):
 			_instances[id] = instance
 
 			_writeLock.acquire()
-			writeByte(id)
+			writeSInt(id)
 			writeString(_mainProtocolLabel)
 			writeString(_mainProtocolVersion)
 			_writeLock.release()
-
+		elif id == -3:	# Value instructing that a session is closed.
+			id = readSInt();
+			if not id in _instances:
+				sys.exit("Instance of id '" + str(id) + "' not available for destruction!")
+			_instances[id].quit = True
+			_instances[id].signal();
+			with _globalCondition:
+				_globalCondition.wait()
+			del _instances[id]	# Seemingly destroy the object and remove the entry too.
 		elif not id in _instances:
 			sys.exit("Unknown instance of id '" + str(id) + "'!")
 		elif not _instances[id].IsHandshakeDone():
@@ -321,11 +327,6 @@ def _serve(callback, userCallback, callbacks ):
 				sys.exit(error)
 
 			getString()	# Language. Not handled yet.
-
-			_writeLock.acquire()
-			writeByte(id)
-			writeString("PYH")
-			_writeLock.release()
 		else:
 			_instances[id].signal()
 
@@ -339,62 +340,79 @@ def launch(callback, userCallback,callbacks,headContent):
 
 	_init()
 
-	_demoHandshake()
+	_handshake()
 
 	_ignition()
 
-	_serve(callback, userCallback, callbacks)
+	_serve(callback,userCallback,callbacks)
 
-class DOM_DEMO:
+def broadcastAction(action,id=""):
+	_writeLock.acquire()
+	writeSInt(-3)
+	writeString(action)
+	writeString(id)
+	_writeLock.release()	
+
+class DOM_FaaS:
 	_firstLaunch = True
 
 	def __init__(self, instance):
 		self.instance = instance
+
 	def wait(self):
 		self.instance.wait()
+		
 	def signal(self):
 		with _globalCondition:
 			_globalCondition.notify()
+
+	def _sendSpecialAction(self, action):
+		_writeLock.acquire()
+		writeSInt(self.instance.getId())
+		writeString(action)
+		_writeLock.release()
+
 	def getAction(self):
 		if self._firstLaunch:
 			self._firstLaunch = False
 		else:
-			_writeLock.acquire()
-			writeByte(self.instance.getId())
-			writeStringNUL("StandBy_1")
-			_writeLock.release()
+			self._sendSpecialAction("#StandBy_1")
 
 		self.wait()
 
-		id = getString()
-		action = getString()
+		[id,action]=["",""] if self.instance.quit else [getString(),getString()]
 
-		self.signal()
+		# The below 'is_quitting()' method MUST be called, or the library will hang. 
 
 		return [action,id]
 
+	def isQuitting(self):
+		answer = self.instance.quit
+
+		# Below line were in 'getAction()', but, in case of quitting,
+		# 'self.instance' could already be destroyed here.
+		self.signal()
+
+		return answer;
+
+
 	def call(self, command, type, *args):
-		i=0
-
 		_writeLock.acquire()
-		writeByte(self.instance.getId())
-		writeStringNUL(command )
+		writeSInt(self.instance.getId())
+		writeString(command)
 
-		amount = args[i]
-		i += 1
+		writeUInt(type)
 
-		while amount:
-			writeString(args[i])
-			i += 1
-			amount -= 1
+		for arg in args:
+			if isinstance(arg,str):
+				writeUInt(XDHqSHRD.RT_STRING)
+				writeString(arg)
+			else:
+				writeUInt(XDHqSHRD.RT_STRINGS)
+				writeStrings(arg)
 
-		amount = args[i]
-		i += 1
+		writeUInt(XDHqSHRD.RT_VOID)	# To report end of argument list.
 
-		while amount:
-			writeStrings(args[i])
-			i += 1
-			amount -= 1
 		_writeLock.release()
 
 		if type == XDHqSHRD.RT_STRING:

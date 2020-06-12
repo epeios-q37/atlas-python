@@ -57,23 +57,23 @@ for _ in range(3):
     time.sleep(0.5)
 """
 
-def readAsset(path):
-	return Atlas.readAsset(path, "ErgoJr")
+def read_asset(path):
+	return Atlas.read_asset(path, "ErgoJr")
 
 class Poppy:
   pass
 
 def acConnect(Poppy,dom):
-	dom.setLayout("", readAsset( "Main.html") )
+	dom.set_layout("", read_asset( "Main.html") )
 
 def acMove(Poppy,dom,id):
   global poppy
-  poppy.goto_position({id: int(dom.getContent(id))},0,wait=True)
+  poppy.goto_position({id: int(dom.get_content(id))},0,wait=True)
 
 def set( dom, motor, position ):
   global poppy
   poppy.goto_position({motor: position},0,wait=False)
-  dom.setContent( motor, position )
+  dom.set_content( motor, position )
 	
 def reset( dom, motor ):
   set(dom, motor, 0)
@@ -93,4 +93,4 @@ callbacks = {
 		"Reset": acReset,
 	}
 	
-Atlas.launch(callbacks, Poppy, readAsset("Head.html"), "ErgoJr")
+Atlas.launch(callbacks, Poppy, read_asset("Head.html"), "ErgoJr")

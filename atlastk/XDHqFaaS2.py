@@ -28,41 +28,35 @@ def l():
 	frameInfo = inspect.getouterframes(inspect.currentframe())[1]
 	print(frameInfo[1] + ":" + str(frameInfo[2]))
 
-def writeByte(socket, byte):
-	socket.send(chr(byte))
+def writeUInt(socket, value):
+	result = chr(value & 0x7f)
+	value >>= 7
 
-def writeSize(socket, size):
-	result = chr(size & 0x7f)
-	size >>= 7
-
-	while size != 0:
-		result = chr((size & 0x7f) | 0x80) + result
-		size >>= 7
+	while value != 0:
+		result = chr((value & 0x7f) | 0x80) + result
+		value >>= 7
 
 	socket.send(result)
 
 def writeString(socket, string):
-	writeSize(socket, len(string))
+	writeUInt(socket, len(string))
 	socket.send(string)
 
-def writeStringNUL(socket, string):
-	socket.send(string + "\0")
-
-def getByte(socket):
+def _readByte(socket):
 	return ord(socket.recv(1))
 
-def getSize(socket):
-	byte = getByte(socket)
-	size = byte & 0x7f
+def readUInt(socket):
+	byte = _readByte(socket)
+	value = byte & 0x7f
 
 	while byte & 0x80:
-		byte = getByte(socket)
-		size = (size << 7) + (byte & 0x7f)
+		byte = _readByte(socket)
+		value = (value << 7) + (byte & 0x7f)
 
-	return size
+	return value
 
 def getString(socket):
-	size = getSize(socket)
+	size = readUInt(socket)
 
 	if size:
 		return socket.recv(size)

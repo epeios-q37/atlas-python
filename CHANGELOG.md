@@ -3,6 +3,11 @@
 - Common to **all** bindings,
 - does **not** concern the native code,
 
+## 2020-06-12
+
+- *ALL*:
+    - switching to 0.11,
+
 ## 2019-08-01
 
 - *Python*
@@ -36,7 +41,7 @@
 
 ## 2019-07-08
 
-*ALL*:
+- *ALL*:
     - switching to 0.10.0,
 
 ## 2019-07-03

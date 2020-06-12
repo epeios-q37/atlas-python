@@ -49,8 +49,8 @@ DICTIONARY = [
 HANGED_MAN = "Head Body LeftArm RightArm LeftLeg RightLeg".split()
 
 
-def readAsset(path):
-    return Atlas.readAsset(path, "Hangman")
+def read_asset(path):
+    return Atlas.read_asset(path, "Hangman")
 
 
 class Core:
@@ -69,7 +69,7 @@ def randword():
 
 def showHanged(dom, errors):
     if (errors):
-    	dom.removeClass(HANGED_MAN[errors-1], "hidden")
+    	dom.remove_class(HANGED_MAN[errors-1], "hidden")
 
 
 def showWord(dom, secretWord, correctGuesses):
@@ -80,14 +80,14 @@ def showWord(dom, secretWord, correctGuesses):
             output = output[:i] + secretWord[i] + output[i + 1:]
 
     html = Atlas.createHTML()
-    html.putTagAndValue("h1", output)
-    dom.setLayout("output", html)
+    html.put_tag_and_value("h1", output)
+    dom.set_layout("output", html)
 
 
 
 def reset(core,dom):
     core.reset()
-    dom.setLayout("", readAsset("Main.html"))
+    dom.set_layout("", read_asset("Main.html"))
     core.secretWord = randword()
     print(core.secretWord)
     showWord(dom, core.secretWord, core.correctGuesses)
@@ -99,7 +99,7 @@ def acConnect(core, dom):
 
 
 def acSubmit(core, dom, id):
-    dom.addClass(id, "chosen")
+    dom.add_class(id, "chosen")
 
     guess = id.lower()
 
@@ -123,7 +123,7 @@ def acSubmit(core, dom, id):
         showHanged(dom, core.errors)
 
     if core.errors >= len(HANGED_MAN):
-        dom.removeClass("Face", "hidden")
+        dom.remove_class("Face", "hidden")
         dom.alert("\nYou've run out of guesses. \nYou had " + str(core.errors) +
                   " errors and " + str(len(core.correctGuesses)) + " correct guesses. " +
                   "\n\nThe word was '" + core.secretWord + "'.")
@@ -144,4 +144,4 @@ callbacks = {
 	"Restart": acRestart
 }
 
-Atlas.launch(callbacks, Core, readAsset("Head.html"), "Hangman")
+Atlas.launch(callbacks, Core, read_asset("Head.html"), "Hangman")

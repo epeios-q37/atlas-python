@@ -40,8 +40,8 @@ sys.path.append("../atlastk")
 import atlastk as Atlas
 
 
-def readAsset(path):
-    return Atlas.readAsset(path, "ReversiXSL")
+def read_asset(path):
+    return Atlas.read_asset(path, "ReversiXSL")
 
 
 EMPTY = 0
@@ -141,7 +141,7 @@ class Reversi:
         self.board[x][y] = bw
         return self._reverse_piece(bw, x, y, delta_x, delta_y)
 
-    def isAllowed(self, x, y, bw):
+    def is_allowed(self, x, y, bw):
         return len(self.reversible_directions(bw, x, y)) != 0
 
     def put(self, x, y, bw):
@@ -195,44 +195,44 @@ class Reversi:
 def drawBoard(reversi, dom):
     board = Atlas.createXML("Board")
     for y, row in enumerate(reversi.board):
-        board.pushTag("Row")
-        board.putAttribute("y", str(y))
+        board.push_tag("Row")
+        board.put_attribute("y", str(y))
         for x, r in enumerate(row):
-            board.pushTag("Square")
-            board.putAttribute( "x", str(x))
-            if (r == EMPTY) and (reversi.isAllowed(y, x, reversi.player)):
-                board.putAttribute("Playable", "true")
+            board.push_tag("Square")
+            board.put_attribute( "x", str(x))
+            if (r == EMPTY) and (reversi.is_allowed(y, x, reversi.player)):
+                board.put_attribute("Playable", "true")
             board.putValue({EMPTY: 'None', BLACK: 'Dark', WHITE: 'Light'}[r])
-            board.popTag()
-        board.popTag()
+            board.pop_tag()
+        board.pop_tag()
 
     if ( reversi.layout == TXT ):
-        dom.setContents({
+        dom.set_contents({
             "blackTXT": reversi.count(BLACK),
             "whiteTXT": reversi.count(WHITE)
         })
-        dom.setLayoutXSL("board", board, "BoardTXT.xsl")
-        dom.enableElement("styleTXT")
-        dom.disableElement("styleIMG")
-        dom.addClass("scoreIMG", "hidden")
-        dom.removeClass("scoreTXT", "hidden")
+        dom.set_layout_XSL("board", board, "BoardTXT.xsl")
+        dom.enable_element("styleTXT")
+        dom.disable_element("styleIMG")
+        dom.add_class("scoreIMG", "hidden")
+        dom.remove_class("scoreTXT", "hidden")
     elif ( reversi.layout == IMG ):
-        dom.setContents({
+        dom.set_contents({
             "blackIMG": reversi.count(BLACK),
             "whiteIMG": reversi.count(WHITE)
         })
-        dom.setLayoutXSL("board", board, "BoardIMG.xsl")
-        dom.disableElement("styleTXT")
-        dom.enableElement("styleIMG")
-        dom.addClass("scoreTXT", "hidden")
-        dom.removeClass("scoreIMG", "hidden")
+        dom.set_layout_XSL("board", board, "BoardIMG.xsl")
+        dom.disable_element("styleTXT")
+        dom.enable_element("styleIMG")
+        dom.add_class("scoreTXT", "hidden")
+        dom.remove_class("scoreIMG", "hidden")
 
 
 def acConnect(reversi, dom):
     reversi.player = BLACK
     reversi.weight_matrix = WEIGHT_MATRIX
     reversi.layout = TXT
-    dom.setLayout("", readAsset("Main.html"))
+    dom.set_layout("", read_asset("Main.html"))
     drawBoard(reversi, dom)
     dom.alert("Welcome to this Reversi (aka Othello) game made with the Atlas toolkit.\n\nYou play against the computer with the black, or 'X', pieces.")
 
@@ -284,4 +284,4 @@ callbacks = {
     "ToggleLayout": acToggleLayout,
 }
 
-Atlas.launch(callbacks, Reversi, readAsset("Head.html"), "ReversiXSL")
+Atlas.launch(callbacks, Reversi, read_asset("Head.html"), "ReversiXSL")

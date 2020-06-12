@@ -1,1 +1,6 @@
+# Note pour le mainteneur.
+# -----------------------
+# Ce fichier est destiné à GitHub.
+# Il est renommé en '.gitattributes' lors de la publication.
+
 *.html linguist-detectable=false

@@ -4,4 +4,4 @@
 # Il est renommé en '.replit' lors de la publication.
 
 language = "bash"
-run = "python3 main.py"
+run = "export ATK=REPLit;python3 main.py"

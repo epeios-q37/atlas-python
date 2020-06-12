@@ -38,8 +38,8 @@ sys.path.append("../atlastk")
 import atlastk as Atlas
 
 
-def readAsset(path):
-    return Atlas.readAsset(path, "ReversiIMG")
+def read_asset(path):
+    return Atlas.read_asset(path, "ReversiIMG")
 
 
 EMPTY = 0
@@ -190,24 +190,24 @@ class Reversi:
 def drawBoard(reversi, dom, prefetch=False):
     board = Atlas.createHTML("tbody")
     for y, row in enumerate(reversi.board):
-        board.pushTag("tr")
+        board.push_tag("tr")
         for x, r in enumerate(row):
-            board.pushTag("td")
-            board.putAttribute("id", str(x) + str(y))
+            board.push_tag("td")
+            board.put_attribute("id", str(x) + str(y))
             if (r == EMPTY) and (reversi.isAllowed(y, x, reversi.player)):
-                board.putAttribute("data-xdh-onevent", "Play")
+                board.put_attribute("data-xdh-onevent", "Play")
                 if (prefetch == True):
                     r = reversi.player
-                    board.putAttribute(
+                    board.put_attribute(
                         "style", "opacity: 0.1; background-color: white;")
-            board.putAttribute(
+            board.put_attribute(
                 "class", {EMPTY: 'none', BLACK: 'black', WHITE: 'white'}[r])
-            board.popTag()
-        board.popTag()
+            board.pop_tag()
+        board.pop_tag()
 
-    dom.setLayout("board", board)
+    dom.set_layout("board", board)
 
-    dom.setContents({
+    dom.set_contents({
         "black": reversi.count(BLACK),
         "white": reversi.count(WHITE)
     })
@@ -216,7 +216,7 @@ def drawBoard(reversi, dom, prefetch=False):
 def acConnect(reversi, dom):
     reversi.player = BLACK
     reversi.weight_matrix = WEIGHT_MATRIX
-    dom.setLayout("", readAsset("Main.html"))
+    dom.set_layout("", read_asset("Main.html"))
     drawBoard(reversi, dom)
     dom.alert("Welcome to this Reversi (aka Othello) game made with the Atlas toolkit.\n\nYou play against the computer with the black pieces.")
 
@@ -259,4 +259,4 @@ callbacks = {
     "New": acNew
 }
 
-Atlas.launch(callbacks, Reversi, readAsset("Head.html"), "ReversiIMG")
+Atlas.launch(callbacks, Reversi, read_asset("Head.html"), "ReversiIMG")

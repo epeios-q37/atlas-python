@@ -26,7 +26,7 @@ import XDHq
 from threading import Thread
 import threading
 import inspect
-from XDHq import readAsset
+from XDHq import readAsset, read_asset
 
 import signal, sys
 
@@ -35,11 +35,20 @@ def signal_handler(sig, frame):
 
 signal.signal(signal.SIGINT, signal_handler)
 
-def createXML(rootTag):
-	return XDHq.XML(rootTag)
 
-def createHTML(rootTag=""):	# If 'rootTag' is empty, there will be no root tag in the tree.
-	return XDHq.XML(rootTag)
+def create_XML(root_tag):
+	return XDHq.XML(root_tag)
+
+createXML = create_XML	
+
+
+def create_HTML(root_tag=""):	# If 'root_tag' is empty, there will be no root tag in the tree.
+	return XDHq.XML(root_tag)
+
+createHTML = create_HTML
+
+broadcast_action = XDHq.broadcastAction
+
 
 def _call(func, userObject, dom, id, action):
 	amount = len(inspect.getargspec(func).args)
@@ -68,7 +77,6 @@ def worker(userCallback,dom,callbacks):
 	userObject = None
 
 	if ( userCallback != None ):
-
 		if ( not(inspect.isclass(userCallback)) and len(inspect.getargspec(userCallback).args) == 1 ):
 			args.append(dom)
 
@@ -76,9 +84,15 @@ def worker(userCallback,dom,callbacks):
 	
 	while True:
 		[action,id] = dom.getAction()
+
+		if dom.isQuitting():
+			break
+
 		if action=="" or not "_PreProcess" in callbacks or _call(callbacks["_PreProcess"],userObject, dom, id, action):
 			if _call(callbacks[action], userObject, dom, id, action ) and "_PostProcess" in callbacks:
 				_call(callbacks["_PostProcess"],userObject, dom, id, action)
+
+	# print("Quitting thread !")
 
 def callback(userCallback,callbacks,instance):
 	thread = threading.Thread(target=worker, args=(userCallback, XDHq.DOM(instance), callbacks))

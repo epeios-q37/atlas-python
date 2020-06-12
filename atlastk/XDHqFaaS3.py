@@ -28,42 +28,36 @@ def l():
 	frameInfo = inspect.getouterframes(inspect.currentframe())[1]
 	print(frameInfo.filename + ":" + str(frameInfo.lineno))
 
-def writeByte(socket, byte):
-	socket.send(bytes([byte]))
+def writeUInt(socket, value):
+	result = bytes([value & 0x7f])
+	value >>= 7
 
-def writeSize(socket, size):
-	result = bytes([size & 0x7f])
-	size >>= 7
-
-	while size != 0:
-		result = bytes([(size & 0x7f) | 0x80]) + result
-		size >>= 7
+	while value != 0:
+		result = bytes([(value & 0x7f) | 0x80]) + result
+		value >>= 7
 
 	socket.send(result)
 
 def writeString(socket, string):
 	bString = bytes(string, "utf-8")
-	writeSize(socket, len(bString))
+	writeUInt(socket, len(bString))
 	socket.send(bString)
 
-def writeStringNUL(socket, string):
-	socket.send(bytes(string + "\0", "utf-8"))
-
-def getByte(socket):
+def _readByte(socket):
 	return ord(socket.recv(1))
 
-def getSize(socket):
-	byte = getByte(socket)
-	size = byte & 0x7f
+def readUInt(socket):
+	byte = _readByte(socket)
+	value = byte & 0x7f
 
 	while byte & 0x80:
-		byte = getByte(socket)
-		size = (size << 7) + (byte & 0x7f)
+		byte = _readByte(socket)
+		value = (value << 7) + (byte & 0x7f)
 
-	return size
+	return value
 
 def getString(socket):
-	size = getSize(socket)
+	size = readUInt(socket)
 
 	if size:
 		return socket.recv(size).decode("utf-8")

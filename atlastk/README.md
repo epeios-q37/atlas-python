@@ -1,27 +1,41 @@
-
-<!--
-    For Repl.it users: click on the green 'run' button,
-    select a demonstration, and click on (or scan) the then
-    displayed QR code.
--->
-
 # *Python* version of the *Atlas* toolkit
 
-![For Python](http://q37.info/download/assets/Python.png "Python logo")
+![For Python](https://q37.info/download/assets/Python.png "Python logo")
 
-[![Run on Repl.it](https://repl.it/badge/github/epeios-q37/atlas-python)](https://q37.info/s/vwpsw73v) [![Version](https://img.shields.io/pypi/v/atlastk?color=90b4ed&label=PyPi)](http://q37.info/s/9srmskcm) [![Download stats](https://img.shields.io/pypi/dm/atlastk.svg)](https://pypistats.org/packages/atlastk) [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python)[![license: MIT](https://img.shields.io/github/license/epeios-q37/atlas-python)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE) [![Documentation](https://img.shields.io/static/v1?label=support&message=atlastk.org&color=yellow)](https://atlastk.org)
+[![Run on Repl.it](https://repl.it/badge/github/epeios-q37/atlas-python)](https://q37.info/s/vwpsw73v)
+[![Version 0.11](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.11)](http://github.com/epeios-q37/atlas-node/)
+[![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/stargazers)
+[![license: MIT](https://img.shields.io/github/license/epeios-q37/atlas-python?color=yellow)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE)
+[![Homepage](https://img.shields.io/static/v1?label=homepage&message=atlastk.org&color=ff69b4)](https://atlastk.org)
+
+[![Version](https://img.shields.io/pypi/v/atlastk?style=for-the-badge&color=90b4ed&label=PyPi)![Download stats](https://img.shields.io/pypi/dm/atlastk.svg?style=for-the-badge)](http://q37.info/s/9srmskcm)
+
+
+*NOTA*: this toolkit is also available for:
+
+- *Java*: <http://github.com/epeios-q37/atlas-java>
+- *Node.js*: <http://github.com/epeios-q37/atlas-node>
+- *Perl*: <http://github.com/epeios-q37/atlas-perl>
+- *Ruby*: <http://github.com/epeios-q37/atlas-ruby>
+
+
 
 **If you are looking for the *WebGPIO* application, an application with which you can control the Raspberry Pi (or other similar devices) GPIO with your smartphone, you will find it at the bottom of this page, in the *Raspberry Pi*/*ODROID-C2* section.**
 
-The *Atlas* toolkit is probably the fastest and easiest way to add a graphical user interface ([GUI](http://q37.info/s/hw9n3pjs)) to your *Python* programs.
+---
 
-With the *Atlas* toolkit, both [front and back ends](http://q37.info/s/px7hhztd) are handled by the same code, and the programs will also be easily reachable from all over the internet.
+With the [*Atlas* toolkit](http://atlastk.org/), it has never been easier to create your own modern web application ([*SPA*](https://q37.info/s/7sbmxd3j)):
+- no *Javascript* to write; only *HTML* and *Python*,
+- no [front and back end architecture](https://q37.info/s/px7hhztd) to bother with,
+- no [web server](https://q37.info/s/n3hpwsht) (*Apache*, *Nginx*…) to install,
 
-Only basic knowledge of web technologies are required (no *JavaScript* knowledge required). And, with the *Atlas* toolkit, you can easily add a GUI to programs originally designed to have a [CLI](https://q37.info/s/cnh9nrw9), so the users of this programs can choose which interface they want to use.
+and all this only with the help of a library of about 20 KB.
+
+With the *Atlas* toolkit, your applications will be accessible from the entire internet on laptops, smartphones, tablets…, and this without having to deploy them on a remote server or to open an incoming port on your internet box. All you need is a local computer with a simple internet connection. 
+
+The *Atlas* toolkit is also the fastest and easiest way to add a [graphical user interface](https://q37.info/s/hw9n3pjs) to all your programs.
 
 If you want to use the *Atlas* toolkit without installing the examples, simply install the [*atlastk* package from *PyPI*](http://q37.info/s/9srmskcm) (`pip install atlastk`). This package has no dependencies.
-
-You can also use the *Atlas* toolkit on [*Repl.it*](http://q37.info/s/mxmgq3qm), an [online IDE](https://q37.info/s/zzkzbdw7), so you have nothing to install, as you will see in the next section.
 
 The *Atlas* toolkit can also be used for educational purposes, to write modern programming exercises, i.e. with a true graphical interface instead of the usual outdated textual one. More about this can be found [here](https://q37.info/s/cbms43s9).
 
@@ -31,15 +45,17 @@ There is also a stub to for this library at address <https://q37.info/s/zzcn3wnx
 
 Before diving into source code, you can take a look on some live demonstrations to see how applications based on the *Atlas* toolkit look like. You will find some games, like the [*15-puzzle* game](http://q37.info/s/jn9zg3bn) and the [*Reversi* (aka *Othello*) game](http://q37.info/s/zz3dzmf7). And you will also find the *Atlas* toolkit version of the [*TodoMVC*](http://todomvc.com/) application, which looks like:
 
-![TodoMVC](http://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")
+![TodoMVC](https://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")
 
 To see all this live demonstrations, simply go [here](https://q37.info/s/vwpsw73v), click on the green `run` button, select the demonstration you want to see, and then click (or scan with your smartphone) the then displayed [QR code](https://q37.info/s/3pktvrj7).
 
 ## *Hello, World!*
 
-Here's how a [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) type program made with the *Atlas* toolkit looks like:
+Here's how the [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program made with the *Atlas* toolkit looks like:
 
-![Little demonstration](http://q37.info/download/assets/Hello.gif "A basic example")
+![Little demonstration](https://q37.info/download/assets/Hello.gif "A basic example")
+
+This example is part of the live demonstrations above, but you can launch it on your computer:
 
 - `git clone http://github.com/epeios-q37/atlas-python`
 - `cd atlas-python`
@@ -128,14 +144,4 @@ The *RGB* application is dedicated to the control of a RGB led, and the *GPIO* (
 
 Same video on [*PeerTube*](https://en.wikipedia.org/wiki/PeerTube) : <https://peertube.video/videos/watch/e7e02356-c9c3-4590-8ec0-8f8da06ff312>
 
-## Miscellaneous
 
-The *Atlas* toolkit is also available for:
-
-- *Java*: <http://github.com/epeios-q37/atlas-java>
-- *Node.js*: <http://github.com/epeios-q37/atlas-node>
-- *Perl*: <http://github.com/epeios-q37/atlas-perl>
-- *PHP*: <http://github.com/epeios-q37/atlas-php>
-- *Ruby*: <http://github.com/epeios-q37/atlas-ruby>
-
-For more information about the *Atlas* toolkit, go to <http://atlastk.org/>.

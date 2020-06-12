@@ -33,8 +33,8 @@ rPin = None
 gPin = None
 bPin = None
 
-def readAsset(path):
-	return Atlas.readAsset(path, "RGB")
+def read_asset(path):
+	return Atlas.read_asset(path, "RGB")
 
 class RGB:
 	def __init__(self):
@@ -42,11 +42,11 @@ class RGB:
 
 def set(dom, id, value):
 	if value != None:
-		dom.setContent(id, value)
+		dom.set_content(id, value)
 
 def acConnect(RGB,dom):
 	global rPin, gPin, bPin
-	dom.setLayout("", readAsset( "Main.html") )
+	dom.set_layout("", read_asset( "Main.html") )
 	set( dom, "Red", rPin)
 	set( dom, "Green", gPin)
 	set( dom, "Blue", bPin)
@@ -68,7 +68,7 @@ def acSelect(RGB, dom, id):
 
 def getPin(dom, id):
 	pin = None
-	value = dom.getContent(id).strip()
+	value = dom.get_content(id).strip()
 
 	try:
 		pin = int(value)
@@ -78,7 +78,7 @@ def getPin(dom, id):
 
 	if value  and ( pin == None ):
 		dom.alert("Invalid pin number!")
-		dom.setContent(id, "")
+		dom.set_content(id, "")
 		dom.focus(id)
 	elif pin != None:
 		GPIOq.softPWMCreate(pin)
@@ -107,4 +107,4 @@ callbacks = {
 
 GPIOq.setup()
 
-Atlas.launch(callbacks, RGB, readAsset("Head.html"), "RGB")
+Atlas.launch(callbacks, RGB, read_asset("Head.html"), "RGB")

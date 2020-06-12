@@ -24,7 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import XDHqDEMO, XDHqSHRD, XDHqXML
+import XDHqFaaS, XDHqSHRD, XDHqXML
 
 import os, sys
 from collections import OrderedDict
@@ -48,6 +48,7 @@ _STRING = XDHqSHRD.RT_STRING
 _STRINGS = XDHqSHRD.RT_STRINGS
 XML = XDHqXML.XML
 
+
 def _split(keysAndValues):
 	keys = []
 	values = []
@@ -57,6 +58,7 @@ def _split(keysAndValues):
 		values.append(str(keysAndValues[key]))
 
 	return [keys,values]
+
 
 def _unsplit(keys,values):
 	i = 0
@@ -72,17 +74,25 @@ def _unsplit(keys,values):
 
 	return keysAndValues
 
+
 def _getAssetPath(dir):
 	if XDHqSHRD.isDev():
 		return os.path.join(os.environ["Q37_EPEIOS"],"tools/xdhq/examples/common/", dir )
 	else:
 		return os.path.abspath(os.path.dirname(sys.argv[0]))
 
+
 def _getAssetFilename(path, dir):
 	return os.path.join(_getAssetPath(dir), path )
 
-def readAsset(path, dir=""):
+
+def read_asset(path, dir=""):
 	return open(_getAssetFilename(path, dir)).read()
+
+readAsset = read_asset
+
+broadcastAction = XDHqFaaS.broadcastAction
+
 
 def _readXSLAsset(path, dir):
 	if (path.lstrip()[0]=='<'):
@@ -92,73 +102,104 @@ def _readXSLAsset(path, dir):
 
 class DOM:
 	def __init__(self,instance):
-		self._dom = XDHqDEMO.DOM_DEMO(instance)
+		self._dom = XDHqFaaS.DOM_FaaS(instance)
 
-	def getAction(self):
+	def get_action(self):
 		return self._dom.getAction()
 
-	def execute(self,script):
-		return self._dom.call("Execute_1" ,_STRING, 1, script, 0)
+	getAction = get_action
 
-	def flush(self):	# Returns when all the pending command were executed.
-		self.execute("''")
+	def isQuitting(self):
+		return self._dom.isQuitting();
+
+	def _execute(self, script, type):
+		return self._dom.call("Execute_1" ,type, script)
+
+	def execute_void(self,script):
+		return self._dom.call("Execute_1" ,_VOID, script)
+
+	def execute_string(self,script):
+		return self._dom.call("Execute_1" ,_STRING, script)
+
+	def execute_strings(self,script):
+		return self._dom.call("Execute_1" ,_STRINGS, script)
+
+	def flush(self):	# Returns when all the pending commands were executed.
+		self.execute_string("''")
 
 	def alert(self,message):
-		self._dom.call( "Alert_1", _STRING, 1, message, 0 )
+		self._dom.call( "Alert_1", _STRING, message )
 		# For the return value being 'STRING' instead of 'VOID',
 		# see the 'alert' primitive in 'XDHqXDH'.
 
 	def confirm(self,message):
-		return self._dom.call( "Confirm_1", _STRING, 1, message, 0 ) == "true"
+		return self._dom.call( "Confirm_1", _STRING, message ) == "true"
 
-	def _handleLayout(self, command, id, xml, xsl):
+	def _handleLayout(self, variant, id, xml, xsl):
 		#	If 'xslFilename' is empty, 'xml' contents HTML.
 		# 	If 'xml' is HTML and uses the compressed form, if it has a root tag, only the children will be used.
-		self._dom.call(command, _VOID, 3, id, xml if isinstance(xml,str) else xml.toString(), xsl, 0)
+		self._dom.call("HandleLayout_1", _VOID, variant, id, xml if isinstance(xml,str) else xml.toString(), xsl)
 
-	def prependLayout(self,id,html):
-		self._handleLayout("PrependLayout_1",id,html,"")
+	def prepend_layout(self,id,html):
+		self._handleLayout("Prepend",id,html,"")
 
-	def setLayout(self,id,html):
-		self._handleLayout("SetLayout_1",id,html,"")
+	prependLayout = prepend_layout
 
-	def appendLayout(self,id,html):
-		self._handleLayout("AppendLayout_1",id,html,"")
+	def set_layout(self,id,html):
+		self._handleLayout("Set",id,html,"")
 
-	def _handleLayoutXSL(self, command, id, xml, xsl):
+	setLayout = set_layout
+
+	def append_layout(self,id,html):
+		self._handleLayout("Append",id,html,"")
+
+	appendLayout = append_layout
+
+	def _handleLayoutXSL(self, variant, id, xml, xsl):
 		global _dir
 		xslURL = xsl
 
-		if True:	# Testing if 'PROD' or 'DEMO' mode when available.
+		if True:	# Testing if 'SlfH' or 'FaaS' mode when available.
 			xslURL = "data:text/xml;charset=utf-8," + _encode( _readXSLAsset( xsl, _dir ) )
 
-		self._handleLayout(command, id, xml, xslURL )
+		self._handleLayout(variant, id, xml, xslURL )
 
-	def prependLayoutXSL(self, id, xml, xsl):
-		self._handleLayoutXSL("PrependLayout_1",id,xml,xsl)
+	def prepend_layout_XSL(self, id, xml, xsl):
+		self._handleLayoutXSL("Prepend",id,xml,xsl)
 
-	def setLayoutXSL(self, id, xml, xsl):
-		self._handleLayoutXSL("SetLayout_1",id,xml,xsl)
+	prependLayoutXSL = prepend_layout_XSL
 
-	def appendLayoutXSL(self, id, xml, xsl):
-		self._handleLayoutXSL("AppendLayout_1",id,xml,xsl)
+	def set_layout_XSL(self, id, xml, xsl):
+		self._handleLayoutXSL("Set",id,xml,xsl)
 
-	def getContents(self, ids):
-		return _unsplit(ids,self._dom.call("GetContents_1",_STRINGS, 0, 1, ids))
+	setLayoutXSL = set_layout_XSL
 
-	def getContent( self, id):
+	def append_layout_XSL(self, id, xml, xsl):
+		self._handleLayoutXSL("Append",id,xml,xsl)
+
+	appendLayoutXSL = append_layout_XSL
+
+	def get_contents(self, ids):
+		return _unsplit(ids,self._dom.call("GetContents_1",_STRINGS, ids))
+
+	getContents = get_contents
+
+	def get_content( self, id):
 		return self.getContents([id])[id]
 
-	def setContents(self,idsAndContents):
-		[ids,contents] = _split(idsAndContents)
+	getContent = get_content
 
-		self._dom.call("SetContents_1", _VOID, 0, 2, ids, contents)
+	def set_contents(self,ids_and_contents):
+		[ids,contents] = _split(ids_and_contents)
 
-	def setContent(self, id, content):
-		self.setContents({id: content})
+		self._dom.call("SetContents_1", _VOID, ids, contents)
 
-	def setTimeout(self,delay,action ):
-		self._dom.call( "SetTimeout_1", _VOID, 2, str( delay ), action, 0 )
+	set_contents = set_contents
+
+	def set_content(self, id, content):
+		self.set_contents({id: content})
+
+	set_content = set_content
 
 	"""
 	# Following 4 methods will either be removed or redesigned.
@@ -184,63 +225,90 @@ class DOM:
 		self._dom.call("RemoveCSSRule_1", _VOID, 2, id, str(index), 0)
 	"""
 
-	def dressWidgets(self,id):
-		return self._dom.call( "DressWidgets_1", _VOID, 1, id, 0 )
-
-	def _handleClasses(self, command, idsAndClasses):
+	def _handleClasses(self, variant, idsAndClasses):
 		[ids, classes] = _split(idsAndClasses)
 
-		self._dom.call(command, _VOID, 0, 2, ids, classes)
+		self._dom.call("HandleClasses_1", _VOID, variant, ids, classes)
 
-	def addClasses(self, idsAndClasses):
-		self._handleClasses("AddClasses_1", idsAndClasses)
+	def add_classes(self, ids_and_classes):
+		self._handleClasses("Add", ids_and_classes)
 
-	def removeClasses(self, idsAndClasses):
-		self._handleClasses("RemoveClasses_1", idsAndClasses)
+	addClasses = add_classes
 
-	def toggleClasses(self, idsAndClasses):
-		self._handleClasses("ToggleClasses_1", idsAndClasses)
+	def remove_classes(self, ids_and_classes):
+		self._handleClasses("Remove", ids_and_classes)
 
-	def addClass(self, id, clas ):
+	removeClasses = remove_classes		
+
+	def toggle_classes(self, ids_and_classes):
+		self._handleClasses("Toggle", ids_and_classes)
+
+	toggleClasses = toggle_classes
+
+	def add_class(self, id, clas ):
 		self.addClasses({id: clas})
 
-	def removeClass(self, id, clas ):
-		self.removeClasses({id: clas})
+	addClass = add_class
 
-	def toggleClass(self, id, clas ):
+	def remove_class(self, id, class_ ):
+		self.removeClasses({id: class_})
+
+	removeClass	= remove_class
+
+	def toggle_class(self, id, clas ):
 		self.toggleClasses({id: clas})
 
-	def enableElements(self,ids):
-		self._dom.call("EnableElements_1", _VOID, 0, 1, ids )
+	toggleClass = toggle_class
 
-	def enableElement(self, id):
+	def enable_elements(self,ids):
+		self._dom.call("EnableElements_1", _VOID, ids )
+
+	enableElements = enable_elements		
+
+	def enable_element(self, id):
 		self.enableElements([id] )
 
-	def disableElements(self, ids):
-		self._dom.call("DisableElements_1", _VOID, 0, 1, ids )
+	enableElement = enable_element		
 
-	def disableElement(self, id):
+	def disable_elements(self, ids):
+		self._dom.call("DisableElements_1", _VOID, ids )
+
+	disableElements = disable_elements		
+
+	def disable_element(self, id):
 		self.disableElements([id])
 
-	def setAttribute(self, id, name, value ):
-		self._dom.call("SetAttribute_1", _VOID, 3, id, name, str(value), 0 )
+	disableElement = disable_element
 
-	def getAttribute(self, id, name):
-		return self._dom.call("GetAttribute_1", _STRING, 2, id, name, 0 )
+	def set_attribute(self, id, name, value ):
+		self._dom.call("SetAttribute_1", _VOID, id, name, str(value) )
 
-	def removeAttribute(self, id, name ):
-		self._dom.call("RemoveAttribute_1", _VOID, 2, id, name, 0 )
+	setAttribute = set_attribute		
 
-	def setProperty(self, id, name, value ):
-		self._dom.call("SetProperty_1", _VOID, 3, id, name, value, 0 )
+	def get_attribute(self, id, name):
+		return self._dom.call("GetAttribute_1", _STRING, id, name )
 
-	def getProperty(self, id, name ):
-		return self._dom.call("GetProperty_1", _STRING, 2, id, name, 0 )
+	getAttribute = get_attribute		
+
+	def remove_attribute(self, id, name ):
+		self._dom.call("RemoveAttribute_1", _VOID, id, name )
+
+	removeAttribute = remove_attribute
+
+	def set_property(self, id, name, value ):
+		self._dom.call("SetProperty_1", _VOID, id, name, value )
+
+	setProperty = set_property		
+
+	def get_property(self, id, name ):
+		return self._dom.call("GetProperty_1", _STRING, id, name )
+
+	getProperty = get_property		
 
 	def focus(self, id):
-		self._dom.call("Focus_1", _VOID,1, id, 0)
+		self._dom.call("Focus_1", _VOID, id)
 
 def launch(callback, userCallback, callbacks, headContent, dir):
 	global _dir
 	_dir = dir
-	XDHqDEMO.launch(callback, userCallback,callbacks,headContent)
+	XDHqFaaS.launch(callback,userCallback,callbacks,headContent)

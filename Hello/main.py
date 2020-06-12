@@ -29,26 +29,26 @@ sys.path.append("../atlastk")
 
 import atlastk as Atlas
 
-def readAsset(path):
-	return Atlas.readAsset(path, "Hello")
+def read_asset(path):
+	return Atlas.read_asset(path, "Hello")
 
-def acConnect(dom):
-	dom.setLayout("", readAsset( "Main.html") )
+def ac_connect(dom):
+	dom.set_layout("", read_asset( "Main.html") )
 	dom.focus( "input")
 
-def acSubmit(dom):
-	dom.alert("Hello, " + dom.getContent("input") + "!")
+def ac_submit(dom):
+	dom.alert("Hello, " + dom.get_content("input") + "!")
 	dom.focus( "input")
 
-def acClear(dom):
+def ac_clear(dom):
 	if ( dom.confirm("Are you sure?" ) ):
-		dom.setContent("input", "" )
+		dom.set_content("input", "" )
 	dom.focus( "input")
 
 callbacks = {
-	"": acConnect,
-	"Submit": acSubmit,
-	"Clear": acClear,
+	"": ac_connect,
+	"Submit": ac_submit,
+	"Clear": ac_clear,
 }
 		
-Atlas.launch(callbacks, None, readAsset("Head.html"))
+Atlas.launch(callbacks, None, read_asset("Head.html"))

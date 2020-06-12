@@ -91,11 +91,11 @@ def move_stars(stars):
             vel[0] = vel[0] * 1.05
             vel[1] = vel[1] * 1.05
 
-def readAsset(path):
-	return Atlas.readAsset(path, "Stars")
+def read_asset(path):
+	return Atlas.read_asset(path, "Stars")
 
 def acConnect(,dom):
-	dom.setLayout("", readAsset("Main.html"))
+	dom.set_layout("", read_asset("Main.html"))
 
 pos = WINCENTER
 
@@ -136,8 +136,8 @@ def acTop(dom):
     pos = [pos[0], 0]
 
 def acToggle(dom):
-    dom.toggleClass("Simple", "hidden")
-    dom.toggleClass("Expert", "hidden")
+    dom.toggle_class("Simple", "hidden")
+    dom.toggle_class("Expert", "hidden")
 
 callbacks = {
 	"": acConnect,
@@ -154,7 +154,7 @@ callbacks = {
 }
 
 def atlas():
-    Atlas.launch(callbacks, None, readAsset("Head.html"), "Stars")
+    Atlas.launch(callbacks, None, read_asset("Head.html"), "Stars")
 
 def main():
     global pos;

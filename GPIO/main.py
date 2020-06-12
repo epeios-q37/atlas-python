@@ -201,8 +201,8 @@ def syncSettings():
 	settings = retrieveSettings()
 	lock.release()
 
-def readAsset(path):
-	return Atlas.readAsset(path, "GPIO")
+def read_asset(path):
+	return Atlas.read_asset(path, "GPIO")
 
 def getWId(pattern):
 	return int(pattern[pattern.find('.')+1:])
@@ -227,9 +227,9 @@ class GPIO:
 				break
 
 		if enable:
-			dom.enableElements(buttons)
+			dom.enable_elements(buttons)
 		else:
-			dom.disableElements(buttons)
+			dom.disable_elements(buttons)
 
 	def _getSetting(self,wId):
 		global settings
@@ -276,38 +276,38 @@ class GPIO:
 		return self._getSetting(wId)[Setting.SELECTED]
 
 	def _buildModeCorpus(self,xml):
-		xml.pushTag("Modes")
+		xml.push_tag("Modes")
 
 		for mode in Mode.label:
-			xml.pushTag("Mode")
-			xml.putAttribute("id", mode)
-			xml.putAttribute("Label", Mode.label[mode])
-			xml.popTag()
+			xml.push_tag("Mode")
+			xml.put_attribute("id", mode)
+			xml.put_attribute("Label", Mode.label[mode])
+			xml.pop_tag()
 
-		xml.popTag()
+		xml.pop_tag()
 
 	def _buildCorpus(self,xml):
-		xml.pushTag( "Corpus")
+		xml.push_tag( "Corpus")
 
 		self._buildModeCorpus(xml)
 
-		xml.popTag()
+		xml.pop_tag()
 
 	def _buildXML(self):
 		global mapping
 		xml = Atlas.createXML("XDHTML")
 		self._buildCorpus(xml)
-		xml.pushTag("GPIOs")
+		xml.push_tag("GPIOs")
 
 		for wId in mapping:
-			xml.pushTag("GPIO")
-			xml.putAttribute( "id", wId)
-			xml.putAttribute("Selected", self._getSelected(wId))
-			xml.putAttribute("Mode",self._getMode(wId))
-			xml.putAttribute("Value",self._getValue(wId))
-			xml.popTag()
+			xml.push_tag("GPIO")
+			xml.put_attribute( "id", wId)
+			xml.put_attribute("Selected", self._getSelected(wId))
+			xml.put_attribute("Mode",self._getMode(wId))
+			xml.put_attribute("Value",self._getValue(wId))
+			xml.pop_tag()
 
-		xml.popTag()
+		xml.pop_tag()
 
 		return xml
 
@@ -315,7 +315,7 @@ class GPIO:
 		return setCurrentUserId(self._userId)
 
 	def display(self,dom):
-		dom.setLayoutXSL("GPIO", self._buildXML(), "GPIO.xsl")
+		dom.set_layout_XSL("GPIO", self._buildXML(), "GPIO.xsl")
 		self._handleModeButtons(dom)
 
 	def setMode(self,dom,wId,mode):
@@ -323,17 +323,17 @@ class GPIO:
 
 		self._setMode(wId, mode)
 
-		dom.setContent("Value." + str(wId),self._getValue(wId))
+		dom.set_content("Value." + str(wId),self._getValue(wId))
 		dom.setAttribute(id,"value",self._getValue(wId))
 
 		if (mode==Mode.IN):
-			dom.disableElement(id)
+			dom.disable_element(id)
 			dom.setAttribute(id,"step","100")
 		elif (mode==Mode.OUT):
-			dom.enableElement(id)
+			dom.enable_element(id)
 			dom.setAttribute(id,"step","100")
 		elif (mode==Mode.PWM):
-			dom.enableElement(id)
+			dom.enable_element(id)
 			dom.setAttribute(id,"step","1")
 		else:
 			sys.exit("???")
@@ -370,15 +370,15 @@ def preProcess(GPIO,dom):
 		GPIO.display(dom)
 
 def acConnect(GPIO,dom):
-	dom.setLayout("", readAsset( "Main.html") )
+	dom.set_layout("", read_asset( "Main.html") )
 	GPIO.take()
 	GPIO.display(dom)
 
 def acSwitchMode(GPIO,dom,id):
-	GPIO.setMode(dom,getWId(id),int(dom.getContent(id)))
+	GPIO.setMode(dom,getWId(id),int(dom.get_content(id)))
 	
 def acChangeValue(GPIO,dom,id):
-	GPIO.setValue(dom,getWId(id),int(dom.getContent(id)))
+	GPIO.setValue(dom,getWId(id),int(dom.get_content(id)))
 
 callbacks = {
 		"_PreProcess": preProcess,
@@ -398,4 +398,4 @@ GPIOq.setup()
 
 syncSettings()
 		
-Atlas.launch(callbacks, GPIO, readAsset("Head.html"), "GPIO")
+Atlas.launch(callbacks, GPIO, read_asset("Head.html"), "GPIO")

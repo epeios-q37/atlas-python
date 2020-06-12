@@ -33,18 +33,18 @@ messages = []
 pseudos = []
 lock = threading.Lock()
 
-def readAsset(path):
-	return Atlas.readAsset(path, "Chatroom")
+def read_asset(path):
+	return Atlas.read_asset(path, "Chatroom")
 
 class Chatroom:
 	def __init__(self):
-		self.lastMessage = 0
+		self.last_message = 0
 		self.pseudo = ""
 
-	def buildXML(self):
-		xml = Atlas.createXML("XDHTML")
-		xml.pushTag( "Messages" )
-		xml.putAttribute( "pseudo", self.pseudo )
+	def build_xml(self):
+		xml = Atlas.create_XML("XDHTML")
+		xml.push_tag( "Messages" )
+		xml.put_attribute( "pseudo", self.pseudo )
 
 		global messages, pseudos, lock
 
@@ -52,32 +52,32 @@ class Chatroom:
 
 		index = len( messages ) - 1
 
-		while index >= self.lastMessage:
+		while index >= self.last_message:
 			message = messages[index]
 
-			xml.pushTag( "Message" )
-			xml.putAttribute( "id", index )
-			xml.putAttribute( "pseudo", message['pseudo'] )
-			xml.putValue( message['content'] )
-			xml.popTag()
+			xml.push_tag( "Message" )
+			xml.put_attribute( "id", index )
+			xml.put_attribute( "pseudo", message['pseudo'] )
+			xml.put_value( message['content'] )
+			xml.pop_tag()
 
 			index -= 1
 
-		self.lastMessage = len(messages)
+		self.last_message = len(messages)
 
 		lock.release()
 
-		xml.popTag()
+		xml.pop_tag()
 
 		return xml
 
-	def displayMessages(self, dom):
+	def display_messages(self, dom):
 		global messages
 		
-		if len(messages) > self.lastMessage:
-			dom.prependLayoutXSL("Board", self.buildXML(), "Messages.xsl")
+		if len(messages) > self.last_message:
+			dom.prepend_layout_XSL("Board", self.build_xml(), "Messages.xsl")
 
-	def handlePseudo(self, pseudo):
+	def handle_pseudo(self, pseudo):
 		global pseudos, lock
 
 		lock.acquire()
@@ -92,7 +92,7 @@ class Chatroom:
 
 		return result
 
-	def addMessage(self, pseudo, message):
+	def add_message(self, pseudo, message):
 		global messages, lock
 		message = message.strip()
 
@@ -102,49 +102,45 @@ class Chatroom:
 			messages.append({'pseudo': pseudo, 'content': message})
 			lock.release()
 
-def acConnect(chatroom, dom):
-	dom.setLayout("", readAsset("Main.html"))
+def ac_connect(chatroom, dom):
+	dom.set_layout("", read_asset("Main.html"))
 	dom.focus("Pseudo")
-	dom.setTimeout(1000, "Update")
-	chatroom.displayMessages(dom)
+	chatroom.display_messages(dom)
 	
-def acSubmitPseudo(chatroom, dom):
-	pseudo = dom.getContent("Pseudo").strip()
+def ac_submit_pseudo(chatroom, dom):
+	pseudo = dom.get_content("Pseudo").strip()
 
 	if not pseudo:
 		dom.alert("Pseudo. can not be empty !")
-		dom.setContent("Pseudo", "")
+		dom.set_content("Pseudo", "")
 		dom.focus("Pseudo")
-	elif chatroom.handlePseudo(pseudo.upper()):
+	elif chatroom.handle_pseudo(pseudo.upper()):
 		chatroom.pseudo = pseudo
-		dom.addClass("PseudoButton", "hidden")
-#		dom.disableElements(["Pseudo", "PseudoButton"])
-		dom.disableElement("Pseudo")
-		dom.enableElements(["Message", "MessageButton"])
-#		dom.setContent("Pseudo", pseudo)
+		dom.add_class("PseudoButton", "hidden")
+#		dom.disable_elements(["Pseudo", "PseudoButton"])
+		dom.disable_element("Pseudo")
+		dom.enable_elements(["Message", "MessageButton"])
+#		dom.set_content("Pseudo", pseudo)
 		dom.focus("Message")
 		print("\t>>>> New user: " + pseudo)
 	else:
 		dom.alert("Pseudo. not available!")
-		dom.setContent("Pseudo", pseudo)
+		dom.set_content("Pseudo", pseudo)
 		dom.focus("Pseudo")
 
-def acSubmitMessage(chatroom, dom):
-	message = dom.getContent("Message")
-	dom.setContent("Message", "")
+def ac_submit_message(chatroom, dom):
+	message = dom.get_content("Message")
+	dom.set_content("Message", "")
 	dom.focus("Message")
-	chatroom.addMessage(chatroom.pseudo, message)
-	chatroom.displayMessages(dom)
-
-def acUpdate(chatroom, dom):
-	chatroom.displayMessages(dom)
-	dom.setTimeout(1000, "Update")
+	chatroom.add_message(chatroom.pseudo, message)
+	chatroom.display_messages(dom)
+	Atlas.broadcast_action("Update")
 
 callbacks = {
-		"": acConnect,
-		"SubmitPseudo": acSubmitPseudo,
-		"SubmitMessage": acSubmitMessage,
-		"Update": acUpdate,
+		"": ac_connect,
+		"SubmitPseudo": ac_submit_pseudo,
+		"SubmitMessage": ac_submit_message,
+		"Update": lambda chatroom, dom: chatroom.display_messages(dom),
 	}
 		
-Atlas.launch(callbacks, Chatroom, readAsset("Head.html"), "Chatroom")
+Atlas.launch(callbacks, Chatroom, read_asset("Head.html"), "Chatroom")
