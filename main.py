@@ -44,10 +44,10 @@ while not success:
     demoId = input("Select one of above demos ('a' … '" + lastChar + "') : ").lower()
    
     try:
-        demo = demos[ord(demoId) - ord('a')] + "." + "main"
+        demo = "examples." + demos[ord(demoId) - ord('a')] + "." + "main"
         
         # Below line is needed by 'Repl.it'.
-        sys.argv[0]=demos[ord(demoId) - ord('a')] + "/"
+        sys.argv[0]="examples/" + demos[ord(demoId) - ord('a')] + "/"
 
         if True:  # Simplifies debugging when set to False
             try:

@@ -3,7 +3,7 @@
 ![For Python](https://q37.info/download/assets/Python.png "Python logo")
 
 [![Run on Repl.it](https://repl.it/badge/github/epeios-q37/atlas-python)](https://q37.info/s/vwpsw73v)
-[![Version 0.11](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.11)](http://github.com/epeios-q37/atlas-node/)
+[![Version 0.11](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.11)](http://github.com/epeios-q37/atlas-python/)
 [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/stargazers)
 [![license: MIT](https://img.shields.io/github/license/epeios-q37/atlas-python?color=yellow)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE)
 [![Homepage](https://img.shields.io/static/v1?label=homepage&message=atlastk.org&color=ff69b4)](https://atlastk.org)
@@ -24,46 +24,9 @@
 
 ---
 
-With the [*Atlas* toolkit](http://atlastk.org/), it has never been easier to create your own modern web application ([*SPA*](https://q37.info/s/7sbmxd3j)):
-- no *Javascript* to write; only *HTML* and *Python*,
-- no [front and back end architecture](https://q37.info/s/px7hhztd) to bother with,
-- no [web server](https://q37.info/s/n3hpwsht) (*Apache*, *Nginx*…) to install,
-
-and all this only with the help of a library of about 20 KB.
-
-With the *Atlas* toolkit, your applications will be accessible from the entire internet on laptops, smartphones, tablets…, and this without having to deploy them on a remote server or to open an incoming port on your internet box. All you need is a local computer with a simple internet connection. 
-
-The *Atlas* toolkit is also the fastest and easiest way to add a [graphical user interface](https://q37.info/s/hw9n3pjs) to all your programs.
-
-If you want to use the *Atlas* toolkit without installing the examples, simply install the [*atlastk* package from *PyPI*](http://q37.info/s/9srmskcm) (`pip install atlastk`). This package has no dependencies.
-
-The *Atlas* toolkit can also be used for educational purposes, to write modern programming exercises, i.e. with a true graphical interface instead of the usual outdated textual one. More about this can be found [here](https://q37.info/s/cbms43s9).
-
-There is also a stub to for this library at address <https://q37.info/s/zzcn3wnx>.
-
-## Live demonstrations
-
-Before diving into source code, you can take a look on some live demonstrations to see how applications based on the *Atlas* toolkit look like. You will find some games, like the [*15-puzzle* game](http://q37.info/s/jn9zg3bn) and the [*Reversi* (aka *Othello*) game](http://q37.info/s/zz3dzmf7). And you will also find the *Atlas* toolkit version of the [*TodoMVC*](http://todomvc.com/) application, which looks like:
-
-![TodoMVC](https://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")
-
-To see all this live demonstrations, simply go [here](https://q37.info/s/vwpsw73v), click on the green `run` button, select the demonstration you want to see, and then click (or scan with your smartphone) the then displayed [QR code](https://q37.info/s/3pktvrj7).
-
 ## *Hello, World!*
 
-Here's how the [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program made with the *Atlas* toolkit looks like:
-
-![Little demonstration](https://q37.info/download/assets/Hello.gif "A basic example")
-
-This example is part of the live demonstrations above, but you can launch it on your computer:
-
-- `git clone http://github.com/epeios-q37/atlas-python`
-- `cd atlas-python`
-- `python Hello/Hello.py`
-
-You can also put below source code in a file and launch it after having installed the [*atlastk* package](http://q37.info/s/9srmskcm) (`pip install atlastk`), or, with absolutely nothing to install, by pasting and launch the below code [here](http://q37.info/s/srnnb7hj), and then open the displayed *URL* in a web browser.
-
-Source code:
+### Source code
 
 ```python
 import atlastk as Atlas
@@ -103,11 +66,56 @@ callbacks = {
 Atlas.launch(callbacks)
 ```
 
+### Result
+
+[![Little demonstration](https://q37.info/download/assets/Hello.gif "A basic example")](https://q37.info/s/vwpsw73v)
+
+### Try it yourself now
+
+See the below online demonstrations section, or launch:
+
+- `git clone http://github.com/epeios-q37/atlas-python`
+- `python atlas-python/examples/Hello/`
+
+## Online demonstrations
+
+Thanks to [Replit](https://q37.info/s/mxmgq3qm), an [online IDE](https://q37.info/s/zzkzbdw7), you can write and run programs using the *Atlas* toolkit directly in your web browser, without having to install *Python* on your computer.
+
+To see some examples, like the following [*TodoMVC*](http://todomvc.com/) application or the above [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program, simply go [here](https://q37.info/s/vwpsw73v), click on the green `run` button, select the demonstration you want to see, and then click (or scan with your smartphone) the then displayed [QR code](https://q37.info/s/3pktvrj7).
+
+[![TodoMVC](https://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")](https://q37.info/s/vwpsw73v)
+
+## What do you want to do today?
+
+If you want to:
+
+- take your code to the next level, from [CLI](https://q37.info/s/cnh9nrw9) to [GUI](https://q37.info/s/hw9n3pjs),
+- teach your students to program a GUI, 
+- impress your teacher with a blowing GUI,
+- easily share your programs with all you family and friends,
+
+then you found the right toolkit.
+
+With the [*Atlas* toolkit](http://atlastk.org/), writing modern web applications ([*SPA*](https://q37.info/s/7sbmxd3j)) has never been this easy:
+- no *Javascript* to write; only *HTML* and *Python*,
+- no [front and back end architecture](https://q37.info/s/px7hhztd) to bother with,
+- no [web server](https://q37.info/s/n3hpwsht) (*Apache*, *Nginx*…) to install,
+- no need to deploy your application on a remote,
+- no incoming port to open on your internet box.
+
+The *Atlas* toolkit is written in pure *Python* (compatible with version 2 and 3), with no native code and no dependencies, allowing the *Atlas* toolkit to be used on all environments where *Python* is available. 
+
+Simply by running them on a local computer with a simple internet connexion, applications using the *Atlas* toolkit will be accessible from the entire internet on laptops, smartphones, tablets…
+
+The *Atlas* toolkit is particularly well suited for educational purposes, to write modern programming exercises, i.e. with a true graphical interface instead of the usual outdated textual one. More about this can be found [here](https://q37.info/s/cbms43s9).
+
+There is also a stub to for this library at address <https://q37.info/s/zzcn3wnx>.
+
 ## Content of the repository
 
 The `atlastk` directory contains the *Python* source code of the *Atlas* toolkit, which is the directory you have to reference in `PYTHONPATH` in order to use the *Atlas* toolkit in your own program, unless you have installed the [*atlastk* package](http://q37.info/s/9srmskcm) with `pip install atlastk`.
 
-All other directories are examples:
+In the `examples` directory, you will found following examples:
 
 - *Blank*: very basic example,
 - *Hello*: ["*Hello, World!*"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program),
@@ -120,9 +128,9 @@ All other directories are examples:
 - *ReversiIMG*: [*Reversi game*](http://q37.info/s/zz3dzmf7) with more evolved graphics,
 - *ReversiXSL*: [*Reversi game*](http://q37.info/s/zz3dzmf7) using *XSL*.
 
-Other exemples are detailed in the next section.
+Other examples are detailed in the next section.
 
-Except for the *ErgoJr*, *GPIO* and *RGB* applications, which are detailed in the next section, to run an example, launch `python main.py`, and select the example you want to run. You can also  launch `python <Name>/` (don't forget the final `/`), where `<Name>` is the name of the example (`Blank`, `Chatroom`…).
+Except for the *ErgoJr*, *GPIO* and *RGB* applications, which are detailed in the next section, to run an example, launch, from within the repository, `python main.py`, and select the example you want to run. You can also directly launch `python examples/<Name>/` (don't forget the final `/`), where `<Name>` is the name of the example (`Blank`, `Chatroom`…).
 
 The *Stars* application is an example where the *Atlas* *toolkit* is used to control a [*Pygame*](https://en.wikipedia.org/wiki/Pygame) based application. Of course, *Pygame* needs to be installed.
 
@@ -134,7 +142,7 @@ The *GPIO* and *RGB* applications are designed to be used on a *Raspberry Pi* or
 
 For the *Raspberry Pi*, the `RPi.GPIO` *Python* module have to be installed (this is probably already the case).
 
-For the *ODROID-C2*, The *Python* version of *WiringPi* must be installed, and the application has to be launched with `sudo` (`sudo python GPIO/` or `sudo python RGB/`).
+For the *ODROID-C2*, The *Python* version of *WiringPi* must be installed, and the application has to be launched, from within the repository, with `sudo` (`sudo python examples/GPIO/` or `sudo python examples/RGB/`).
 
 The *ErgoJr* application is experimental and to control a *Poppy* *Ergo Jr* robot.
 

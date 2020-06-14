@@ -34,7 +34,7 @@ setuptools.setup(
     version=version,
     author="Claude SIMON",
 #    author_email="author@example.com",
-    description="A fast and easy way to add a graphical user interface (GUI) to your programs.",
+    description="The easiest way to use web technologies in your apps.",
     keywords="GUI, web",
     long_description=long_description,
     long_description_content_type="text/markdown",
