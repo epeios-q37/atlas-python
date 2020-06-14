@@ -100,7 +100,7 @@ With the [*Atlas* toolkit](http://atlastk.org/), writing modern web applications
 - no *Javascript* to write; only *HTML* and *Python*,
 - no [front and back end architecture](https://q37.info/s/px7hhztd) to bother with,
 - no [web server](https://q37.info/s/n3hpwsht) (*Apache*, *Nginx*…) to install,
-- no need to deploy your application on a remote,
+- no need to deploy your application on a remote server,
 - no incoming port to open on your internet box.
 
 The *Atlas* toolkit is written in pure *Python* (compatible with version 2 and 3), with no native code and no dependencies, allowing the *Atlas* toolkit to be used on all environments where *Python* is available. 
