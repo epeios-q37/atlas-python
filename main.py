@@ -41,7 +41,7 @@ while not success:
         
     lastChar = chr(demosAmount + ord('a') - 1)
         
-    demoId = input("Select one of above demos ('a' … '" + lastChar + "') : ").lower()
+    demoId = input("Select one of above examples ('a' … '" + lastChar + "') : ").lower()
    
     try:
         demo = "examples." + demos[ord(demoId) - ord('a')] + "." + "main"

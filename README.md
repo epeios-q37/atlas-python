@@ -11,20 +11,19 @@
 [![Version](https://img.shields.io/pypi/v/atlastk?style=for-the-badge&color=90b4ed&label=PyPi)![Download stats](https://img.shields.io/pypi/dm/atlastk.svg?style=for-the-badge)](http://q37.info/s/9srmskcm)
 
 
-*NOTA*: this toolkit is also available for:
-
-- *Java*: <http://github.com/epeios-q37/atlas-java>
-- *Node.js*: <http://github.com/epeios-q37/atlas-node>
-- *Perl*: <http://github.com/epeios-q37/atlas-perl>
-- *Ruby*: <http://github.com/epeios-q37/atlas-ruby>
-
-
+> *This toolkit is available for:*
+> - *Java*: <http://github.com/epeios-q37/atlas-java>
+> - *Node.js*: <http://github.com/epeios-q37/atlas-node>
+> - *Perl*: <http://github.com/epeios-q37/atlas-perl>
+> - *Python*: <http://github.com/epeios-q37/atlas-python>
+> - *Ruby*: <http://github.com/epeios-q37/atlas-ruby>
 
 **If you are looking for the *WebGPIO* application, an application with which you can control the Raspberry Pi (or other similar devices) GPIO with your smartphone, you will find it at the bottom of this page, in the *Raspberry Pi*/*ODROID-C2* section.**
 
+
 ---
 
-## *Hello, World!*
+## Straight to the point: the [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program
 
 ### Source code
 
@@ -66,26 +65,34 @@ callbacks = {
 Atlas.launch(callbacks)
 ```
 
+
 ### Result
 
 [![Little demonstration](https://q37.info/download/assets/Hello.gif "A basic example")](https://q37.info/s/vwpsw73v)
 
 ### Try it yourself now
 
-See the below online demonstrations section, or launch:
-
-- `git clone http://github.com/epeios-q37/atlas-python`
-- `python atlas-python/examples/Hello/`
-
-## Online demonstrations
+#### Online, with nothing to install
 
 Thanks to [Replit](https://q37.info/s/mxmgq3qm), an [online IDE](https://q37.info/s/zzkzbdw7), you can write and run programs using the *Atlas* toolkit directly in your web browser, without having to install *Python* on your computer.
 
-To see some examples, like the following [*TodoMVC*](http://todomvc.com/) application or the above [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program, simply go [here](https://q37.info/s/vwpsw73v), click on the green `run` button, select the demonstration you want to see, and then click (or scan with your smartphone) the then displayed [QR code](https://q37.info/s/3pktvrj7).
+To see some examples, like the following [*TodoMVC*](http://todomvc.com/) application or the above [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program, simply:
+-  go [here](https://q37.info/s/vwpsw73v) (or click on the [![Run on Repl.it](https://repl.it/badge/github/epeios-q37/atlas-python)](https://q37.info/s/vwpsw73v) badge at the top of this page),
+-  click on the green `run` button,
+-  select the demonstration you want to see,
+-  click (or scan with your smartphone) the then displayed [QR code](https://q37.info/s/3pktvrj7).
 
 [![TodoMVC](https://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")](https://q37.info/s/vwpsw73v)
 
-## What do you want to do today?
+#### With *Python* on your computer
+
+```
+git clone http://github.com/epeios-q37/atlas-python
+cd atlas-python/examples
+python Hello/`
+```
+
+## Your turn
 
 If you want to:
 
@@ -97,13 +104,13 @@ If you want to:
 then you found the right toolkit.
 
 With the [*Atlas* toolkit](http://atlastk.org/), writing modern web applications ([*SPA*](https://q37.info/s/7sbmxd3j)) has never been this easy:
-- no *Javascript* to write; only *HTML* and *Python*,
+- no *JavaScript* to write; only *HTML* and *Python*,
 - no [front and back end architecture](https://q37.info/s/px7hhztd) to bother with,
 - no [web server](https://q37.info/s/n3hpwsht) (*Apache*, *Nginx*…) to install,
 - no need to deploy your application on a remote server,
 - no incoming port to open on your internet box.
 
-The *Atlas* toolkit is written in pure *Python* (compatible with version 2 and 3), with no native code and no dependencies, allowing the *Atlas* toolkit to be used on all environments where *Python* is available. 
+The *Atlas* toolkit is written in pure *Python*, with no native code and no dependencies, allowing the *Atlas* toolkit to be used on all environments where *Python* is available. 
 
 Simply by running them on a local computer with a simple internet connexion, applications using the *Atlas* toolkit will be accessible from the entire internet on laptops, smartphones, tablets…
 
@@ -130,7 +137,7 @@ In the `examples` directory, you will found following examples:
 
 Other examples are detailed in the next section.
 
-Except for the *ErgoJr*, *GPIO* and *RGB* applications, which are detailed in the next section, to run an example, launch, from within the repository, `python main.py`, and select the example you want to run. You can also directly launch `python examples/<Name>/` (don't forget the final `/`), where `<Name>` is the name of the example (`Blank`, `Chatroom`…).
+Except for the *ErgoJr*, *GPIO* and *RGB* applications, which are detailed in the next section, to run an example, launch, from within the repository, `python main.py`, and select the example you want to run. You can also directly launch, from within the `examples` directory, `python <Name>/` (don't forget the final `/`), where `<Name>` is the name of the example (`Blank`, `Chatroom`…).
 
 The *Stars* application is an example where the *Atlas* *toolkit* is used to control a [*Pygame*](https://en.wikipedia.org/wiki/Pygame) based application. Of course, *Pygame* needs to be installed.
 
@@ -142,7 +149,7 @@ The *GPIO* and *RGB* applications are designed to be used on a *Raspberry Pi* or
 
 For the *Raspberry Pi*, the `RPi.GPIO` *Python* module have to be installed (this is probably already the case).
 
-For the *ODROID-C2*, The *Python* version of *WiringPi* must be installed, and the application has to be launched, from within the repository, with `sudo` (`sudo python examples/GPIO/` or `sudo python examples/RGB/`).
+For the *ODROID-C2*, The *Python* version of *WiringPi* must be installed, and the application has to be launched, from within the `examples` directory, with `sudo` (`sudo python GPIO/` or `sudo python RGB/`).
 
 The *ErgoJr* application is experimental and to control a *Poppy* *Ergo Jr* robot.
 
