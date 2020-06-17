@@ -6,12 +6,12 @@
 [![Version 0.11](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.11)](http://github.com/epeios-q37/atlas-python/)
 [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/stargazers)
 [![license: MIT](https://img.shields.io/github/license/epeios-q37/atlas-python?color=yellow)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE)
-[![Homepage](https://img.shields.io/static/v1?label=homepage&message=atlastk.org&color=ff69b4)](https://atlastk.org)
+[![Documentation](https://img.shields.io/static/v1?label=documentation&message=atlastk.org&color=ff69b4)](https://atlastk.org)
 
 [![Version](https://img.shields.io/pypi/v/atlastk?style=for-the-badge&color=90b4ed&label=PyPi)![Download stats](https://img.shields.io/pypi/dm/atlastk.svg?style=for-the-badge)](http://q37.info/s/9srmskcm)
 
 
-> *This toolkit is available for:*
+> The [*Atlas* toolkit](https://atlastk.org) is available for:
 > - *Java*: <http://github.com/epeios-q37/atlas-java>
 > - *Node.js*: <http://github.com/epeios-q37/atlas-node>
 > - *Perl*: <http://github.com/epeios-q37/atlas-perl>
@@ -89,7 +89,7 @@ To see some examples, like the following [*TodoMVC*](http://todomvc.com/) applic
 ```
 git clone http://github.com/epeios-q37/atlas-python
 cd atlas-python/examples
-python Hello/`
+python Hello/
 ```
 
 ## Your turn
