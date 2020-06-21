@@ -1,7 +1,5 @@
 # *Python* version of the *Atlas* toolkit
 
-![For Python](https://q37.info/download/assets/Python.png "Python logo")
-
 [![Run on Repl.it](https://repl.it/badge/github/epeios-q37/atlas-python)](https://q37.info/s/vwpsw73v)
 [![Version 0.11](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.11)](http://github.com/epeios-q37/atlas-python/)
 [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/stargazers)
@@ -9,7 +7,6 @@
 [![Documentation](https://img.shields.io/static/v1?label=documentation&message=atlastk.org&color=ff69b4)](https://atlastk.org)
 
 [![Version](https://img.shields.io/pypi/v/atlastk?style=for-the-badge&color=90b4ed&label=PyPi)![Download stats](https://img.shields.io/pypi/dm/atlastk.svg?style=for-the-badge)](http://q37.info/s/9srmskcm)
-
 
 > The [*Atlas* toolkit](https://atlastk.org) is available for:
 > langage | repository address| popularity 
@@ -19,7 +16,6 @@
 > *Perl* |<http://github.com/epeios-q37/atlas-perl>|  [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-perl.svg?style=social)](https://github.com/epeios-q37/atlas-perl/stargazers)
 > *Python* | <http://github.com/epeios-q37/atlas-python> | [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/stargazers)
 > *Ruby* | <http://github.com/epeios-q37/atlas-ruby> | [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-ruby.svg?style=social)](https://github.com/epeios-q37/atlas-ruby/stargazers)
-
 
 **If you are looking for the *WebGPIO* application, an application with which you can control the Raspberry Pi (or other similar devices) GPIO with your smartphone, you will find it at the bottom of this page, in the *Raspberry Pi*/*ODROID-C2* section.**
 
