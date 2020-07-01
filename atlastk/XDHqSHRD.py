@@ -44,7 +44,7 @@ def open(document):
 		elif platform == "cygwin":
 			opener = "cygstart"
 		else:
-			opener = "xdg-open"
+			opener = "xdg-open" if True else "arora"	# 'arora' web browser hav issues when dealing with XSL.
 		try:
 			subprocess.call(opener + " " + document + " &", shell=True)
 		except:
