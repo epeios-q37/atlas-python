@@ -24,13 +24,10 @@ SOFTWARE.
 
 import os, sys
 
-sys.path.append("./atlastk")
-sys.path.append("../atlastk")
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append("../../atlastk")
 
 import atlastk as Atlas
-
-def read_asset(path):
-	return Atlas.read_asset(path, "TodoMVC")
 
 class TodoMVC:
 	def __init__(self):
@@ -91,7 +88,7 @@ class TodoMVC:
 
 		xml.pop_tag()
 
-		dom.set_layout_XSL("Todos", xml, "Todos.xsl")
+		dom.inner("Todos", xml, "Todos.xsl")
 		self.handle_count(dom)
 
 	def submit_new(self, dom):
@@ -120,7 +117,7 @@ class TodoMVC:
 			self.displayTodos(dom)
 
 def ac_connect(self, dom):
-	dom.set_layout("", read_asset("Main.html"))
+	dom.inner("", open("Main.html").read())
 	dom.focus("Input")
 	self.display_todos(dom)
 	dom.disable_elements(["HideActive", "HideCompleted"])
@@ -200,4 +197,4 @@ callbacks = {
 	"Cancel": ac_cancel,
 }
 
-Atlas.launch(callbacks, TodoMVC, read_asset("HeadFaaS.html"), "TodoMVC")
+Atlas.launch(callbacks, TodoMVC, open("HeadFaaS.html").read())

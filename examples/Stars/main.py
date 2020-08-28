@@ -32,13 +32,12 @@ SOFTWARE.
 """
 
 
-import random, math, pygame, sys
+import random, math, pygame, os, sys
 from pygame.locals import *
 from threading import Thread
 import threading
 
-sys.path.append("./atlastk")
-sys.path.append("../atlastk")
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append("../../atlastk")
 
 import atlastk as Atlas
@@ -91,11 +90,8 @@ def move_stars(stars):
             vel[0] = vel[0] * 1.05
             vel[1] = vel[1] * 1.05
 
-def read_asset(path):
-	return Atlas.read_asset(path, "Stars")
-
 def acConnect(,dom):
-	dom.set_layout("", read_asset("Main.html"))
+	dom.inner("", open("Main.html").read())
 
 pos = WINCENTER
 
@@ -154,7 +150,7 @@ callbacks = {
 }
 
 def atlas():
-    Atlas.launch(callbacks, None, read_asset("Head.html"), "Stars")
+    Atlas.launch(callbacks, None, open("Head.html").read())
 
 def main():
     global pos;

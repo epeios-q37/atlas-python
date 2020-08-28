@@ -22,21 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import sys
+import os, sys
 from random import *
 
-sys.path.append("./atlastk")
-sys.path.append("../atlastk")
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append("../../atlastk")
 
 import atlastk as Atlas
 
-
+# Althought empty, must exist, as it will be filled later.
 class Puzzle:
     pass
-
-
-def read_asset(path):
-    return Atlas.read_asset(path, "15-puzzle")
 
 
 def fill(puzzle, dom):
@@ -98,7 +94,7 @@ def draw_grid(dom):
     for x in range(0, 4):
         for y in range(0, 4):
             draw_square(board, x, y)
-    dom.set_layout("Stones", board)
+    dom.inner("Stones", board)
 
 
 def set_text(texts, x, y):
@@ -114,7 +110,7 @@ def set_texts(dom):
     for x in range(0, 4):
         for y in range(0, 4):
             set_text(texts, x, y)
-    dom.set_layout("Texts", texts)
+    dom.inner("Texts", texts)
 
 
 def scramble(puzzle, dom):
@@ -124,27 +120,8 @@ def scramble(puzzle, dom):
 
 
 def ac_connect(self, dom):
-    dom.set_layout("", read_asset("Main.html"))
+    dom.inner("", open("Main.html").read())
     scramble(self, dom)
-
-
-def ac_swap_old(self, dom, id):
-    new = int(id)
-    current = self.blank
-
-    ix, iy = convert(new)
-    bx, by = convert(current)
-
-    if (ix == bx):
-        delta = 4 if by < iy else -4
-        while(by != iy):
-            swap(self, dom, self.blank+delta)
-            by = convert_y(self.blank)
-    elif (iy == by):
-        delta = 1 if bx < ix else -1
-        while(bx != ix):
-            swap(self, dom, self.blank+delta)
-            bx = convert_x(self.blank)
 
 
 def build(sourceIds,targetIds,sourceIdsAndContents, blank):
@@ -200,4 +177,4 @@ callbacks = {
 }
 
 
-Atlas.launch(callbacks, Puzzle, read_asset("Head.html"), "15-puzzle")
+Atlas.launch(callbacks, Puzzle, open("Head.html").read())

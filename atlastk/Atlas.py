@@ -22,13 +22,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  """
 
-import XDHq
+import XDHq, XDHqSHRD
 from threading import Thread
 import threading
 import inspect
-from XDHq import readAsset, read_asset
 
-import signal, sys
+import signal, sys, os
+
+if sys.version_info[0] == 2:
+	import __builtin__ as builtins
+else:
+	import builtins
+
+# Overriding some functions for the Dev environment.
+if XDHqSHRD.isDev():
+	if "openpyxl" in sys.modules :
+		defaultXLFunction = sys.modules['openpyxl'].load_workbook
+		sys.modules['openpyxl'].load_workbook = lambda filename, **kwargs: defaultXLFunction(XDHq.get_asset_filename(filename), **kwargs)
+	
+	defaultBuiltinsFunction = builtins.open
+	builtins.open = lambda filename, *args, **kwargs: defaultBuiltinsFunction(XDHq.get_asset_filename(filename), *args, **kwargs)
 
 def signal_handler(sig, frame):
   sys.exit(0)
@@ -100,6 +113,6 @@ def callback(userCallback,callbacks,instance):
 	thread.start()
 	return thread
 
-def launch(callbacks, userCallback = None, headContent = "", dir = ""):
-	XDHq.launch(callback,userCallback,callbacks,headContent,dir)
+def launch(callbacks, userCallback = None, headContent = ""):
+	XDHq.launch(callback,userCallback,callbacks,headContent)
 

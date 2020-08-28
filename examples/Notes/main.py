@@ -25,15 +25,12 @@ SOFTWARE.
 
 import os, sys
 
-sys.path.append("./atlastk")
-sys.path.append("../atlastk")
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append("../../atlastk")
 
 import atlastk as Atlas
 
 view_mode_elements = ["Pattern", "CreateButton", "DescriptionToggling", "ViewNotes"]
-
-def read_asset(path):
-	return Atlas.read_asset(path, "Notes")
 
 def put(note, id, xml ):
 	xml.push_tag("Note")
@@ -87,7 +84,7 @@ class Notes:
 				put(self.notes[index], index, xml)
 				contents["Description." + str(index)] = self.notes[index]['description']
 
-		dom.set_layout_XSL("Notes", xml, "Notes.xsl")
+		dom.inner("Notes", xml, "Notes.xsl")
 		dom.set_contents(contents)
 		dom.enable_elements(view_mode_elements)
 
@@ -97,7 +94,7 @@ class Notes:
 		self.index = -1
 
 def ac_connect(notes, dom):
-		dom.set_layout("", read_asset( "Main.html") )
+		dom.inner("", open( "Main.html").read() )
 		notes.display_list(dom)
 
 def ac_toggle_descriptions(notes, dom, id):
@@ -113,7 +110,7 @@ def ac_edit(notes, dom, id):
 	notes.index = int(index)
 	note = notes.notes[notes.index]
 
-	dom.set_layout("Edit." + index, read_asset( "Note.html") )
+	dom.inner("Edit." + index, open( "Note.html").read() )
 	dom.set_contents({ "Title": note['title'], "Description": note['description'] })
 	dom.disable_elements(view_mode_elements)
 	dom.focus("Title")
@@ -141,7 +138,7 @@ def ac_submit(notes, dom):
 		dom.alert("Title can not be empty!")
 		dom.focus("Title")
 
-def ac_cancel( notes, dom):
+def ac_cancel(notes, dom):
 	note = notes.notes[notes.index]
 
 	result = dom.get_contents(["Title", "Description"])
@@ -164,4 +161,4 @@ callbacks = {
 	"Cancel": ac_cancel,
 }
 
-Atlas.launch(callbacks, Notes, read_asset("Head.html"), "Notes")
+Atlas.launch(callbacks, Notes, open("Head.html").read())

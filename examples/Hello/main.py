@@ -24,16 +24,13 @@ SOFTWARE.
 
 import os, sys
 
-sys.path.append("./atlastk")
-sys.path.append("../atlastk")
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append("../../atlastk")
 
 import atlastk as Atlas
 
-def read_asset(path):
-	return Atlas.read_asset(path, "Hello")
-
 def ac_connect(dom):
-	dom.set_layout("", read_asset( "Main.html") )
+	dom.inner("", open( "Main.html").read() )
 	dom.focus( "input")
 
 def ac_submit(dom):
@@ -51,4 +48,4 @@ callbacks = {
 	"Clear": ac_clear,
 }
 		
-Atlas.launch(callbacks, None, read_asset("Head.html"))
+Atlas.launch(callbacks, None, open("Head.html").read())

@@ -60,7 +60,7 @@ class XML:
 		self.putValue(value)
 		self.popTag()
 
-	putTagAndValue = put_tag_and_value		
+	putTagAndValue = put_tag_and_value
 
 	def to_string(self):
 		return self._xml

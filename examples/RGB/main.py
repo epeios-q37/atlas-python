@@ -22,19 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import GPIOq, sys
+import GPIOq, os, sys
 
-sys.path.append("./atlastk")
-sys.path.append("../atlastk")
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append("../../atlastk")
 
 import atlastk as Atlas
 
 rPin = None
 gPin = None
 bPin = None
-
-def read_asset(path):
-	return Atlas.read_asset(path, "RGB")
 
 class RGB:
 	def __init__(self):
@@ -46,7 +43,7 @@ def set(dom, id, value):
 
 def acConnect(RGB,dom):
 	global rPin, gPin, bPin
-	dom.set_layout("", read_asset( "Main.html") )
+	dom.inner("", open( "Main.html").read() )
 	set( dom, "Red", rPin)
 	set( dom, "Green", gPin)
 	set( dom, "Blue", bPin)
@@ -107,4 +104,4 @@ callbacks = {
 
 GPIOq.setup()
 
-Atlas.launch(callbacks, RGB, read_asset("Head.html"), "RGB")
+Atlas.launch(callbacks, RGB,open("Head.html").read())

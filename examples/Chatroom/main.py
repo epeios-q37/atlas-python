@@ -24,17 +24,14 @@ SOFTWARE.
 
 import os, sys, threading
 
-sys.path.append("./atlastk")
-sys.path.append("../atlastk")
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append("../../atlastk")
 
 import atlastk as Atlas
 
 messages = []
 pseudos = []
 lock = threading.Lock()
-
-def read_asset(path):
-	return Atlas.read_asset(path, "Chatroom")
 
 class Chatroom:
 	def __init__(self):
@@ -75,7 +72,7 @@ class Chatroom:
 		global messages
 		
 		if len(messages) > self.last_message:
-			dom.prepend_layout_XSL("Board", self.build_xml(), "Messages.xsl")
+			dom.begin("Board", self.build_xml(), "Messages.xsl")
 
 	def handle_pseudo(self, pseudo):
 		global pseudos, lock
@@ -103,7 +100,7 @@ class Chatroom:
 			lock.release()
 
 def ac_connect(chatroom, dom):
-	dom.set_layout("", read_asset("Main.html"))
+	dom.inner("", open("Main.html").read())
 	dom.focus("Pseudo")
 	chatroom.display_messages(dom)
 	
@@ -143,4 +140,4 @@ callbacks = {
 		"Update": lambda chatroom, dom: chatroom.display_messages(dom),
 	}
 		
-Atlas.launch(callbacks, Chatroom, read_asset("Head.html"), "Chatroom")
+Atlas.launch(callbacks, Chatroom, open("Head.html").read())

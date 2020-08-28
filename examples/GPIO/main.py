@@ -22,10 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import GPIOq, sys, threading
+import GPIOq, os, sys, threading
 
-sys.path.append("./atlastk")
-sys.path.append("../atlastk")
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append("../../atlastk")
 
 import atlastk as Atlas
 
@@ -201,9 +201,6 @@ def syncSettings():
 	settings = retrieveSettings()
 	lock.release()
 
-def read_asset(path):
-	return Atlas.read_asset(path, "GPIO")
-
 def getWId(pattern):
 	return int(pattern[pattern.find('.')+1:])
 
@@ -370,7 +367,7 @@ def preProcess(GPIO,dom):
 		GPIO.display(dom)
 
 def acConnect(GPIO,dom):
-	dom.set_layout("", read_asset( "Main.html") )
+	dom.inner("", open( "Main.html").read() )
 	GPIO.take()
 	GPIO.display(dom)
 
@@ -398,4 +395,4 @@ GPIOq.setup()
 
 syncSettings()
 		
-Atlas.launch(callbacks, GPIO, read_asset("Head.html"), "GPIO")
+Atlas.launch(callbacks, GPIO, open("Head.html").read())

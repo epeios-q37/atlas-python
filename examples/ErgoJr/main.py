@@ -24,10 +24,10 @@ SOFTWARE.
 
 # To control a Poppy Ergo Jr
 
-import time, sys
+import os, time, sys
 
-sys.path.append("./atlastk")
-sys.path.append("../atlastk")
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append("../../atlastk")
 
 import atlastk as Atlas
 
@@ -57,14 +57,11 @@ for _ in range(3):
     time.sleep(0.5)
 """
 
-def read_asset(path):
-	return Atlas.read_asset(path, "ErgoJr")
-
 class Poppy:
   pass
 
 def acConnect(Poppy,dom):
-	dom.set_layout("", read_asset( "Main.html") )
+	dom.inner("", open( "Main.html").read() )
 
 def acMove(Poppy,dom,id):
   global poppy
@@ -93,4 +90,4 @@ callbacks = {
 		"Reset": acReset,
 	}
 	
-Atlas.launch(callbacks, Poppy, read_asset("Head.html"), "ErgoJr")
+Atlas.launch(callbacks, Poppy, open("Head.html").read())

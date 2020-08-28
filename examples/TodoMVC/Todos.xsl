@@ -9,7 +9,7 @@
 		<xsl:apply-templates select="Todo"/>
 	</xsl:template>
 	<xsl:template match="Todo">
-		<li id="Todo.{@id}" data-xdh-onevents="(dblclick|Edit)" data-xdh-value="{@id}">
+		<li id="Todo.{@id}" data-xdh-onevents="(dblclick|Edit)" data-xdh-content="{@id}">
 			<xsl:attribute name="class">
 				<xsl:text>view</xsl:text>
 				<xsl:choose>
@@ -30,7 +30,7 @@
 				<label id="Label.{@id}">
 					<xsl:value-of select="."/>
 				</label>
-				<button data-xdh-value="{@id}" class="destroy" data-xdh-onevent="Destroy"/>
+				<button data-xdh-content="{@id}" class="destroy" data-xdh-onevent="Destroy"/>
 			</span>
 			<input id="Input.{@id}" class="edit" data-xdh-onevent="Submit" data-xdh-onevents="(keyup|Cancel|Esc)(blur|Submit)"/>
 		</li>

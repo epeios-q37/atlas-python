@@ -28,20 +28,12 @@ SOFTWARE.
 
 # Demonstrates the use of XSL.
 
-import os
-import sys
-import random
-import itertools
-import time
+import os, sys, random, itertools, time
 
-sys.path.append("./atlastk")
-sys.path.append("../atlastk")
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append("../../atlastk")
 
 import atlastk as Atlas
-
-
-def read_asset(path):
-    return Atlas.read_asset(path, "ReversiXSL")
 
 
 EMPTY = 0
@@ -211,7 +203,7 @@ def drawBoard(reversi, dom):
             "blackTXT": reversi.count(BLACK),
             "whiteTXT": reversi.count(WHITE)
         })
-        dom.set_layout_XSL("board", board, "BoardTXT.xsl")
+        dom.inner("board", board, "BoardTXT.xsl")
         dom.enable_element("styleTXT")
         dom.disable_element("styleIMG")
         dom.add_class("scoreIMG", "hidden")
@@ -221,7 +213,7 @@ def drawBoard(reversi, dom):
             "blackIMG": reversi.count(BLACK),
             "whiteIMG": reversi.count(WHITE)
         })
-        dom.set_layout_XSL("board", board, "BoardIMG.xsl")
+        dom.inner("board", board, "BoardIMG.xsl")
         dom.disable_element("styleTXT")
         dom.enable_element("styleIMG")
         dom.add_class("scoreTXT", "hidden")
@@ -232,7 +224,7 @@ def acConnect(reversi, dom):
     reversi.player = BLACK
     reversi.weight_matrix = WEIGHT_MATRIX
     reversi.layout = TXT
-    dom.set_layout("", read_asset("Main.html"))
+    dom.inner("", open("Main.html").read())
     drawBoard(reversi, dom)
     dom.alert("Welcome to this Reversi (aka Othello) game made with the Atlas toolkit.\n\nYou play against the computer with the black, or 'X', pieces.")
 
@@ -284,4 +276,4 @@ callbacks = {
     "ToggleLayout": acToggleLayout,
 }
 
-Atlas.launch(callbacks, Reversi, read_asset("Head.html"), "ReversiXSL")
+Atlas.launch(callbacks, Reversi, open("Head.html").read())

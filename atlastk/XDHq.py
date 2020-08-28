@@ -25,6 +25,7 @@ SOFTWARE.
 """
 
 import XDHqFaaS, XDHqSHRD, XDHqXML
+from XDHqFaaS import launch
 
 import os, sys
 from collections import OrderedDict
@@ -40,8 +41,6 @@ elif sys.version_info[0] == 3:
 else:
 	print("Unhandled python version!")
 	os._exit(1)
-
-_dir = ""
 
 _VOID = XDHqSHRD.RT_VOID
 _STRING = XDHqSHRD.RT_STRING
@@ -59,7 +58,6 @@ def _split(keysAndValues):
 
 	return [keys,values]
 
-
 def _unsplit(keys,values):
 	i = 0
 	# With 'OrderedDict', the order of the items is keeped under Python 2.
@@ -74,31 +72,25 @@ def _unsplit(keys,values):
 
 	return keysAndValues
 
+def _getAssetPath():
+	if not XDHqSHRD.isDev():
+		throw("Should only be called in DEV context!!!")
 
-def _getAssetPath(dir):
-	if XDHqSHRD.isDev():
-		return os.path.join(os.environ["Q37_EPEIOS"],"tools/xdhq/examples/common/", dir )
-	else:
-		return os.path.abspath(os.path.dirname(sys.argv[0]))
-
-
-def _getAssetFilename(path, dir):
-	return os.path.join(_getAssetPath(dir), path )
+	return os.path.join(os.path.realpath(os.path.join(os.environ["Q37_EPEIOS"].replace('h:','/cygdrive/h'),"tools/xdhq/examples/common/")),os.path.relpath(os.getcwd(),os.path.realpath(os.path.join(os.environ["Q37_EPEIOS"].replace('h:','/cygdrive/h'),"tools/xdhq/examples/PYH/"))))
 
 
-def read_asset(path, dir=""):
-	return open(_getAssetFilename(path, dir)).read()
+def get_asset_filename(path):
+	return os.path.join(_getAssetPath(), path )
 
-readAsset = read_asset
 
 broadcastAction = XDHqFaaS.broadcastAction
 
 
-def _readXSLAsset(path, dir):
+def _readXSLAsset(path):
 	if (path.lstrip()[0]=='<'):
 		return path.lstrip()
 	else:
-		return readAsset(path, dir)
+		return open(get_asset_filename(path) if XDHqSHRD.isDev() else path).read()
 
 class DOM:
 	def __init__(self,instance):
@@ -125,10 +117,10 @@ class DOM:
 		return self._dom.call("Execute_1" ,_STRINGS, script)
 
 	def flush(self):	# Returns when all the pending commands were executed.
-		self.execute_string("''")
+		self._dom.call("Flush_1",_STRING)
 
 	def alert(self,message):
-		self._dom.call( "Alert_1", _STRING, message )
+		self._dom.call( "Alert_1", _STRING, str(message) )
 		# For the return value being 'STRING' instead of 'VOID',
 		# see the 'alert' primitive in 'XDHqXDH'.
 
@@ -140,66 +132,114 @@ class DOM:
 		# 	If 'xml' is HTML and uses the compressed form, if it has a root tag, only the children will be used.
 		self._dom.call("HandleLayout_1", _VOID, variant, id, xml if isinstance(xml,str) else xml.toString(), xsl)
 
-	def prepend_layout(self,id,html):
+	def prepend_layout(self,id,html):	# Deprecated!
 		self._handleLayout("Prepend",id,html,"")
 
-	prependLayout = prepend_layout
+	prependLayout = prepend_layout	# Deprecated!
 
-	def set_layout(self,id,html):
+	def set_layout(self,id,html):	# Deprecated!
 		self._handleLayout("Set",id,html,"")
 
-	setLayout = set_layout
+	setLayout = set_layout	# Deprecated!
 
-	def append_layout(self,id,html):
+	def append_layout(self,id,html):	# Deprecated!
 		self._handleLayout("Append",id,html,"")
 
-	appendLayout = append_layout
+	appendLayout = append_layout	# Deprecated!
 
-	def _handleLayoutXSL(self, variant, id, xml, xsl):
-		global _dir
+	def _handleLayoutXSL(self, variant, id, xml, xsl):	# Deprecated!
 		xslURL = xsl
 
 		if True:	# Testing if 'SlfH' or 'FaaS' mode when available.
-			xslURL = "data:text/xml;charset=utf-8," + _encode( _readXSLAsset( xsl, _dir ) )
+			xslURL = "data:text/xml;charset=utf-8," + _encode(_readXSLAsset(xsl))
 
 		self._handleLayout(variant, id, xml, xslURL )
 
-	def prepend_layout_XSL(self, id, xml, xsl):
+	def prepend_layout_XSL(self, id, xml, xsl):	# Deprecated!
 		self._handleLayoutXSL("Prepend",id,xml,xsl)
 
-	prependLayoutXSL = prepend_layout_XSL
+	prependLayoutXSL = prepend_layout_XSL	# Deprecated!
 
-	def set_layout_XSL(self, id, xml, xsl):
+	def set_layout_XSL(self, id, xml, xsl):	# Deprecated!
 		self._handleLayoutXSL("Set",id,xml,xsl)
 
-	setLayoutXSL = set_layout_XSL
+	setLayoutXSL = set_layout_XSL	# Deprecated!
 
-	def append_layout_XSL(self, id, xml, xsl):
+	def append_layout_XSL(self, id, xml, xsl):	# Deprecated!
 		self._handleLayoutXSL("Append",id,xml,xsl)
 
-	appendLayoutXSL = append_layout_XSL
+	appendLayoutXSL = append_layout_XSL	# Deprecated!
 
-	def get_contents(self, ids):
+	def _layout(self, variant, id, xml, xsl):
+		if xsl:
+			xsl = "data:text/xml;charset=utf-8," + _encode(_readXSLAsset(xsl))
+
+		self._dom.call("HandleLayout_1", _VOID, variant, id, xml if isinstance(xml,str) else xml.toString(), xsl)
+
+	def before(self,id,xml,xsl=""):
+		self._layout("beforebegin",id,xml,xsl)
+
+	def begin(self,id,xml,xsl=""):
+		self._layout("afterbegin",id,xml,xsl)
+
+	def inner(self,id,xml,xsl=""):
+		self._layout("inner",id,xml,xsl)
+
+	def end(self,id,xml,xsl=""):
+		self._layout("beforeend",id,xml,xsl)
+
+	def after(self,id,xml,xsl=""):
+		self._layout("afterend",id,xml,xsl)
+
+	def get_contents(self, ids):	# Deprecated!
 		return _unsplit(ids,self._dom.call("GetContents_1",_STRINGS, ids))
 
-	getContents = get_contents
+	getContents = get_contents	# Deprecated!
 
-	def get_content( self, id):
+	def get_content( self, id):	# Deprecated!
 		return self.getContents([id])[id]
 
-	getContent = get_content
+	getContent = get_content	# Deprecated!
 
-	def set_contents(self,ids_and_contents):
+	def get_values(self, ids):
+		return _unsplit(ids,self._dom.call("GetValues_1",_STRINGS, ids))
+
+	def get_value( self, id):
+		return self.get_values([id])[id]
+
+	def get_marks(self, ids):
+		return _unsplit(ids,self._dom.call("GetMarks_1",_STRINGS, ids))
+
+	def get_mark( self, id):
+		return self.get_marks([id])[id]
+
+	def set_contents(self,ids_and_contents):	# Deprecated!
 		[ids,contents] = _split(ids_and_contents)
 
 		self._dom.call("SetContents_1", _VOID, ids, contents)
 
-	set_contents = set_contents
+	setContents = set_contents	# Deprecated!
 
-	def set_content(self, id, content):
+	def set_content(self, id, content):	# Deprecated!
 		self.set_contents({id: content})
 
-	set_content = set_content
+	setContent = set_content	# Deprecated!
+
+	def set_values(self,ids_and_values):
+		[ids,values] = _split(ids_and_values)
+
+		self._dom.call("SetValues_1", _VOID, ids, values)
+
+	def set_value(self, id, value):
+		self.set_values({id: value})
+
+	def set_marks(self,ids_and_marks):
+		[ids,marks] = _split(ids_and_marks)
+
+		self._dom.call("SetMarks_1", _VOID, ids, marks)
+
+	def set_mark(self, id, mark):
+		self.set_marks({id: mark})
 
 	"""
 	# Following 4 methods will either be removed or redesigned.
@@ -308,7 +348,20 @@ class DOM:
 	def focus(self, id):
 		self._dom.call("Focus_1", _VOID, id)
 
-def launch(callback, userCallback, callbacks, headContent, dir):
-	global _dir
-	_dir = dir
-	XDHqFaaS.launch(callback,userCallback,callbacks,headContent)
+	def parent(self,id):
+		return self._dom.call("Parent_1",_STRING,id)
+
+	def first_child(self,id):
+		return self._dom.call("FirstChild_1",_STRING,id)
+
+	def last_child(self,id):
+		return self._dom.call("LastChild_1",_STRING,id)
+
+	def previous_sibling(self,id):
+		return self._dom.call("PreviousSibling_1",_STRING,id)
+
+	def next_sibling(self,id):
+		return self._dom.call("NextSibling_1",_STRING,id)
+
+	def scroll_to(self,id):
+		self._dom.call("ScrollTo_1",_VOID,id)

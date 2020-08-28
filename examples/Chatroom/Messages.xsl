@@ -9,7 +9,7 @@
 		<xsl:apply-templates select="Message"/>
 	</xsl:template>
 	<xsl:template match="Message">
-		<li id="Message.{@id}" data-xdh-value="{@id}">
+		<li id="Message.{@id}" data-xdh-content="{@id}">
 			<xsl:element name="span">
 				<xsl:attribute name="class">
 					<xsl:choose>

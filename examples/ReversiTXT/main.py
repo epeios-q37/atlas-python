@@ -28,21 +28,12 @@ SOFTWARE.
 
 # Pure text version, without heavy CSS stuff.
 
-import os
-import sys
-import random
-import itertools
-import time
+import os, sys, random, itertools, time
 
-sys.path.append("./atlastk")
-sys.path.append("../atlastk")
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append("../../atlastk")
 
 import atlastk as Atlas
-
-
-def read_asset(path):
-    return Atlas.read_asset(path, "ReversiTXT")
-
 
 EMPTY = 0
 BLACK = -1
@@ -202,7 +193,7 @@ def drawBoard(reversi, dom, prefetch=False):
             board.pop_tag()
         board.pop_tag()
 
-    dom.set_layout("board", board)
+    dom.inner("board", board)
 
     dom.set_contents({
         "black": reversi.count(BLACK),
@@ -213,7 +204,7 @@ def drawBoard(reversi, dom, prefetch=False):
 def acConnect(reversi, dom):
     reversi.player = BLACK
     reversi.weight_matrix = WEIGHT_MATRIX
-    dom.set_layout("", read_asset("Main.html"))
+    dom.inner("", open("Main.html").read())
     drawBoard(reversi, dom)
     dom.alert("Welcome to this Reversi (aka Othello) game made with the Atlas toolkit.\n\nYou play against the computer with the 'X' pieces.")
 
@@ -256,4 +247,4 @@ callbacks = {
     "New": acNew
 }
 
-Atlas.launch(callbacks, Reversi, read_asset("Head.html"), "ReversiTXT")
+Atlas.launch(callbacks, Reversi, open("Head.html").read())

@@ -22,10 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import sys
+import os, sys
 
-sys.path.append("./atlastk")
-sys.path.append("../atlastk")
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append("../../atlastk")
 
 import atlastk as Atlas
 
@@ -47,10 +47,6 @@ DICTIONARY = [
 ]
 
 HANGED_MAN = "Head Body LeftArm RightArm LeftLeg RightLeg".split()
-
-
-def read_asset(path):
-    return Atlas.read_asset(path, "Hangman")
 
 
 class Core:
@@ -81,13 +77,13 @@ def showWord(dom, secretWord, correctGuesses):
 
     html = Atlas.createHTML()
     html.put_tag_and_value("h1", output)
-    dom.set_layout("output", html)
+    dom.inner("output", html)
 
 
 
 def reset(core,dom):
     core.reset()
-    dom.set_layout("", read_asset("Main.html"))
+    dom.inner("", open("Main.html").read())
     core.secretWord = randword()
     print(core.secretWord)
     showWord(dom, core.secretWord, core.correctGuesses)
@@ -144,4 +140,4 @@ callbacks = {
 	"Restart": acRestart
 }
 
-Atlas.launch(callbacks, Core, read_asset("Head.html"), "Hangman")
+Atlas.launch(callbacks, Core, open("Head.html").read())

@@ -1,15 +1,12 @@
 # *Python* version of the *Atlas* toolkit
 
-<!--![For Python](https://q37.info/download/assets/Python.png "Python logo")-->
-
 [![Run on Repl.it](https://repl.it/badge/github/epeios-q37/atlas-python)](https://q37.info/s/vwpsw73v)
-[![Version 0.11](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.11)](http://github.com/epeios-q37/atlas-python/)
+[![Version 0.12](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.12)](http://github.com/epeios-q37/atlas-python/)
 [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/stargazers)
 [![license: MIT](https://img.shields.io/github/license/epeios-q37/atlas-python?color=yellow)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE)
 [![Documentation](https://img.shields.io/static/v1?label=documentation&message=atlastk.org&color=ff69b4)](https://atlastk.org)
 
 [![Version](https://img.shields.io/pypi/v/atlastk?style=for-the-badge&color=90b4ed&label=PyPi)![Download stats](https://img.shields.io/pypi/dm/atlastk.svg?style=for-the-badge)](http://q37.info/s/9srmskcm)
-
 
 > The [*Atlas* toolkit](https://atlastk.org) is available for:
 > 
@@ -20,6 +17,9 @@
 > | [*Perl*](https://q37.info/s/4nvmwjgg) |<https://github.com/epeios-q37/atlas-perl> | <https://q37.info/s/h3h34zgq> | [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-perl.svg?style=social)](https://github.com/epeios-q37/atlas-perl/stargazers) |
 > | [*Python*](https://q37.info/s/pd7j9k4r) | <https://github.com/epeios-q37/atlas-python> | <https://q37.info/s/vwpsw73v> | [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/stargazers) |
 > | [*Ruby*](https://q37.info/s/gkfj3zpz) | <https://github.com/epeios-q37/atlas-ruby> | <https://q37.info/s/9thdtmjg> | [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-ruby.svg?style=social)](https://github.com/epeios-q37/atlas-ruby/stargazers) |
+
+***Note for Repl.it users (online demonstrations)***: **after the first demonstration, you may have to click the reload button top left in the frame containing the QR code to display it for the other demonstrations.**
+
 
 **If you are looking for the *WebGPIO* application, an application with which you can control the Raspberry Pi (or other similar devices) GPIO with your smartphone, you will find it at the bottom of this page, in the *Raspberry Pi*/*ODROID-C2* section.**
 
@@ -47,7 +47,7 @@ body = """
 """
 
 def ac_connect(dom):
-  dom.set_layout("", body)
+  dom.inner("", body)
   dom.focus("input")
 
 def ac_submit(dom):
@@ -121,20 +121,21 @@ The `atlastk` directory contains the *Python* source code of the *Atlas* toolkit
 
 In the `examples` directory, you will found following examples:
 
-- *Blank*: very basic example,
-- *Hello*: ["*Hello, World!*"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program),
-- *Chatroom*: multi-user chatroom,
-- *ReversiTXT*: [*Reversi game*](http://q37.info/s/zz3dzmf7) with `X` and `O` for token,
-- *Notes*: note taking program,
-- *TodoMVC*: [*TodoMVC*](http://todomvc.com/),
-- *Hangman*: [Hangman game](http://q37.info/s/gtdtk4hp),
-- *15-puzzle*: [*15-puzzle* game](https://q37.info/s/jn9zg3bn),
-- *ReversiIMG*: [*Reversi game*](http://q37.info/s/zz3dzmf7) with more evolved graphics,
-- *ReversiXSL*: [*Reversi game*](http://q37.info/s/zz3dzmf7) using *XSL*.
+- `Blank`: very basic example,
+- `Hello`: ["*Hello, World!*"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program),
+- `Chatroom`: multi-user chatroom,
+- `ReversiTXT`: [*Reversi game*](http://q37.info/s/zz3dzmf7) with `X` and `O` for token,
+- `Notes`: note taking program,
+- `TodoMVC`: [*TodoMVC*](http://todomvc.com/),
+- `Hangman`: [Hangman game](http://q37.info/s/gtdtk4hp),
+- `15-puzzle`: [*15-puzzle* game](https://q37.info/s/jn9zg3bn),
+- `ReversiIMG`: [*Reversi game*](http://q37.info/s/zz3dzmf7) with more evolved graphics,
+- `ReversiXSL`: [*Reversi game*](http://q37.info/s/zz3dzmf7) using *XSL*.
 
 Other examples are detailed in the next section.
 
-Except for the *ErgoJr*, *GPIO* and *RGB* applications, which are detailed in the next section, to run an example, launch, from within the repository, `python main.py`, and select the example you want to run. You can also directly launch, from within the `examples` directory, `python <Name>/` (don't forget the final `/`), where `<Name>` is the name of the example (`Blank`, `Chatroom`…).
+Except for the *ErgoJr*, *GPIO* and *RGB* applications, which are detailed in the next section, to run an example, launch, from within the repository, `python main.py`, and select the example you want to run.  
+You can also directly launch, from within the `examples` directory, `python <Name>/` (don't forget the final `/`), where `<Name>` is the name of the example (`Blank`, `Chatroom`…).
 
 The *Stars* application is an example where the *Atlas* *toolkit* is used to control a [*Pygame*](https://en.wikipedia.org/wiki/Pygame) based application. Of course, *Pygame* needs to be installed.
 
@@ -146,7 +147,9 @@ The *GPIO* and *RGB* applications are designed to be used on a *Raspberry Pi* or
 
 For the *Raspberry Pi*, the `RPi.GPIO` *Python* module have to be installed (this is probably already the case).
 
+
 For the *ODROID-C2*, The *Python* version of *WiringPi* must be installed, and the application has to be launched, from within the `examples` directory, with `sudo` (`sudo python GPIO/` or `sudo python RGB/`).
+
 
 The *ErgoJr* application is experimental and to control a *Poppy* *Ergo Jr* robot.
 
