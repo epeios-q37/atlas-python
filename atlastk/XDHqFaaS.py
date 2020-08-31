@@ -276,10 +276,7 @@ def _ignition():
 		atk = getEnv("ATK").upper()
 
 		if atk == "REPLIT":
-#			print("IF THE PROGRAM DOES NOT WORK PROPERLY, PLEASE SEE http://q37.info/s/zbgfjtp9")
-#			print("IF THE PROGRAM DOES NOT WORK PROPERLY, YOU PROBABLY FORGOT TO FORK!")
-#			print("IF IT STILL DOES NOT WORK AFTER FORKING, RELOAD THE COMPLETE PAGE!")
-			print( "If the program does not work properly, see http://q37.info/s/zbgfjtp9.\n")
+			print( "IF THE QR CODE IS NOT DISPLAYED, CLICK THE ABOVE REFRESH BUTTON (see http://q37.info/s/zbgfjtp9).\n")
 			_REPLit(url)
 		elif atk != 'NONE':
 			XDHqSHRD.open(url)

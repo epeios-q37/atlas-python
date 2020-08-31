@@ -18,8 +18,13 @@
 > | [*Python*](https://q37.info/s/pd7j9k4r) | <https://github.com/epeios-q37/atlas-python> | <https://q37.info/s/vwpsw73v> | [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/stargazers) |
 > | [*Ruby*](https://q37.info/s/gkfj3zpz) | <https://github.com/epeios-q37/atlas-ruby> | <https://q37.info/s/9thdtmjg> | [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-ruby.svg?style=social)](https://github.com/epeios-q37/atlas-ruby/stargazers) |
 
-***Note for Repl.it users (online demonstrations)***: **after the first demonstration, you may have to click the reload button top left in the frame containing the QR code to display it for the other demonstrations.**
+---
 
+***Note for Repl.it users (online demonstrations)***: **after having launched a demonstration, you may have to click the refresh button (red arrow on picture below) top left in the frame containing the QR code to display it for the other demonstrations.**
+
+[![The refresh button](https://q37.info/s/vsc3c7gc.png "The button to click to display the QR code")](http://q37.info/s/zbgfjtp9)
+
+---
 
 **If you are looking for the *WebGPIO* application, an application with which you can control the Raspberry Pi (or other similar devices) GPIO with your smartphone, you will find it at the bottom of this page, in the *Raspberry Pi*/*ODROID-C2* section.**
 
