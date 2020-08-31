@@ -20,7 +20,7 @@
 
 ***Note for Repl.it users (online demonstrations)***: **after having launched a demonstration, you may have to click the refresh button (red arrow on picture below) top left in the frame containing the QR code to display it for the other demonstrations.**
 
-[![Little demonstration](https://q37.info/s/vsc3c7gc.png "A basic example")](https://q37.info/s/@GRSS@)
+[![The refresh button](https://q37.info/s/vsc3c7gc.png "The button to clixk to display the QR code")](http://q37.info/s/zbgfjtp9)
 
 
 
