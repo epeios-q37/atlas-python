@@ -1,10 +1,10 @@
 # *Python* version of the *Atlas* toolkit
 
-[![Run on Repl.it](https://repl.it/badge/github/epeios-q37/atlas-python)](https://q37.info/s/vwpsw73v)
-[![Version 0.12](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.12)](http://github.com/epeios-q37/atlas-python/)
-[![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/stargazers)
-[![license: MIT](https://img.shields.io/github/license/epeios-q37/atlas-python?color=yellow)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE)
-[![Documentation](https://img.shields.io/static/v1?label=documentation&message=atlastk.org&color=ff69b4)](https://atlastk.org)
+[![Run on Repl.it](https://repl.it/badge/github/epeios-q37/atlas-python)](https://q37.info/s/vwpsw73v)  
+[![Version 0.12](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.12&style=for-the-badge)](http://github.com/epeios-q37/atlas-python/)
+[![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=for-the-badge)](https://github.com/epeios-q37/atlas-python/stargazers)
+[![license: MIT](https://img.shields.io/github/license/epeios-q37/atlas-python?color=yellow&style=for-the-badge)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE)
+[![Documentation](https://img.shields.io/static/v1?label=documentation&message=atlastk.org&color=ff69b4&style=for-the-badge)](https://atlastk.org)
 
 [![Version](https://img.shields.io/pypi/v/atlastk?style=for-the-badge&color=90b4ed&label=PyPi)![Download stats](https://img.shields.io/pypi/dm/atlastk.svg?style=for-the-badge)](http://q37.info/s/9srmskcm)
 
