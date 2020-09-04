@@ -3,6 +3,7 @@
 [![Run on Repl.it](https://repl.it/badge/github/epeios-q37/atlas-python)](https://q37.info/s/vwpsw73v)  
 [![Version 0.12](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.12&style=for-the-badge)](http://github.com/epeios-q37/atlas-python/)
 [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=for-the-badge)](https://github.com/epeios-q37/atlas-python/stargazers)
+[![Forks](https://img.shields.io/github/forks/epeios-q37/atlas-python.svg?style=for-the-badge)](https://github.com/epeios-q37/atlas-python/stargazers)
 [![license: MIT](https://img.shields.io/github/license/epeios-q37/atlas-python?color=yellow&style=for-the-badge)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE)
 [![Documentation](https://img.shields.io/static/v1?label=documentation&message=atlastk.org&color=ff69b4&style=for-the-badge)](https://atlastk.org)
 
