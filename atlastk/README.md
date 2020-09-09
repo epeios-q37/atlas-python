@@ -28,7 +28,7 @@
 
 ---
 
-<ins>***WebGPIO* (*Raspberry Pi*/*ODROID-C2*)**</ins>: the *WebGPIO* application, with which you can control the *Raspberry Pi*/*ODROID-C2* (and probably other similar devices) GPIOs with your smartphone, is described in the *Raspberry Pi*/*ODROID-C2* section.
+<ins>***WebGPIO* (*Raspberry Pi*/*ODROID-C2*)**</ins>: the *WebGPIO* application, with which you can control the *Raspberry Pi*/*ODROID-C2* (and probably other similar devices) GPIOs with your smartphone, is described in the *Raspberry Pi*/*ODROID-C2* below section.
 
 
 ---
@@ -156,7 +156,7 @@ The *GPIO* and *RGB* applications are designed to be used on a *Raspberry Pi* or
 
 Here is how the *WebGPIO* application looks like:
 
-![*WebGPIO* interface](https://q37.info/s/htkhqb9x.png)]
+![*WebGPIO* interface](https://q37.info/s/htkhqb9x.png)
 
 For the *Raspberry Pi*, the `RPi.GPIO` *Python* module have to be installed (this is probably already the case).
 
