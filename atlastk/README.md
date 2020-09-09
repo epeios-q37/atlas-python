@@ -22,13 +22,13 @@
 
 ---
 
-<ins>***Repl.it users (online demonstrations)***</ins>: **after the first demonstration, you may have to click the refresh button (red arrow on picture below) to display the QR code for the other demonstrations.**
+<ins>***Repl.it users (online demonstrations)***</ins>: after the first demonstration, you may have to click the refresh button (red arrow on picture below) to display the QR code for the other demonstrations.
 
 [![The refresh button](https://q37.info/s/vsc3c7gc.png "The button to click to display the QR code")](http://q37.info/s/zbgfjtp9)
 
 ---
 
-<ins>*WebGPIO* (*Raspberry Pi*/*ODROID-C2*)</ins>: the *WebGPIO* application, with which you can control the *Raspberry Pi*/*ODROID-C2* (and probably other similar devices) GPIOs with your smartphone, is described in the *Raspberry Pi*/*ODROID-C2* section.
+<ins>***WebGPIO* (*Raspberry Pi*/*ODROID-C2*)**</ins>: the *WebGPIO* application, with which you can control the *Raspberry Pi*/*ODROID-C2* (and probably other similar devices) GPIOs with your smartphone, is described in the *Raspberry Pi*/*ODROID-C2* section.
 
 
 ---
