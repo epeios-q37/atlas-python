@@ -168,6 +168,6 @@ The *RGB* application is dedicated to the control of a RGB led, and the *GPIO* (
 
 [![RGB video](https://img.youtube.com/vi/C4p2iX6gc-Q/0.jpg)](https://www.youtube.com/watch?v=C4p2iX6gc-Q)
 
-Same video on [*PeerTube*](https://en.wikipedia.org/wiki/PeerTube) : <https://peertube.video/videos/watch/e7e02356-c9c3-4590-8ec0-8f8da06ff312>
+Same video on [*PeerTube*](https://en.wikipedia.org/wiki/PeerTube) : <https://q37.info/s/49pbmwv9>
 
 
