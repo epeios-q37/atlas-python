@@ -164,10 +164,7 @@ For the *ODROID-C2*, The *Python* version of *WiringPi* must be installed, and t
 
 The *ErgoJr* application is experimental and to control a *Poppy* *Ergo Jr* robot.
 
-The *RGB* application is dedicated to the control of a RGB led, and the *GPIO* (aka *WebGPIO*) application allows to control the basic pins. Here is a video to see how they work:
+The *RGB* application is dedicated to the control of a RGB led, and the *GPIO* (aka *WebGPIO*) application allows to control the basic pins. Click below picture to see a *YouTube* video on how they work (same video on [*PeerTube*](https://en.wikipedia.org/wiki/PeerTube): <https://q37.info/s/49pbmwv9>):
 
 [![RGB video](https://img.youtube.com/vi/C4p2iX6gc-Q/0.jpg)](https://www.youtube.com/watch?v=C4p2iX6gc-Q)
-
-Same video on [*PeerTube*](https://en.wikipedia.org/wiki/PeerTube) : <https://q37.info/s/49pbmwv9>
-
 
