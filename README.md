@@ -87,7 +87,7 @@ Atlas.launch(callbacks)
 Thanks to [Replit](https://q37.info/s/mxmgq3qm), an [online IDE](https://q37.info/s/zzkzbdw7), you can write and run programs using the *Atlas* toolkit directly in your web browser, without having to install *Python* on your computer.
 
 To see some examples, like the following [*TodoMVC*](http://todomvc.com/) application or the above [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program, simply:
-- go [here](https://q37.info/s/vwpsw73v) (also accessible with the [![Run on Repl.it](https://repl.it/badge/github/epeios-q37/atlas-python)](https://q37.info/s/vwpsw73v) badge on the top of this page),
+- go [here](https://q37.info/s/vwpsw73v) (also accessible with the [![Run on Repl.it](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/vwpsw73v) badge on the top of this page),
 -  click on the green `run` button,
 -  select the demonstration you want to see,
 -  click (or scan with your smartphone) the then displayed [QR code](https://q37.info/s/3pktvrj7),
