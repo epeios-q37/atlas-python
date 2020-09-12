@@ -1,6 +1,6 @@
 # *Python* version of the *Atlas* toolkit
 
-[![Run on Repl.it](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/vwpsw73v)
+[![Run on Repl.it](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/vwpsw73v)  [![About online demonstrations](https://img.shields.io/badge/about-online%20demonstrations-informational)](https://q37.info/s/sssznrb4)
 
 [![Version 0.12](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.12&style=for-the-badge)](http://github.com/epeios-q37/atlas-python/)
 [![license: MIT](https://img.shields.io/github/license/epeios-q37/atlas-python?color=yellow&style=for-the-badge)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE)
@@ -11,12 +11,12 @@
 > The [*Atlas* toolkit](https://atlastk.org) is available for:
 > 
 > | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Language | *GitHub* repository | Online démonstrations
-> |-|-|-|-|
-> | ![Java](https://q37.info/s/sgb9nq7x.svg) | [*Java*](https://q37.info/s/qtnkp9w4)  |<https://github.com/epeios-q37/atlas-java> | <https://q37.info/s/3vwk3h3n> |
-> | ![Node.js](https://q37.info/s/b9ctj4bb.svg) | [*Node.js*](https://q37.info/s/3d7hr733) | <https://github.com/epeios-q37/atlas-node> | <https://q37.info/s/st7gccd4> |
-> | ![Perl](https://q37.info/s/v9qkzvhk.svg) | [*Perl*](https://q37.info/s/4nvmwjgg)  |<https://github.com/epeios-q37/atlas-perl> | <https://q37.info/s/h3h34zgq> |
-> | ![Python](https://q37.info/s/t4s3p4rk.svg) | [*Python*](https://q37.info/s/pd7j9k4r)  | <https://github.com/epeios-q37/atlas-python> | <https://q37.info/s/vwpsw73v> |
-> | ![Ruby](https://q37.info/s/ngxztq4t.svg) | [*Ruby*](https://q37.info/s/gkfj3zpz)  | <https://github.com/epeios-q37/atlas-ruby> | <https://q37.info/s/9thdtmjg> |
+> |-|-|-|:-:|
+> | ![Java](https://q37.info/s/sgb9nq7x.svg) | [*Java*](https://q37.info/s/qtnkp9w4)  |<https://github.com/epeios-q37/atlas-java> | [![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/3vwk3h3n) |
+> | ![Node.js](https://q37.info/s/b9ctj4bb.svg) | [*Node.js*](https://q37.info/s/3d7hr733) | <https://github.com/epeios-q37/atlas-node> | [![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/st7gccd4) |
+> | ![Perl](https://q37.info/s/v9qkzvhk.svg) | [*Perl*](https://q37.info/s/4nvmwjgg)  |<https://github.com/epeios-q37/atlas-perl> | [![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/h3h34zgq) |
+> | ![Python](https://q37.info/s/t4s3p4rk.svg) | [*Python*](https://q37.info/s/pd7j9k4r)  | <https://github.com/epeios-q37/atlas-python> | [![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/vwpsw73v) |
+> | ![Ruby](https://q37.info/s/ngxztq4t.svg) | [*Ruby*](https://q37.info/s/gkfj3zpz)  | <https://github.com/epeios-q37/atlas-ruby> | [![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/9thdtmjg) |
 
 
 <ins>***WebGPIO* (*Raspberry Pi*/*ODROID-C2*)**</ins>: the *WebGPIO* application, with which you can control the *Raspberry Pi*/*ODROID-C2* (and probably other similar devices) GPIOs with your smartphone, is described in the *Raspberry Pi*/*ODROID-C2* below section.
@@ -73,7 +73,7 @@ Atlas.launch(callbacks)
 
 ### See for yourself right now - it's quick and easy!
 
-#### Online, with nothing to install
+#### Online, with nothing to install [![About online demonstrations](https://img.shields.io/badge/about-online%20demonstrations-informational)](https://q37.info/s/sssznrb4)
 
 Thanks to [*Replit*](https://q37.info/s/mxmgq3qm), an [online IDE](https://q37.info/s/zzkzbdw7), you can write and run programs using the *Atlas* toolkit directly in your web browser, without having to install *Python* on your computer.
 
