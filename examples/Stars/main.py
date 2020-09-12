@@ -90,7 +90,7 @@ def move_stars(stars):
             vel[0] = vel[0] * 1.05
             vel[1] = vel[1] * 1.05
 
-def acConnect(,dom):
+def acConnect(dom):
 	dom.inner("", open("Main.html").read())
 
 pos = WINCENTER

@@ -9,9 +9,6 @@
 
 import os,sys
 
-if ('HOME' in os.environ) and (os.environ['HOME'] == '/home/runner'):
-  os.environ["ATK"] = "REPLit"
-
 try:
     input = raw_input
 except NameError:

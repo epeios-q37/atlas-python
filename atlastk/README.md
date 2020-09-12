@@ -5,28 +5,19 @@
 [![Version 0.12](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.12&style=for-the-badge)](http://github.com/epeios-q37/atlas-python/)
 [![license: MIT](https://img.shields.io/github/license/epeios-q37/atlas-python?color=yellow&style=for-the-badge)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE)
 [![Documentation](https://img.shields.io/static/v1?label=documentation&message=atlastk.org&color=ff69b4&style=for-the-badge)](https://atlastk.org)  
-[![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=for-the-badge)](https://github.com/epeios-q37/atlas-python/stargazers)
-[![Forks](https://img.shields.io/github/forks/epeios-q37/atlas-python.svg?style=for-the-badge)](https://github.com/epeios-q37/atlas-python/network/members)
 
-[![Downloads](https://img.shields.io/pypi/dm/atlastk.svg?label=&style=for-the-badge)![Version](https://img.shields.io/pypi/v/atlastk?style=for-the-badge&color=90b4ed&label=PyPi)](http://q37.info/s/9srmskcm)
+[![Version](https://img.shields.io/pypi/v/atlastk?style=for-the-badge&color=90b4ed&label=PyPi)](http://q37.info/s/9srmskcm)
 
 > The [*Atlas* toolkit](https://atlastk.org) is available for:
 > 
-> | Language | *GitHub* stars  |*GitHub* repository | Online démonstrations
-> |-|:-:|-|-|
-> | [*Java*](https://q37.info/s/qtnkp9w4) | [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-java.svg?style=social)](https://github.com/epeios-q37/atlas-java/stargazers) |<https://github.com/epeios-q37/atlas-java> | <https://q37.info/s/3vwk3h3n> |
-> | [*Node.js*](https://q37.info/s/3d7hr733) | [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-node.svg?style=social)](https://github.com/epeios-q37/atlas-node/stargazers) | <https://github.com/epeios-q37/atlas-node> | <https://q37.info/s/st7gccd4> |
-> | [*Perl*](https://q37.info/s/4nvmwjgg) | [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-perl.svg?style=social)](https://github.com/epeios-q37/atlas-perl/stargazers) |<https://github.com/epeios-q37/atlas-perl> | <https://q37.info/s/h3h34zgq> |
-> | [*Python*](https://q37.info/s/pd7j9k4r) | [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/stargazers) | <https://github.com/epeios-q37/atlas-python> | <https://q37.info/s/vwpsw73v> |
-> | [*Ruby*](https://q37.info/s/gkfj3zpz) | [![Stars](https://img.shields.io/github/stars/epeios-q37/atlas-ruby.svg?style=social)](https://github.com/epeios-q37/atlas-ruby/stargazers) | <https://github.com/epeios-q37/atlas-ruby> | <https://q37.info/s/9thdtmjg> |
+> | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Language | *GitHub* repository | Online démonstrations
+> |-|-|-|-|
+> | ![Java](https://q37.info/s/sgb9nq7x.svg) | [*Java*](https://q37.info/s/qtnkp9w4)  |<https://github.com/epeios-q37/atlas-java> | <https://q37.info/s/3vwk3h3n> |
+> | ![Node.js](https://q37.info/s/b9ctj4bb.svg) | [*Node.js*](https://q37.info/s/3d7hr733) | <https://github.com/epeios-q37/atlas-node> | <https://q37.info/s/st7gccd4> |
+> | ![Perl](https://q37.info/s/v9qkzvhk.svg) | [*Perl*](https://q37.info/s/4nvmwjgg)  |<https://github.com/epeios-q37/atlas-perl> | <https://q37.info/s/h3h34zgq> |
+> | ![Python](https://q37.info/s/t4s3p4rk.svg) | [*Python*](https://q37.info/s/pd7j9k4r)  | <https://github.com/epeios-q37/atlas-python> | <https://q37.info/s/vwpsw73v> |
+> | ![Ruby](https://q37.info/s/ngxztq4t.svg) | [*Ruby*](https://q37.info/s/gkfj3zpz)  | <https://github.com/epeios-q37/atlas-ruby> | <https://q37.info/s/9thdtmjg> |
 
----
-
-<ins>***Repl.it users (online demonstrations)***</ins>: after the first demonstration, you may have to click the refresh button (red arrow on picture below) to display the QR code for the other demonstrations.
-
-[![The refresh button](https://q37.info/s/vsc3c7gc.png "The button to click to display the QR code")](http://q37.info/s/zbgfjtp9)
-
----
 
 <ins>***WebGPIO* (*Raspberry Pi*/*ODROID-C2*)**</ins>: the *WebGPIO* application, with which you can control the *Raspberry Pi*/*ODROID-C2* (and probably other similar devices) GPIOs with your smartphone, is described in the *Raspberry Pi*/*ODROID-C2* below section.
 
@@ -80,18 +71,18 @@ Atlas.launch(callbacks)
 
 [![Little demonstration](https://q37.info/download/assets/Hello.gif "A basic example")](https://q37.info/s/vwpsw73v)
 
-### Too good to be true? Try it now - it's quick and easy!
+### See for yourself right now - it's quick and easy!
 
 #### Online, with nothing to install
 
-Thanks to [Replit](https://q37.info/s/mxmgq3qm), an [online IDE](https://q37.info/s/zzkzbdw7), you can write and run programs using the *Atlas* toolkit directly in your web browser, without having to install *Python* on your computer.
+Thanks to [*Replit*](https://q37.info/s/mxmgq3qm), an [online IDE](https://q37.info/s/zzkzbdw7), you can write and run programs using the *Atlas* toolkit directly in your web browser, without having to install *Python* on your computer.
 
 To see some examples, like the following [*TodoMVC*](http://todomvc.com/) application or the above [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program, simply:
-- go [here](https://q37.info/s/vwpsw73v) (also accessible with the [![Run on Repl.it](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/vwpsw73v) badge on the top of this page),
+- go [here](https://q37.info/s/vwpsw73v) (also accessible with the [![Run on Repl.it](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/vwpsw73v) badge at the top of this page),
 -  click on the green `run` button,
--  select the demonstration you want to see,
--  click (or scan with your smartphone) the then displayed [QR code](https://q37.info/s/3pktvrj7),
-- … and, as you wish, run your own tests directly in your web browser, by modifying the code of the examples or by writing your own code.
+-  choose the demonstration to launch,
+-  open the then displayed URL in a browser (should be clickable), 
+- … and, as you wish, run your own tests directly in your browser, by modifying the code of the examples or by writing your own code.
 
 [![TodoMVC](https://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")](https://q37.info/s/vwpsw73v)
 
