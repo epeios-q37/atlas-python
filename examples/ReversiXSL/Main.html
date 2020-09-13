@@ -1,39 +1,37 @@
-<div style="display: table; margin: 50px auto auto auto;">
-  <div style="display: table; margin: auto auto 10px auto">
-    <button data-xdh-onevent="ToggleLayout">Toggle layout</button>
-  </div>
-  <!--
+<div style="display: table; margin: auto auto 10px auto">
+  <button data-xdh-onevent="ToggleLayout">Toggle layout</button>
+</div>
+<!--
     In other versions, following element is a 'table' element instead of a 'div'.
     But Chromium based navigator are not able to insert an HTML tree, generated
     wth XSL, with 'tbody' as root tag in a 'table' (but firefox is).
   -->
-  <div id="board"></div>
-  <div style="display: table; margin: 10px auto auto auto">
-    <table id="scoreTXT" style="width: 100%">
-      <tbody>
-        <tr>
-          <td class="score-label">X</td>
-          <td id="blackTXT" class="score-value"/>
-          <td />
-          <td><button data-xdh-onevent="New">NEW GAME</button></td>
-          <td />
-          <td id="whiteTXT" class="score-value"/>
-          <td class="score-label">O</td>
-        </tr>
-      </tbody>
-    </table>
-    <table id="scoreIMG" class="hidden" style="background: #1b611b; border: none; width: 100%">
-      <tbody>
-        <tr>
-          <td style="width: 48px; height: 48px;" class="black" />
-          <td id="blackIMG" style="width: 2ch; font-size: 40px; color:yellow;" />
-          <td style="width: 10px;" />
-          <td><button data-xdh-onevent="New">NEW GAME</button></td>
-          <td style="width: 10px;" />
-          <td id="whiteIMG" style="width: 2ch; text-align: right; font-size: 40px;color:yellow;" />
-          <td style="width: 48px; height: 48px;" class="white" />
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div id="board"></div>
+<div style="display: table; margin: 10px auto auto auto">
+  <table id="scoreTXT" style="width: 100%">
+    <tbody>
+      <tr>
+        <td class="score-label">X</td>
+        <td id="blackTXT" class="score-value" />
+        <td />
+        <td><button data-xdh-onevent="New">NEW GAME</button></td>
+        <td />
+        <td id="whiteTXT" class="score-value" />
+        <td class="score-label">O</td>
+      </tr>
+    </tbody>
+  </table>
+  <table id="scoreIMG" class="hidden" style="background: #1b611b; border: none; width: 100%">
+    <tbody>
+      <tr>
+        <td style="width: 48px; height: 48px;" class="black" />
+        <td id="blackIMG" style="width: 2ch; font-size: 40px; color:yellow;" />
+        <td style="width: 10px;" />
+        <td><button data-xdh-onevent="New">NEW GAME</button></td>
+        <td style="width: 10px;" />
+        <td id="whiteIMG" style="width: 2ch; text-align: right; font-size: 40px;color:yellow;" />
+        <td style="width: 48px; height: 48px;" class="white" />
+      </tr>
+    </tbody>
+  </table>
 </div>

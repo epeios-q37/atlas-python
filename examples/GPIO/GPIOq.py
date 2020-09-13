@@ -30,9 +30,9 @@ D_ODROID_C2 = 1
 D_RASPBERRY_PI = 2
 
 labels = {
-	D_TESTING: "Testing",
-	D_ODROID_C2: "ODROID-C2",
-	D_RASPBERRY_PI: "Raspberry Pi"
+  D_TESTING: "Testing",
+  D_ODROID_C2: "ODROID-C2",
+  D_RASPBERRY_PI: "Raspberry Pi"
 }
 
 M_OUT = 0
@@ -40,118 +40,118 @@ M_IN = 1
 M_PWM = 2
 
 def getModelLabel():
-	global labels
-	file = "/proc/device-tree/model"
-	if os.path.isfile(file):
-		return open(file).read()
-	else:
-		return labels[D_TESTING]
+  global labels
+  file = "/proc/device-tree/model"
+  if os.path.isfile(file):
+    return open(file).read()
+  else:
+    return labels[D_TESTING]
 
 def detectDevice(label):
-	global labels
-	for key in labels.keys():
-		if label.startswith(labels[key]):
-			return key
+  global labels
+  for key in labels.keys():
+    if label.startswith(labels[key]):
+      return key
 
-	return D_TESTING
+  return D_TESTING
 
 device = detectDevice(getModelLabel())
 
 if ( device == D_TESTING ):
-	print( "Unknown device; switching to '" + labels[device] + "' device.")
+  print( "Unknown device; switching to '" + labels[device] + "' device.")
 
-	def setup():
-		pass
+  def setup():
+    pass
 
-	def pinMode(pin,mode):
-		pass
+  def pinMode(pin,mode):
+    pass
 
-	def digitalRead(pin):
-		return 0
+  def digitalRead(pin):
+    return 0
 
-	def digitalWrite(pin,value):
-		pass
+  def digitalWrite(pin,value):
+    pass
 
-	def softPWMCreate(pin):
-		pass
+  def softPWMCreate(pin):
+    pass
 
-	def softPWMWrite(pin,value):
-		pass
+  def softPWMWrite(pin,value):
+    pass
 
-	def softPWMDestroy(pin):
-		pass
+  def softPWMDestroy(pin):
+    pass
 
 elif ( device == D_ODROID_C2 ):
-	import wiringpi
+  import wiringpi
 
-	print("'" + labels[device] + "' detected.")
+  print("'" + labels[device] + "' detected.")
 
-	def setup():
-		wiringpi.wiringPiSetupPhys()
+  def setup():
+    wiringpi.wiringPiSetupPhys()
 
-	def pinMode(pin,mode):
-		mode = (mode + 1) % 2 
-		wiringpi.pinMode(pin,mode)
+  def pinMode(pin,mode):
+    mode = (mode + 1) % 2 
+    wiringpi.pinMode(pin,mode)
 
-	def digitalRead(pin):
-		return wiringpi.digitalRead(pin)
+  def digitalRead(pin):
+    return wiringpi.digitalRead(pin)
 
-	def digitalWrite(pin,value):
-		wiringpi.digitalWrite(pin,value)
+  def digitalWrite(pin,value):
+    wiringpi.digitalWrite(pin,value)
 
-	def softPWMCreate(pin):
-		wiringpi.softPwmCreate(pin,0,100)
+  def softPWMCreate(pin):
+    wiringpi.softPwmCreate(pin,0,100)
 
-	def softPWMWrite(pin,value):
-		wiringpi.softPwmWrite(pin,value)
+  def softPWMWrite(pin,value):
+    wiringpi.softPwmWrite(pin,value)
 
-	def softPWMDestroy(pin):
-		pass
+  def softPWMDestroy(pin):
+    pass
 
 elif (device == D_RASPBERRY_PI ):
-	import RPi.GPIO as GPIO
+  import RPi.GPIO as GPIO
 
-	print("'" + labels[device] + "' detected.")
+  print("'" + labels[device] + "' detected.")
 
-	pwms = {}
+  pwms = {}
 
-	def destroyPWMIfNeeded(pin):
-		global pwms
-		if (pin in pwms):
-			pwms[pin].stop()
-			pwms.pop(pin)
+  def destroyPWMIfNeeded(pin):
+    global pwms
+    if (pin in pwms):
+      pwms[pin].stop()
+      pwms.pop(pin)
 
-	def setup():
-		GPIO.setmode(GPIO.BOARD)
+  def setup():
+    GPIO.setmode(GPIO.BOARD)
 
-	def pinMode(pin,mode):
-		destroyPWMIfNeeded(pin)
-		GPIO.setup(pin,mode)
+  def pinMode(pin,mode):
+    destroyPWMIfNeeded(pin)
+    GPIO.setup(pin,mode)
 
-	def digitalRead(pin):
-		return GPIO.input(pin)
+  def digitalRead(pin):
+    return GPIO.input(pin)
 
-	def digitalWrite(pin,value):
-		GPIO.output(pin,value)
+  def digitalWrite(pin,value):
+    GPIO.output(pin,value)
 
-	def softPWMCreate(pin):
-		global pwms
-		destroyPWMIfNeeded(pin)
-		GPIO.setup(pin, GPIO.OUT)
-		GPIO.output(pin, GPIO.LOW)
-		pwms[pin] = GPIO.PWM(pin, 100)
-		pwms[pin].start(0)
+  def softPWMCreate(pin):
+    global pwms
+    destroyPWMIfNeeded(pin)
+    GPIO.setup(pin, GPIO.OUT)
+    GPIO.output(pin, GPIO.LOW)
+    pwms[pin] = GPIO.PWM(pin, 100)
+    pwms[pin].start(0)
 
-	def softPWMWrite(pin,value):
-		global pwms
-		pwms[pin].ChangeDutyCycle(value)
+  def softPWMWrite(pin,value):
+    global pwms
+    pwms[pin].ChangeDutyCycle(value)
 
-	def softPWMDestroy(pin):
-		destroyPWMIfNeeded(pin)
+  def softPWMDestroy(pin):
+    destroyPWMIfNeeded(pin)
 else:
-	sys.exit("???")
+  sys.exit("???")
 
-		
+    
 
 
 

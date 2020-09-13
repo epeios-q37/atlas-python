@@ -32,112 +32,112 @@ import atlastk as Atlas
 from random import randint
 
 DICTIONARY = [
-    "accommodate", "afterthought", "allegiance", "aloft", "ancestor", "anticipation", "antics",
-    "apparel", "ascend", "beckon", "brink", "catastrophe", "coax", "compassion", "complexion", "content",
-    "courteous", "cringe", "derelict", "dignity", "distaste", "dormant", "elaborate", "endure", "enforce",
-    "exertion", "expanse", "extraordinary", "foliage", "foremost", "frank", "function", "futile", "gaze",
-    "glimmer", "glimpse", "grimace", "headstrong", "hesitate", "hoist", "immense", "imperceptibly",
-    "indication", "inscription", "instinctive", "intent", "interior", "jar", "keepsake", "knack",
-    "literacy", "lurch", "makeshift", "malicious", "massive", "meager", "melancholy", "merge", "mingle",
-    "minuscule", "momentary", "nape", "nimble", "obstinate", "opt", "overwhelming", "pact", "pandemonium",
-    "persuade", "phenomenal", "ponder", "quantity", "quaver", "quench", "radiant", "ravine", "recipient",
-    "resentful", "satisfactory", "sensitive", "sentiment", "shudder", "sickly", "sleek", "solemn", "soothe",
-    "stagger", "stern", "tantalize", "temptation", "transform", "unscrupulous", "vain", "vengeance",
-    "violate", "vital", "vivid", "wistful", "yield", "zest"
+  "accommodate", "afterthought", "allegiance", "aloft", "ancestor", "anticipation", "antics",
+  "apparel", "ascend", "beckon", "brink", "catastrophe", "coax", "compassion", "complexion", "content",
+  "courteous", "cringe", "derelict", "dignity", "distaste", "dormant", "elaborate", "endure", "enforce",
+  "exertion", "expanse", "extraordinary", "foliage", "foremost", "frank", "function", "futile", "gaze",
+  "glimmer", "glimpse", "grimace", "headstrong", "hesitate", "hoist", "immense", "imperceptibly",
+  "indication", "inscription", "instinctive", "intent", "interior", "jar", "keepsake", "knack",
+  "literacy", "lurch", "makeshift", "malicious", "massive", "meager", "melancholy", "merge", "mingle",
+  "minuscule", "momentary", "nape", "nimble", "obstinate", "opt", "overwhelming", "pact", "pandemonium",
+  "persuade", "phenomenal", "ponder", "quantity", "quaver", "quench", "radiant", "ravine", "recipient",
+  "resentful", "satisfactory", "sensitive", "sentiment", "shudder", "sickly", "sleek", "solemn", "soothe",
+  "stagger", "stern", "tantalize", "temptation", "transform", "unscrupulous", "vain", "vengeance",
+  "violate", "vital", "vivid", "wistful", "yield", "zest"
 ]
 
 HANGED_MAN = "Head Body LeftArm RightArm LeftLeg RightLeg".split()
 
 
 class Core:
-    def reset(self):
-        self.errors = 0
-        self.correctGuesses = []
-        self.secretWord = ""
+  def reset(self):
+    self.errors = 0
+    self.correctGuesses = []
+    self.secretWord = ""
 
-    def __init__(self):
-        self.reset()
+  def __init__(self):
+    self.reset()
 
 
 def randword():
-    return DICTIONARY[randint(0, len(DICTIONARY)-1)]
+  return DICTIONARY[randint(0, len(DICTIONARY)-1)]
 
 
 def showHanged(dom, errors):
-    if (errors):
-    	dom.remove_class(HANGED_MAN[errors-1], "hidden")
+  if (errors):
+    dom.remove_class(HANGED_MAN[errors-1], "hidden")
 
 
 def showWord(dom, secretWord, correctGuesses):
-    output = ("_" * len(secretWord))
-    
-    for i in range(len(secretWord)):
-        if secretWord[i] in correctGuesses:
-            output = output[:i] + secretWord[i] + output[i + 1:]
+  output = ("_" * len(secretWord))
+  
+  for i in range(len(secretWord)):
+    if secretWord[i] in correctGuesses:
+      output = output[:i] + secretWord[i] + output[i + 1:]
 
-    html = Atlas.createHTML()
-    html.put_tag_and_value("h1", output)
-    dom.inner("output", html)
+  html = Atlas.createHTML()
+  html.put_tag_and_value("h1", output)
+  dom.inner("output", html)
 
 
 
 def reset(core,dom):
-    core.reset()
-    dom.inner("", open("Main.html").read())
-    core.secretWord = randword()
-    print(core.secretWord)
-    showWord(dom, core.secretWord, core.correctGuesses)
+  core.reset()
+  dom.inner("", open("Main.html").read())
+  core.secretWord = randword()
+  print(core.secretWord)
+  showWord(dom, core.secretWord, core.correctGuesses)
 
 
 
 def acConnect(core, dom):
-    reset(core,dom)
+  reset(core,dom)
 
 
 def acSubmit(core, dom, id):
-    dom.add_class(id, "chosen")
+  dom.add_class(id, "chosen")
 
-    guess = id.lower()
+  guess = id.lower()
 
-    if guess in core.secretWord:
-        core.correctGuesses.append(guess)
+  if guess in core.secretWord:
+    core.correctGuesses.append(guess)
 
-        correct = 0
+    correct = 0
 
-        for i in range(len(core.secretWord)):
-            if core.secretWord[i] in core.correctGuesses:
-                correct += 1
+    for i in range(len(core.secretWord)):
+      if core.secretWord[i] in core.correctGuesses:
+        correct += 1
 
-        showWord(dom, core.secretWord, core.correctGuesses)
+    showWord(dom, core.secretWord, core.correctGuesses)
 
-        if correct == len(core.secretWord):
-            dom.alert("You've won! Congratulations!")
-            reset(core,dom)
-            return
-    else:
-        core.errors += 1
-        showHanged(dom, core.errors)
+    if correct == len(core.secretWord):
+      dom.alert("You've won! Congratulations!")
+      reset(core,dom)
+      return
+  else:
+    core.errors += 1
+    showHanged(dom, core.errors)
 
-    if core.errors >= len(HANGED_MAN):
-        dom.remove_class("Face", "hidden")
-        dom.alert("\nYou've run out of guesses. \nYou had " + str(core.errors) +
-                  " errors and " + str(len(core.correctGuesses)) + " correct guesses. " +
-                  "\n\nThe word was '" + core.secretWord + "'.")
-        reset(core, dom)
+  if core.errors >= len(HANGED_MAN):
+    dom.remove_class("Face", "hidden")
+    dom.alert("\nYou've run out of guesses. \nYou had " + str(core.errors) +
+          " errors and " + str(len(core.correctGuesses)) + " correct guesses. " +
+          "\n\nThe word was '" + core.secretWord + "'.")
+    reset(core, dom)
 
 
 def acRestart(core, dom):
-	if (core.secretWord != "" ):
-		dom.alert("You had " + str(core.errors) +
-				" errors and " + str(len(core.correctGuesses)) + " correct guesses. " +
-				"\nThe word was '" + core.secretWord + "'.")
+  if (core.secretWord != "" ):
+    dom.alert("You had " + str(core.errors) +
+        " errors and " + str(len(core.correctGuesses)) + " correct guesses. " +
+        "\nThe word was '" + core.secretWord + "'.")
 
-	reset(core, dom)
+  reset(core, dom)
 
 callbacks = {
-    "": acConnect,
-    "Submit": acSubmit,
-	"Restart": acRestart
+  "": acConnect,
+  "Submit": acSubmit,
+  "Restart": acRestart
 }
 
 Atlas.launch(callbacks, Core, open("Head.html").read())

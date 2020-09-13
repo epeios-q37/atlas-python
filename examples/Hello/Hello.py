@@ -49,28 +49,28 @@ body = """
 """
 
 def ac_connect(dom):
-	dom.inner("", body )
-	dom.focus( "input")
+  dom.inner("", body )
+  dom.focus( "input")
 
 def ac_submit(dom):
-	dom.alert("Hello, " + dom.get_content("input") + "!")
-	dom.focus( "input")
+  dom.alert("Hello, " + dom.get_content("input") + "!")
+  dom.focus( "input")
 
 def ac_clear(dom):
-	if dom.confirm("Are you sure?"):
-		dom.set_content("input", "" )
-	dom.focus( "input")
+  if dom.confirm("Are you sure?"):
+    dom.set_content("input", "" )
+  dom.focus( "input")
 
 def ac_error(dom):
-	if dom.confirm("Clicking OK will quit the program (dev testing purpose)!"):
-		os._exit(-1)
-	dom.focus( "input")
+  if dom.confirm("Clicking OK will quit the program (dev testing purpose)!"):
+    os._exit(-1)
+  dom.focus( "input")
 
 callbacks = {
-	"": ac_connect,
-	"Submit": ac_submit,
-	"Clear": ac_clear,
-	"Error": ac_error
+  "": ac_connect,
+  "Submit": ac_submit,
+  "Clear": ac_clear,
+  "Error": ac_error
 }
 
 Atlas.launch(callbacks, None, head)

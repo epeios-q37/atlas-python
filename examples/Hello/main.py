@@ -30,22 +30,22 @@ sys.path.append("../../atlastk")
 import atlastk as Atlas
 
 def ac_connect(dom):
-	dom.inner("", open( "Main.html").read() )
-	dom.focus( "input")
+  dom.inner("", open( "Main.html").read() )
+  dom.focus( "input")
 
 def ac_submit(dom):
-	dom.alert("Hello, " + dom.get_content("input") + "!")
-	dom.focus( "input")
+  dom.alert("Hello, " + dom.get_content("input") + "!")
+  dom.focus( "input")
 
 def ac_clear(dom):
-	if ( dom.confirm("Are you sure?" ) ):
-		dom.set_content("input", "" )
-	dom.focus( "input")
+  if ( dom.confirm("Are you sure?" ) ):
+    dom.set_content("input", "" )
+  dom.focus( "input")
 
 callbacks = {
-	"": ac_connect,
-	"Submit": ac_submit,
-	"Clear": ac_clear,
+  "": ac_connect,
+  "Submit": ac_submit,
+  "Clear": ac_clear,
 }
-		
+    
 Atlas.launch(callbacks, None, open("Head.html").read())

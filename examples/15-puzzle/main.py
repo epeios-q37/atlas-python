@@ -32,148 +32,148 @@ import atlastk as Atlas
 
 # Althought empty, must exist, as it will be filled later.
 class Puzzle:
-    pass
+  pass
 
 
 def fill(puzzle, dom):
-    numbers = []
-    contents = {}
+  numbers = []
+  contents = {}
 
-    for i in range(16):
-        numbers.append(i)
+  for i in range(16):
+    numbers.append(i)
 
-    for i in range(len(numbers)):
-        number = numbers.pop(randint(0, len(numbers)-1))
-        if number != 0:
-            contents["t"+str(i)] = number
-        else:
-            puzzle.blank = i
+  for i in range(len(numbers)):
+    number = numbers.pop(randint(0, len(numbers)-1))
+    if number != 0:
+      contents["t"+str(i)] = number
+    else:
+      puzzle.blank = i
 
-    dom.set_contents(contents)
-    dom.toggle_class(puzzle.blank, "hidden")
+  dom.set_contents(contents)
+  dom.toggle_class(puzzle.blank, "hidden")
 
 
 def swap(puzzle, dom, source):
-    dom.set_contents({
-        "t"+str(puzzle.blank): dom.get_content("t"+str(source)),
-        "t"+str(source): ""
-    })
+  dom.set_contents({
+    "t"+str(puzzle.blank): dom.get_content("t"+str(source)),
+    "t"+str(source): ""
+  })
 
-    dom.toggle_classes({
-        puzzle.blank: "hidden",
-        source: "hidden"
-    })
+  dom.toggle_classes({
+    puzzle.blank: "hidden",
+    source: "hidden"
+  })
 
-    puzzle.blank = source
+  puzzle.blank = source
 
 
 def convert_x(pos):
-    return pos % 4
+  return pos % 4
 
 
 def convert_y(pos):
-    return pos >> 2  # pos / 4
+  return pos >> 2  # pos / 4
 
 
 def convert(pos):
-    return convert_x(pos), convert_y(pos)
+  return convert_x(pos), convert_y(pos)
 
 
 def draw_square(board, x, y):
-    board.push_tag("use")
-    board.put_attribute("id", y * 4 + x)
-    board.put_attribute("data-xdh-onevent", "Swap")
-    board.put_attribute("x", x * 100 + 24)
-    board.put_attribute("y", y * 100 + 24)
-    board.put_attribute("href", "#stone")
-    board.pop_tag()
+  board.push_tag("use")
+  board.put_attribute("id", y * 4 + x)
+  board.put_attribute("data-xdh-onevent", "Swap")
+  board.put_attribute("x", x * 100 + 24)
+  board.put_attribute("y", y * 100 + 24)
+  board.put_attribute("href", "#stone")
+  board.pop_tag()
 
 
 def draw_grid(dom):
-    board = Atlas.create_HTML("g")
-    for x in range(0, 4):
-        for y in range(0, 4):
-            draw_square(board, x, y)
-    dom.inner("Stones", board)
+  board = Atlas.create_HTML("g")
+  for x in range(0, 4):
+    for y in range(0, 4):
+      draw_square(board, x, y)
+  dom.inner("Stones", board)
 
 
 def set_text(texts, x, y):
-    texts.push_tag("tspan")
-    texts.put_attribute("id", "t" + str(y * 4 + x))
-    texts.put_attribute("x", x * 100 + 72)
-    texts.put_attribute("y", y * 100 + 90)
-    texts.pop_tag()
+  texts.push_tag("tspan")
+  texts.put_attribute("id", "t" + str(y * 4 + x))
+  texts.put_attribute("x", x * 100 + 72)
+  texts.put_attribute("y", y * 100 + 90)
+  texts.pop_tag()
 
 
 def set_texts(dom):
-    texts = Atlas.create_HTML("text")
-    for x in range(0, 4):
-        for y in range(0, 4):
-            set_text(texts, x, y)
-    dom.inner("Texts", texts)
+  texts = Atlas.create_HTML("text")
+  for x in range(0, 4):
+    for y in range(0, 4):
+      set_text(texts, x, y)
+  dom.inner("Texts", texts)
 
 
 def scramble(puzzle, dom):
-    draw_grid(dom)
-    set_texts(dom)
-    fill(puzzle, dom)
+  draw_grid(dom)
+  set_texts(dom)
+  fill(puzzle, dom)
 
 
 def ac_connect(self, dom):
-    dom.inner("", open("Main.html").read())
-    scramble(self, dom)
+  dom.inner("", open("Main.html").read())
+  scramble(self, dom)
 
 
 def build(sourceIds,targetIds,sourceIdsAndContents, blank):
 
-    targetIdsAndContents = {}
+  targetIdsAndContents = {}
 
-    for i in range(len(sourceIds)):
-        targetIdsAndContents[targetIds[i]] = sourceIdsAndContents[sourceIds[i]]
-        
-    targetIdsAndContents["t" + blank] = ""
-        
-    return targetIdsAndContents
+  for i in range(len(sourceIds)):
+    targetIdsAndContents[targetIds[i]] = sourceIdsAndContents[sourceIds[i]]
+    
+  targetIdsAndContents["t" + blank] = ""
+    
+  return targetIdsAndContents
 
 
 def ac_swap(self, dom, id):
-    target = int(id)
-    source = self.blank
-    sourceIds = []
-    targetIds = []
+  target = int(id)
+  source = self.blank
+  sourceIds = []
+  targetIds = []
 
-    ix, iy = convert(target)
-    bx, by = convert(source)
+  ix, iy = convert(target)
+  bx, by = convert(source)
 
-    if (ix == bx):
-        delta = 4 if by < iy else -4
-        while(by != iy):
-            targetIds.append("t"+str(source))
-            source += delta
-            sourceIds.append("t"+str(source))
-            by = convert_y(source)
-    elif (iy == by):
-        delta = 1 if bx < ix else -1
-        while(bx != ix):
-            targetIds.append("t"+str(source))
-            source += delta
-            sourceIds.append("t"+str(source))
-            bx = convert_x(source)
+  if (ix == bx):
+    delta = 4 if by < iy else -4
+    while(by != iy):
+      targetIds.append("t"+str(source))
+      source += delta
+      sourceIds.append("t"+str(source))
+      by = convert_y(source)
+  elif (iy == by):
+    delta = 1 if bx < ix else -1
+    while(bx != ix):
+      targetIds.append("t"+str(source))
+      source += delta
+      sourceIds.append("t"+str(source))
+      bx = convert_x(source)
 
-    dom.set_contents(build(sourceIds, targetIds, dom.get_contents(sourceIds), id))
+  dom.set_contents(build(sourceIds, targetIds, dom.get_contents(sourceIds), id))
 
-    dom.toggle_classes({
-        self.blank: "hidden",
-        target: "hidden"
-    })
+  dom.toggle_classes({
+    self.blank: "hidden",
+    target: "hidden"
+  })
 
-    self.blank = target
+  self.blank = target
 
 
 callbacks = {
-    "": ac_connect,
-    "Swap": ac_swap,
-    "Scramble": lambda self, dom, id: scramble(self, dom)
+  "": ac_connect,
+  "Swap": ac_swap,
+  "Scramble": lambda self, dom, id: scramble(self, dom)
 }
 
 

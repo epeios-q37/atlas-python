@@ -30,18 +30,18 @@ sys.path.append("../../atlastk")
 import atlastk as Atlas
 
 def ac_connect(dom):
-	dom.inner("", open("Main.html").read())
-	dom.add_class("Input","hidden")
+  dom.inner("", open("Main.html").read())
+  dom.add_class("Input","hidden")
 
 def ac_show_input(dom):
-	dom.remove_class("Input", "hidden")
-	dom.focus("Pattern")
+  dom.remove_class("Input", "hidden")
+  dom.focus("Pattern")
 
 callbacks = {
-	"": ac_connect,
-	"Submit": lambda dom, id: dom.set_content("Pattern", dom.get_content("Pattern").upper() ),
-	"HideInput": lambda dom, id: dom.add_class("Input", "hidden"),
-	"ShowInput": ac_show_input,
+  "": ac_connect,
+  "Submit": lambda dom, id: dom.set_content("Pattern", dom.get_content("Pattern").upper() ),
+  "HideInput": lambda dom, id: dom.add_class("Input", "hidden"),
+  "ShowInput": ac_show_input,
 }
 
 Atlas.launch(callbacks, None, open("Head.html").read())

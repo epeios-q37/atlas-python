@@ -34,73 +34,73 @@ gPin = None
 bPin = None
 
 class RGB:
-	def __init__(self):
-		pass
+  def __init__(self):
+    pass
 
 def set(dom, id, value):
-	if value != None:
-		dom.set_content(id, value)
+  if value != None:
+    dom.set_content(id, value)
 
 def acConnect(RGB,dom):
-	global rPin, gPin, bPin
-	dom.inner("", open( "Main.html").read() )
-	set( dom, "Red", rPin)
-	set( dom, "Green", gPin)
-	set( dom, "Blue", bPin)
-	dom.focus("Red")
+  global rPin, gPin, bPin
+  dom.inner("", open( "Main.html").read() )
+  set( dom, "Red", rPin)
+  set( dom, "Green", gPin)
+  set( dom, "Blue", bPin)
+  dom.focus("Red")
 
 def convert(hex):
-	return int(int(hex,16) * 100 / 256)
+  return int(int(hex,16) * 100 / 256)
 
 def acSelect(RGB, dom, id):
-	global rPin, gPin, bPin
-	if ( ( rPin != None) and (gPin != None ) and ( bPin != None ) ):
-		R = convert(id[0:2])
-		G = convert(id[2:4])
-		B = convert(id[4:6])
-		print (R, G, B)
-		GPIOq.softPWMWrite(rPin,100 - R)
-		GPIOq.softPWMWrite(gPin,100 - G)
-		GPIOq.softPWMWrite(bPin,100 - B)
+  global rPin, gPin, bPin
+  if ( ( rPin != None) and (gPin != None ) and ( bPin != None ) ):
+    R = convert(id[0:2])
+    G = convert(id[2:4])
+    B = convert(id[4:6])
+    print (R, G, B)
+    GPIOq.softPWMWrite(rPin,100 - R)
+    GPIOq.softPWMWrite(gPin,100 - G)
+    GPIOq.softPWMWrite(bPin,100 - B)
 
 def getPin(dom, id):
-	pin = None
-	value = dom.get_content(id).strip()
+  pin = None
+  value = dom.get_content(id).strip()
 
-	try:
-		pin = int(value)
-		pin = None if ( pin > 99 ) or ( pin < 0 ) else pin
-	except:
-		pin = None
+  try:
+    pin = int(value)
+    pin = None if ( pin > 99 ) or ( pin < 0 ) else pin
+  except:
+    pin = None
 
-	if value  and ( pin == None ):
-		dom.alert("Invalid pin number!")
-		dom.set_content(id, "")
-		dom.focus(id)
-	elif pin != None:
-		GPIOq.softPWMCreate(pin)
+  if value  and ( pin == None ):
+    dom.alert("Invalid pin number!")
+    dom.set_content(id, "")
+    dom.focus(id)
+  elif pin != None:
+    GPIOq.softPWMCreate(pin)
 
-	return pin
+  return pin
 
 def acRed(RGB, dom, id):
-	global rPin
-	rPin = getPin(dom, id)
+  global rPin
+  rPin = getPin(dom, id)
 
 def acGreen(RGB, dom, id):
-	global gPin
-	gPin = getPin(dom, id)
+  global gPin
+  gPin = getPin(dom, id)
 
 def acBlue(RGB, dom, id):
-	global bPin
-	bPin = getPin(dom, id)
+  global bPin
+  bPin = getPin(dom, id)
 
 callbacks = {
-		"": acConnect,
-		"Select": acSelect,
-		"Red": acRed,
-		"Green": acGreen,
-		"Blue": acBlue,
-	}
+    "": acConnect,
+    "Select": acSelect,
+    "Red": acRed,
+    "Green": acGreen,
+    "Blue": acBlue,
+  }
 
 GPIOq.setup()
 
