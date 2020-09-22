@@ -24,7 +24,7 @@
 
 ---
 
-## Straight to the point: the [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program
+## Straight to the point: the ["Hello, World!"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program
 
 ### Source code
 
@@ -75,7 +75,7 @@ Atlas.launch(callbacks)
 
 Thanks to [*Replit*](https://q37.info/s/mxmgq3qm), an [online IDE](https://q37.info/s/zzkzbdw7), you can write and run programs using the *Atlas* toolkit directly in your web browser, without having to install *Python* on your computer.
 
-To see some examples, like the following [*TodoMVC*](http://todomvc.com/) application or the above [*Hello, World!*](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program, simply:
+To see some examples, like the following [*TodoMVC*](http://todomvc.com/) application or the above ["Hello, World!"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program, simply:
 - go [here](https://q37.info/s/vwpsw73v) (also accessible with the [![Run on Repl.it](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/vwpsw73v) badge at the top of this page),
 -  click on the green `run` button,
 -  choose the demonstration to launch,
@@ -105,7 +105,7 @@ With the [*Atlas* toolkit](http://atlastk.org/), you transform your programs in 
 
 The *Atlas* toolkit is written in pure *Python*, with no native code and no dependencies, allowing the *Atlas* toolkit to be used on all environments where *Python* is available. 
 
-And, icing on the cake, simply by running them on a local computer with a simple internet connexion, applications using the *Atlas* toolkit will be accessible from the entire internet on laptops, smartphones, tablets…
+And, icing on the cake, simply by running them on a local computer with a simple internet connection, applications using the *Atlas* toolkit will be accessible from the entire internet on laptops, smartphones, tablets…
 
 The *Atlas* toolkit is particularly well suited for educational purposes, to write modern programming exercises, i.e. with a true graphical interface instead of the usual outdated textual one. More about this can be found [here](https://q37.info/s/cbms43s9).
 
