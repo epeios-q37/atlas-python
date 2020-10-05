@@ -28,6 +28,16 @@ def l():
 	frameInfo = inspect.getouterframes(inspect.currentframe())[1]
 	print(frameInfo[1] + ":" + str(frameInfo[2]))
 
+def recv_(socket,size):
+	buffer = ""
+	l = 0
+
+	while l != size:
+		buffer += socket.recv(size-l)
+		l = len(buffer)
+
+	return buffer
+	
 def writeUInt(socket, value):
 	result = chr(value & 0x7f)
 	value >>= 7
@@ -43,7 +53,7 @@ def writeString(socket, string):
 	socket.send(string)
 
 def _readByte(socket):
-	return ord(socket.recv(1))
+	return ord(recv_(socket,1))
 
 def readUInt(socket):
 	byte = _readByte(socket)
@@ -59,6 +69,6 @@ def getString(socket):
 	size = readUInt(socket)
 
 	if size:
-		return socket.recv(size)
+		return recv_(socket,size)
 	else:
 		return ""

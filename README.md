@@ -24,12 +24,12 @@
 
 ---
 
-## Straight to the point: the ["Hello, World!"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program
+## Quick example: the ["Hello, World!"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program
 
 ### Source code
 
 ```python
-import atlastk as Atlas
+import atlastk
 
 body = """
 <fieldset>
@@ -47,12 +47,12 @@ def ac_connect(dom):
   dom.focus("input")
 
 def ac_submit(dom):
-  dom.alert("Hello, " + dom.get_content("input") + "!")
+  dom.alert("Hello, " + dom.get_value("input") + "!")
   dom.focus("input")
 
 def ac_clear(dom):
   if ( dom.confirm("Are you sure?") ):
-    dom.set_content("input", "")
+    dom.set_value("input", "")
   dom.focus("input")
 
 callbacks = {
@@ -61,7 +61,7 @@ callbacks = {
   "Clear": ac_clear,
 }
 
-Atlas.launch(callbacks)
+atlastk.launch(callbacks)
 ```
 
 
@@ -71,12 +71,12 @@ Atlas.launch(callbacks)
 
 ### See for yourself right now - it's quick and easy!
 
-#### Online, with nothing to install [![About online demonstrations](https://img.shields.io/badge/about-online%20demonstrations-informational)](https://q37.info/s/sssznrb4)
+#### Online, with nothing to install
 
-Thanks to [*Replit*](https://q37.info/s/mxmgq3qm), an [online IDE](https://q37.info/s/zzkzbdw7), you can write and run programs using the *Atlas* toolkit directly in your web browser, without having to install *Python* on your computer.
+Thanks to [*Replit*](https://q37.info/s/mxmgq3qm), an [online IDE](https://q37.info/s/zzkzbdw7), you can write and run programs using the *Atlas* toolkit directly in your web browser, without having to install *Python* on your computer [![About online demonstrations](https://img.shields.io/badge/about-online%20demonstrations-informational)](https://q37.info/s/sssznrb4).
 
 To see some examples, like the following [*TodoMVC*](http://todomvc.com/) application or the above ["Hello, World!"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program, simply:
-- go [here](https://q37.info/s/vwpsw73v) (also accessible with the [![Run on Repl.it](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/vwpsw73v) badge at the top of this page),
+- go [here](https://q37.info/s/vwpsw73v) (also accessible with the [![Run on Repl.it](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/vwpsw73v) button at the top of this page),
 -  click on the green `run` button,
 -  choose the demonstration to launch,
 -  open the then displayed URL in a browser (should be clickable), 
@@ -96,7 +96,7 @@ python Hello/
 
 If you want to take your code to the next level, from [CLI](https://q37.info/s/cnh9nrw9) to [GUI](https://q37.info/s/hw9n3pjs), then you found the right toolkit.
 
-With the [*Atlas* toolkit](http://atlastk.org/), you transform your programs in modern web applications ([*SPA*](https://q37.info/s/7sbmxd3j)), but without the usual hassles:
+With the [*Atlas* toolkit](http://atlastk.org/), you transform your programs in modern web applications ([*SPA*](https://q37.info/s/7sbmxd3j)) without the usual hassles:
 - no *JavaScript* to write; only *HTML*(/*CSS*) and *Python*,
 - no [front and back end architecture](https://q37.info/s/px7hhztd) to bother with,
 - no [web server](https://q37.info/s/n3hpwsht) (*Apache*, *Nginx*…) to install,
@@ -105,7 +105,7 @@ With the [*Atlas* toolkit](http://atlastk.org/), you transform your programs in 
 
 The *Atlas* toolkit is written in pure *Python*, with no native code and no dependencies, allowing the *Atlas* toolkit to be used on all environments where *Python* is available. 
 
-And, icing on the cake, simply by running them on a local computer with a simple internet connection, applications using the *Atlas* toolkit will be accessible from the entire internet on laptops, smartphones, tablets…
+And simply by running them on a local computer connected to internet, applications using the *Atlas* toolkit will be accessible from the entire internet on laptops, smartphones, tablets…
 
 The *Atlas* toolkit is particularly well suited for educational purposes, to write modern programming exercises, i.e. with a true graphical interface instead of the usual outdated textual one. More about this can be found [here](https://q37.info/s/cbms43s9).
 
@@ -128,7 +128,8 @@ In the `examples` directory, you will found following examples:
 - `Hangman`: [Hangman game](http://q37.info/s/gtdtk4hp),
 - `15-puzzle`: [*15-puzzle* game](https://q37.info/s/jn9zg3bn),
 - `ReversiIMG`: [*Reversi game*](http://q37.info/s/zz3dzmf7) with more evolved graphics,
-- `ReversiXSL`: [*Reversi game*](http://q37.info/s/zz3dzmf7) using *XSL*.
+- `ReversiXSL`: [*Reversi game*](http://q37.info/s/zz3dzmf7) using *XSL*,
+- `Widgets`: some widgets handled with the *Atlas* toolkit.
 
 Other examples are detailed in the next section.
 

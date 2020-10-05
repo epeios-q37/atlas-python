@@ -28,7 +28,7 @@ from random import *
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append("../../atlastk")
 
-import atlastk as Atlas
+import atlastk
 
 # Althought empty, must exist, as it will be filled later.
 class Puzzle:
@@ -37,7 +37,7 @@ class Puzzle:
 
 def fill(puzzle, dom):
   numbers = []
-  contents = {}
+  values = {}
 
   for i in range(16):
     numbers.append(i)
@@ -45,17 +45,17 @@ def fill(puzzle, dom):
   for i in range(len(numbers)):
     number = numbers.pop(randint(0, len(numbers)-1))
     if number != 0:
-      contents["t"+str(i)] = number
+      values["t"+str(i)] = number
     else:
       puzzle.blank = i
 
-  dom.set_contents(contents)
+  dom.set_values(values)
   dom.toggle_class(puzzle.blank, "hidden")
 
 
 def swap(puzzle, dom, source):
-  dom.set_contents({
-    "t"+str(puzzle.blank): dom.get_content("t"+str(source)),
+  dom.set_values({
+    "t"+str(puzzle.blank): dom.get_value("t"+str(source)),
     "t"+str(source): ""
   })
 
@@ -90,7 +90,7 @@ def draw_square(board, x, y):
 
 
 def draw_grid(dom):
-  board = Atlas.create_HTML("g")
+  board = atlastk.create_HTML("g")
   for x in range(0, 4):
     for y in range(0, 4):
       draw_square(board, x, y)
@@ -106,7 +106,7 @@ def set_text(texts, x, y):
 
 
 def set_texts(dom):
-  texts = Atlas.create_HTML("text")
+  texts = atlastk.create_HTML("text")
   for x in range(0, 4):
     for y in range(0, 4):
       set_text(texts, x, y)
@@ -124,16 +124,16 @@ def ac_connect(self, dom):
   scramble(self, dom)
 
 
-def build(sourceIds,targetIds,sourceIdsAndContents, blank):
+def build(sourceIds,targetIds,sourceIdsAndValues, blank):
 
-  targetIdsAndContents = {}
+  targetIdsAndValues = {}
 
   for i in range(len(sourceIds)):
-    targetIdsAndContents[targetIds[i]] = sourceIdsAndContents[sourceIds[i]]
+    targetIdsAndValues[targetIds[i]] = sourceIdsAndValues[sourceIds[i]]
     
-  targetIdsAndContents["t" + blank] = ""
+  targetIdsAndValues["t" + blank] = ""
     
-  return targetIdsAndContents
+  return targetIdsAndValues
 
 
 def ac_swap(self, dom, id):
@@ -160,7 +160,7 @@ def ac_swap(self, dom, id):
       sourceIds.append("t"+str(source))
       bx = convert_x(source)
 
-  dom.set_contents(build(sourceIds, targetIds, dom.get_contents(sourceIds), id))
+  dom.set_values(build(sourceIds, targetIds, dom.get_values(sourceIds), id))
 
   dom.toggle_classes({
     self.blank: "hidden",
@@ -177,4 +177,4 @@ callbacks = {
 }
 
 
-Atlas.launch(callbacks, Puzzle, open("Head.html").read())
+atlastk.launch(callbacks, Puzzle, open("Head.html").read())

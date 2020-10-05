@@ -31,7 +31,7 @@ import os, sys, random, itertools, time
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append("../../atlastk")
 
-import atlastk as Atlas
+import atlastk
 
 EMPTY = 0
 BLACK = -1
@@ -179,7 +179,7 @@ class Reversi:
 # -------------------------------------------------------------------------------
 
 def drawBoard(reversi, dom, prefetch=False):
-  board = Atlas.createHTML("tbody")
+  board = atlastk.createHTML("tbody")
   for y, row in enumerate(reversi.board):
     board.push_tag("tr")
     for x, r in enumerate(row):
@@ -198,7 +198,7 @@ def drawBoard(reversi, dom, prefetch=False):
 
   dom.inner("board", board)
 
-  dom.set_contents({
+  dom.set_values({
     "black": reversi.count(BLACK),
     "white": reversi.count(WHITE)
   })
@@ -250,4 +250,4 @@ callbacks = {
   "New": acNew
 }
 
-Atlas.launch(callbacks, Reversi, open("Head.html").read())
+atlastk.launch(callbacks, Reversi, open("Head.html").read())

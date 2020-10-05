@@ -20,7 +20,7 @@
 		<li>
 			<span id="View.{@id}">
 				<div>
-					<article class="listing note-view" style="width:100%; justify-content: space-between;align-items: center;" data-xdh-content="{@id}">
+					<article class="listing note-view" style="width:100%; justify-content: space-between;align-items: center;" data-xdh-mark="{@id}">
 						<div>
 							<h3 id="Title.{@id}">
 								<xsl:value-of select="title"/>
@@ -31,9 +31,9 @@
 							</p>
 						</div>
 						<span id="Buttons.{@id}" style="flex-direction: row;">
-							<button class="button" data-xdh-onevent="Edit" data-xdh-content="{@id}">Edit</button>
+							<button class="button" data-xdh-onevent="Edit" data-xdh-mark="{@id}">Edit</button>
 							<span style="display:inline-block; width: 10px;"></span>
-							<button class="button" data-xdh-onevent="Delete" data-xdh-content="{@id}">Delete</button>
+							<button class="button" data-xdh-onevent="Delete" data-xdh-mark="{@id}">Delete</button>
 						</span>
 					</article>
 				</div>

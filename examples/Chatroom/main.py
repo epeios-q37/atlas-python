@@ -27,7 +27,7 @@ import os, sys, threading
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append("../../atlastk")
 
-import atlastk as Atlas
+import atlastk
 
 messages = []
 pseudos = []
@@ -39,7 +39,7 @@ class Chatroom:
     self.pseudo = ""
 
   def build_xml(self):
-    xml = Atlas.create_XML("XDHTML")
+    xml = atlastk.create_XML("XDHTML")
     xml.push_tag( "Messages" )
     xml.put_attribute( "pseudo", self.pseudo )
 
@@ -105,11 +105,11 @@ def ac_connect(chatroom, dom):
   chatroom.display_messages(dom)
   
 def ac_submit_pseudo(chatroom, dom):
-  pseudo = dom.get_content("Pseudo").strip()
+  pseudo = dom.get_value("Pseudo").strip()
 
   if not pseudo:
     dom.alert("Pseudo. can not be empty !")
-    dom.set_content("Pseudo", "")
+    dom.set_value("Pseudo", "")
     dom.focus("Pseudo")
   elif chatroom.handle_pseudo(pseudo.upper()):
     chatroom.pseudo = pseudo
@@ -117,21 +117,21 @@ def ac_submit_pseudo(chatroom, dom):
 #		dom.disable_elements(["Pseudo", "PseudoButton"])
     dom.disable_element("Pseudo")
     dom.enable_elements(["Message", "MessageButton"])
-#		dom.set_content("Pseudo", pseudo)
+#		dom.set_value("Pseudo", pseudo)
     dom.focus("Message")
     print("\t>>>> New user: " + pseudo)
   else:
     dom.alert("Pseudo. not available!")
-    dom.set_content("Pseudo", pseudo)
+    dom.set_value("Pseudo", pseudo)
     dom.focus("Pseudo")
 
 def ac_submit_message(chatroom, dom):
-  message = dom.get_content("Message")
-  dom.set_content("Message", "")
+  message = dom.get_value("Message")
+  dom.set_value("Message", "")
   dom.focus("Message")
   chatroom.add_message(chatroom.pseudo, message)
   chatroom.display_messages(dom)
-  Atlas.broadcast_action("Update")
+  atlastk.broadcast_action("Update")
 
 callbacks = {
     "": ac_connect,
@@ -140,4 +140,4 @@ callbacks = {
     "Update": lambda chatroom, dom: chatroom.display_messages(dom),
   }
     
-Atlas.launch(callbacks, Chatroom, open("Head.html").read())
+atlastk.launch(callbacks, Chatroom, open("Head.html").read())

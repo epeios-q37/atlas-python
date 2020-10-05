@@ -33,7 +33,7 @@ import os, sys, random, itertools, time
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append("../../atlastk")
 
-import atlastk as Atlas
+import atlastk
 
 
 EMPTY = 0
@@ -185,7 +185,7 @@ class Reversi:
 # -------------------------------------------------------------------------------
 
 def drawBoard(reversi, dom):
-  board = Atlas.createXML("Board")
+  board = atlastk.createXML("Board")
   for y, row in enumerate(reversi.board):
     board.push_tag("Row")
     board.put_attribute("y", str(y))
@@ -199,7 +199,7 @@ def drawBoard(reversi, dom):
     board.pop_tag()
 
   if ( reversi.layout == TXT ):
-    dom.set_contents({
+    dom.set_values({
       "blackTXT": reversi.count(BLACK),
       "whiteTXT": reversi.count(WHITE)
     })
@@ -209,7 +209,7 @@ def drawBoard(reversi, dom):
     dom.add_class("scoreIMG", "hidden")
     dom.remove_class("scoreTXT", "hidden")
   elif ( reversi.layout == IMG ):
-    dom.set_contents({
+    dom.set_values({
       "blackIMG": reversi.count(BLACK),
       "whiteIMG": reversi.count(WHITE)
     })
@@ -276,4 +276,4 @@ callbacks = {
   "ToggleLayout": acToggleLayout,
 }
 
-Atlas.launch(callbacks, Reversi, open("Head.html").read())
+atlastk.launch(callbacks, Reversi, open("Head.html").read())

@@ -271,7 +271,7 @@ def _ignition():
 
 		print(url)
 		print("".rjust(len(url),'^'))
-		print("Open above URL in a web browser. Enjoy!\n")
+		print("Open above URL in a web browser (click, right click or copy/paste). Enjoy!\n")
 
 		atk = getEnv("ATK").upper()
 

@@ -27,7 +27,7 @@ import os, sys
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append("../../atlastk")
 
-import atlastk as Atlas
+import atlastk
 
 head = """
 <title>"Hello, World !" example</title>
@@ -53,12 +53,12 @@ def ac_connect(dom):
   dom.focus( "input")
 
 def ac_submit(dom):
-  dom.alert("Hello, " + dom.get_content("input") + "!")
+  dom.alert("Hello, {}!".format(dom.get_value("input")))
   dom.focus( "input")
 
 def ac_clear(dom):
   if dom.confirm("Are you sure?"):
-    dom.set_content("input", "" )
+    dom.set_value("input", "" )
   dom.focus( "input")
 
 def ac_error(dom):
@@ -73,4 +73,4 @@ callbacks = {
   "Error": ac_error
 }
 
-Atlas.launch(callbacks, None, head)
+atlastk.launch(callbacks, None, head)

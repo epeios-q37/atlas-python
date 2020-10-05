@@ -1,0 +1,167 @@
+<div>
+  <label for="List">Some widgets handled with the <a href="https://atlastk.org"><em>Atlas</em> toolkit</a>: </label>
+  <select id="List" data-xdh-onevent="Select">
+    <option disabled="" selected="">(Please wait…)</option>
+  </select>
+</div>
+<br />
+<fieldset class="hidden" id="button">
+  <fieldset>
+    <button data-xdh-onevent="btSubmit">A button</button>
+  </fieldset>
+  <pre class="lang-html"></pre>
+</fieldset>
+<fieldset class="hidden" id="password">
+  <fieldset>
+    <input type="password" data-xdh-onevent="pwSubmit" placeholder="Password" />
+    <span>Submitted password: </span>
+    <output id="pwOutput">
+      <span>Type a password and hit the <span style="font-weight: bold;">Enter</span> key</span>
+    </output>
+  </fieldset>
+  <pre class="lang-html"></pre>
+</fieldset>
+<fieldset class="hidden" id="checkbox">
+  <fieldset>
+    <div>
+      <p>Specify the type of vehicle you own:</p>
+      <input type="checkbox" id="cbBicycle" data-xdh-onevent="cbSelect">
+      <label for="cbBicycle">Bicycle</label>
+      <br />
+      <input type="checkbox" id="cbCar" data-xdh-onevent="cbSelect">
+      <label for="cbCar">Car</label>
+      <br />
+      <input type="checkbox" id="cbPirogue" data-xdh-onevent="cbSelect">
+      <label for="cbPirogue">Pirogue</label>
+    </div>
+    <p></p>
+    <div>
+      <span>Last selected vehicle: </span>
+      <output id="cbOutput">
+        <span>Click on a checkbox</span>
+      </output>
+    </div>
+    <p></p>
+    <div>
+      <button data-xdh-onevent="cbSubmit">Submit</button>
+    </div>
+  </fieldset>
+  <pre class="lang-html"></pre>
+</fieldset>
+<fieldset class="hidden" id="radio">
+  <fieldset>
+    <p>How to contact you:</p>
+    <div>
+      <input type="radio" name="rdContact" id="rdEmail" data-xdh-onevent="rdSelect">
+      <label for="rdEmail">Email</label>
+      <input type="radio" name="rdContact" id="rdPhone" data-xdh-onevent="rdSelect">
+      <label for="rdTelephone">Phone</label>
+      <input type="radio" name="rdContact" id="rdMail" data-xdh-onevent="rdSelect">
+      <label for="rdMail">Mail (post)</label>
+    </div>
+    <p></p>
+    <div>
+      <span>Selected contact method: </span>
+      <output id="rdOutput">
+        <span>Click on a radio button</span>
+      </output>
+    </div>
+    <p></p>
+    <div>
+      <button data-xdh-onevent="rdSubmit">Submit</button>
+    </div>
+  </fieldset>
+  <pre class="lang-html"></pre>
+</fieldset>
+<fieldset class="hidden" id="datalist">
+  <fieldset>
+    <span>
+      <input list="dlFlavors" data-xdh-onevent="dlSubmit" placeholder="Select a flavor" />
+      <datalist id="dlFlavors">
+        <option value="Caramel"></option>
+        <option value="Chocolate"></option>
+        <option value="Vanilla"></option>
+      </datalist>
+    </span>
+    <span>Selected flavor: </span>
+    <output id="dlOutput">
+      <span>Type a flavour</span>
+    </output>
+  </fieldset>
+  <pre class="lang-html"></pre>
+</fieldset>
+<fieldset class="hidden" id="date">
+  <fieldset>
+    <input type="date" data-xdh-onevent="dtSelect" />
+    <span>Selected date: </span>
+    <output id="dtOutput">
+      <span>Click on the date selector</span>
+    </output>
+  </fieldset>
+  <pre class="lang-html"></pre>
+</fieldset>
+<fieldset class="hidden" id="color">
+  <fieldset>
+    <input type="color" id="clColor" data-xdh-onevent="clSelect" />
+    <span>Selected color: </span>
+    <output id="clOutput">
+      <span>Click on the color selector</span>
+    </output>
+  </fieldset>
+  <pre class="lang-html"></pre>
+</fieldset>
+<fieldset class="hidden" id="range/meter">
+  <fieldset>
+    <label for="rgVolume">Volume</label>
+    <input type="range" id="rgVolume" min="0" max="10" data-xdh-onevent="rgSlide">
+    <meter id="rgOutput" min="0" max="10" low="5" high="7" optimum="4" value="5">
+    </meter>
+  </fieldset>
+  <pre class="lang-html"></pre>
+</fieldset>
+<fieldset class="hidden" id="select">
+  <fieldset>
+    <select data-xdh-onevent="slSelect">
+      <option selected disabled>-- Select a dinausor --</option>
+      <optgroup label="Theropods">
+        <option value="tyrannosaurus">Tyrannosaurus</option>
+        <option value="velociraptor">Velociraptor</option>
+        <option value="deinonychus">Deinonychus</option>
+      </optgroup>
+      <optgroup label="Sauropods">
+        <option value="diplodocus">Diplodocus</option>
+        <option value="saltasaurus">Saltasaurus</option>
+        <option value="apatosaurus">Apatosaurus</option>
+      </optgroup>
+      <optgroup id="slOthers" label="Others" />
+    </select>
+    <span>
+      <label for="slOutput">Selected dinausor: </label>
+      <output id="slOutput">
+        <span>Click on a dinosaur</span>
+      </output>
+    </span>
+    <p></p>
+    <div>
+      <input id="slInput" data-xdh-onevent="slAdd" placeholder="Other dinausor to add" />
+      <label>
+        <input type="checkbox" data-xdh-onevent="slToggle" />
+        <b>Deactivate</b>
+      </label>
+    </div>
+  </fieldset>
+  <pre class="lang-html"></pre>
+</fieldset>
+<fieldset class="hidden" id="CKEditor">
+  <fieldset>
+    <textarea id="ckInput"
+      data-xdh-widget_="ckeditor|{entities: false, enterMode : CKEDITOR.ENTER_BR, linkShowTargetTab: false}|val\(\)|"></textarea>
+    <button data-xdh-onevent="ckSubmit">Submit</button>
+    <fieldset>
+      <output id="ckOutput" style="all: initial;">
+        <span>Type content in the editor and hit the <span style="font-weight: bold;">Submit</span> button</span>
+      </output>
+    </fieldset>
+  </fieldset>
+  <pre class="lang-html"></pre>
+</fieldset>

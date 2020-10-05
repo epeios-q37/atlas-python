@@ -27,6 +27,7 @@ demos = (
     "15-puzzle",
     "ReversiIMG",
     "ReversiXSL",
+    "Widgets",
 )
 
 demosAmount = len(demos)

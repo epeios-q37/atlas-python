@@ -27,7 +27,7 @@ import GPIOq, os, sys, threading
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append("../../atlastk")
 
-import atlastk as Atlas
+import atlastk
 
 lock = threading.Lock()
 
@@ -292,7 +292,7 @@ class GPIO:
 
   def _buildXML(self):
     global mapping
-    xml = Atlas.createXML("XDHTML")
+    xml = atlastk.createXML("XDHTML")
     self._buildCorpus(xml)
     xml.push_tag("GPIOs")
 
@@ -312,7 +312,7 @@ class GPIO:
     return setCurrentUserId(self._userId)
 
   def display(self,dom):
-    dom.set_layout_XSL("GPIO", self._buildXML(), "GPIO.xsl")
+    dom.inner("GPIO", self._buildXML(), "GPIO.xsl")
     self._handleModeButtons(dom)
 
   def setMode(self,dom,wId,mode):
@@ -320,7 +320,7 @@ class GPIO:
 
     self._setMode(wId, mode)
 
-    dom.set_content("Value." + str(wId),self._getValue(wId))
+    dom.set_value("Value." + str(wId),self._getValue(wId))
     dom.setAttribute(id,"value",self._getValue(wId))
 
     if (mode==Mode.IN):
@@ -372,10 +372,10 @@ def acConnect(GPIO,dom):
   GPIO.display(dom)
 
 def acSwitchMode(GPIO,dom,id):
-  GPIO.setMode(dom,getWId(id),int(dom.get_content(id)))
+  GPIO.setMode(dom,getWId(id),int(dom.get_value(id)))
   
 def acChangeValue(GPIO,dom,id):
-  GPIO.setValue(dom,getWId(id),int(dom.get_content(id)))
+  GPIO.setValue(dom,getWId(id),int(dom.get_value(id)))
 
 callbacks = {
     "_PreProcess": preProcess,
@@ -395,4 +395,4 @@ GPIOq.setup()
 
 syncSettings()
     
-Atlas.launch(callbacks, GPIO, open("Head.html").read())
+atlastk.launch(callbacks, GPIO, open("Head.html").read())

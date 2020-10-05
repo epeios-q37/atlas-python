@@ -27,7 +27,7 @@ import os, sys
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append("../../atlastk")
 
-import atlastk as Atlas
+import atlastk
 
 from random import randint
 
@@ -75,7 +75,7 @@ def showWord(dom, secretWord, correctGuesses):
     if secretWord[i] in correctGuesses:
       output = output[:i] + secretWord[i] + output[i + 1:]
 
-  html = Atlas.createHTML()
+  html = atlastk.createHTML()
   html.put_tag_and_value("h1", output)
   dom.inner("output", html)
 
@@ -140,4 +140,4 @@ callbacks = {
   "Restart": acRestart
 }
 
-Atlas.launch(callbacks, Core, open("Head.html").read())
+atlastk.launch(callbacks, Core, open("Head.html").read())

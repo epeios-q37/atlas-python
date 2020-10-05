@@ -27,7 +27,7 @@ import os, sys
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append("../../atlastk")
 
-import atlastk as Atlas
+import atlastk
 
 class TodoMVC:
   def __init__(self):
@@ -63,7 +63,7 @@ class TodoMVC:
     elif count != 0:
       text = str(count) + " items left"
 
-    dom.set_content("Count", text)
+    dom.set_value("Count", text)
 
   def handle_count(self, dom):
     count = self.items_left()
@@ -76,7 +76,7 @@ class TodoMVC:
     self.display_count(dom, count)
 
   def display_todos(self, dom):
-    xml = Atlas.create_XML("XDHTML")
+    xml = atlastk.create_XML("XDHTML")
 
     xml.push_tag("Todos")
 
@@ -92,24 +92,24 @@ class TodoMVC:
     self.handle_count(dom)
 
   def submit_new(self, dom):
-    content = dom.get_content("Input").strip()
-    dom.set_content("Input", "")
+    value = dom.get_value("Input").strip()
+    dom.set_value("Input", "")
 
-    if content:
-      self.todos.insert(0, {'label': content, 'completed': False})
+    if value:
+      self.todos.insert(0, {'label': value, 'completed': False})
       self.display_todos(dom)
 
   def submit_modification(self, dom):
     index = self.index
     self.index = -1
 
-    content = dom.get_content("Input." + str(index)).strip()
-    dom.set_content("Input." + str(index), "")
+    value = dom.get_value("Input." + str(index)).strip()
+    dom.set_value("Input." + str(index), "")
 
-    if content:
-      self.todos[index]['label'] = content
+    if value:
+      self.todos[index]['label'] = value
 
-      dom.set_content("Label." + str(index), content)
+      dom.set_value("Label." + str(index), value)
 
       dom.remove_classes({"View." + str(index): "hide", "Todo." + str(index): "editing"})
     else:
@@ -123,7 +123,7 @@ def ac_connect(self, dom):
   dom.disable_elements(["HideActive", "HideCompleted"])
 
 def ac_destroy(self, dom, id):
-  self.todos.pop(int(dom.get_content(id)))
+  self.todos.pop(int(dom.get_mark(id)))
   self.display_todos(dom)
 
 def ac_toggle(self, dom, id):
@@ -170,18 +170,18 @@ def ac_clear(self, dom):
   self.display_todos(dom)
 
 def ac_edit(self, dom, id):
-  content = dom.get_content(id)
-  self.index = int(content)
+  value = dom.get_mark(id)
+  self.index = int(value)
 
-  dom.add_classes({"View." + content: "hide", id: "editing"})
-  dom.set_content("Input." + content, self.todos[self.index]['label'])
-  dom.focus("Input." + content)
+  dom.add_classes({"View." + value: "hide", id: "editing"})
+  dom.set_value("Input." + value, self.todos[self.index]['label'])
+  dom.focus("Input." + value)
 
 def ac_cancel(self, dom):
   index = str(self.index)
   self.index = -1
 
-  dom.set_content("Input." + index, "")
+  dom.set_value("Input." + index, "")
   dom.remove_classes({"View." + index: "hide", "Todo." + index: "editing"})
 
 callbacks = {
@@ -197,4 +197,4 @@ callbacks = {
   "Cancel": ac_cancel,
 }
 
-Atlas.launch(callbacks, TodoMVC, open("HeadFaaS.html").read())
+atlastk.launch(callbacks, TodoMVC, open("HeadFaaS.html").read())

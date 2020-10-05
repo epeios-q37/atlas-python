@@ -27,7 +27,7 @@ import GPIOq, os, sys
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append("../../atlastk")
 
-import atlastk as Atlas
+import atlastk
 
 rPin = None
 gPin = None
@@ -39,7 +39,7 @@ class RGB:
 
 def set(dom, id, value):
   if value != None:
-    dom.set_content(id, value)
+    dom.set_value(id, value)
 
 def acConnect(RGB,dom):
   global rPin, gPin, bPin
@@ -65,7 +65,7 @@ def acSelect(RGB, dom, id):
 
 def getPin(dom, id):
   pin = None
-  value = dom.get_content(id).strip()
+  value = dom.get_value(id).strip()
 
   try:
     pin = int(value)
@@ -75,7 +75,7 @@ def getPin(dom, id):
 
   if value  and ( pin == None ):
     dom.alert("Invalid pin number!")
-    dom.set_content(id, "")
+    dom.set_value(id, "")
     dom.focus(id)
   elif pin != None:
     GPIOq.softPWMCreate(pin)
@@ -104,4 +104,4 @@ callbacks = {
 
 GPIOq.setup()
 
-Atlas.launch(callbacks, RGB,open("Head.html").read())
+atlastk.launch(callbacks, RGB,open("Head.html").read())

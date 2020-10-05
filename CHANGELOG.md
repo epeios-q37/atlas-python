@@ -3,18 +3,18 @@
 - Common to **all** bindings,
 - does **not** concern the native code,
 
+## 2020-10-01:
+
+- *Python*
+   - fixing issue of `socket.recv(bufsize)` receiving less data than *bufsize*, 
+
 ## 2020-08-28
 
 - *ALL*:
-  
    - switching to 0.12,
-  
    - adding functions to retrieve parent, siblings or children of an element,
-  
    - adding function `scrollTo(…)`,
-  
    - deprecating layout related functions,
-  
    - adding `before(…)`,`begin(…)`,`inner(…)`,`end(…)`,`after(…)` functions,
 
 ## 2020-06-12

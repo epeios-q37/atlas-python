@@ -29,7 +29,7 @@ import os, time, sys
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append("../../atlastk")
 
-import atlastk as Atlas
+import atlastk
 
 # Import des librairies et creation du robot
 from poppy_ergo_jr import PoppyErgoJr
@@ -65,12 +65,12 @@ def acConnect(Poppy,dom):
 
 def acMove(Poppy,dom,id):
   global poppy
-  poppy.goto_position({id: int(dom.get_content(id))},0,wait=True)
+  poppy.goto_position({id: int(dom.get_value(id))},0,wait=True)
 
 def set( dom, motor, position ):
   global poppy
   poppy.goto_position({motor: position},0,wait=False)
-  dom.set_content( motor, position )
+  dom.set_value( motor, position )
 	
 def reset( dom, motor ):
   set(dom, motor, 0)
@@ -90,4 +90,4 @@ callbacks = {
 		"Reset": acReset,
 	}
 	
-Atlas.launch(callbacks, Poppy, open("Head.html").read())
+atlastk.launch(callbacks, Poppy, open("Head.html").read())

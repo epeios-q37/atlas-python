@@ -40,7 +40,7 @@ import threading
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append("../../atlastk")
 
-import atlastk as Atlas
+import atlastk
 
 #constants
 WINSIZE = [640, 480]
@@ -150,7 +150,7 @@ callbacks = {
 }
 
 def atlas():
-  Atlas.launch(callbacks, None, open("Head.html").read())
+  atlastk.launch(callbacks, None, open("Head.html").read())
 
 def main():
   global pos;

@@ -27,7 +27,7 @@ import os, sys
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append("../../atlastk")
 
-import atlastk as Atlas
+import atlastk
 
 def ac_connect(dom):
   dom.inner("", open("Main.html").read())
@@ -39,9 +39,9 @@ def ac_show_input(dom):
 
 callbacks = {
   "": ac_connect,
-  "Submit": lambda dom, id: dom.set_content("Pattern", dom.get_content("Pattern").upper() ),
+  "Submit": lambda dom, id: dom.set_value("Pattern", dom.get_value("Pattern").upper() ),
   "HideInput": lambda dom, id: dom.add_class("Input", "hidden"),
   "ShowInput": ac_show_input,
 }
 
-Atlas.launch(callbacks, None, open("Head.html").read())
+atlastk.launch(callbacks, None, open("Head.html").read())
