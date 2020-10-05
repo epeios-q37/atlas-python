@@ -144,7 +144,7 @@ callbacks = {
 
   "cpSelect": lambda dom, id: dom.set_value("cpOutput", dom.get_value(id)),
 
-  "rgSlide": lambda dom: dom.set_attribute("rgOutput", "value", (dom.getvalue("rgVolume"))),
+  "rgSlide": lambda dom: dom.set_attribute("rgOutput", "value", (dom.get_value("rgVolume"))),
 
   "slSelect": lambda dom, id: dom.set_value("slOutput", dom.get_value(id)),
   "slAdd": ac_sl_add,
