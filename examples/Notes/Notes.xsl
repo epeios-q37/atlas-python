@@ -31,9 +31,9 @@
 							</p>
 						</div>
 						<span id="Buttons.{@id}" style="flex-direction: row;">
-							<button class="button" data-xdh-onevent="Edit" data-xdh-mark="{@id}">Edit</button>
+							<button class="button" data-xdh-onevent="Edit">Edit</button>
 							<span style="display:inline-block; width: 10px;"></span>
-							<button class="button" data-xdh-onevent="Delete" data-xdh-mark="{@id}">Delete</button>
+							<button class="button" data-xdh-onevent="Delete">Delete</button>
 						</span>
 					</article>
 				</div>
