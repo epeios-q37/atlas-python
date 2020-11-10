@@ -72,8 +72,8 @@ def ac_connect(dom):
     i = display_code(dom,current,i)
     current = dom.next_sibling(current)
     listSize+=1
-    dom.setAttribute("List","size",listSize)
     dom.end("List", list)
+    dom.setAttribute("List","size",listSize)
     cumulativeList += list
     list = ""
 
