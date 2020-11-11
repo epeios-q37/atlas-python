@@ -1,10 +1,13 @@
 <div>
-  <center>
-  <label for="List">HTML examples of some widgets<br/>handled with the <a href="https://atlastk.org"><em>Atlas</em> toolkit</a>:<br/></label>
-  <select disabled="" id="List" data-xdh-onevent="Select">
-    <option disabled="" selected="">(retrieving widgets…)</option>
-  </select>
+  <center id="Regular" class="hidden">
+    <label for="List">HTML examples of some widgets<br/>handled with the <a href="https://atlastk.org"><em>Atlas</em> toolkit</a>:<br/></label>
+    <select id="List" data-xdh-onevent="Select">
+    </select>
   </center>
+  <div id="Retrieving">
+    <span>Importing widgets' HTML code: </span>
+    <output id="RetrievedWidget"/>
+  </div>
 </div>
 <br />
 <fieldset class="hidden" id="button">
@@ -88,7 +91,7 @@
     <span>Selected flavor: </span>
     <output id="dlOutput">
       <span>
-        Double-click on textbox or type a (new) flavor and hit the <span style="font-weight: bold;">Enter</span> key
+        Double-click on textbox, or type a (new) flavor, and hit the <span style="font-weight: bold;">Enter</span> key
       </span>
     </output>
   </fieldset>

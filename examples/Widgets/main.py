@@ -60,30 +60,25 @@ def ac_connect(dom):
   dom.inner("", open("Main.html").read())
   current = dom.next_sibling(dom.next_sibling(dom.first_child("")))
   i = 0
-  listSize = 1
 
   target = ""
-  list=""
-  cumulativeList = "<option disabled selected value> -- Select a widget -- </option>"
+  list = "<option disabled selected value> -- Select a widget -- </option>"
  
   while current != "":
     id = dom.get_attribute(current,"id")
+    dom.set_content("RetrievedWidget", id)
     list += f'<option value="{id}">{id}</option>'
     i = display_code(dom,current,i)
     current = dom.next_sibling(current)
-    listSize+=1
-    dom.end("List", list)
-    dom.setAttribute("List","size",listSize)
-    cumulativeList += list
-    list = ""
 
   dom.execute_void("document.querySelectorAll('pre').forEach((block) => {hljs.highlightBlock(block);});")
 
   dom.set_attribute("ckInput","data-xdh-widget",dom.get_attribute("ckInput","data-xdh-widget_"))
   dom.after("ckInput","")
-  dom.inner("List", cumulativeList)
-  dom.removeAttribute("List","size")
-  dom.enableElement("List")
+  dom.inner("List", list)
+
+  dom.add_class("Retrieving","hidden")
+  dom.remove_class("Regular","hidden")
 
 def ac_select(dom,id):
   global target
