@@ -25,6 +25,7 @@ demos = (
     "TodoMVC",
     "Hangman",
     "15-puzzle",
+    "Contacts",
     "ReversiIMG",
     "ReversiXSL",
     "Widgets",
