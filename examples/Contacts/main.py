@@ -107,7 +107,7 @@ def display_contacts(contacts,dom):
   dom.inner("Content", html)
 
 
-def handle_outfit(board, dom):
+def update_outfit(board, dom):
   if board.state == State.DISPLAY:
     dom.disable_element("HideDisplay")
     dom.enable_element("HideEdition")
@@ -128,7 +128,7 @@ def ac_connect(board, dom):
   dom.inner("",open("Main.html").read())
   display_contacts(contacts,dom)
   board.state = State.DISPLAY
-  handle_outfit(board,dom)
+  update_outfit(board,dom)
 
 
 def ac_refresh(board,dom):
@@ -142,7 +142,7 @@ def ac_select(board,dom,id):
   board.state = State.DISPLAY
   board.contactId = contactId
 
-  handle_outfit(board, dom)
+  update_outfit(board, dom)
 
 
 def ac_delete(board,dom):
@@ -154,19 +154,19 @@ def ac_delete(board,dom):
 
   display_contact(EMPTY_CONTACT,dom)
 
-  handle_outfit(board,dom)
+  update_outfit(board,dom)
 
   atlastk.broadcast_action("Refresh")
 
 
-def edit(board,dom)
+def edit(board,dom):
   contactId = board.contactId
 
   board.state = State.EDIT
 
   display_contact(EMPTY_CONTACT if contactId == None else contacts[contactId],dom)
 
-  handle_outfit(board,dom)
+  update_outfit(board,dom)
 
   dom.focus("Name")
 
@@ -200,7 +200,7 @@ def ac_submit(board,dom):
 
   board.state = State.DISPLAY
 
-  handle_outfit(board,dom)
+  update_outfit(board,dom)
 
 
 def ac_cancel(board,dom):
@@ -214,7 +214,7 @@ def ac_cancel(board,dom):
 
   board.state = State.DISPLAY
 
-  handle_outfit(board,dom)
+  update_outfit(board,dom)
 
 
 callbacks = {
