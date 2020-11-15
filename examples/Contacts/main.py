@@ -86,8 +86,8 @@ fields = []
 contacts = EXAMPLE
 
 
-def display_contact(contact,dom):
-  dom.set_values(contact)
+def display_contact(contactId,dom):
+  dom.set_values(EMPTY_CONTACT if contactId == None else contacts[contactId])
 
 
 def display_contacts(contacts,dom):
@@ -138,7 +138,7 @@ def ac_refresh(board,dom):
 def ac_select(board,dom,id):
   contactId = int(id)
 
-  display_contact(contacts[contactId],dom)
+  display_contact(contactId,dom)
   board.state = State.DISPLAY
   board.contactId = contactId
 
@@ -152,7 +152,7 @@ def ac_delete(board,dom):
   contacts.pop(board.contactId)
   board.contactId = None;
 
-  display_contact(EMPTY_CONTACT,dom)
+  display_contact(None,dom)
 
   update_outfit(board,dom)
 
@@ -164,14 +164,14 @@ def edit(board,dom):
 
   board.state = State.EDIT
 
-  display_contact(EMPTY_CONTACT if contactId == None else contacts[contactId],dom)
+  display_contact(contactId,dom)
 
   update_outfit(board,dom)
 
   dom.focus("Name")
 
 
-def ac_new(board,contactId,dom):
+def ac_new(board,dom):
   board.contactId = None
 
   edit(board,dom)
@@ -193,6 +193,7 @@ def ac_submit(board,dom):
 
   if board.contactId == None or board.contactId >= len(contacts):
     contacts.append(idsAndValues)
+    display_contact(None,dom)
   else:
     contacts[board.contactId] = idsAndValues
 
@@ -207,10 +208,7 @@ def ac_cancel(board,dom):
   if not dom.confirm("Are you sure?"):
     return
 
-  if board.contactId != None:
-    display_contact(contacts[board.contactId],dom)
-  else:
-    display_contact(EMPTY_CONTACT,dom)
+  display_contact(board.contactId,dom)
 
   board.state = State.DISPLAY
 
