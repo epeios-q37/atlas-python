@@ -102,8 +102,11 @@ def worker(userCallback,dom,callbacks):
 			break
 
 		if action=="" or not "_PreProcess" in callbacks or _call(callbacks["_PreProcess"],userObject, dom, id, action):
-			if _call(callbacks[action], userObject, dom, id, action ) and "_PostProcess" in callbacks:
-				_call(callbacks["_PostProcess"],userObject, dom, id, action)
+			if ( action in callbacks ):
+				if _call(callbacks[action], userObject, dom, id, action ) and "_PostProcess" in callbacks:
+					_call(callbacks["_PostProcess"],userObject, dom, id, action)
+			else:
+				dom.alert("\tDEV ERROR: missing callback for '" + action + "' action!") 
 
 	# print("Quitting thread !")
 

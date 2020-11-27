@@ -1,0 +1,62 @@
+<fieldset>
+  <fieldset id="Contact">
+    <table style="margin: auto;">
+      <tr>
+        <td>
+          <label for="Name">Full name:</label>
+        </td>
+        <td>
+          <input id="Name" size="50" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Address">Address:</label>
+        </td>
+        <td>
+          <input id="Address" size="50" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Phone">Phone:</label>
+        </td>
+        <td>
+          <input id="Phone" type="tel" size="50" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Note">Note:</label>
+        </td>
+        <td>
+          <textarea id="Note" style="width: 100%;"></textarea>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+  <div style="display: table; margin: 10px auto auto auto;">
+    <div>
+      <button class="Display" data-xdh-onevent="New">New</button>
+      <span class="DisplayAndSelect">
+        <button data-xdh-onevent="Edit">Edit</button>
+        <button data-xdh-onevent="Delete">Delete</button>
+      </span>
+    </div>
+    <div class="Edition">
+      <button data-xdh-onevent="Cancel">Cancel</button>
+      <button data-xdh-onevent="Submit">Submit</button>
+    </div>
+  </div>
+</fieldset>
+<div style="display: table; margin: 10px auto auto auto; border-collapse: collapse;">
+  <table id="Contacts" style="cursor: default; border-collapse: collapse;">
+    <thead>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Phone</th>
+      <th>Note</th>
+    </thead>
+    <tbody id="Content" />
+  </table>
+</div>

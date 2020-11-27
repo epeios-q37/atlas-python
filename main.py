@@ -14,9 +14,9 @@ try:
 except NameError:
     pass
 
-success = False
+loop = True
 
-demos = (
+DEMOS = (
     "Blank",
     "Hello",
     "Chatroom",
@@ -29,33 +29,57 @@ demos = (
     "ReversiIMG",
     "ReversiXSL",
     "Widgets",
+    ("Contacts", 8)
 )
 
-demosAmount = len(demos)
+DEMOS_AMOUNT = len(DEMOS)
 
+def normalize(item):
+    if ( isinstance(item,str) ):
+        return item, 0
+    else:
+        return item
 
-while not success:
-    for id in range(0,demosAmount):
-        print(chr(id + ord('a')) + ": " + demos[id]) 
-        
-    lastChar = chr(demosAmount + ord('a') - 1)
-        
-    demoId = input("Select one of above examples ('a' … '" + lastChar + "') : ").lower()
+while loop:
+    
+    for id in range(0,DEMOS_AMOUNT):
+        label, amount = normalize(DEMOS[id])
+        letter = chr(id + ord('a'))
+
+        if amount:
+            print(letter, 0, "…", letter, amount, ": ", label, " (tutorial)", sep='')
+        else:
+            print(letter, ": ", label, sep='')
+
+    entry = input("Select one of above sample: ").lower()
    
     try:
-        demo = "examples." + demos[ord(demoId) - ord('a')] + "." + "main"
-        
-        # Below line is needed by 'Repl.it'.
-        sys.argv[0]="examples/" + demos[ord(demoId) - ord('a')] + "/"
+        id = int(ord(entry[:1]) - ord('a'))
+        label, amount = normalize(DEMOS[id])
+
+        affix = "tutorials" if amount else "examples"
+
+        if ( amount ):
+            number = int(entry[1:])
+
+            if ( ( number < 0 ) or ( number > amount ) ):
+                raise
+
+        # Needed by Repl.it
+        suffix = "part" + entry[1:] if amount else 'main'
+
+        sample = affix + "." + label + "." + suffix
+        sys.argv[0]=affix + '/' + label + "/"
 
         if True:  # Simplifies debugging when set to False
             try:
-                __import__(demo)
+                __import__(sample)
             except ImportError:
-                print("'" + demo + ".py' not found!")
-            else:
-                success = True
+                print("\tERROR: could not launch '" + sys.argv[0] + suffix + ".py'!")
+                loop = False
+            except:
+                loop = False
         else:
-            __import__(demo)
-    except Exception:
-        pass
+            __import__(sample)
+    except:
+        print("'" + entry + "' is not a valid sample id. Please retry.\n")

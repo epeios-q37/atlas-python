@@ -75,7 +75,7 @@ EXAMPLE = [
     "Name": "Tournesol, Tryphon (prof.)",
     "Address": "Château de Moulinsart",
     "Phone": "421",
-    "Note": "Loves Loch Lomond whiskey."
+    "Note": "Creator of the Bianca rose."
   }
 ]
 
@@ -215,7 +215,7 @@ def ac_cancel(board,dom):
   update_outfit(board,dom)
 
 
-callbacks = {
+CALLBACKS = {
   "": ac_connect,
   "Refresh": ac_refresh,
   "Select": ac_select,
@@ -229,4 +229,4 @@ callbacks = {
 for key in EMPTY_CONTACT.keys():
   fields.append(key)
 
-atlastk.launch(callbacks,Board,open("Head.html").read())
+atlastk.launch(CALLBACKS,Board,open("Head.html").read())

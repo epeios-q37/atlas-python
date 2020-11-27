@@ -23,14 +23,13 @@ SOFTWARE.
 """
 
 import os, sys
-from random import *
-
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append("../../atlastk")
 
 import atlastk
+from random import *
 
-# Althought empty, must exist, as it will be filled later.
+# Although empty, must exist, as it will be filled later.
 class Puzzle:
   pass
 
