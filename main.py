@@ -47,7 +47,7 @@ while loop:
         letter = chr(id + ord('a'))
 
         if amount:
-            print(letter, 0, "…", letter, amount, ": ", label, " (tutorial)", sep='')
+            print(letter, 0, ", ", letter, 1, ", …, ", letter, amount, ": ", label, " (tutorial)", sep='')
         else:
             print(letter, ": ", label, sep='')
 
