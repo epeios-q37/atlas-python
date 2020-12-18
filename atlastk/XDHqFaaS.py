@@ -27,78 +27,40 @@ import XDHqSHRD
 import inspect, os, socket, sys, threading
 
 if sys.version_info[0] == 2:
-	from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer	# For 'repl.it'.
 	import XDHqFaaS2
 	l = XDHqFaaS2.l
 	_writeUInt = XDHqFaaS2.writeUInt
 	_writeString = XDHqFaaS2.writeString
 	_readUInt = XDHqFaaS2.readUInt
 	_getString = XDHqFaaS2.getString
-	def _REPLit_convert(str):
-		return str
 else:
-	from http.server import BaseHTTPRequestHandler, HTTPServer	# For 'repl.it'.
 	import XDHqFaaS3
 	l = XDHqFaaS3.l
 	_writeUInt = XDHqFaaS3.writeUInt
 	_writeString = XDHqFaaS3.writeString
 	_readUInt = XDHqFaaS3.readUInt
 	_getString = XDHqFaaS3.getString
-	def _REPLit_convert(str):
-		return bytes(str,"utf-8")
 
-def _REPLHTML1(url):
-	return "<html><body><iframe style=\"border-style: none; width: 100%;height: 100%\" src=\"" + url + "\"</iframe></body></html>"
+class _Supplier:
+	current = None
 
-def _REPLHTML2(url):
-	return(
-"""
-<html>
-	<head>
-		<script src="https://atlastk.org/xdh/qrcode.min.js"></script>
-		<script>
-function genQRCode(url) {
-"""
-+ "\tnew QRCode('qrcode', {width:125, height:125, correctLevel: QRCode.CorrectLevel.L}).makeCode('" + url +"');" +
-"""
-}
-		</script>
-	</head>
-"""
-+ "\t<body onload=\"genQRCode('" + url + "')\">\n"
-+
-"""
-		<div style="display:table; margin: 10px auto 5px auto;">
-			<span style="display: table; margin: 15px auto 10px auto;font-style: oblique;">Click or scan this QR code:</span>
-			<div style="display: flex; justify-content: space-around;">
-"""
-+ "\t\t\t\t<a target=\"_blank\" href=\"" + url + "\" alt=\"" + url + "\">" +
-"""
- 					<div id="qrcode"></div>
-				</a>
-			</div>
-		</div>
-	</body>
-</html>
-"""
-)
+	_actions = {
+		"none": lambda url : None,
+		"auto": XDHqSHRD.open,
+		"qrcode": lambda url: XDHqSHRD.open(f'"{url}&_supplier=qrcode"'),
+	}
 
-def _REPLHTML3(url):
-	return "<html><body><iframe style=\"border-style: none; width: 100%;height: 100%\" src=\"https://atlastk.org/repl_it.php?url=" + url + "\"</iframe></body></html>"
+	def supply(url):
+		supplier = getEnv("ATK").strip().lower() or _Supplier.current or "auto"
 
-class _REPLit_class(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
-        self.wfile.write(_REPLit_convert(_REPLHTML3(globals()['_REPLit_url'])))
+		while True:
+			supplier = _Supplier._actions[supplier](url) if isinstance(supplier, str) else supplier(url)
 
-def _REPLit(url):
-    global _REPLit_url
-    _REPLit_url = url
-    server_address = ('', 8080)
-    httpd = HTTPServer(server_address, _REPLit_class)
-    httpd.handle_request()
+			if not supplier:
+				break;
+			
+def set_supplier(supplier = None):
+	_Supplier.current = supplier
 
 _FaaSProtocolLabel = "9efcf0d1-92a4-4e88-86bf-38ce18ca2894"
 _FaaSProtocolVersion = "0"
@@ -111,6 +73,8 @@ _globalCondition = threading.Condition()
 _headContent = ""
 _token = ""
 _instances = {}
+
+_url = ""
 
 class Instance:
 	def __init__(self):
@@ -191,18 +155,6 @@ def _init():
 	_wPort = ""
 	_cgi = "xdh"
 
-	atk = getEnv("ATK").upper()
-
-	if atk == "DEV":
-		pAddr = "localhost"
-		_wPort = "8080"
-		print("\tDEV mode !")
-	elif atk == "TEST":
-		_cgi = "xdh_"
-		print("\tTEST mode!")
-	elif atk and ( atk != "REPLIT" ) and (atk != 'NONE'):
-		sys.exit("Bad 'ATK' environment variable value : should be 'DEV' or 'TEST' !")
-
 	pAddr = getEnv("ATK_PADDR", pAddr)
 	pPort = int(getEnv("ATK_PPORT", str(pPort)))
 	_wAddr = getEnv("ATK_WADDR", _wAddr)
@@ -251,7 +203,7 @@ def _handshake():
 		print(notification)
 
 def _ignition():
-	global _token
+	global _token, _url
 	_writeLock.acquire()
 
 	writeString( _token)
@@ -267,19 +219,13 @@ def _ignition():
 		sys.exit(getString())
 
 	if ( _wPort != ":0" ):
-		url = getString()
+		_url = getString()
 
-		print(url)
-		print("".rjust(len(url),'^'))
+		print(_url)
+		print("".rjust(len(_url),'^'))
 		print("Open above URL in a web browser (click, right click or copy/paste). Enjoy!\n")
 
-		atk = getEnv("ATK").upper()
-
-		if atk == "REPLIT":
-			print( "IF THE QR CODE IS NOT DISPLAYED, CLICK THE ABOVE REFRESH BUTTON (see http://q37.info/s/zbgfjtp9).\n")
-			_REPLit(url)
-		elif atk != 'NONE':
-			XDHqSHRD.open(url)
+		_Supplier.supply(_url)
 
 def _serve(callback,userCallback,callbacks ):
 	global _writeLock, _globalCondition
@@ -342,6 +288,9 @@ def launch(callback, userCallback,callbacks,headContent):
 	_ignition()
 
 	_serve(callback,userCallback,callbacks)
+
+def get_app_url(id=""):
+	return _url + (f"&_id={id}" if id else "") 
 
 def broadcastAction(action,id=""):
 	_writeLock.acquire()

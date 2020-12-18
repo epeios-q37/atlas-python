@@ -24,7 +24,7 @@ SOFTWARE.
 
 import setuptools
 
-version = "0.12.2"
+version = "0.12.3"
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -35,7 +35,7 @@ setuptools.setup(
     author="Claude SIMON",
 #    author_email="author@example.com",
     description="For versatile GUIs written in HTML/CSS and Python (no JavaScript needed) - The lightweight and easy-to-use toolkit to begin with GUI programming. ",
-    keywords="GUI, web",
+    keywords="GUI, web, Atlas toolkit",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/epeios-q37/atlas-python",
