@@ -47,17 +47,17 @@ class _Supplier:
 	_actions = {
 		"none": lambda url : None,
 		"auto": XDHqSHRD.open,
-		"qrcode": lambda url: XDHqSHRD.open(f'"{url}&_supplier=qrcode"'),
+		"qrcode": lambda url: XDHqSHRD.open( '"' + url + '&_supplier=qrcode"'),
 	}
 
-	def supply(url):
-		supplier = getEnv("ATK").strip().lower() or _Supplier.current or "auto"
+def _supply(url):
+	supplier = getEnv("ATK").strip().lower() or _Supplier.current or "auto"
 
-		while True:
-			supplier = _Supplier._actions[supplier](url) if isinstance(supplier, str) else supplier(url)
+	while True:
+		supplier = _Supplier._actions[supplier](url) if isinstance(supplier, str) else supplier(url)
 
-			if not supplier:
-				break;
+		if not supplier:
+			break;
 			
 def set_supplier(supplier = None):
 	_Supplier.current = supplier
@@ -225,7 +225,7 @@ def _ignition():
 		print("".rjust(len(_url),'^'))
 		print("Open above URL in a web browser (click, right click or copy/paste). Enjoy!\n")
 
-		_Supplier.supply(_url)
+		_supply(_url)
 
 def _serve(callback,userCallback,callbacks ):
 	global _writeLock, _globalCondition
@@ -290,7 +290,7 @@ def launch(callback, userCallback,callbacks,headContent):
 	_serve(callback,userCallback,callbacks)
 
 def get_app_url(id=""):
-	return _url + (f"&_id={id}" if id else "") 
+	return _url + ("&_id=" + id if id else "") 
 
 def broadcastAction(action,id=""):
 	_writeLock.acquire()

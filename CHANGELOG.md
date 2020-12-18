@@ -3,6 +3,11 @@
 - Common to **all** bindings,
 - does **not** concern the native code,
 
+## 2020-12-18:
+
+- *Python*
+  - introducing `set_supplier(…)`, `attach_qrcode(…)` and `get_ap_url(…)`,
+
 ## 2020-10-01:
 
 - *Python*
