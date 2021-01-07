@@ -366,6 +366,3 @@ class DOM:
 
 	def scroll_to(self,id):
 		self._dom.call("ScrollTo_1",_VOID,id)
-
-	def attach_qrcode(self,id,URL,Options="{width:125, height:125, correctLevel: QRCode.CorrectLevel.L}"):
-		self._dom.call("AttachQRCode_1",_VOID,id,URL,Options)

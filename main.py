@@ -29,6 +29,7 @@ DEMOS = (
     "ReversiIMG",
     "ReversiXSL",
     "Widgets",
+    "Chatrooms",
     ("Contacts", 8)
 )
 
