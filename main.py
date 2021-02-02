@@ -30,7 +30,8 @@ DEMOS = (
     "ReversiXSL",
     "Widgets",
     "Chatrooms",
-    ("Contacts", 8)
+    ("Contacts", 8),
+    "MatPlotLib"
 )
 
 DEMOS_AMOUNT = len(DEMOS)
