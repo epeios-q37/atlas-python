@@ -131,7 +131,8 @@ In the `examples` directory, you will found following examples:
 - `ReversiIMG`: [*Reversi game*](http://q37.info/s/zz3dzmf7) with more evolved graphics,
 - `ReversiXSL`: [*Reversi game*](http://q37.info/s/zz3dzmf7) using *XSL*,
 - `Widgets`: some widgets handled with the *Atlas* toolkit,
-- `Chatrooms` : same as above `Chatroom`, but with several rooms.
+- `Chatrooms` : same as above `Chatroom`, but with several rooms,
+- `MatPlotLib` : the *Atlas* toolkit displaying some graphics made with [*matplotlib*](https://matplotlib.org/).
 
 Other examples are detailed in the next section.
 

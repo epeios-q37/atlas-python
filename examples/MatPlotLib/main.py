@@ -16,6 +16,28 @@ import matplotlib.cm as cm
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import collections, colors, transforms
 
+BODY = """
+<iframe style="border: none;" src="FaaSDesc.php?text=R3JhcGhpY3MgZHJhd24gd2l0aCBbKm1hdHBsb3RsaWIqXShodHRwczovL21hdHBsb3RsaWIub3JnLykgY2FuIGJlIHVzZWQgd2l0aCB0aGUgKkF0bGFzKiAqVG9vbGtpdCou"></iframe>
+<fieldset id="Plots"></fieldset>
+<fieldset id="Buttons"/>
+"""
+
+HEAD = """
+<title>MatPlotLib with the Atlas Toolkit</title>
+<style>
+  fieldset {margin: auto; text-align: center;}
+  #Buttons {display: none;}
+</style>
+<style id="Ready">
+ .hide {display: none;}
+  #Buttons {display: block;}
+</style>
+"""
+
+AMOUNT = 10
+
+current = "1"
+
 def getSVG(plt):
   figfile = StringIO()
   plt.savefig(figfile, format='svg')
@@ -346,13 +368,24 @@ def example10():
 
 
 def ac_connect(dom):
-  dom.inner("", '<fieldset id="Root"></fieldset>')
+  dom.inner("", BODY)
+  dom.disable_element("Ready")
 
-  for example in range(1,11):
-    dom.end("Root", f'<fieldset id="example{example}"><center>{run(example)}</center></fieldset>')
+  for example in range(1,AMOUNT+1):
+    dom.end("Plots", f'<fieldset class="hide" id="example{example}">Please wait ({example}/{AMOUNT})…</fieldset>')
+    dom.inner(f"example{example}", f"<legend>Example {example}</legend>{run(example)}")
     dom.flush()
     dom.scroll_to(f'example{example}')
+    dom.end("Buttons",f'<button id="{example}" data-xdh-onevent="Display">{example}</button>')
 
-  dom.end("Root","<h1><center>That's all Folks!</center></h1>")
+  dom.enable_element("Ready")
+  dom.remove_class(f"example{current}", "hide")
 
-atlastk.launch({"": ac_connect},None,"<title>MatPlotLib with the Atlas Toolkit</title>")
+def ac_display(dom,id):
+  global current
+  dom.add_class(f"example{current}","hide")
+  dom.remove_class(f"example{id}","hide")
+  current = id
+
+
+atlastk.launch({"": ac_connect, "Display": ac_display},None,HEAD)
