@@ -62,17 +62,13 @@ def _supply(url):
 def set_supplier(supplier = None):
 	_Supplier.current = supplier
 
-_FaaSProtocolLabel = "9efcf0d1-92a4-4e88-86bf-38ce18ca2894"
-_FaaSProtocolVersion = "0"
-_mainProtocolLabel = "bf077e9f-baca-48a1-bd3f-bf5181a78666"
-_mainProtocolVersion = "0"
+_FAAS_PROTOCOL_LABEL = "9efcf0d1-92a4-4e88-86bf-38ce18ca2894"
+_FAAS_PROTOCOL_VERSION = "0"
+_MAIN_PROTOCOL_LABEL = "bf077e9f-baca-48a1-bd3f-bf5181a78666"
+_MAIN_PROTOCOL_VERSION = "0"
 
 _writeLock = threading.Lock()
 _globalCondition = threading.Condition()
-
-_headContent = ""
-_token = ""
-_instances = {}
 
 _url = ""
 
@@ -151,6 +147,7 @@ def _init():
 	global _token, _socket, _wAddr, _wPort, _cgi
 	pAddr = "faas1.q37.info"
 	pPort = 53700
+	_token = ""
 	_wAddr = ""
 	_wPort = ""
 	_cgi = "xdh"
@@ -187,8 +184,8 @@ def _handshake():
 
 	_writeLock.acquire()
 
-	writeString(_FaaSProtocolLabel)
-	writeString(_FaaSProtocolVersion)
+	writeString(_FAAS_PROTOCOL_LABEL)
+	writeString(_FAAS_PROTOCOL_VERSION)
 
 	_writeLock.release()
 
@@ -249,8 +246,8 @@ def _serve(callback,userCallback,callbacks ):
 
 			_writeLock.acquire()
 			writeSInt(id)
-			writeString(_mainProtocolLabel)
-			writeString(_mainProtocolVersion)
+			writeString(_MAIN_PROTOCOL_LABEL)
+			writeString(_MAIN_PROTOCOL_VERSION)
 			_writeLock.release()
 		elif id == -3:	# Value instructing that a session is closed.
 			id = readSInt();
@@ -277,9 +274,11 @@ def _serve(callback,userCallback,callbacks ):
 				_globalCondition.wait()
 
 def launch(callback, userCallback,callbacks,headContent):
-	global _headContent
+	global _headContent, _instances
 
 	_headContent = headContent
+
+	_instances = {}
 
 	_init()
 

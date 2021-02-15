@@ -3,15 +3,17 @@
 - Common to **all** bindings,
 - does **not** concern the native code,
 
+## 2021-02-15:
+
+- *Python*: the *Atlas* *toolkit* can now be used in a *Jupyter* notebook,
+
 ## 2020-12-18:
 
-- *Python*
-  - introducing `set_supplier(…)`, `attach_qrcode(…)` and `get_ap_url(…)`,
+- *Python*: introducing `set_supplier(…)`, `attach_qrcode(…)` and `get_ap_url(…)`,
 
 ## 2020-10-01:
 
-- *Python*
-   - fixing issue of `socket.recv(bufsize)` receiving less data than *bufsize*, 
+- *Python*: fixing issue of `socket.recv(bufsize)` receiving less data than *bufsize*, 
 
 ## 2020-08-28
 
