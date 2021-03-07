@@ -141,13 +141,11 @@ def _jupyter_supplier(url):
 
 if _is_jupyter():
 	import IPython
-	global _intraLock, _globalLock, _thread
+	global _intraLock, _thread
 
 	_intraLock = Lock()
-	_globalLock = Lock()
 	XDHq.set_supplier(_jupyter_supplier)
 
-	_globalCounter = 0
 	_thread = None
 
 def _launch(callbacks, userCallback, headContent):
@@ -158,7 +156,7 @@ def _launch(callbacks, userCallback, headContent):
 
 def launch(callbacks, userCallback = None, headContent = ""):
 	if _is_jupyter():
-		global _intraLock, _globalLock, _thread
+		global _intraLock, _thread
 		
 		if _thread != None:
 			XDHq.setBye(True)
