@@ -22,18 +22,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import inspect
+import inspect, sys
+from socket import timeout 
 
 def l():
 	frameInfo = inspect.getouterframes(inspect.currentframe())[1]
 	print(frameInfo.filename + ":" + str(frameInfo.lineno))
 
-def recv_(socket,size):
+def _recv(socket,size,bye):
 	buffer = bytes()
 	l = 0
 
-	while size != l:
-		buffer += socket.recv(size-l)
+	while l != size:
+		try:
+			buffer += socket.recv(size-l)
+		except timeout:
+			if bye():
+				raise timeout
+
 		l = len(buffer)
 
 	return buffer
@@ -53,24 +59,24 @@ def writeString(socket, string):
 	writeUInt(socket, len(bString))
 	socket.send(bString)
 
-def _readByte(socket):
-	return ord(recv_(socket,1))
+def _readByte(socket,bye):
+	return ord(_recv(socket,1, bye))
 
-def readUInt(socket):
-	byte = _readByte(socket)
+def readUInt(socket,bye):
+	byte = _readByte(socket,bye)
 	value = byte & 0x7f
 
 	while byte & 0x80:
-		byte = _readByte(socket)
+		byte = _readByte(socket,bye)
 		value = (value << 7) + (byte & 0x7f)
 
 	return value
 
-def getString(socket):
-	size = readUInt(socket)
+def getString(socket,bye):
+	size = readUInt(socket,bye)
 
 	if size:
-		return recv_(socket, size).decode("utf-8")
+		return _recv(socket, size, bye).decode("utf-8")
 	else:
 		return ""
 

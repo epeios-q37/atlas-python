@@ -28,6 +28,12 @@ RT_VOID = 0
 RT_STRING = 1
 RT_STRINGS = 2
 
+def getEnv( name, value= "" ):
+	if name in os.environ:
+		return os.environ[name].strip()
+	else:
+		return value.strip()
+
 def isWin():
 	return sys.platform == "win32"
 

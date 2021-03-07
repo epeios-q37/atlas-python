@@ -23,6 +23,7 @@ SOFTWARE.
 """
 
 import XDHqSHRD
+from XDHqSHRD import getEnv
 
 import inspect, os, socket, sys, threading
 
@@ -41,17 +42,22 @@ else:
 	_readUInt = XDHqFaaS3.readUInt
 	_getString = XDHqFaaS3.getString
 
+_bye = False	# For use in Jupiter notbooks, to quit an application.
+
+_DEFAULT_SUPPLIER_LABEL = "auto"
+
 class _Supplier:
 	current = None
 
 	_actions = {
 		"none": lambda url : None,
-		"auto": XDHqSHRD.open,
+		_DEFAULT_SUPPLIER_LABEL: XDHqSHRD.open,
 		"qrcode": lambda url: XDHqSHRD.open( '"' + url + '&_supplier=qrcode"'),
+		"jupyter": lambda url : None
 	}
 
 def _supply(url):
-	supplier = getEnv("ATK").strip().lower() or _Supplier.current or "auto"
+	supplier = getEnv("ATK").strip().lower() or _Supplier.current or _DEFAULT_SUPPLIER_LABEL
 
 	while True:
 		supplier = _Supplier._actions[supplier](url) if isinstance(supplier, str) else supplier(url)
@@ -98,12 +104,6 @@ class Instance:
 def isTokenEmpty():
 	return not _token or _token[0] == "&"
 
-def getEnv( name, value= "" ):
-	if name in os.environ:
-		return os.environ[name].strip()
-	else:
-		return value.strip()
-
 def writeUInt(value):
 	global _socket
 	_writeUInt( _socket, value )
@@ -123,7 +123,7 @@ def writeStrings(strings):
 
 def readUInt():
 	global _socket
-	return _readUInt( _socket)
+	return _readUInt( _socket, lambda: _bye)
 
 def readSInt():
 	value = readUInt()
@@ -131,7 +131,7 @@ def readSInt():
 
 def getString():
 	global _socket
-	return _getString(_socket)
+	return _getString(_socket, lambda: _bye)
 
 def getStrings():
 	amount = readUInt()
@@ -170,14 +170,17 @@ def _init():
 		_token = "&" + _token
 
 	_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	
 	print("Connection to '" + str(pAddr) + ":" + str(pPort) + "'...")
+
 	try:
 		_socket.connect((pAddr,pPort))
 	except:
-		exit("Unable to connect to '" + str(pAddr) + ":" + str(pPort) + "'!")
+		sys.exit("Unable to connect to '" + str(pAddr) + ":" + str(pPort) + "'!")
 	else:
 		print("Connected to '" + str(pAddr) + ":" + str(pPort) + "'.")
-		
+
+	_socket.settimeout(1)	# In order to quit an application, in Jupyter notebooks.		
 
 def _handshake():
 	global _writeLock
@@ -227,9 +230,6 @@ def _ignition():
 def _serve(callback,userCallback,callbacks ):
 	global _writeLock, _globalCondition
 	while True:
-
-#		l()
-
 		id = readSInt()
 		
 		if id == -1:	# Should never happen. 
@@ -238,7 +238,7 @@ def _serve(callback,userCallback,callbacks ):
 			id = readSInt()  # The id of the new session.
 
 			if id in _instances:
-				sys.exit("Instance of id '" + id + "' exists but should not !")
+				sys.exit("Instance of id '" + str(id) + "' exists but should not !")
 
 			instance = Instance()
 			instance.set(callback(userCallback, callbacks, instance),id)
@@ -372,3 +372,8 @@ class DOM_FaaS:
 			return strings
 		elif type != XDHqSHRD.RT_VOID:
 			sys.exit("Unknown return type !!!")
+
+def setBye(value):
+	global _bye
+
+	_bye = value

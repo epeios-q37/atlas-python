@@ -23,11 +23,8 @@ SOFTWARE.
  """
 
 import XDHq, XDHqSHRD
-from threading import Thread
-import threading
-import inspect
-
-import signal, sys, os
+from threading import Thread, Lock
+import inspect, time, socket, signal, sys, os
 
 from XDHq import set_supplier, get_app_url
 
@@ -49,7 +46,6 @@ def signal_handler(sig, frame):
   sys.exit(0)
 
 signal.signal(signal.SIGINT, signal_handler)
-
 
 def create_XML(root_tag):
 	return XDHq.XML(root_tag)
@@ -86,6 +82,19 @@ def _call(func, userObject, dom, id, action):
 
 	return func(*args)
 
+def _is_jupyter():
+#	if XDHqSHRD.getEnv("ATK").strip().lower() != "jupyter":
+#		return False	# jupyter environment handling is not correctly handled yet, hence it's ignored, until explicitely asked for.
+	try:
+			shell = get_ipython().__class__.__name__
+			if shell == 'ZMQInteractiveShell':
+					return True   # Jupyter notebook or qtconsole
+			elif shell == 'TerminalInteractiveShell':
+					return False  # Terminal running IPython
+			else:
+					return False  # Other type (?)
+	except NameError:
+			return False      # Probably standard Python interpreter
 
 def worker(userCallback,dom,callbacks):
 	args=[]
@@ -103,7 +112,13 @@ def worker(userCallback,dom,callbacks):
 		if dom.isQuitting():
 			break
 
-		if action=="" or not "_PreProcess" in callbacks or _call(callbacks["_PreProcess"],userObject, dom, id, action):
+		if action == "":
+			if _is_jupyter():
+				dom.disable_element("XDHStyle")
+			else:
+				dom.disable_element("XDHStyleJupyter")
+
+		if action == "" or not "_PreProcess" in callbacks or _call(callbacks["_PreProcess"],userObject, dom, id, action):
 			if ( action in callbacks ):
 				if _call(callbacks[action], userObject, dom, id, action ) and "_PostProcess" in callbacks:
 					_call(callbacks["_PostProcess"],userObject, dom, id, action)
@@ -112,12 +127,57 @@ def worker(userCallback,dom,callbacks):
 
 	# print("Quitting thread !")
 
-def callback(userCallback,callbacks,instance):
-	thread = threading.Thread(target=worker, args=(userCallback, XDHq.DOM(instance), callbacks))
+def _callback(userCallback,callbacks,instance):
+	thread = Thread(target=worker, args=(userCallback, XDHq.DOM(instance), callbacks))
 	thread.daemon = True
 	thread.start()
 	return thread
 
+def _jupyter_supplier(url):
+	global _url, _intraLock
+
+	_url = url.replace('http://', 'https://')
+	_intraLock.release()
+
+if _is_jupyter():
+	import IPython
+	global _intraLock, _globalLock, _thread
+
+	_intraLock = Lock()
+	_globalLock = Lock()
+	XDHq.set_supplier(_jupyter_supplier)
+
+	_globalCounter = 0
+	_thread = None
+
+def _launch(callbacks, userCallback, headContent):
+	try:
+		XDHq.launch(_callback,userCallback,callbacks,headContent)
+	except socket.timeout:
+		pass
+
 def launch(callbacks, userCallback = None, headContent = ""):
-	XDHq.launch(callback,userCallback,callbacks,headContent)
+	if _is_jupyter():
+		global _intraLock, _globalLock, _thread
+		
+		if _thread != None:
+			XDHq.setBye(True)
+			_thread.join()
+			XDHq.setBye(False)
+
+		_intraLock.acquire()
+		newThread = Thread(target=_launch, args=(callbacks, userCallback, headContent))
+		newThread.daemon = True
+		newThread.start()
+
+		_thread = newThread
+
+		_intraLock.acquire()		
+
+		iframe = IPython.display.IFrame(src = _url, width = "100%", height = "150px")
+		_intraLock.release()
+		return iframe
+	else:
+		_launch(callbacks, userCallback, headContent)
+
 

@@ -3,6 +3,12 @@
 - Common to **all** bindings,
 - does **not** concern the native code,
 
+## 2021-03-07:
+
+- *Python* :
+  - the *Python* version of the *Atlas* *toolkit* is now more usable in a *Jupyter* notebooks,
+  - now launches a demo on `python -m atlastk`,
+
 ## 2021-02-15:
 
 - *Python*: the *Atlas* *toolkit* can now be used in a *Jupyter* notebook,
