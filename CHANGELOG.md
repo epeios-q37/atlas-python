@@ -3,6 +3,12 @@
 - Common to **all** bindings,
 - does **not** concern the native code,
 
+## 2021-03-09:
+
+- *Python*:
+  - *Google* *Colab* is now also detected,
+  - the iframe size can now be set: `atlastk.setJupyter(Width|Height)(…)`,
+
 ## 2021-03-07:
 
 - *Python* :

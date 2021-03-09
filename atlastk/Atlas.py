@@ -83,8 +83,6 @@ def _call(func, userObject, dom, id, action):
 	return func(*args)
 
 def _is_jupyter():
-#	if XDHqSHRD.getEnv("ATK").strip().lower() != "jupyter":
-#		return False	# jupyter environment handling is not correctly handled yet, hence it's ignored, until explicitely asked for.
 	try:
 			shell = get_ipython().__class__.__name__
 			if shell == 'ZMQInteractiveShell':
@@ -92,7 +90,7 @@ def _is_jupyter():
 			elif shell == 'TerminalInteractiveShell':
 					return False  # Terminal running IPython
 			else:
-					return False  # Other type (?)
+					return 'google.colab' in str(get_ipython())  # Other type (?)
 	except NameError:
 			return False      # Probably standard Python interpreter
 
@@ -141,12 +139,25 @@ def _jupyter_supplier(url):
 
 if _is_jupyter():
 	import IPython
-	global _intraLock, _thread
+	global _intraLock, _thread, _jupyterWidth, _jupyterHeight
+
+	_jupyterWidth = "100%"
+	_jupyterHeight = "200px"
 
 	_intraLock = Lock()
 	XDHq.set_supplier(_jupyter_supplier)
 
 	_thread = None
+
+	def setJupyterWidth(width):
+		global _jupyterWidth
+
+		_jupyterWidth = width
+
+	def setJupyterHeight(height):
+		global _jupyterHeight
+
+		_jupyterHeight = height
 
 def _launch(callbacks, userCallback, headContent):
 	try:
@@ -172,7 +183,7 @@ def launch(callbacks, userCallback = None, headContent = ""):
 
 		_intraLock.acquire()		
 
-		iframe = IPython.display.IFrame(src = _url, width = "100%", height = "150px")
+		iframe = IPython.display.IFrame(src = _url, width = _jupyterWidth, height = _jupyterHeight)
 		_intraLock.release()
 		return iframe
 	else:
