@@ -276,8 +276,12 @@ def _serve(callback,userCallback,callbacks ):
 def launch(callback, userCallback,callbacks,headContent):
 	global _headContent, _instances
 
-	_headContent = headContent
-
+	if headContent == None:
+		if not "_headContent" in globals():
+			_headContent = "" 
+	else:
+		_headContent = headContent
+	
 	_instances = {}
 
 	_init()

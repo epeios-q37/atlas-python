@@ -159,27 +159,32 @@ if _is_jupyter():
 
 		_jupyterHeight = height
 
+	def terminate():
+		global _thread
+
+		if _thread != None:
+			XDHq.setBye(True)
+			_thread.join()
+			XDHq.setBye(False)
+			_thread = None
+
+
 def _launch(callbacks, userCallback, headContent):
 	try:
 		XDHq.launch(_callback,userCallback,callbacks,headContent)
 	except socket.timeout:
 		pass
 
-def launch(callbacks, userCallback = None, headContent = ""):
+def launch(callbacks, userCallback = None, headContent = None):
 	if _is_jupyter():
 		global _intraLock, _thread
+
+		terminate()
 		
-		if _thread != None:
-			XDHq.setBye(True)
-			_thread.join()
-			XDHq.setBye(False)
-
 		_intraLock.acquire()
-		newThread = Thread(target=_launch, args=(callbacks, userCallback, headContent))
-		newThread.daemon = True
-		newThread.start()
-
-		_thread = newThread
+		_thread = Thread(target=_launch, args=(callbacks, userCallback, headContent))
+		_thread.daemon = True
+		_thread.start()
 
 		_intraLock.acquire()		
 

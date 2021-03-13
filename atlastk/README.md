@@ -141,7 +141,7 @@ You can also directly launch, from within the `examples` directory, `python <Nam
 
 The *Stars* application is an example where the *Atlas* *toolkit* is used to control a [*Pygame*](https://en.wikipedia.org/wiki/Pygame) based application. Of course, *Pygame* needs to be installed.
 
-The `tutorials` directory is a work under progress and will contain some tutorials about the *Atlas* *toolkit*. 
+The `tutorials` directory contains some [*Jupyter* notebooks](https://en.wikipedia.org/wiki/Project_Jupyter#Jupyter_Notebook) about  the *Atlas* *toolkit*. 
 
 ## *Raspberry Pi*/*ODROID-C2*
 
