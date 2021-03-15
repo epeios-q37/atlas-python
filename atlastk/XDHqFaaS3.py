@@ -44,6 +44,13 @@ def _recv(socket,size,bye):
 
 	return buffer
 
+def _send(socket, value):
+	totalAmount = len(value)
+	amountSent = 0
+
+	while amountSent < totalAmount:
+		amountSent += socket.send(value[amountSent:])	
+
 def writeUInt(socket, value):
 	result = bytes([value & 0x7f])
 	value >>= 7
@@ -52,12 +59,12 @@ def writeUInt(socket, value):
 		result = bytes([(value & 0x7f) | 0x80]) + result
 		value >>= 7
 
-	socket.send(result)
+	_send(socket, result)
 
 def writeString(socket, string):
 	bString = bytes(string, "utf-8")
 	writeUInt(socket, len(bString))
-	socket.send(bString)
+	_send(socket, bString)
 
 def _readByte(socket,bye):
 	return ord(_recv(socket,1, bye))

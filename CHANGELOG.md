@@ -3,10 +3,13 @@
 - Common to **all** bindings,
 - does **not** concern the native code,
 
+## 2021-03-15:
+
+- *Python*: fixing misuse of `socket.send(…)`,
+
 ## 2021-03-13:
 
-- *Python*:
-  - improving the use of the *Atlas* toolkit in a *Jupyter* notebook,
+- *Python*: improving the use of the *Atlas* toolkit in a *Jupyter* notebook,
 
 ## 2021-03-09:
 

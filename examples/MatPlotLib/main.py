@@ -36,8 +36,6 @@ HEAD = """
 
 AMOUNT = 10
 
-current = "1"
-
 def getSVG(plt):
   figfile = StringIO()
   plt.savefig(figfile, format='svg')
@@ -379,13 +377,16 @@ def ac_connect(dom):
     dom.end("Buttons",f'<button id="{example}" data-xdh-onevent="Display">{example}</button>')
 
   dom.enable_element("Ready")
-  dom.remove_class(f"example{current}", "hide")
+  dom.remove_class(f"example1", "hide")
 
 def ac_display(dom,id):
-  global current
-  dom.add_class(f"example{current}","hide")
+  dom.add_classes(_hiding)
   dom.remove_class(f"example{id}","hide")
-  current = id
 
+
+_hiding = {}
+
+for i in range(1, AMOUNT+1):
+  _hiding[f"example{i}"] = "hide"
 
 atlastk.launch({"": ac_connect, "Display": ac_display},None,HEAD)
