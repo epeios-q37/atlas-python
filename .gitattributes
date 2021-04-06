@@ -4,3 +4,4 @@
 # Il est renommé en '.gitattributes' lors de la publication.
 
 *.html linguist-detectable=false
+*.ipynb linguist-detectable=false
