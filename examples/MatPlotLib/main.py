@@ -15,6 +15,7 @@ import matplotlib.tri as tri
 import matplotlib.cm as cm
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import collections, colors, transforms
+# plt.xkcd()  # XKCD-like ploting.
 
 BODY = """
 <iframe style="border: none;" src="FaaSDesc.php?text=R3JhcGhpY3MgZHJhd24gd2l0aCBbKm1hdHBsb3RsaWIqXShodHRwczovL21hdHBsb3RsaWIub3JnLykgY2FuIGJlIHVzZWQgd2l0aCB0aGUgKkF0bGFzKiAqVG9vbGtpdCou"></iframe>
