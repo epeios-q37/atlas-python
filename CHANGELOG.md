@@ -1,7 +1,11 @@
 # *CHANGELOG* for the *Atlas* toolkit
 
 - Common to **all** bindings,
-- does **not** concern the native code,
+- does **not** concern the native code.
+
+## 2021-04-14:
+
+- *ALL*: various updates,
 
 ## 2021-03-15:
 

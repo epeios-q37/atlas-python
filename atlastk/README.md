@@ -21,59 +21,52 @@
 
 <ins>***WebGPIO* (*Raspberry Pi*/*ODROID-C2*)**</ins>: the *WebGPIO* application, with which you can control the *Raspberry Pi*/*ODROID-C2* (and probably other similar devices) GPIOs with your smartphone, is described in the *Raspberry Pi*/*ODROID-C2* below section.
 
----
-
-Click below to see how to code your first *Python* application in less then 7 minutes (on [*Peertube*](https://en.wikipedia.org/wiki/PeerTube): <https://diode.zone/videos/watch/8bc4438f-da7a-4640-88e5-d3439421e841>)
-
-[![Python app in less then 7 minutes](https://img.youtube.com/vi/thne9LtWH8k/0.jpg)](https://youtu.be/thne9LtWH8k)
 
 
 ---
 
-## Quick example: the ["Hello, World!"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program
+## A GUI with *Python* in less then 10 minutes.
 
-### Source code
+Click below picture to see a *Youtube* video on how to program a ["Hello, World!"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) in less then 10 minutes:
+
+[![Building a GUI in with *Python* in less then 10 minutes](https://q37.info/s/qp4z37pg.gif)](https://q37.info/s/rt9wr4w3)
+
+Same video on [*Peertube*](https://en.wikipedia.org/wiki/PeerTube): <https://q37.info/s/qfcng9j4>.
+
+Source code:
 
 ```python
 import atlastk
 
-body = """
+BODY = """
 <fieldset>
- <input id="input" maxlength="20" placeholder="Enter a name here" type="text"
-        data-xdh-onevent="Submit" value="World"/>
- <div style="display: flex; justify-content: space-around; margin: 5px auto auto auto;">
-  <button data-xdh-onevent="Submit">Submit</button>
-  <button data-xdh-onevent="Clear">Clear</button>
- </div>
+ <input id="Input" data-xdh-onevent="Submit" value="World"/>
+ <button data-xdh-onevent="Submit">Hello</button>
+ <hr/>
+ <fieldset>
+  <output id="Output">Greetings displayed here!</output>
+ </fieldset>
 </fieldset>
 """
 
 def ac_connect(dom):
-  dom.inner("", body)
-  dom.focus("input")
+  dom.inner("", BODY)
+  dom.focus("Input")
 
 def ac_submit(dom):
-  dom.alert("Hello, " + dom.get_value("input") + "!")
-  dom.focus("input")
-
-def ac_clear(dom):
-  if ( dom.confirm("Are you sure?") ):
-    dom.set_value("input", "")
-  dom.focus("input")
+  name = dom.get_value("Input")
+  dom.set_value("Output", f"Hello, {name}!")
+  dom.set_value("Input", "")
+  dom.focus("Input")
 
 callbacks = {
-  "": ac_connect,  # The action label for a new connection is an empty string.
-  "Submit": ac_submit,
-  "Clear": ac_clear,
+  "": ac_connect,
+  "Submit": ac_submit
 }
 
 atlastk.launch(callbacks)
 ```
 
-
-### Result
-
-[![Little demonstration](https://q37.info/download/assets/Hello.gif "A basic example")](https://q37.info/s/vwpsw73v)
 
 ### See for yourself right now - it's quick and easy!
 
