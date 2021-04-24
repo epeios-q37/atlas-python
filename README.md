@@ -25,9 +25,9 @@
 
 ---
 
-## A GUI with *Python* in less then 10 minutes
+## A GUI with *Python* in a couple of minutes
 
-Click to see how to program this ["Hello, World!"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) with *Python* in less then 10 minutes:
+Click the animation to see a screencast of programming this ["Hello, World!"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) with *Python* in a matter of minutes:
 
 [![Building a GUI in with *Python* in less then 10 minutes](https://q37.info/s/qp4z37pg.gif)](https://q37.info/s/rt9wr4w3)
 
@@ -59,12 +59,12 @@ def ac_submit(dom):
   dom.set_value("Input", "")
   dom.focus("Input")
 
-callbacks = {
+CALLBACKS = {
   "": ac_connect,
   "Submit": ac_submit
 }
 
-atlastk.launch(callbacks)
+atlastk.launch(CALLBACKS)
 ```
 
 ### See for yourself right now - it's quick and easy!
