@@ -1,0 +1,57 @@
+<fieldset style="border: inset;border-width: 7px;">
+  <fieldset style="border: outset;border-width: 7px;">
+    <table id="board"></table>
+    <div id="HHStatusSection">
+      <fieldset style="margin: auto;">
+        <output id="HHStatus" style="font-weight: bold;"></output>
+      </fieldset>
+    </div>
+    <div style="display: table; margin: 10px auto 10px auto">
+      <table id="score" style="width: 100%">
+        <tbody>
+          <tr>
+            <td class="black score-label">X</td>
+            <td id="black" class="score-value" />
+            <td class="separator" style="width: 10px;" />
+            <td>
+              <button data-xdh-onevent="New">NEW GAME</button>
+            </td>
+            <td class="separator" style="width: 10px;" />
+            <td id="white" class="score-value" />
+            <td class="white score-label">O</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="text-align: center;">
+      <select id="players" data-xdh-onevent="SelectMode">
+        <option value="HC">human vs computer</option>
+        <option value="CH">computer vs human</option>
+        <option value="HH">human vs human</option>
+      </select>
+      <span style="display: inline-block; width: 10px;"></span>
+      <select id="level">
+        <option value="1">Level 1</option>
+        <option value="2">Level 2</option>
+      </select>
+    </div>
+  </fieldset>
+  <div style="display: table; margin: 10px auto 10px auto">
+    <button data-xdh-onevent="ToggleLayout">Toggle layout</button>
+  </div>
+  <div id="HHLinkSection">
+    <fieldset style="margin: auto; width: max-content;">
+      <legend>URL for the opponent</legend>
+      <details style="width: 100%;">
+        <fieldset>
+          <span>Your opponent may scan</span><br />
+          <span>this QR code on her/him</span><br />
+          <span>device, or you may copy</span><br />
+          <span>and send her/him</span><br />
+          <span>corresponding URL.</span>
+        </fieldset>
+      </details>
+      <span id="qrcode" style="font-style: oblique; margin: auto; width:100%;">Computing QR Code…</span>
+    </fieldset>
+  </div>
+</fieldset>

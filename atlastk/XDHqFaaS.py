@@ -293,7 +293,7 @@ def launch(callback, userCallback,callbacks,headContent):
 	_serve(callback,userCallback,callbacks)
 
 def get_app_url(id=""):
-	return _url + ("&_id=" + id if id else "") 
+	return _url + ("&_id=" + str(id) if id else "") 
 
 def broadcastAction(action,id=""):
 	_writeLock.acquire()

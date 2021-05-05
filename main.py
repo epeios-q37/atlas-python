@@ -10,78 +10,75 @@
 import os,sys
 
 try:
-    input = raw_input
+	input = raw_input
 except NameError:
-    pass
+	pass
 
 loop = True
 
 DEMOS = (
-    "Blank",
-    "Hello",
-    "Chatroom",
-    "ReversiTXT",
-    "Notes",
-    "TodoMVC",
-    "Hangman",
-    "15-puzzle",
-    "Contacts",
-    "ReversiIMG",
-    "ReversiXSL",
-    "Widgets",
-    "Chatrooms",
-#    ("Contacts", 8),
-    "MatPlotLib"
+	"Blank",
+	"Hello",
+	"Chatroom",
+	"Notes",
+	"TodoMVC",
+	"Hangman",
+	"15-puzzle",
+	"Contacts",
+	"Widgets",
+	"Chatrooms",
+	"Reversi",
+	"MatPlotLib"
 )
 
 DEMOS_AMOUNT = len(DEMOS)
 
 def normalize(item):
-    if ( isinstance(item,str) ):
-        return item, 0
-    else:
-        return item
+	if ( isinstance(item,str) ):
+		return item, 0
+	else:
+		return item
 
 while loop:
-    
-    for id in range(0,DEMOS_AMOUNT):
-        label, amount = normalize(DEMOS[id])
-        letter = chr(id + ord('a'))
+	
+	for id in range(0,DEMOS_AMOUNT):
+		label, amount = normalize(DEMOS[id])
+		letter = chr(id + ord('a'))
 
-        if amount:
-            print(letter, 0, ", ", letter, 1, ", …, ", letter, amount, ": ", label, " (tutorial)", sep='')
-        else:
-            print(letter, ": ", label, sep='')
+		if amount:
+			print(letter, 0, ", ", letter, 1, ", …, ", letter, amount, ": ", label, " (tutorial)", sep='')
+		else:
+			print(letter, ": ", label, sep='')
 
-    entry = input("Select one of above sample: ").lower()
+	entry = input("Select one of above sample: ").lower()
    
-    try:
-        id = int(ord(entry[:1]) - ord('a'))
-        label, amount = normalize(DEMOS[id])
+	try:
+		id = int(ord(entry[:1]) - ord('a'))
+		label, amount = normalize(DEMOS[id])
 
-        affix = "tutorials" if amount else "examples"
+		affix = "tutorials" if amount else "examples"
 
-        if ( amount ):
-            number = int(entry[1:])
+		if ( amount ):
+			number = int(entry[1:])
 
-            if ( ( number < 0 ) or ( number > amount ) ):
-                raise
+			if ( ( number < 0 ) or ( number > amount ) ):
+				raise
 
-        # Needed by Repl.it
-        suffix = "part" + entry[1:] if amount else 'main'
+		# Needed by Repl.it
+		suffix = "part" + entry[1:] if amount else 'main'
 
-        sample = affix + "." + label + "." + suffix
-        sys.argv[0]=affix + '/' + label + "/"
+		sample = affix + "." + label + "." + suffix
+		sys.argv[0]=affix + '/' + label + "/"
 
-        if True:  # Simplifies debugging when set to False
-            try:
-                __import__(sample)
-            except ImportError:
-                print("\tERROR: could not launch '" + sys.argv[0] + suffix + ".py'!")
-                loop = False
-            except:
-                loop = False
-        else:
-            __import__(sample)
-    except:
-        print("'" + entry + "' is not a valid sample id. Please retry.\n")
+		if True:  # Simplifies debugging when set to False
+			try:
+				__import__(sample)
+			except ImportError:
+				print("\tERROR: could not launch '" + sys.argv[0] + suffix + ".py'!")
+				loop = False
+			except:
+				loop = False
+		else:
+			__import__(sample)
+	except:
+		print("'" + entry + "' is not a valid sample id. Please retry.\n")
