@@ -29,7 +29,7 @@ sys.path.append("../../atlastk")
 
 import atlastk, html
 
-target=""
+target = ""
 
 """
 From here and up to and including the 'ac_connect' function,
@@ -63,7 +63,7 @@ def ac_connect(dom):
 
   target = ""
   list = "<option disabled selected value> -- Select a widget -- </option>"
- 
+
   while current != "":
     id = dom.get_attribute(current,"id")
     dom.set_content("RetrievedWidget", id)
@@ -137,8 +137,9 @@ callbacks = {
   "cbSelect": lambda dom, id: dom.set_value("cbOutput", "{} ({})".format(id, dom.get_value(id))),
   "cbSubmit": lambda dom: dom.alert(str(dom.get_values(["cbBicycle", "cbCar","cbPirogue"]))),
 
-  "rdSelect": lambda dom, id: dom.set_value("rdOutput", id),
-  "rdSubmit": lambda dom: dom.alert(str(dom.get_values(["rdEmail", "rdPhone","rdMail"]))),
+  "rdSelect": lambda dom, id: dom.set_value("rdOutput", dom.get_value(id)),
+#  "rdSubmit": lambda dom: dom.alert(str(dom.get_values(["rdEmail", "rdPhone","rdMail"]))),
+  "rdSubmit": lambda dom, id: dom.alert(f'Selected method: "{dom.get_value(id)}"' ),
 
   "dlSubmit": ac_dl_submit,
 

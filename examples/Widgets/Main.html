@@ -54,6 +54,7 @@
   </fieldset>
   <pre class="lang-html"></pre>
 </fieldset>
+<!--
 <fieldset class="hidden" id="radio">
   <fieldset>
     <p>How to contact you:</p>
@@ -75,6 +76,32 @@
     <p></p>
     <div>
       <button data-xdh-onevent="rdSubmit">Submit</button>
+    </div>
+  </fieldset>
+  <pre class="lang-html"></pre>
+</fieldset>
+-->
+<fieldset class="hidden" id="radio">
+  <fieldset>
+    <p>How to contact you:</p>
+    <div>
+      <input type="radio" name="rdContact" value="Email" data-xdh-onevent="rdSelect">
+      <label for="rdEmail">Email</label>
+      <input type="radio" name="rdContact" value="Phone" data-xdh-onevent="rdSelect">
+      <label for="rdPhone">Phone</label>
+      <input type="radio" name="rdContact" value="Mail" data-xdh-onevent="rdSelect">
+      <label for="rdMail">Mail (post)</label>
+    </div>
+    <p></p>
+    <div>
+      <span>Selected contact method: </span>
+      <output id="rdOutput">
+        <span>Click on a radio button or its label</span>
+      </output>
+    </div>
+    <p></p>
+    <div>
+      <button data-xdh-onevent="rdSubmit" data-xdh-radio="rdContact">Submit</button>
     </div>
   </fieldset>
   <pre class="lang-html"></pre>

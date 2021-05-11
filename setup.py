@@ -38,7 +38,7 @@ setuptools.setup(
     keywords="GUI, web, Atlas toolkit",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/epeios-q37/atlas-python",
+    url="https://atlastk.org",
     packages=setuptools.find_packages(),
     classifiers=[
       "Environment :: Web Environment",
