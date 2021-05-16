@@ -128,9 +128,6 @@ def lock(token):
     return True
 
 
-
-    
-
 class Reversi:
   def _reset(self):
     if self.token:

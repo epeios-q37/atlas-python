@@ -37,7 +37,7 @@ Source code:
 
 ```python
 import atlastk
-
+ 
 BODY = """
 <fieldset>
  <input id="Input" data-xdh-onevent="Submit" value="World"/>
@@ -48,22 +48,22 @@ BODY = """
  </fieldset>
 </fieldset>
 """
-
+ 
 def ac_connect(dom):
   dom.inner("", BODY)
   dom.focus("Input")
-
+ 
 def ac_submit(dom):
   name = dom.get_value("Input")
-  dom.set_value("Output", f"Hello, {name}!")
+  dom.begin("Output", f"<div>Hello, {name}!</div>")
   dom.set_value("Input", "")
   dom.focus("Input")
-
+ 
 CALLBACKS = {
   "": ac_connect,
   "Submit": ac_submit
 }
-
+ 
 atlastk.launch(CALLBACKS)
 ```
 
@@ -71,13 +71,15 @@ atlastk.launch(CALLBACKS)
 
 #### Online, with nothing to install
 
+To run above "Hello, World!" program directly in your browser, as seen in corresponding video, follow this link: <https://replit.com/@AtlasTK/hello-python>.
+
 Thanks to [*Replit*](https://q37.info/s/mxmgq3qm), an [online IDE](https://q37.info/s/zzkzbdw7), you can write and run programs using the *Atlas* toolkit directly in your web browser, without having to install *Python* on your computer [![About online demonstrations](https://img.shields.io/badge/about-online%20demonstrations-informational)](https://q37.info/s/sssznrb4).
 
-To see some examples, like the following [*TodoMVC*](http://todomvc.com/) application or the above ["Hello, World!"](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) program, simply:
+To see more examples, like the following [*TodoMVC*](http://todomvc.com/), simply:
 - go [here](https://q37.info/s/vwpsw73v) (also accessible with the [![Run on Repl.it](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/vwpsw73v) button at the top of this page),
--  click on the green `run` button,
--  choose the demonstration to launch,
--  open the then displayed URL in a browser (should be clickable), 
+- click on the green `run` button,
+- choose the demonstration to launch,
+- open the then displayed URL in a browser (should be clickable), 
 - … and, as you wish, run your own tests directly in your browser, by modifying the code of the examples or by writing your own code.
 
 [![TodoMVC](https://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")](https://q37.info/s/vwpsw73v)
@@ -168,4 +170,5 @@ The *ErgoJr* application is experimental and to control a *Poppy* *Ergo Jr* robo
 The *RGB* application is dedicated to the control of a RGB led, and the *GPIO* (aka *WebGPIO*) application allows to control the basic pins. Click below picture to see a *YouTube* video on how they work (same video on [*PeerTube*](https://en.wikipedia.org/wiki/PeerTube): <https://q37.info/s/49pbmwv9>):
 
 [![RGB video](https://img.youtube.com/vi/C4p2iX6gc-Q/0.jpg)](https://www.youtube.com/watch?v=C4p2iX6gc-Q)
+
 
