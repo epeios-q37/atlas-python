@@ -20,7 +20,14 @@ from matplotlib import collections, colors, transforms
 BODY = """
 <iframe style="border: none;" src="FaaSDesc.php?text=R3JhcGhpY3MgZHJhd24gd2l0aCBbKm1hdHBsb3RsaWIqXShodHRwczovL21hdHBsb3RsaWIub3JnLykgY2FuIGJlIHVzZWQgd2l0aCB0aGUgKkF0bGFzKiAqVG9vbGtpdCou"></iframe>
 <fieldset id="Plots"></fieldset>
-<fieldset id="Buttons"/>
+<fieldset id="Buttons"></fieldset>
+<fieldset>
+ <span>Due to a limitation of <a href="https://en.wikipedia.org/wiki/Matplotlib" target="_blank" style="font-style: oblique;">matplotlib</a>, opening </span>
+ <br/>
+ <span>more then one session with this application</span>
+ <br/>
+ <span>may probably lead to a crash.</span>
+</fieldset>
 """
 
 HEAD = """

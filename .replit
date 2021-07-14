@@ -3,5 +3,8 @@
 # Ce fichier est destiné à 'http://repl.it'.
 # Il est renommé en '.replit' lors de la publication.
 
-language = "bash"
+language = "python"
 run = "ATK=none python3 main.py"
+
+[packager]
+ignoredPackages = ["ipython"]
