@@ -96,7 +96,7 @@ def display_contacts(contacts,dom):
   for contactId in range(len(contacts)):
     contact = contacts[contactId]
     html += f"""
-<tr id="{contactId}" data-xdh-onevent="Select" style="cursor: pointer;">
+<tr id="{contactId}" xdh:onevent="Select" style="cursor: pointer;">
   <td>{contact["Name"]}</td>
   <td>{contact["Address"]}</td>
   <td>{contact["Phone"]}</td>

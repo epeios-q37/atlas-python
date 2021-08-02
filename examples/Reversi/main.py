@@ -163,7 +163,7 @@ def draw_board(reversi, dom, playability = True):
       board.put_attribute("id", str(x) + str(y))
       playable = playability and (r == core.EMPTY) and (reversi.board.isAllowed(y, x, reversi.bw if reversi.bw != core.EMPTY else core.BLACK))
       if playable:
-        board.put_attribute("data-xdh-onevent", "Play")
+        board.put_attribute("xdh:onevent", "Play")
       board.put_attribute(
         "class", {core.EMPTY: 'none', core.BLACK: 'black', core.WHITE: 'white'}[r] + (" playable" if playable else ""))
       board.putValue({core.EMPTY: ' ', core.BLACK: 'X', core.WHITE: 'O'}[r])

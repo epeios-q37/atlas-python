@@ -14,7 +14,7 @@
             <td id="black" class="score-value" />
             <td class="separator" style="width: 10px;" />
             <td>
-              <button data-xdh-onevent="New">NEW GAME</button>
+              <button xdh:onevent="New">NEW GAME</button>
             </td>
             <td class="separator" style="width: 10px;" />
             <td id="white" class="score-value" />
@@ -24,7 +24,7 @@
       </table>
     </div>
     <div style="text-align: center;">
-      <select id="players" data-xdh-onevent="SelectMode">
+      <select id="players" xdh:onevent="SelectMode">
         <option value="HC">human vs computer</option>
         <option value="CH">computer vs human</option>
         <option value="HH">human vs human</option>
@@ -37,7 +37,7 @@
     </div>
   </fieldset>
   <div style="display: table; margin: 10px auto 10px auto">
-    <button data-xdh-onevent="ToggleLayout">Toggle layout</button>
+    <button xdh:onevent="ToggleLayout">Toggle layout</button>
   </div>
   <div id="HHLinkSection">
     <fieldset style="margin: auto; width: max-content;">

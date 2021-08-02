@@ -1,0 +1,148 @@
+<title>The 🐷 game</title>
+<link rel="icon" type="image/png"
+  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAMFBMVEUEAvyEhsxERuS8urQsKuycnsRkYtzc2qwUFvRUVtysrrx0ctTs6qTMyrSUksQ0NuyciPBdAAABHklEQVR42mNgwAa8zlxjDd2A4POfOXPmzZkFCAH2M8fNzyALzDlzg2ENssCbMwkMOsgCa858YOjBKxBzRoHhD7LAHiBH5swCT9HQ6A9ggZ4zp7YCrV0DdM6pBpAAG5Blc2aBDZA68wCsZPuZU0BDH07xvHOmAGKKvgMP2NA/Zw7ADIYJXGDgLQeBBSCBFu0aoAPYQUadMQAJAE29zwAVWMCWpgB08ZnDQGsbGhpsgCqBQHNfzRkDEIPlzFmo0T5nzoMovjPHoAK8Zw5BnA5yDosDSAVYQOYMKIDZzkoDzagAsjhqzjRAfXTmzAQgi/vMQZA6pjtAvhEk0E+ATWRRm6YBZuScCUCNN5szH1D4TGdOoSrggtiNAH3vBBjwAQCglIrSZkf1MQAAAABJRU5ErkJggg==" />
+<style>
+  .hidden {
+    visibility: hidden;
+  }
+
+  .removed {
+    display: none;
+  }
+
+  .meter-label {
+    width: 9ch;
+    font-family: monospace;
+    font-size: larger;
+  }
+
+  .marker {
+    width: 3ex;
+    color:sandybrown;
+  }
+
+  .meter-container {
+    width: 200px;
+    display: flex;
+    border: solid 1px;
+    height: 20px;
+  }
+
+  .meter {
+    display: block;
+    height: 100%;
+  }
+
+  .score-meter {
+    background-color: lightgreen;
+  }
+
+  .dice-meter {
+    background-color: violet;
+  }
+
+  .winner_ {
+    color: crimson;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: larger;
+    letter-spacing: 5px;
+    font-family: cursive;
+    width: 100%;
+    background-color: lightgreen;
+}
+
+  .score-text {
+    width: 3ch;
+    text-align: right;
+    font-family: cursive;
+  }
+
+  .turn-text {
+    width: 2ch;
+    text-align: right;
+    font-family: cursive;
+    display: inline-block;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(0) rotate(-240deg); 
+    }
+
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  .fade-in {
+    animation-name: fadeIn;
+    animation-duration: 1s;
+  }
+
+  .marker-a {
+    visibility: hidden;
+  }
+
+  .player {
+    display: none;
+  }
+
+  .winner {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: larger;
+    letter-spacing: 5px;
+    font-family: cursive;
+    width: 100%;
+    background-color: lightgreen;
+    background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow_animation 6s ease-in-out infinite;
+    background-size: 400% 100%;
+    height: 100%;
+  }
+
+  @keyframes rainbow_animation {
+      0%,100% {
+          background-position: 0 0;
+      }
+
+      50% {
+          background-position: 100% 0;
+      }
+  }
+</style>
+<style id="DisplayMarkerA">
+  .marker-a {
+    visibility: initial;
+  }
+
+  .marker-b {
+    visibility: hidden;
+  }
+</style>
+<style id="HideHHLinkSection">
+  #HHLinkSection {
+    display: none;
+  }
+</style>
+<style id="PlayerView">
+  .viewer {
+    display: none;
+  }
+
+  .player {
+    display: initial;
+  }
+</style>
+
+

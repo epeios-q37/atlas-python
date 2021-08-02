@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- NO BOM !! -->
-<xsl:stylesheet version="1.0" 
-	xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:xdh="http://q37.info/ns/xdh">
 	<xsl:output method="html" encoding="UTF-8"/>
 	<xsl:template match="/XDHTML">
 		<xsl:apply-templates select="Notes"/>
@@ -20,7 +21,7 @@
 		<li>
 			<span id="View.{@id}">
 				<div>
-					<article class="listing note-view" style="width:100%; justify-content: space-between;align-items: center;" data-xdh-mark="{@id}">
+					<article class="listing note-view" style="width:100%; justify-content: space-between;align-items: center;" xdh:mark="{@id}">
 						<div>
 							<h3 id="Title.{@id}">
 								<xsl:value-of select="title"/>
@@ -31,9 +32,9 @@
 							</p>
 						</div>
 						<span id="Buttons.{@id}" style="flex-direction: row;">
-							<button class="button" data-xdh-onevent="Edit">Edit</button>
+							<button class="button" xdh:onevent="Edit">Edit</button>
 							<span style="display:inline-block; width: 10px;"></span>
-							<button class="button" data-xdh-onevent="Delete">Delete</button>
+							<button class="button" xdh:onevent="Delete">Delete</button>
 						</span>
 					</article>
 				</div>

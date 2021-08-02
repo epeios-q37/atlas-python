@@ -45,7 +45,7 @@ def clean(s,i):
     i += 1
     pattern = f' id="_CGN{i}"'
 
-  return s.strip(" \n").replace ("    <","<").replace("data-xdh-widget_","data-xdh-widget"),i
+  return s.strip(" \n").replace ("    <","<").replace("xdh:widget_","xdh:widget"),i
 
 def display_code(dom,element,i):
   source = dom.first_child(element);
@@ -73,7 +73,7 @@ def ac_connect(dom):
 
   dom.execute_void("document.querySelectorAll('pre').forEach((block) => {hljs.highlightBlock(block);});")
 
-  dom.set_attribute("ckInput","data-xdh-widget",dom.get_attribute("ckInput","data-xdh-widget_"))
+  dom.set_attribute("ckInput","xdh:widget",dom.get_attribute("ckInput","xdh:widget_"))
   dom.after("ckInput","")
   dom.inner("List", list)
 

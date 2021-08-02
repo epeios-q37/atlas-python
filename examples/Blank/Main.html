@@ -1,13 +1,13 @@
 <iframe style="border: none;" src="FaaSDesc.php?text=QSB2ZXJ5IHNpbXBsZSBleGFtcGxlLCB0byBzaG93IHRoZSBvdmVyYWxsIHN0cnVjdHVyZSBvZiBhbiBhcHBsaWNhdGlvbiBtYWRlIHdpdGggdGhlICpBdGxhcyogKnRvb2xraXQqLiAgClRha2UgYSBsb29rIGF0IHRoZSBzb3VyY2UgY29kZSBmb3IgWypKYXZhKl0oaHR0cHM6Ly9yZXBsLml0L0BBdGxhc1RLL2F0bGFzLWphdmEjZXhhbXBsZXMvQmxhbmsvbWFpbi5qYXZhKSwgWypOb2RlLmpzKl0oaHR0cHM6Ly9yZXBsLml0L0BBdGxhc1RLL2F0bGFzLW5vZGUjZXhhbXBsZXMvQmxhbmsvbWFpbi5qcykgWypQZXJsKl0oaHR0cHM6Ly9yZXBsLml0L0BBdGxhc1RLL2F0bGFzLXBlcmwjZXhhbXBsZXMvQmxhbmsvbWFpbi5wbCksIFsqUHl0aG9uKl0oaHR0cHM6Ly9yZXBsLml0L0BBdGxhc1RLL2F0bGFzLXB5dGhvbiNleGFtcGxlcy9CbGFuay9tYWluLnB5KSBvciBbKlJ1YnkqXShodHRwczovL3JlcGwuaXQvQEF0bGFzVEsvYXRsYXMtcnVieSNleGFtcGxlcy9CbGFuay9tYWluLnJiKS4="></iframe>
 <div style="display: flex; justify-content: space-around;">
-	<span data-xdh-onevent="mouseleave|HideInput">
+	<span xdh:onevent="mouseleave|HideInput">
 		<fieldset>
-			<div data-xdh-onevent="ShowInput">
+			<div xdh:onevent="ShowInput">
 				<text>Clicking on this text shows an input field, leaving this frame hides it.</text>
 			</div>
 			<div id="Input" class="hidden">
-				<input id="Pattern" type="text" size="50" data-xdh-onevent="Submit" placeholder="Text to convert to upper case" />
-				<button title="Converts to upper case" data-xdh-onevent="Submit">Convert</button>
+				<input id="Pattern" type="text" size="50" xdh:onevent="Submit" placeholder="Text to convert to upper case" />
+				<button title="Converts to upper case" xdh:onevent="Submit">Convert</button>
 			</div>
 		</fieldset>
 	</span>
