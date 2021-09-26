@@ -24,25 +24,92 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+# from term2web import *
+
+# T2WS = True
+
+import os, sys
+
+DEFAULT = ''
+
+if ('Q37_XPP' in os.environ):
+  sys.path.append(os.path.join(os.environ["HOME"],"epeios/other/libs/term2web/PYH/term2web"))
+  from term2web import *
+  DEFAULT = 'a'
+  T2WS = True 
+ 
+T2W = 'term2web' in sys.modules
+
 from core import *
 
 BLACK_MARK = 'X'
 WHITE_MARK = 'O'
 LEVEL = 1
 
+def is_t2ws():
+  try:
+    return T2W and T2WS
+  except:
+    return False
+      
+def t2w_sp(list_or_name, value=None):
+  if not is_t2ws():
+    return
+
+  if value is None:
+    set_properties(list_or_name)
+  else:
+    set_property(list_or_name, value)
+
+def t2w_rp():
+  if not is_t2ws():
+    return
+
+  reset_properties()
+  set_property("font-size", "large")
 
 def print_board(board):
-  print('\n   a b c d e f g h \n  +-+-+-+-+-+-+-+-+')
+  print('\n ', end="")
+  t2w_sp("background-color", "aqua")
+  print('  a b c d e f g h ')
+  t2w_rp()
+  print(' ', end='')
+  t2w_sp("background-color", "aqua")
+  print(' ', end='')
+  t2w_rp()
+  print('+-+-+-+-+-+-+-+-+')
   for i, row in enumerate(board.array()):
-    print(' %d|' % (i + 1), end='')
-    for r in row:
-      print('{}|'.format({
+    print(' ', end='')
+    t2w_sp("background-color", "aqua")
+    print((i + 1), end='')
+    t2w_rp()
+    print('|', end='')
+    for j, r in enumerate(row):
+      t2w_sp('font-weight', 'bolder')
+      if r == EMPTY:
+        if board.isAllowed(i,j,BLACK):
+          t2w_sp('background-color', 'lightgreen')
+        elif board.isAllowed(i,j,WHITE):
+          t2w_sp('background-color', 'lightblue')
+      t2w_sp(
+        'color', {
+          EMPTY: 'white',
+          BLACK: 'green',
+          WHITE: 'blue'
+        }[r]
+      )
+      print({
         EMPTY: ' ',
         BLACK: BLACK_MARK,
         WHITE: WHITE_MARK
-      }[r]),
-          end='')
-    print('\n  +-+-+-+-+-+-+-+-+')
+      }[r], end='')
+      t2w_rp()
+      print('|', end='')
+    print('\n ', end='')
+    t2w_sp("background-color", "aqua")
+    print(' ', end='')
+    t2w_rp()
+    print('+-+-+-+-+-+-+-+-+')
   print()
 
 
@@ -97,11 +164,11 @@ TYPES = {
   'b': [WHITE],
   'c': [BLACK, WHITE],
   'd': []
-}  
+}
 
 def getHumans():
   global humans
-  answer = ""
+  answer = DEFAULT
 
   while answer.lower() not in TYPES:
     print("a: 'X' human, 'O' computer")

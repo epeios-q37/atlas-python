@@ -126,7 +126,7 @@ def debug():
 
 
 def create_game(token):
-  global lock, games
+  global games
 
   game = Game()  
 
@@ -139,8 +139,6 @@ def create_game(token):
 
 
 def remove_game(token, player):
-  global lock, games
-
   with lock:
     if token in games:
       game = games[token]
@@ -156,8 +154,6 @@ def remove_game(token, player):
 
 
 def get_game(token):
-  global lock
-
   with lock:
     return games[token] if token in games else None
 
@@ -174,8 +170,6 @@ def get_available_player(game):
 
 
 def get_game_available_player(token):
-  global lock
-
   with lock:
     return get_available_player(games[token]) if token in games else 0
 

@@ -144,30 +144,28 @@ class Mode:
   }
 
 def getNewUserId():
-  global availableUserId, lock
+  global availableUserId
 
-  lock.acquire()
-  userId = availableUserId
-  availableUserId += 1
-  lock.release()
+  with lock:
+    userId = availableUserId
+    availableUserId += 1
 
   return userId
 
 def setCurrentUserId(id):
-  global currentUserId, lock
+  global currentUserId
 
-  lock.acquire()
-  wasMe = currentUserId == id or currentUserId == None
-  currentUserId = id
-  lock.release()
+  with lock:
+    wasMe = currentUserId == id or currentUserId == None
+    currentUserId = id
 
   return wasMe
 
 def set(wId,field,value):
-  global settings, lock
-  lock.acquire()
-  settings[wId][field] = value
-  lock.release()
+  global settings
+
+  with lock:
+    settings[wId][field] = value
 
 def retrieveMode(wId):
   return Mode.IN
@@ -195,11 +193,10 @@ def retrieveSettings():
   return settings
 
 def syncSettings():
-  global settings, lock
+  global settings
 
-  lock.acquire()
-  settings = retrieveSettings()
-  lock.release()
+  with lock:
+    settings = retrieveSettings()
 
 def getWId(pattern):
   return int(pattern[pattern.find('.')+1:])

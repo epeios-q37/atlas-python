@@ -40,24 +40,21 @@ class Room:
     xml.push_tag("Messages")
     xml.put_attribute("pseudo",session.pseudo)
 
-    self.lock.acquire()
+    with self.lock:
+      index = len(self.messages) - 1
 
-    index = len(self.messages) - 1
+      while index >= session.last_message:
+        message = self.messages[index]
 
-    while index >= session.last_message:
-      message = self.messages[index]
+        xml.push_tag( "Message" )
+        xml.put_attribute( "id", index )
+        xml.put_attribute( "pseudo", message['pseudo'] )
+        xml.put_value( message['content'] )
+        xml.pop_tag()
 
-      xml.push_tag( "Message" )
-      xml.put_attribute( "id", index )
-      xml.put_attribute( "pseudo", message['pseudo'] )
-      xml.put_value( message['content'] )
-      xml.pop_tag()
+        index -= 1
 
-      index -= 1
-
-    session.last_message = len(self.messages)
-
-    self.lock.release()
+      session.last_message = len(self.messages)
 
     xml.pop_tag()
 
@@ -70,15 +67,12 @@ class Room:
       
       
   def handle_pseudo(self,pseudo):
-    self.lock.acquire()
-
-    if pseudo in self.pseudos:
-      result = False
-    else:
-      self.pseudos.append(pseudo)
-      result= True
-
-    self.lock.release()
+    with self.lock:
+      if pseudo in self.pseudos:
+        result = False
+      else:
+        self.pseudos.append(pseudo)
+        result= True
 
     return result
 
@@ -86,9 +80,8 @@ class Room:
     message = message.strip()
 
     if message:
-      self.lock.acquire()
-      self.messages.append({'pseudo': pseudo, 'content': message})
-      self.lock.release()    
+      with self.lock:
+        self.messages.append({'pseudo': pseudo, 'content': message})
 
 class Session:
   def __init__(self):
