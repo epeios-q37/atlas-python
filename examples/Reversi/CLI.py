@@ -116,7 +116,7 @@ def print_board(board):
 def input_position(player):
   while True:
     s = input('{}? [a-h][1-8]'.format(BLACK_MARK if player ==
-                      BLACK else WHITE_MARK))
+                      BLACK else WHITE_MARK)).lower()
     if s == '' or (len(s) == 2 and s[0] in list('abcdefgh')
              and s[1] in list('12345678')):
       break
@@ -170,12 +170,12 @@ def getHumans():
   global humans
   answer = DEFAULT
 
-  while answer.lower() not in TYPES:
+  while answer not in TYPES:
     print("a: 'X' human, 'O' computer")
     print("b: 'O' computer, 'X' human")
     print("c: 'X' human, 'O' human")
     print("d: 'X' computer, 'O' computer")
-    answer = input("Please choose ('X' begins): ")
+    answer = input("Please choose ('X' begins): ").lower()
 
   humans = TYPES[answer]
 
