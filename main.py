@@ -27,6 +27,7 @@ DEMOS = (
 	"Contacts",
 	"Widgets",
 	"Chatrooms",
+	"PigGame",
 	"Reversi",
 	"MatPlotLib"
 )
@@ -41,7 +42,7 @@ def normalize(item):
 
 while loop:
 	
-	for id in range(0,DEMOS_AMOUNT):
+	for id in range(DEMOS_AMOUNT):
 		label, amount = normalize(DEMOS[id])
 		letter = chr(id + ord('a'))
 

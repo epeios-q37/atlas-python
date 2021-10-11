@@ -81,7 +81,7 @@ def convert(pos):
 def draw_square(board, x, y):
   board.push_tag("use")
   board.put_attribute("id", y * 4 + x)
-  board.put_attribute("data-xdh-onevent", "Swap")
+  board.put_attribute("xdh:onevent", "Swap")
   board.put_attribute("x", x * 100 + 24)
   board.put_attribute("y", y * 100 + 24)
   board.put_attribute("href", "#stone")

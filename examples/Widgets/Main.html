@@ -1,7 +1,7 @@
 <iframe style="border: none;" src="FaaSDesc.php?text=WW91IHdpbGwgc2VlIGhlcmUgc29tZSB3aWRnZXRzIGluIGFjdGlvbi4gQ29ycmVzcG9uZGluZyBIVE1MIGNvZGUgd2lsbCBiZSBkaXNwbGF5ZWQu"></iframe>
 <div>
   <center id="Regular" class="hidden">
-    <select id="List" data-xdh-onevent="Select">
+    <select id="List" xdh:onevent="Select">
     </select>
   </center>
   <div id="Retrieving">
@@ -13,13 +13,13 @@
 </div>
 <fieldset class="hidden" id="button">
   <fieldset>
-    <button data-xdh-onevent="btSubmit">A button</button>
+    <button xdh:onevent="btSubmit">A button</button>
   </fieldset>
   <pre class="lang-html"></pre>
 </fieldset>
 <fieldset class="hidden" id="password">
   <fieldset>
-    <input type="password" data-xdh-onevent="pwSubmit" placeholder="Password" />
+    <input type="password" xdh:onevent="pwSubmit" placeholder="Password" />
     <span>Submitted password: </span>
     <output id="pwOutput">
       <span>Type a password and hit the <span style="font-weight: bold;">Enter</span> key</span>
@@ -31,13 +31,13 @@
   <fieldset>
     <div>
       <p>Specify the type of vehicle you own:</p>
-      <input type="checkbox" id="cbBicycle" data-xdh-onevent="cbSelect">
+      <input type="checkbox" id="cbBicycle" xdh:onevent="cbSelect">
       <label for="cbBicycle">Bicycle</label>
       <br />
-      <input type="checkbox" id="cbCar" data-xdh-onevent="cbSelect">
+      <input type="checkbox" id="cbCar" xdh:onevent="cbSelect">
       <label for="cbCar">Car</label>
       <br />
-      <input type="checkbox" id="cbPirogue" data-xdh-onevent="cbSelect">
+      <input type="checkbox" id="cbPirogue" xdh:onevent="cbSelect">
       <label for="cbPirogue">Pirogue</label>
     </div>
     <p></p>
@@ -49,7 +49,7 @@
     </div>
     <p></p>
     <div>
-      <button data-xdh-onevent="cbSubmit">Submit</button>
+      <button xdh:onevent="cbSubmit">Submit</button>
     </div>
   </fieldset>
   <pre class="lang-html"></pre>
@@ -59,11 +59,11 @@
   <fieldset>
     <p>How to contact you:</p>
     <div>
-      <input type="radio" name="rdContact" id="rdEmail" data-xdh-onevent="rdSelect">
+      <input type="radio" name="rdContact" id="rdEmail" xdh:onevent="rdSelect">
       <label for="rdEmail">Email</label>
-      <input type="radio" name="rdContact" id="rdPhone" data-xdh-onevent="rdSelect">
+      <input type="radio" name="rdContact" id="rdPhone" xdh:onevent="rdSelect">
       <label for="rdPhone">Phone</label>
-      <input type="radio" name="rdContact" id="rdMail" data-xdh-onevent="rdSelect">
+      <input type="radio" name="rdContact" id="rdMail" xdh:onevent="rdSelect">
       <label for="rdMail">Mail (post)</label>
     </div>
     <p></p>
@@ -75,7 +75,7 @@
     </div>
     <p></p>
     <div>
-      <button data-xdh-onevent="rdSubmit">Submit</button>
+      <button xdh:onevent="rdSubmit">Submit</button>
     </div>
   </fieldset>
   <pre class="lang-html"></pre>
@@ -85,11 +85,11 @@
   <fieldset>
     <p>How to contact you:</p>
     <div>
-      <input type="radio" name="rdContact" value="Email" data-xdh-onevent="rdSelect">
+      <input type="radio" name="rdContact" value="Email" xdh:onevent="rdSelect">
       <label for="rdEmail">Email</label>
-      <input type="radio" name="rdContact" value="Phone" data-xdh-onevent="rdSelect">
+      <input type="radio" name="rdContact" value="Phone" xdh:onevent="rdSelect">
       <label for="rdPhone">Phone</label>
-      <input type="radio" name="rdContact" value="Mail" data-xdh-onevent="rdSelect">
+      <input type="radio" name="rdContact" value="Mail" xdh:onevent="rdSelect">
       <label for="rdMail">Mail (post)</label>
     </div>
     <p></p>
@@ -101,7 +101,7 @@
     </div>
     <p></p>
     <div>
-      <button data-xdh-onevent="rdSubmit" data-xdh-radio="rdContact">Submit</button>
+      <button xdh:onevent="rdSubmit" xdh:radio="rdContact">Submit</button>
     </div>
   </fieldset>
   <pre class="lang-html"></pre>
@@ -109,7 +109,7 @@
 <fieldset class="hidden" id="datalist">
   <fieldset>
     <span>
-      <input list="dlFlavors" data-xdh-onevent="dlSubmit" placeholder="Select a flavor" />
+      <input list="dlFlavors" xdh:onevent="dlSubmit" placeholder="Select a flavor" />
       <datalist id="dlFlavors">
         <option value="Caramel"></option>
         <option value="Chocolate"></option>
@@ -127,7 +127,7 @@
 </fieldset>
 <fieldset class="hidden" id="date">
   <fieldset>
-    <input type="date" data-xdh-onevent="dtSelect" />
+    <input type="date" xdh:onevent="dtSelect" />
     <span>Selected date: </span>
     <output id="dtOutput">
       <span>Click on the date selector</span>
@@ -137,7 +137,7 @@
 </fieldset>
 <fieldset class="hidden" id="color">
   <fieldset>
-    <input type="color" id="clColor" data-xdh-onevent="clSelect" />
+    <input type="color" id="clColor" xdh:onevent="clSelect" />
     <span>Selected color: </span>
     <output id="clOutput">
       <span>Click on the color selector</span>
@@ -148,7 +148,7 @@
 <fieldset class="hidden" id="range/meter">
   <fieldset>
     <label for="rgVolume">Volume</label>
-    <input type="range" id="rgVolume" min="0" max="10" data-xdh-onevent="rgSlide">
+    <input type="range" id="rgVolume" min="0" max="10" xdh:onevent="rgSlide">
     <meter id="rgOutput" min="0" max="10" low="5" high="7" optimum="4" value="5">
     </meter>
   </fieldset>
@@ -156,7 +156,7 @@
 </fieldset>
 <fieldset class="hidden" id="select">
   <fieldset>
-    <select data-xdh-onevent="slSelect">
+    <select xdh:onevent="slSelect">
       <option selected disabled>-- Select a dinausor --</option>
       <optgroup label="Theropods">
         <option value="tyrannosaurus">Tyrannosaurus</option>
@@ -178,9 +178,9 @@
     </span>
     <p></p>
     <div>
-      <input id="slInput" data-xdh-onevent="slAdd" placeholder="Other dinausor to add" />
+      <input id="slInput" xdh:onevent="slAdd" placeholder="Other dinausor to add" />
       <label>
-        <input type="checkbox" data-xdh-onevent="slToggle" />
+        <input type="checkbox" xdh:onevent="slToggle" />
         <b>Deactivate</b>
       </label>
     </div>
@@ -190,8 +190,8 @@
 <fieldset class="hidden" id="CKEditor">
   <fieldset>
     <textarea id="ckInput"
-      data-xdh-widget_="ckeditor|{entities: false, enterMode : CKEDITOR.ENTER_BR, linkShowTargetTab: false}|val\(\)|"></textarea>
-    <button data-xdh-onevent="ckSubmit">Submit</button>
+      xdh:widget_="ckeditor|{entities: false, enterMode : CKEDITOR.ENTER_BR, linkShowTargetTab: false}|val\(\)|"></textarea>
+    <button xdh:onevent="ckSubmit">Submit</button>
     <fieldset>
       <output id="ckOutput" style="all: initial;">
         <span>Type content in the editor and hit the <span style="font-weight: bold;">Submit</span> button</span>

@@ -40,8 +40,8 @@ import atlastk
  
 BODY = """
 <fieldset>
- <input id="Input" data-xdh-onevent="Submit" value="World"/>
- <button data-xdh-onevent="Submit">Hello</button>
+ <input id="Input" xdh:onevent="Submit" value="World"/>
+ <button xdh:onevent="Submit">Hello</button>
  <hr/>
  <fieldset>
   <output id="Output">Greetings displayed here!</output>
@@ -139,11 +139,12 @@ In the `examples` directory, you will found following examples:
 - `Notes`: note taking program,
 - `TodoMVC`: [*TodoMVC*](http://todomvc.com/),
 - `Hangman`: [Hangman game](http://q37.info/s/gtdtk4hp),
-- `15-puzzle`: [*15-puzzle* game](https://q37.info/s/jn9zg3bn),
+- `15-puzzle`: [15-puzzle game](https://q37.info/s/jn9zg3bn),
 - `Contacts`: a basic address book, 
 - `Widgets`: some widgets handled with the *Atlas* toolkit,
 - `Chatrooms` : same as above `Chatroom`, but with several rooms,
-- `Reversi`: [*Reversi game*](http://q37.info/s/zz3dzmf7) for one or two players,
+- `PigGame`: [Pig game](https://en.wikipedia.org/wiki/Pig_(dice_game)) for one or two players,
+- `Reversi`: [*Reversi* game](http://q37.info/s/zz3dzmf7) for one or two players,
 - `MatPlotLib` : the *Atlas* toolkit displaying some graphics made with [*matplotlib*](https://matplotlib.org/); this example needs, of course, the *matplotlib* package to be installed…
 
 Other examples are detailed in the next section.

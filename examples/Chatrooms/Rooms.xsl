@@ -2,7 +2,8 @@
 <!-- NO BOM !! -->
 <xsl:stylesheet version="1.0"
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:xdh="http://q37.info/ns/xdh">
 	<xsl:output method="html" encoding="UTF-8"/>
 	<xsl:template match="/Rooms">
 		<fieldset>
@@ -17,13 +18,13 @@
 		</fieldset>
 	</xsl:template>
 	<xsl:template match="Room">
-		<fieldset style="margin: auto; width: max-content;" data-xdh-mark="{@id}">
+		<fieldset style="margin: auto; width: max-content;" xdh:mark="{@id}">
 			<legend>
 				<a target="_blank" href="{@URL}">
 					<xsl:value-of select="."/>
 				</a>
 			</legend>
-			<details data-xdh-onevent="toggle|QRCode">
+			<details xdh:onevent="toggle|QRCode">
 				<summary>QR Code</summary>
 				<span style="font-style: oblique;">Computing QR Code…</span>
 			</details>

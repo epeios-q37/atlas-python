@@ -382,7 +382,7 @@ def ac_connect(dom):
     dom.inner(f"example{example}", f"<legend>Example {example}</legend>{run(example)}")
     dom.flush()
     dom.scroll_to(f'example{example}')
-    dom.end("Buttons",f'<button id="{example}" data-xdh-onevent="Display">{example}</button>')
+    dom.end("Buttons",f'<button id="{example}" xdh:onevent="Display">{example}</button>')
 
   dom.enable_element("Ready")
   dom.remove_class(f"example1", "hide")

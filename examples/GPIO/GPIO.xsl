@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- NO BOM !! -->
-<xsl:stylesheet version="1.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:xdh="http://q37.info/ns/xdh">
 	<xsl:output method="html" encoding="UTF-8"/>
 	<!-- Function -->
 	<xsl:template name="GetModeLabel">
@@ -27,9 +30,9 @@
 		</table>
 		<div>
 			<fieldset style="text-align: center;">
-				<button data-xdh-onevent="All">All</button>
-				<button data-xdh-onevent="None">None</button>
-				<button data-xdh-onevent="Invert">Invert</button>
+				<button xdh:onevent="All">All</button>
+				<button xdh:onevent="None">None</button>
+				<button xdh:onevent="Invert">Invert</button>
 			</fieldset>
 			<fieldset style="text-align: center;">
 				<xsl:apply-templates select="/XDHTML/Corpus/Modes/Mode" mode="Button"/>
@@ -42,7 +45,7 @@
 		</xsl:variable>
 		<tr>
 			<td>
-				<input id="Selector.{@id}" type="checkbox" data-xdh-onevent="Toggle">
+				<input id="Selector.{@id}" type="checkbox" xdh:onevent="Toggle">
 					<xsl:attribute name="tabindex">
 						<xsl:text>1</xsl:text>
 						<xsl:if test="number(@id)&lt;10">
@@ -59,7 +62,7 @@
 				<xsl:value-of select="@id"/>
 			</td>
 			<td>
-				<select data-xdh-onevent="SwitchMode" id="Mode.{@id}" title="Select pin mode.">
+				<select xdh:onevent="SwitchMode" id="Mode.{@id}" title="Select pin mode.">
 					<xsl:attribute name="tabindex">
 						<xsl:text>2</xsl:text>
 						<xsl:if test="number(@id)&lt;10">
@@ -73,7 +76,7 @@
 				</select>
 			</td>
 			<td>
-				<input data-xdh-onevent="ChangeValue" id="Value.{@id}" type="range" min="0" max="100" value="{@Value}" title="Set pin value, in OUT and PWM mode.">
+				<input xdh:onevent="ChangeValue" id="Value.{@id}" type="range" min="0" max="100" value="{@Value}" title="Set pin value, in OUT and PWM mode.">
 					<xsl:choose>
 						<xsl:when test="$ModeLabel='IN'">
 							<xsl:attribute name="disabled">disabled</xsl:attribute>
@@ -96,7 +99,7 @@
 		</option>
 	</xsl:template>
 	<xsl:template match="/XDHTML/Corpus/Modes/Mode" mode="Button">
-		<button id="{@Label}" data-xdh-onevent="{@Label}">
+		<button id="{@Label}" xdh:onevent="{@Label}">
 			<xsl:value-of select="@Label"/>
 		</button>
 	</xsl:template>

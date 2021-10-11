@@ -44,7 +44,7 @@ class Items(enum.Enum):
 
 
 def create(token):
-  global _lock, _games
+  global _games
   assert token, token not in _games
 
   with _lock:
@@ -58,7 +58,7 @@ def create(token):
 
 
 def remove(token):
-  global _lock, _games
+  global _games
   assert token
 
   with _lock:
@@ -67,7 +67,7 @@ def remove(token):
 
 
 def take_black(token):
-  global _lock, _games
+  global _games
   assert token
 
   with _lock:
@@ -78,7 +78,7 @@ def take_black(token):
 
 
 def set_turn(token, bw):
-  global _lock, _games
+  global _games
   assert token, bw in [core.BLACK, core.WHITE]
 
   with _lock:
@@ -90,7 +90,7 @@ def set_turn(token, bw):
 
 
 def get_board(token):
-  global _lock, _games
+  global _games
   assert token
 
   with _lock:
@@ -101,7 +101,7 @@ def get_board(token):
 
 
 def get_turn(token):
-  global _lock, _games
+  global _games
   assert token
 
   with _lock:
@@ -112,7 +112,7 @@ def get_turn(token):
 
 
 def lock(token):
-  global _lock, _games
+  global _games
   assert token
 
   with _lock:
@@ -163,7 +163,7 @@ def draw_board(reversi, dom, playability = True):
       board.put_attribute("id", str(x) + str(y))
       playable = playability and (r == core.EMPTY) and (reversi.board.isAllowed(y, x, reversi.bw if reversi.bw != core.EMPTY else core.BLACK))
       if playable:
-        board.put_attribute("data-xdh-onevent", "Play")
+        board.put_attribute("xdh:onevent", "Play")
       board.put_attribute(
         "class", {core.EMPTY: 'none', core.BLACK: 'black', core.WHITE: 'white'}[r] + (" playable" if playable else ""))
       board.putValue({core.EMPTY: ' ', core.BLACK: 'X', core.WHITE: 'O'}[r])

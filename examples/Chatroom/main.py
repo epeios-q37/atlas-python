@@ -43,26 +43,23 @@ class Chatroom:
     xml.push_tag( "Messages" )
     xml.put_attribute( "pseudo", self.pseudo )
 
-    global messages, pseudos, lock
+    global messages, pseudos
 
-    lock.acquire()
+    with lock:
+      index = len( messages ) - 1
 
-    index = len( messages ) - 1
+      while index >= self.last_message:
+        message = messages[index]
 
-    while index >= self.last_message:
-      message = messages[index]
+        xml.push_tag( "Message" )
+        xml.put_attribute( "id", index )
+        xml.put_attribute( "pseudo", message['pseudo'] )
+        xml.put_value( message['content'] )
+        xml.pop_tag()
 
-      xml.push_tag( "Message" )
-      xml.put_attribute( "id", index )
-      xml.put_attribute( "pseudo", message['pseudo'] )
-      xml.put_value( message['content'] )
-      xml.pop_tag()
+        index -= 1
 
-      index -= 1
-
-    self.last_message = len(messages)
-
-    lock.release()
+      self.last_message = len(messages)
 
     xml.pop_tag()
 
@@ -75,29 +72,25 @@ class Chatroom:
       dom.begin("Board", self.build_xml(), "Messages.xsl")
 
   def handle_pseudo(self, pseudo):
-    global pseudos, lock
+    global pseudos
 
-    lock.acquire()
-
-    if pseudo in pseudos:
-      result = False
-    else:
-      pseudos.append(pseudo)
-      result= True
-
-    lock.release()
+    with lock:
+      if pseudo in pseudos:
+        result = False
+      else:
+        pseudos.append(pseudo)
+        result= True
 
     return result
 
   def add_message(self, pseudo, message):
-    global messages, lock
+    global messages
     message = message.strip()
 
     if message:
       print("'" + pseudo + "': " + message)
-      lock.acquire()
-      messages.append({'pseudo': pseudo, 'content': message})
-      lock.release()
+      with lock:
+        messages.append({'pseudo': pseudo, 'content': message})
 
 def ac_connect(chatroom, dom):
   dom.inner("", open("Main.html").read())

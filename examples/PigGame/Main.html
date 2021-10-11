@@ -1,0 +1,60 @@
+<iframe style="border: none;" src="FaaSDesc.php?text=QSBtdWx0aS1wbGF5ZXIgdmVyc2lvbiBvZiB0aGUgW1BpZyBnYW1lXShodHRwczovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9QaWdfKGRpY2VfZ2FtZSkjR2FtZXBsYXkpLiAgCllvdSBjYW4gY2hvb3NlIHRvIHBsYXkgYWdhaW5zdCB0aGUgY29tcHV0ZXIsIG9yIHdpdGggYSBwYXJ0bmVyLg=="></iframe>
+<fieldset style="display: flex; flex-direction: column; padding-top: 15px; width: 50%;">
+  <span style="display: flex; align-items: center;">
+    <span class="meter-label player">You</span>
+    <span class="meter-label viewer">Player 1</span>
+    <span class="marker marker-a">➤</span>
+    <span id="ScoreMeterA" class="meter-container"></span>
+    <span style="width: 10px;"></span>
+    <output id="ScoreTextA" class="score-text">100</output>
+  </span>
+  <span style="height: 15px;"></span>
+  <span style="display: flex; align-items: center;">
+    <span class="meter-label player">Opponent</span>
+    <span class="meter-label viewer">Player 2</span>
+    <span class="marker marker-b">➤</span>
+    <span id="ScoreMeterB" class="meter-container"></span>
+    <span style="width: 10px;"></span>
+    <output id="ScoreTextB" class="score-text">10</output>
+  </span>
+  <span style="height: 15px;"></span>
+  <span style="display: flex; flex-direction: row; justify-content: space-around">
+    <span>
+      <span>Cumul - Total: </span>
+      <output id="Cumul" class="turn-text">59</output>
+      <output id="Total" class="turn-text">95</output>
+    </span>
+  </span>
+  <span style="height: 15px;"></span>
+  <span style="width: 100%; display: flex; justify-content: space-around; align-items: center;">
+    <button id="Roll" xdh:onevent="Roll">ROLL</button>
+    <input id="debug" xdh:onevent="Roll" class="removed" size="3" maxlength="3" />
+    <span id="dice" style="width: 100px; height: 100px;"></span>
+    <button id="Hold" xdh:onevent="Hold">HOLD</button>
+  </span>
+  <span style="height: 15px;"></span>
+  <span style="display: flex; justify-content: center;">
+    <select id="Mode">
+      <option value="HC">human vs computer</option>
+      <option value="HH">human vs human</option>
+    </select>
+    <span style="width: 10px;"></span>
+    <button id="New" xdh:onevent="New">New game</button>
+  </span>
+  <span style="height: 15px;"></span>
+  <span id="HHLinkSection">
+    <fieldset style="margin: auto; width: max-content;">
+      <legend>URL for the opponent</legend>
+      <details style="width: 100%;">
+        <fieldset>
+          <span>Your opponent may scan</span><br />
+          <span>this QR code on her/him</span><br />
+          <span>device, or you may copy</span><br />
+          <span>and send her/him</span><br />
+          <span>corresponding URL.</span>
+        </fieldset>
+      </details>
+      <span id="qrcode" style="font-style: oblique; margin: auto; width:100%;">Computing QR Code…</span>
+    </fieldset>
+  </span>
+</fieldset>
