@@ -80,7 +80,7 @@ _url = ""
 
 class Instance:
 	def __init__(self):
-		self.condVar = threading.Condition()
+		self.readyForProcessingByInstance = threading.Event()
 		self.handshakeDone = False
 		self.quit = False;
 	def set(self,thread,id):
@@ -95,11 +95,10 @@ class Instance:
 	def getId(self):
 		return self.id
 	def wait(self):
-		with self.condVar:
-			self.condVar.wait()
+		self.readyForProcessingByInstance.wait()
+		self.readyForProcessingByInstance.clear()
 	def signal(self):
-		with self.condVar:
-			self.condVar.notify()
+          self.readyForProcessingByInstance.set()
 
 def isTokenEmpty():
 	return not _token or _token[0] == "&"
