@@ -24,7 +24,7 @@ SOFTWARE.
 
 import setuptools
 
-version = "0.12.10"
+version = "0.12.11"
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -34,7 +34,7 @@ setuptools.setup(
     version=version,
     author="Claude SIMON",
 #    author_email="author@example.com",
-    description="Probably the easiest and fastest way to write versatile graphical interfaces in Python.",
+    description="The quick and easy way to add versatile graphical interfaces with networking capabilities to your Python programs. Works even on your Android smartphone or tablet.",
     keywords="GUI, web, Atlas toolkit",
     long_description=long_description,
     long_description_content_type="text/markdown",

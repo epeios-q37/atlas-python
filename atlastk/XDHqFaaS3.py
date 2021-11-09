@@ -22,12 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import inspect, sys
+import inspect, sys, _thread, time
 from socket import timeout 
 
 def l():
 	frameInfo = inspect.getouterframes(inspect.currentframe())[1]
-	print(frameInfo.filename + ":" + str(frameInfo.lineno))
+	print( "(" + time.strftime("%X") + ") " + frameInfo.filename + ":" + str(frameInfo.lineno))
 
 def _recv(socket,size,bye):
 	buffer = bytes()
@@ -44,14 +44,18 @@ def _recv(socket,size,bye):
 
 	return buffer
 
-def _send(socket, value):
+def _send(socket, value, bye):
 	totalAmount = len(value)
 	amountSent = 0
 
 	while amountSent < totalAmount:
-		amountSent += socket.send(value[amountSent:])	
+		try:
+			amountSent += socket.send(value[amountSent:])	
+		except timeout:
+			if bye():
+				raise timeout
 
-def writeUInt(socket, value):
+def writeUInt(socket, value, bye):
 	result = bytes([value & 0x7f])
 	value >>= 7
 
@@ -59,12 +63,12 @@ def writeUInt(socket, value):
 		result = bytes([(value & 0x7f) | 0x80]) + result
 		value >>= 7
 
-	_send(socket, result)
+	_send(socket, result, bye)
 
-def writeString(socket, string):
+def writeString(socket, string, bye):
 	bString = bytes(string, "utf-8")
-	writeUInt(socket, len(bString))
-	_send(socket, bString)
+	writeUInt(socket, len(bString), bye)
+	_send(socket, bString, bye)
 
 def _readByte(socket,bye):
 	return ord(_recv(socket,1, bye))
@@ -87,4 +91,5 @@ def getString(socket,bye):
 	else:
 		return ""
 
+exitThread = _thread.exit
 

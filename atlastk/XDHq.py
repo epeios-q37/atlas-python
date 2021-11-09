@@ -116,6 +116,9 @@ class DOM:
 	def execute_strings(self,script):
 		return self._dom.call("Execute_1" ,_STRINGS,script)
 
+	def raw_send(self, data):
+		return self._dom.call("RawSend_1", _VOID, data)
+
 	def flush(self):	# Returns when all the pending commands were executed.
 		self._dom.call("Flush_1",_STRING)
 
@@ -130,7 +133,7 @@ class DOM:
 	def _handleLayout(self,variant,id,xml,xsl):
 		#	If 'xslFilename' is empty, 'xml' contents HTML.
 		# 	If 'xml' is HTML and uses the compressed form, if it has a root tag,only the children will be used.
-		self._dom.call("HandleLayout_1",_VOID,variant,id,xml if isinstance(xml,str) else xml.toString(),xsl)
+		self._dom.call("HandleLayout_1",_STRING,variant,id,xml if isinstance(xml,str) else xml.toString(),xsl)
 
 	def prepend_layout(self,id,html):	# Deprecated!
 		self._handleLayout("Prepend",id,html,"")
@@ -174,7 +177,7 @@ class DOM:
 		if xsl:
 			xsl = "data:text/xml;charset=utf-8," + _encode(_readXSLAsset(xsl))
 
-		self._dom.call("HandleLayout_1",_VOID,variant,id,xml if isinstance(xml,str) else xml.toString(),xsl)
+		self._dom.call("HandleLayout_1",_STRING,variant,id,xml if isinstance(xml,str) else xml.toString(),xsl)
 
 	def before(self,id,xml,xsl=""):
 		self._layout("beforebegin",id,xml,xsl)
@@ -365,3 +368,9 @@ class DOM:
 
 	def scroll_to(self,id):
 		self._dom.call("ScrollTo_1",_VOID,id)
+
+	def debug_log(self,switch=True):
+		self._dom.call("DebugLog_1",_VOID,"true" if switch else "false")
+
+	def log(self,message):
+		self._dom.call("Log_1",_VOID,message)
