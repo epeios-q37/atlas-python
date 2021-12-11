@@ -16,6 +16,11 @@
     <button xdh:onevent="btSubmit">A button</button>
   </fieldset>
   <pre class="lang-html"></pre>
+  <pre class="lang-python">
+callbacks = {
+  "btSubmit": lambda dom: dom.alert("Click on button detected!"),
+}
+   </pre>
 </fieldset>
 <fieldset class="hidden" id="password">
   <fieldset>
@@ -26,6 +31,11 @@
     </output>
   </fieldset>
   <pre class="lang-html"></pre>
+  <pre class="lang-python">
+callbacks = {
+  "pwSubmit": lambda dom, id: dom.set_value("pwOutput", dom.get_value(id)),
+}
+  </pre>
 </fieldset>
 <fieldset class="hidden" id="checkbox">
   <fieldset>
@@ -53,43 +63,22 @@
     </div>
   </fieldset>
   <pre class="lang-html"></pre>
+  <pre class="lang-python">
+callbacks = {
+  "cbSelect": lambda dom, id: dom.set_value("cbOutput", "{} ({})".format(id, dom.get_value(id))),
+  "cbSubmit": lambda dom: dom.alert(str(dom.get_values(["cbBicycle", "cbCar","cbPirogue"]))),
+}
+   </pre>
 </fieldset>
-<!--
 <fieldset class="hidden" id="radio">
   <fieldset>
     <p>How to contact you:</p>
     <div>
-      <input type="radio" name="rdContact" id="rdEmail" xdh:onevent="rdSelect">
+      <input type="radio" id="rdEmail" name="rdContact" value="Email" xdh:onevent="rdSelect">
       <label for="rdEmail">Email</label>
-      <input type="radio" name="rdContact" id="rdPhone" xdh:onevent="rdSelect">
+      <input type="radio" id="rdPhone" name="rdContact" value="Phone" xdh:onevent="rdSelect">
       <label for="rdPhone">Phone</label>
-      <input type="radio" name="rdContact" id="rdMail" xdh:onevent="rdSelect">
-      <label for="rdMail">Mail (post)</label>
-    </div>
-    <p></p>
-    <div>
-      <span>Selected contact method: </span>
-      <output id="rdOutput">
-        <span>Click on a radio button or its label</span>
-      </output>
-    </div>
-    <p></p>
-    <div>
-      <button xdh:onevent="rdSubmit">Submit</button>
-    </div>
-  </fieldset>
-  <pre class="lang-html"></pre>
-</fieldset>
--->
-<fieldset class="hidden" id="radio">
-  <fieldset>
-    <p>How to contact you:</p>
-    <div>
-      <input type="radio" name="rdContact" value="Email" xdh:onevent="rdSelect">
-      <label for="rdEmail">Email</label>
-      <input type="radio" name="rdContact" value="Phone" xdh:onevent="rdSelect">
-      <label for="rdPhone">Phone</label>
-      <input type="radio" name="rdContact" value="Mail" xdh:onevent="rdSelect">
+      <input type="radio" id="rdMail" name="rdContact" value="Mail" xdh:onevent="rdSelect">
       <label for="rdMail">Mail (post)</label>
     </div>
     <p></p>
@@ -105,6 +94,12 @@
     </div>
   </fieldset>
   <pre class="lang-html"></pre>
+  <pre class="lang-python">
+callbacks = {
+  "rdSelect": lambda dom, id: dom.set_value("rdOutput", dom.get_value(id)),
+  "rdSubmit": lambda dom, id: dom.alert(f'Selected method: "{dom.get_value(id)}"' ),
+}
+   </pre>
 </fieldset>
 <fieldset class="hidden" id="datalist">
   <fieldset>
@@ -124,6 +119,26 @@
     </output>
   </fieldset>
   <pre class="lang-html"></pre>
+  <pre class="lang-python">
+dl_flavors = ["Vanilla", "Chocolate", "Caramel"]  
+
+
+def ac_dl_submit(dom, id):
+  global dl_flavors
+
+  flavor = dom.get_value(id)
+  dom.set_value(id, "")
+  if not flavor in dl_flavors:
+    dl_flavors.append(flavor)
+    dl_flavors.sort()
+    dom.inner("dlFlavors", dl_shape(dl_flavors))
+  dom.set_value("dlOutput", flavor)
+
+
+callbacks = {
+  "dlSubmit": ac_dl_submit,
+}
+   </pre>
 </fieldset>
 <fieldset class="hidden" id="date">
   <fieldset>
@@ -134,6 +149,11 @@
     </output>
   </fieldset>
   <pre class="lang-html"></pre>
+  <pre class="lang-python">
+callbacks = {
+  "dtSelect": lambda dom, id: dom.set_value("dtOutput", dom.get_value(id)),
+}
+   </pre>
 </fieldset>
 <fieldset class="hidden" id="color">
   <fieldset>
@@ -144,6 +164,11 @@
     </output>
   </fieldset>
   <pre class="lang-html"></pre>
+  <pre class="lang-python">
+callbacks = {
+  "clSelect": lambda dom, id: dom.set_value("clOutput", dom.get_value(id)),
+}
+   </pre>
 </fieldset>
 <fieldset class="hidden" id="range/meter">
   <fieldset>
@@ -153,6 +178,11 @@
     </meter>
   </fieldset>
   <pre class="lang-html"></pre>
+  <pre class="lang-python">
+callbacks = {
+  "rgSlide": lambda dom: dom.set_attribute("rgOutput", "value", (dom.get_value("rgVolume"))),
+}
+   </pre>
 </fieldset>
 <fieldset class="hidden" id="select">
   <fieldset>
@@ -186,6 +216,19 @@
     </div>
   </fieldset>
   <pre class="lang-html"></pre>
+  <pre class="lang-python">
+def ac_sl_add(dom):
+  dom.begin("slOthers", sl_embed(dom.get_value("slInput")))
+  dom.set_value("slInput", "")
+  dom.focus("slInput")  
+
+  
+callbacks = {
+  "slSelect": lambda dom, id: dom.set_value("slOutput", dom.get_value(id)),
+  "slAdd": ac_sl_add,
+  "slToggle": lambda dom, id: dom.disable_element("slOthers") if dom.get_value(id) == 'true' else dom.enable_element("slOthers"),
+}
+   </pre>
 </fieldset>
 <fieldset class="hidden" id="CKEditor">
   <fieldset>
@@ -199,4 +242,9 @@
     </fieldset>
   </fieldset>
   <pre class="lang-html"></pre>
+  <pre class="lang-python">
+callbacks = {
+  "ckSubmit": lambda dom, id: dom.set_value("ckOutput", dom.get_value("ckInput")),
+}
+   </pre>
 </fieldset>

@@ -138,7 +138,6 @@ callbacks = {
   "cbSubmit": lambda dom: dom.alert(str(dom.get_values(["cbBicycle", "cbCar","cbPirogue"]))),
 
   "rdSelect": lambda dom, id: dom.set_value("rdOutput", dom.get_value(id)),
-#  "rdSubmit": lambda dom: dom.alert(str(dom.get_values(["rdEmail", "rdPhone","rdMail"]))),
   "rdSubmit": lambda dom, id: dom.alert(f'Selected method: "{dom.get_value(id)}"' ),
 
   "dlSubmit": ac_dl_submit,
@@ -146,8 +145,6 @@ callbacks = {
   "dtSelect": lambda dom, id: dom.set_value("dtOutput", dom.get_value(id)),
 
   "clSelect": lambda dom, id: dom.set_value("clOutput", dom.get_value(id)),
-
-  "cpSelect": lambda dom, id: dom.set_value("cpOutput", dom.get_value(id)),
 
   "rgSlide": lambda dom: dom.set_attribute("rgOutput", "value", (dom.get_value("rgVolume"))),
 

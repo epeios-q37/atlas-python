@@ -123,7 +123,7 @@ def worker(userCallback,dom,callbacks):
 			else:
 				dom.alert("\tDEV ERROR: missing callback for '" + action + "' action!") 
 	
-	# l() # Exiting thread, closing correspondig instance.
+	# l() # Exiting thread, closing corresponding instance.
 
 def _callback(userCallback,callbacks,instance):
 	thread = Thread(target=worker, args=(userCallback, XDHq.DOM(instance), callbacks))

@@ -3,6 +3,23 @@
 - Common to **all** bindings,
 - does **not** concern the native code.
 
+## 2021-12-10
+- All:
+  - switching to v0.13,
+  - by default, dev log messages are no more displayed in the web console, except when the application is launched in the dev environment,
+  - dev logs can be switched on/off with `DebugLog(…)`,
+  - messages can be displayed in the web console with `Log(…)`,
+  - switching to new protocols, both main and *FaaS*,
+  - fixing thread quitting issue,
+  - avoid using condition variables, which are overkill and may lead to some issues (https://github.com/epeios-q37/atlas-python/pull/7),
+- *Java*:
+  - using semaphores to replace condition variables, as locks are reentrant (such a lock can only be released by the thread which holds it),
+  - redesign of exceptions handling and program exiting,
+- *Node*: due to callback-based behavior, there was no condition variables issue,
+- *Perl*: using semaphores to replace condition variables, as locks can not be explicitly released,
+- *Python*: using locks to replace conditional variables,
+- *Ruby*: staying on conditional variables, as mutexes can not be locked twice by the same thread, and can not be unlocked by another thread as the holder,
+
 ## 2021-11-09
 - *Python*: switching to v0.12.11.
 

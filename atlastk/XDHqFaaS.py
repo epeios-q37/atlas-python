@@ -44,7 +44,7 @@ else:
 	_getString = XDHqFaaS3.getString
 	_exitThread = XDHqFaaS3.exitThread
 
-_bye = False	# For use in Jupiter notbooks, to quit an application.
+_bye = False	# For use in Jupiter notebooks, to quit an application.
 
 _DEFAULT_SUPPLIER_LABEL = "auto"
 
@@ -70,53 +70,50 @@ def _supply(url):
 def set_supplier(supplier = None):
 	_Supplier.current = supplier
 
-_FAAS_PROTOCOL_LABEL = "9efcf0d1-92a4-4e88-86bf-38ce18ca2894"
+_FAAS_PROTOCOL_LABEL = "4c837d30-2eb5-41af-9b3d-6c8bf01d8dbf"
 _FAAS_PROTOCOL_VERSION = "0"
-_MAIN_PROTOCOL_LABEL = "bf077e9f-baca-48a1-bd3f-bf5181a78666"
+_MAIN_PROTOCOL_LABEL = "22bb5d73-924f-473f-a68a-14f41d8bfa83"
 _MAIN_PROTOCOL_VERSION = "0"
+_SCRIPTS_VERSION = "0"
+
+_FORBIDDEN_ID = -1
+_CREATION_ID = -2
+_CLOSING_ID = -3
 
 _writeLock = threading.Lock()
-_readLock = threading.Event()
+
+_readLock = threading.Lock()	# Global read lock.
+_readLock.acquire()
 
 
-def waitForInstance():
-	_readLock.wait()
-	_readLock.clear()
+def _waitForInstance():
+	_readLock.acquire()
 
 
-def instanceDataRead():
-	_readLock.set()
+def _instanceDataRead():
+	_readLock.release()
 
 
 _url = ""
 
-class Instance:
-	def __init__(self):
-		# https://github.com/epeios-q37/atlas-python/pull/7 (Condition -> Event)
-		self._readLock = threading.Event()
-		self.handshakeDone = False
+class _Instance:
+	def __init__(self,thread_retriever,id):
+		# https://github.com/epeios-q37/atlas-python/pull/7 (Condition -> Lock)
+		self._readLock = threading.Lock()	#Per instance read lock.
+		self._readLock.acquire()
 		self.quit = False
-	def __del__(self):
-		_report("Inst.  #" + str(self.id) + " closed!")
-	def set(self,thread,id):
-		self.thread = thread
 		self.id = id
-	def IsHandshakeDone(self):
-		if self.handshakeDone:
-			return True
-
-		self.handshakeDone = True
-		return False
+		self.thread = thread_retriever(self)
+		self.language = None
 	def getId(self):
 		return self.id
 	def waitForData(self):
-		self._readLock.wait()
-		self._readLock.clear()
+		self._readLock.acquire()
 		if self.quit:
-			instanceDataRead()
+			_instanceDataRead()
 			_exitThread()
 	def dataAvailable(self):
-		self._readLock.set()
+		self._readLock.release()
 
 def isTokenEmpty():
 	return not _token or _token[0] == "&"
@@ -173,7 +170,7 @@ def _report(message):
 
 def _init():
 	global _token, _socket, _wAddr, _wPort, _cgi
-	pAddr = "faas1.q37.info"
+	pAddr = "faas.q37.info"
 	pPort = 53700
 	_token = ""
 	_wAddr = ""
@@ -210,10 +207,11 @@ def _init():
 
 	_socket.settimeout(1)	# In order to quit an application, in Jupyter notebooks.		
 
-def _handshake():
+def _handshakeFaaS():
 	with _writeLock:
 		writeString(_FAAS_PROTOCOL_LABEL)
 		writeString(_FAAS_PROTOCOL_VERSION)
+		writeString("PYH")
 
 	error = getString()
 
@@ -225,13 +223,33 @@ def _handshake():
 	if notification:
 		print(notification)
 
+def _handshakeMain():
+	with _writeLock:
+		writeString(_MAIN_PROTOCOL_LABEL)
+		writeString(_MAIN_PROTOCOL_VERSION)
+		writeString(_SCRIPTS_VERSION)
+
+	error = getString()
+
+	if error:
+		sys.exit(error)
+
+	notification = getString();
+
+	if notification:
+		print(notification)
+
+def _handshakes():
+	_handshakeFaaS()
+	_handshakeMain()
+
 def _ignition():
 	global _token, _url
 	with _writeLock:
 		writeString( _token)
 		writeString(_headContent)
-		writeString(_wAddr);
-		writeString("PYH")
+		writeString(_wAddr)
+		writeString("")	# Currently not used; for future use.
 
 	_token = getString()
 
@@ -251,22 +269,16 @@ def _serve(callback,userCallback,callbacks ):
 	while True:
 		id = readSInt()
 		
-		if id == -1:	# Should never happen. 
+		if id == _FORBIDDEN_ID:	# Should never happen. 
 			sys.exit("Received unexpected undefined command id!")
-		if id == -2:    # Value reporting a new session.
+		if id == _CREATION_ID:    # Value reporting a new session.
 			id = readSInt()  # The id of the new session.
 
 			if id in _instances:
 				_report("Instance of id '" + str(id) + "' exists but should not !")
-			instance = Instance()
-			instance.set(callback(userCallback, callbacks, instance),id)
-			_instances[id] = instance
 
-			with _writeLock:
-				writeSInt(id)
-				writeString(_MAIN_PROTOCOL_LABEL)
-				writeString(_MAIN_PROTOCOL_VERSION)
-		elif id == -3:	# Value instructing that a session is closed.
+			_instances[id] = _Instance(lambda instance : callback(userCallback, callbacks, instance), id)
+		elif id == _CLOSING_ID:	# Value instructing that a session is closed.
 			id = readSInt();
 
 			if not id in _instances:
@@ -275,24 +287,20 @@ def _serve(callback,userCallback,callbacks ):
 				instance = _instances.pop(id)
 				instance.quit = True
 				instance.dataAvailable()
-				waitForInstance()
+				_waitForInstance()
 				instance = None # Without this, instance will only be destroyed
 												# when 'instance" is set to a new instance.
 		elif not id in _instances:
-			message = "Unknown instance of id '" + str(id) + "'!"
-			print(message)
-			_report(message)
+			_report("Unknown instance of id '" + str(id) + "'!")
 			_dismiss(id)
-		elif not _instances[id].IsHandshakeDone():
-			error = getString()
-
-			if error:
-				sys.exit(error)
-
-			getString()	# Language. Not handled yet.
 		else:
-			_instances[id].dataAvailable()
-			waitForInstance()
+			instance = _instances[id]
+
+			if instance.language is None:
+				instance.language = getString()
+			else:
+				instance.dataAvailable()
+				_waitForInstance()
 
 
 def launch(callback, userCallback, callbacks, headContent):
@@ -308,7 +316,7 @@ def launch(callback, userCallback, callbacks, headContent):
 
 	_init()
 
-	_handshake()
+	_handshakes()
 
 	_ignition()
 
@@ -329,7 +337,7 @@ class DOM_FaaS:
 	def __init__(self, instance):
 		self.instance = instance
 
-	def waitForData(self):
+	def _waitForData(self):
 		self.instance.waitForData()
 		
 	def _standBy(self):
@@ -343,11 +351,11 @@ class DOM_FaaS:
 		else:
 			self._standBy()
 
-		self.waitForData()
+		self._waitForData()
 
 		[id,action] = [getString(),getString()]
 
-		instanceDataRead()
+		_instanceDataRead()
 
 		return [action,id]
 
@@ -358,7 +366,7 @@ class DOM_FaaS:
 			and exits the thread corresponding
 			to the current instance.
 			"""
-			self.waitForData()
+			self._waitForData()
 
 		with _writeLock:
 			writeSInt(self.instance.getId())
@@ -377,14 +385,14 @@ class DOM_FaaS:
 			writeUInt(XDHqSHRD.RT_VOID)	# To report end of argument list.
 
 		if type == XDHqSHRD.RT_STRING:
-			self.waitForData()
+			self._waitForData()
 			string = getString()
-			instanceDataRead()
+			_instanceDataRead()
 			return string
 		elif type == XDHqSHRD.RT_STRINGS:
-			self.waitForData()
+			self._waitForData()
 			strings = getStrings()
-			instanceDataRead()
+			_instanceDataRead()
 			return strings
 		elif type != XDHqSHRD.RT_VOID:
 			sys.exit("Unknown return type !!!")

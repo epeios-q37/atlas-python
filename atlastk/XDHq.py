@@ -62,7 +62,7 @@ def _unsplit(keys,values):
 	i = 0
 	# With 'OrderedDict', the order of the items is keeped under Python 2.
 	# This facilitates the retrieving of values by using 'values()' method.
-	# Dict are ordered by default under Python 3.
+	# Dicts are ordered by default under Python 3.
 	keysAndValues = OrderedDict()
 	length = len(keys)
 
