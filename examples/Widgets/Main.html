@@ -19,8 +19,7 @@
   <pre class="lang-python">
 callbacks = {
   "btSubmit": lambda dom: dom.alert("Click on button detected!"),
-}
-   </pre>
+} </pre>
 </fieldset>
 <fieldset class="hidden" id="password">
   <fieldset>
@@ -34,8 +33,7 @@ callbacks = {
   <pre class="lang-python">
 callbacks = {
   "pwSubmit": lambda dom, id: dom.set_value("pwOutput", dom.get_value(id)),
-}
-  </pre>
+} </pre>
 </fieldset>
 <fieldset class="hidden" id="checkbox">
   <fieldset>
@@ -67,8 +65,7 @@ callbacks = {
 callbacks = {
   "cbSelect": lambda dom, id: dom.set_value("cbOutput", "{} ({})".format(id, dom.get_value(id))),
   "cbSubmit": lambda dom: dom.alert(str(dom.get_values(["cbBicycle", "cbCar","cbPirogue"]))),
-}
-   </pre>
+} </pre>
 </fieldset>
 <fieldset class="hidden" id="radio">
   <fieldset>
@@ -98,8 +95,7 @@ callbacks = {
 callbacks = {
   "rdSelect": lambda dom, id: dom.set_value("rdOutput", dom.get_value(id)),
   "rdSubmit": lambda dom, id: dom.alert(f'Selected method: "{dom.get_value(id)}"' ),
-}
-   </pre>
+} </pre>
 </fieldset>
 <fieldset class="hidden" id="datalist">
   <fieldset>
@@ -137,8 +133,7 @@ def ac_dl_submit(dom, id):
 
 callbacks = {
   "dlSubmit": ac_dl_submit,
-}
-   </pre>
+} </pre>
 </fieldset>
 <fieldset class="hidden" id="date">
   <fieldset>
@@ -152,8 +147,7 @@ callbacks = {
   <pre class="lang-python">
 callbacks = {
   "dtSelect": lambda dom, id: dom.set_value("dtOutput", dom.get_value(id)),
-}
-   </pre>
+} </pre>
 </fieldset>
 <fieldset class="hidden" id="color">
   <fieldset>
@@ -167,8 +161,7 @@ callbacks = {
   <pre class="lang-python">
 callbacks = {
   "clSelect": lambda dom, id: dom.set_value("clOutput", dom.get_value(id)),
-}
-   </pre>
+} </pre>
 </fieldset>
 <fieldset class="hidden" id="range/meter">
   <fieldset>
@@ -181,8 +174,7 @@ callbacks = {
   <pre class="lang-python">
 callbacks = {
   "rgSlide": lambda dom: dom.set_attribute("rgOutput", "value", (dom.get_value("rgVolume"))),
-}
-   </pre>
+} </pre>
 </fieldset>
 <fieldset class="hidden" id="select">
   <fieldset>
@@ -227,8 +219,7 @@ callbacks = {
   "slSelect": lambda dom, id: dom.set_value("slOutput", dom.get_value(id)),
   "slAdd": ac_sl_add,
   "slToggle": lambda dom, id: dom.disable_element("slOthers") if dom.get_value(id) == 'true' else dom.enable_element("slOthers"),
-}
-   </pre>
+} </pre>
 </fieldset>
 <fieldset class="hidden" id="CKEditor">
   <fieldset>
@@ -245,6 +236,5 @@ callbacks = {
   <pre class="lang-python">
 callbacks = {
   "ckSubmit": lambda dom, id: dom.set_value("ckOutput", dom.get_value("ckInput")),
-}
-   </pre>
+} </pre>
 </fieldset>
