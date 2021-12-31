@@ -132,7 +132,9 @@ class DOM:
 
 	def _handleLayout(self,variant,id,xml,xsl):
 		#	If 'xslFilename' is empty, 'xml' contents HTML.
-		# 	If 'xml' is HTML and uses the compressed form, if it has a root tag,only the children will be used.
+		# If 'xml' is HTML and uses the compressed form, if it has a root tag, only the children will be used.
+		# The corresponding primitive returns a value, which is only used internally, hence the lack of 'return'.
+		# It also serves to do some synchronisation.
 		self._dom.call("HandleLayout_1",_STRING,variant,id,xml if isinstance(xml,str) else xml.toString(),xsl)
 
 	def prepend_layout(self,id,html):	# Deprecated!

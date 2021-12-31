@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+_VERSION = "0.13"
+
 import XDHqSHRD
 from XDHqSHRD import getEnv
 
@@ -211,7 +213,7 @@ def _handshakeFaaS():
 	with _writeLock:
 		writeString(_FAAS_PROTOCOL_LABEL)
 		writeString(_FAAS_PROTOCOL_VERSION)
-		writeString("PYH")
+		writeString("PYH " + _VERSION)
 
 	error = getString()
 
