@@ -80,13 +80,17 @@ def ac_connect(dom):
   dom.add_class("Retrieving","hidden")
   dom.remove_class("Regular","hidden")
 
-def ac_select(dom,id):
+def ac_select(dom,id,widget=""):
   global target
+
+  if ( widget != "" ):
+    dom.set_value("List", widget)  
 
   if target:
     dom.add_class(target,"hidden")
   target = dom.get_value(id)
   dom.remove_class(target, "hidden")
+
 
 def dl_shape(flavors):
   html = atlastk.create_HTML()
@@ -117,7 +121,6 @@ def sl_embed(other):
   html.push_tag("option")
   html.put_attribute("selected", "selected")
   html.put_value(other)
-#  html.pop_tag()
 
   return html
 
@@ -137,8 +140,9 @@ callbacks = {
   "cbSelect": lambda dom, id: dom.set_value("cbOutput", "{} ({})".format(id, dom.get_value(id))),
   "cbSubmit": lambda dom: dom.alert(str(dom.get_values(["cbBicycle", "cbCar","cbPirogue"]))),
 
-  "rdSelect": lambda dom, id: dom.set_value("rdOutput", dom.get_value(id)),
-  "rdSubmit": lambda dom, id: dom.alert(f'Selected method: "{dom.get_value(id)}"' ),
+  "rdCheck": lambda dom, id: dom.set_value("rdSelect", dom.get_value(id)),
+  "rdSelect": lambda dom, id: dom.set_value("rdRadios", dom.get_value(id)),
+  "rdReset": lambda dom: dom.set_values({"rdSelect": "None", "rdRadios": ""}),
 
   "dlSubmit": ac_dl_submit,
 
@@ -151,7 +155,8 @@ callbacks = {
   "slSelect": lambda dom, id: dom.set_value("slOutput", dom.get_value(id)),
   "slAdd": ac_sl_add,
   "slToggle": lambda dom, id: dom.disable_element("slOthers") if dom.get_value(id) == 'true' else dom.enable_element("slOthers"),
-
+  "slRadio": lambda dom: ac_select(dom, "List", "radio")
+,
   "ckSubmit": lambda dom, id: dom.set_value("ckOutput", dom.get_value("ckInput")),
 }
 

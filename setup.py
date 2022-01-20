@@ -34,7 +34,7 @@ setuptools.setup(
     version=version,
     author="Claude SIMON",
 #    author_email="author@example.com",
-    description="The quick and easy way to add versatile graphical interfaces with networking capabilities to your Python programs. Works even on your Android smartphone or tablet.",
+    description="The quick and easy way to add versatile graphical interfaces and networking capabilities to your Python programs. Works even on your Android smartphone or tablet.",
     keywords="GUI, web, Atlas toolkit",
     long_description=long_description,
     long_description_content_type="text/markdown",

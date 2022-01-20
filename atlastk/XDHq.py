@@ -104,20 +104,31 @@ class DOM:
 	def isQuitting(self):
 		return self._dom.isQuitting();
 
-	def _execute(self,script,type):
-		return self._dom.call("Execute_1" ,type,script)
+	def _execute(self,type,script):
+		return self._dom.call("Execute_1",type,script)
 
+	# Last statement of 'script' MUST be 'undefined', or the thread will be killed.
 	def execute_void(self,script):
-		return self._dom.call("Execute_1" ,_VOID,script)
+		return self._execute(_VOID,script)
 
 	def execute_string(self,script):
-		return self._dom.call("Execute_1" ,_STRING,script)
+		return self._execute(_STRING,script)
 
 	def execute_strings(self,script):
-		return self._dom.call("Execute_1" ,_STRINGS,script)
+		return self._execute(_STRINGS,script)
 
-	def raw_send(self, data):
-		return self._dom.call("RawSend_1", _VOID, data)
+	def _raw_send(self,type,data):
+		return self._dom.call("RawSend_1",type,data)
+
+	# Last statement of 'data' MUST be 'undefined', or the thread will be killed.
+	def raw_send_void(self,data):
+		return self._raw_send(_VOID,data)
+
+	def raw_send_string(self,data):
+		return self._raw_send(_STRING,data)
+
+	def raw_send_strings(self,data):
+		return self._raw_send(_STRINGS,data)
 
 	def flush(self):	# Returns when all the pending commands were executed.
 		self._dom.call("Flush_1",_STRING)

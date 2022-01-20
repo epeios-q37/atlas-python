@@ -3,8 +3,10 @@
 - Common to **all** bindings,
 - does **not** concern the native code.
 
-## 2021-12-14
+## 2022-01-20
+- *Python*: adaptation of the *Widgets* demo,
 
+## 2021-12-14
 - *Node*:
   - fixing missing data retrieving on error,
   - switching to v0.13.1,
