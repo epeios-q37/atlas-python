@@ -48,17 +48,17 @@ games = {}
 dices = {}
 
 
-def upload_dice(affix):
+def uploadDice(affix):
   return open(f"{affix}.svg").read()
 
 
-def upload_dices():
+def uploadDices():
   global dices
 
-  dices[0] = upload_dice("Pig")
+  dices[0] = uploadDice("Pig")
 
   for i in range(1, 7):
-    dices[i] = upload_dice(f"dice-{i}")
+    dices[i] = uploadDice(f"dice-{i}")
 
 
 class Game:
@@ -84,13 +84,13 @@ class User:
                         # != None ('_game' == None): human vs computer.
   def __del__(self):
     if self.token:
-      remove_game(self.token, self._player)
+      removeGame(self.token, self._player)
 
   def init(self, token = None):
     deleted = False
 
     if self.token:
-      deleted = remove_game(self.token, self._player)
+      deleted = removeGame(self.token, self._player)
 
     self.token = token
     self._game = None if token else Game()  
@@ -98,9 +98,9 @@ class User:
 
     return deleted
 
-  def get_game(self):
+  def getGame(self):
     if self.token:
-      game = get_game(self.token)
+      game = getGame(self.token)
       if game is None:
         self.token = None
     else:
@@ -108,12 +108,12 @@ class User:
 
     return game
 
-  def get_raw_player(self):
+  def getRawPlayer(self):
     return self._player
 
-  def get_player(self): # Assign a place, if not yet done, and if possible.
+  def getPlayer(self): # Assign a place, if not yet done, and if possible.
     if self._player == 0:
-      self._player = get_game_available_player(self.token) if self.token else get_available_player(self._game)
+      self._player = getGameAvailablePlayer(self.token) if self.token else getAvailablePlayer(self._game)
 
     return self._player
 
@@ -125,7 +125,7 @@ def debug():
     return False    
 
 
-def create_game(token):
+def createGame(token):
   global games
 
   game = Game()  
@@ -138,7 +138,7 @@ def create_game(token):
   return game
 
 
-def remove_game(token, player):
+def removeGame(token, player):
   with lock:
     if token in games:
       game = games[token]
@@ -153,12 +153,12 @@ def remove_game(token, player):
   return False
 
 
-def get_game(token):
+def getGame(token):
   with lock:
     return games[token] if token in games else None
 
 
-def get_available_player(game):
+def getAvailablePlayer(game):
   player = 0
 
   if game.available:
@@ -169,128 +169,124 @@ def get_available_player(game):
   return player
 
 
-def get_game_available_player(token):
+def getGameAvailablePlayer(token):
   with lock:
-    return get_available_player(games[token]) if token in games else 0
+    return getAvailablePlayer(games[token]) if token in games else 0
 
 
 def fade(dom, element):
-  dom.remove_class(element, "fade-in")
+  dom.removeClass(element, "fade-in")
   dom.flush()
-  dom.add_class(element, "fade-in")
+  dom.addClass(element, "fade-in")
 
 
-def update_meter(dom, ab, score, turn, dice): # turn includes dice
+def updateMeter(dom, ab, score, turn, dice): # turn includes dice
   if turn != 0:
     dom.end(f"ScoreMeter{ab}", METER.format("fade-in dice-meter", dice))
   else:
     dom.inner(f"ScoreMeter{ab}", METER.format("score-meter", score))
 
-  dom.set_content(f"ScoreText{ab}", score)
+  dom.setValue(f"ScoreText{ab}", score)
 
 
-def disable_game_controls(dom):
-  dom.disable_elements(GAME_CONTROLS)
+def disableGameControls(dom):
+  dom.disableElements(GAME_CONTROLS)
 
 
-def enable_game_controls(dom):
-  dom.enable_elements(GAME_CONTROLS)
+def enableGameControls(dom):
+  dom.enableElements(GAME_CONTROLS)
 
 
-def disable_play_controls(dom):
-  dom.disable_elements(PLAY_CONTROLS)
+def disablePlayControls(dom):
+  dom.disableElements(PLAY_CONTROLS)
 
 
-def enable_play_controls(dom):
-  dom.enable_elements(PLAY_CONTROLS)
+def enablePlayControls(dom):
+  dom.enableElements(PLAY_CONTROLS)
 
 
-def get_opponent(player_ab):
-  if player_ab == 'A':
+def getOpponent(playerAB):
+  if playerAB == 'A':
     return 'B'
-  elif player_ab == 'B':
+  elif playerAB == 'B':
     return 'A'
-  elif player_ab == 1:
+  elif playerAB == 1:
     return 2
   else:
     return 1
 
 
-def mark_player(dom, ab):
+def markPlayer(dom, ab):
   if ab == 'B':
-    dom.disable_element("DisplayMarkerA")
+    dom.disableElement("DisplayMarkerA")
   else:
-    dom.enable_element("DisplayMarkerA")
+    dom.enableElement("DisplayMarkerA")
 
 
-def display_dice(dom, value):
+def displayDice(dom, value):
   fade(dom, "dice")
 
   if value <= 6:
     dom.inner("dice", dices[value])
 
 
-def update_meters(dom, game, my_turn):
-  if my_turn is None:
+def updateMeters(dom, game, myTurn):
+  if myTurn is None:
     a, b = 1, 2
-    turn_A = game.turn if game.current == 1 else 0
-    turn_B = game.turn if game.current == 2 else 0
-    dice_A = game.dice if game.current == 1 else 0
-    dice_B = game.dice if game.current == 2 else 0
+    turnA = game.turn if game.current == 1 else 0
+    turnB = game.turn if game.current == 2 else 0
+    diceA = game.dice if game.current == 1 else 0
+    diceB = game.dice if game.current == 2 else 0
   else:  
-    a = game.current if my_turn else get_opponent(game.current)
-    b = get_opponent(a)
-    turn_A = game.turn if my_turn else 0
-    turn_B = 0 if my_turn else game.turn
-    dice_A = game.dice if my_turn else 0
-    dice_B = 0 if my_turn else game.dice
+    a = game.current if myTurn else getOpponent(game.current)
+    b = getOpponent(a)
+    turnA = game.turn if myTurn else 0
+    turnB = 0 if myTurn else game.turn
+    diceA = game.dice if myTurn else 0
+    diceB = 0 if myTurn else game.dice
 
-  update_meter(dom, 'A', game.scores[a], turn_A, dice_A)
-  update_meter(dom, 'B', game.scores[b], turn_B, dice_B)
+  updateMeter(dom, 'A', game.scores[a], turnA, diceA)
+  updateMeter(dom, 'B', game.scores[b], turnB, diceB)
 
 
-def update_markers(dom, game, my_turn):
-  if my_turn is None:
-    mark_player(dom, 'A' if game.current == 1 else 'B')
-  elif my_turn:
-    mark_player(dom, 'A')
+def updateMarkers(dom, game, myTurn):
+  if myTurn is None:
+    markPlayer(dom, 'A' if game.current == 1 else 'B')
+  elif myTurn:
+    markPlayer(dom, 'A')
   else:
-    mark_player(dom, 'B')
+    markPlayer(dom, 'B')
 
 
-def update_play_controls(dom, my_turn, winner):
-  if my_turn is None or not my_turn or winner != 0:
-    disable_play_controls(dom)
+def updatePlayControls(dom, myTurn, winner):
+  if myTurn is None or not myTurn or winner != 0:
+    disablePlayControls(dom)
   else:
-    enable_play_controls(dom)
+    enablePlayControls(dom)
 
 
-def display_turn(dom, element, value):
+def displayTurn(dom, element, value):
     fade(dom, element)
-    dom.set_content(element, value)
+    dom.setValue(element, value)
 
 
-def update_dice(dom, game, winner):
+def updateDice(dom, game, winner):
   if winner != 0 or game.turn != 0 or game.dice == 1:
-    display_dice(dom, game.dice)
+    displayDice(dom, game.dice)
 
 
-def update_turn(dom, game):
-  display_turn(dom, "Cumul", game.turn)
-  display_turn(dom, "Total", game.scores[game.current] + game.turn)
+def updateTurn(dom, game):
+  displayTurn(dom, "Cumul", game.turn)
+  displayTurn(dom, "Total", game.scores[game.current] + game.turn)
 
 
-def report_winner(dom, player, winner):
-  if winner == player or player == 0 and winner == 1:
-    ab = 'A'
-  else:
-    ab = 'B'
-
-  dom.set_content(f"ScoreMeter{ab}", "<span style='background-color: lightgreen; width: 100%;'><span class='winner'>Winner!</span></span>")
-  dom.set_content(f"ScoreText{ab}", 100)
+def reportWinner(dom, player, winner):
+  ab = 'A' if winner == player or player == 0 and winner == 1 else 'B'
+  dom.setValue(f"ScoreMeter{ab}", "<span style='background-color: lightgreen; width: 100%;'><span class='winner'>Winner!</span></span>")
+  dom.setValue(f"ScoreText{ab}", 100)
 
 
-def update_layout(dom, game, player):
+def updateLayout(dom, game, player):
   if game.scores[1] + (game.turn if game.current == 1 else 0) >= LIMIT:
     winner = 1
   elif game. scores[2] + (game.turn if game.current == 2 else 0) >= LIMIT:
@@ -299,69 +295,70 @@ def update_layout(dom, game, player):
     winner = 0
 
   if player != 0:
-    my_turn = player == game.current
+    myTurn = player == game.current
   elif game.available != 0:
-    my_turn = game.available == game.current
+    myTurn = game.available == game.current
   else:
-    my_turn = None
+    myTurn = None
 
-  update_dice(dom, game, winner)
-  update_turn(dom, game)
-  update_meters(dom, game, my_turn)
-  update_markers(dom, game, my_turn)
-  update_play_controls(dom, my_turn, winner)
+  updateDice(dom, game, winner)
+  updateTurn(dom, game)
+  updateMeters(dom, game, myTurn)
+  updateMarkers(dom, game, myTurn)
+  updatePlayControls(dom, myTurn, winner)
 
   if winner != 0:
-    report_winner(dom, player, winner)
+    reportWinner(dom, player, winner)
 
 
 def display(dom, game, player):
   if game is None:
-    disable_play_controls(dom)
+    disablePlayControls(dom)
     dom.alert("Game aborted!")
     return
 
   if game.available == 0 and player == 0:
-    dom.disable_element("PlayerView")
+    dom.disableElement("PlayerView")
 
-  update_layout(dom, game, player)
+  updateLayout(dom, game, player)
 
 
-def set_layout(dom):
+def setLayout(dom):
   dom.inner("", open("Main.html").read())
 
   if debug():
-    dom.remove_class("debug", "removed")
+    dom.removeClass("debug", "removed")
 
 
-def ac_connect(user, dom, id):
-  set_layout(dom)
-  display_dice(dom, 0)
+def acConnect(user, dom, id):
+  setLayout(dom)
+  displayDice(dom, 0)
 
   user.init(id)
-  display(dom, user.get_game(), user.get_raw_player())
+  display(dom, user.getGame(), user.getRawPlayer())
 
 
-def get_player(user, dom):
-  return user.get_player()
+def getPlayer(user, dom):
+  return user.getPlayer()
 
 
-def bot_decision(bot_score, turn_score, human_score, times_thrown):
-  return turn_score < 20
+def botDecision(botScore, turnScore, humanScore, timesThrown):
+  return turnScore < 20
   # Replace by your own algorithm.
+  # Algorithm can be more elaborate by using the other parameters.
 
 
-def computer_turn(game, dom):
+def computerTurn(game, dom):
   game.current = 2
-  times_thrown = 0
+  timesThrown = 0
 
-  disable_game_controls(dom)
+  disableGameControls(dom)
 
   time.sleep(1)
 
   while True:
     game.dice = random.randint(1, 6)
-    times_thrown += 1
+    timesThrown += 1
 
     if game.dice == 1:
       game.turn = 0
@@ -378,28 +375,28 @@ def computer_turn(game, dom):
     display(dom, game, 1)
     time.sleep(2.5)    
 
-    if not bot_decision(game.scores[2], game.turn, game.scores[1], times_thrown):
+    if not botDecision(game.scores[2], game.turn, game.scores[1], timesThrown):
       game.scores[2] += game.turn
       game.turn = 0
       game.current = 1
       display(dom, game, 1)
       break;
 
-  enable_game_controls(dom)
+  enableGameControls(dom)
 
 
 def broadcast(token):
-  atlastk.broadcast_action("Display", token)
+  atlastk.broadcastAction("Display", token)
 
 
-def ac_roll(user, dom):
-  disable_play_controls(dom)
-  player = get_player(user, dom)
+def acRoll(user, dom):
+  disablePlayControls(dom)
+  player = getPlayer(user, dom)
 
   if player == 0:
     return
 
-  game = user.get_game()
+  game = user.getGame()
 
   if game is None:
     broadcast(user.token)
@@ -408,12 +405,12 @@ def ac_roll(user, dom):
   game.dice = random.randint(1, 6)
 
   if debug():
-    debug_dice = dom.get_content("debug")
-    if debug_dice:
-      game.dice = int(debug_dice)
+    debugDice = dom.getValue("debug")
+    if debugDice:
+      game.dice = int(debugDice)
 
   if game.dice == 1:
-    game.current = get_opponent(game.current)
+    game.current = getOpponent(game.current)
     game.turn = 0
   else:
     game.turn += game.dice
@@ -423,26 +420,26 @@ def ac_roll(user, dom):
   else:
     display(dom, game, 1)
     if game.dice == 1:
-      computer_turn(game, dom)
+      computerTurn(game, dom)
 
 
-def ac_hold(user, dom):
-  disable_play_controls(dom)
+def acHold(user, dom):
+  disablePlayControls(dom)
 
-  player = get_player(user, dom)
+  player = getPlayer(user, dom)
 
   if player == 0:
     return
 
-  game = user.get_game()
+  game = user.getGame()
 
   if game is None:
-    disable_play_controls(dom)
+    disablePlayControls(dom)
     dom.alert("Game aborted!")
     return
 
   game.scores[player] += game.turn
-  game.current = get_opponent(game.current)
+  game.current = getOpponent(game.current)
   game.turn = 0
   game.dice = 0
 
@@ -450,71 +447,71 @@ def ac_hold(user, dom):
     broadcast(user.token)
   else:
     display(dom, game, 1)
-    computer_turn(game, dom)
+    computerTurn(game, dom)
 
 
-def new_between_humans(user, dom):
+def newBetweenHumans(user, dom):
   global games
 
   token = "debug" if debug() else str(uuid.uuid4())
 
-  create_game(token)
+  createGame(token)
 
-  url = atlastk.get_app_url(token)
+  url = atlastk.getAppURL(token)
   dom.inner("qrcode", f'<a href="{url}" title="{url}" target="_blank"><img style="margin: auto; width:100%;" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={urllib.parse.quote(url)}&bgcolor=FFB6C1"/></a>')
-  dom.disable_element("HideHHLinkSection")
+  dom.disableElement("HideHHLinkSection")
 
   return user.init(token)
 
 
-def new_against_computer(user, dom):
-  dom.enable_element("HideHHLinkSection")
+def newAgainstComputer(user, dom):
+  dom.enableElement("HideHHLinkSection")
   deleted = user.init()
 
-  user.get_player() ## To assign player.
-  get_available_player(user.get_game()) # To eat remaining available player.
+  user.getPlayer() ## To assign player.
+  getAvailablePlayer(user.getGame()) # To eat remaining available player.
 
   return deleted
 
 
-def ac_new(user, dom):
-  mode = dom.get_content("Mode")
+def acNew(user, dom):
+  mode = dom.getValue("Mode")
   token = user.token
 
-  set_layout(dom)
-  dom.enable_element("PlayerView")
-  display_dice(dom, 0)
+  setLayout(dom)
+  dom.enableElement("PlayerView")
+  displayDice(dom, 0)
 
-  deleted = new_against_computer(user, dom) if mode == "HC" else new_between_humans(user, dom)
+  deleted = newAgainstComputer(user, dom) if mode == "HC" else newBetweenHumans(user, dom)
 
-  display(dom, user.get_game(), 1)
+  display(dom, user.getGame(), 1)
 
   if deleted:
     broadcast(token)
 
 
-def ac_display(user, dom, id):
+def acDisplay(user, dom, id):
   if id != user.token:
     return
 
-  game = user.get_game()
+  game = user.getGame()
 
   if game is None:
-    disable_play_controls(dom)
+    disablePlayControls(dom)
     dom.alert("Game aborted!")
     return
 
-  display(dom, user.get_game(), user.get_raw_player())
+  display(dom, user.getGame(), user.getRawPlayer())
 
 
 CALLBACKS = {
-  "": ac_connect,
-  "Roll": ac_roll,
-  "Hold": ac_hold,
-  "New": ac_new,
-  "Display": ac_display
+  "": acConnect,
+  "Roll": acRoll,
+  "Hold": acHold,
+  "New": acNew,
+  "Display": acDisplay
 }
 
-upload_dices()
+uploadDices()
 
 atlastk.launch(CALLBACKS, User, open("Head.html").read())

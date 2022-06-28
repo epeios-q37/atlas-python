@@ -132,8 +132,8 @@ def acTop(dom):
   pos = [pos[0], 0]
 
 def acToggle(dom):
-  dom.toggle_class("Simple", "hidden")
-  dom.toggle_class("Expert", "hidden")
+  dom.toggleClass("Simple", "hidden")
+  dom.toggleClass("Expert", "hidden")
 
 callbacks = {
   "": acConnect,

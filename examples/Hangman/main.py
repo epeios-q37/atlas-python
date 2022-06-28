@@ -65,7 +65,7 @@ def randword():
 
 def showHanged(dom, errors):
   if (errors):
-    dom.remove_class(HANGED_MAN[errors-1], "hidden")
+    dom.removeClass(HANGED_MAN[errors-1], "hidden")
 
 
 def showWord(dom, secretWord, correctGuesses):
@@ -76,7 +76,7 @@ def showWord(dom, secretWord, correctGuesses):
       output = output[:i] + secretWord[i] + output[i + 1:]
 
   html = atlastk.createHTML()
-  html.put_tag_and_value("h1", output)
+  html.putTagAndValue("h1", output)
   dom.inner("output", html)
 
 
@@ -95,7 +95,7 @@ def acConnect(core, dom):
 
 
 def acSubmit(core, dom, id):
-  dom.add_class(id, "chosen")
+  dom.addClass(id, "chosen")
 
   guess = id.lower()
 
@@ -119,7 +119,7 @@ def acSubmit(core, dom, id):
     showHanged(dom, core.errors)
 
   if core.errors >= len(HANGED_MAN):
-    dom.remove_class("Face", "hidden")
+    dom.removeClass("Face", "hidden")
     dom.alert("\nYou've run out of guesses. \nYou had " + str(core.errors) +
           " errors and " + str(len(core.correctGuesses)) + " correct guesses. " +
           "\n\nThe word was '" + core.secretWord + "'.")

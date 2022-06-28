@@ -32,7 +32,7 @@ import atlastk, html
 target = ""
 
 """
-From here and up to and including the 'ac_connect' function,
+From here and up to and including the 'acConnect' function,
 to simplify the writing of the program, there are a lot a quirks
 which should not be used by regular developers.
 """
@@ -47,117 +47,117 @@ def clean(s,i):
 
   return s.strip(" \n").replace ("    <","<").replace("xdh:widget_","xdh:widget"),i
 
-def display_code(dom,element,i):
-  source = dom.first_child(element);
-  code,i = clean(dom.get_value(source),i)
-  dom.set_value(dom.next_sibling(source),html.escape(code))
+def displayCode(dom,element,i):
+  source = dom.firstChild(element);
+  code,i = clean(dom.getValue(source),i)
+  dom.setValue(dom.nextSibling(source),html.escape(code))
 
   return i
 
-def ac_connect(dom):
+def acConnect(dom):
   global target
 
   dom.inner("", open("Main.html").read())
-  current = dom.next_sibling(dom.next_sibling(dom.first_child("")))
+  current = dom.nextSibling(dom.nextSibling(dom.firstChild("")))
   i = 0
 
   target = ""
   list = "<option disabled selected value> -- Select a widget -- </option>"
 
   while current != "":
-    id = dom.get_attribute(current,"id")
-    dom.set_content("RetrievedWidget", id)
+    id = dom.getAttribute(current,"id")
+    dom.setValue("RetrievedWidget", id)
     list += f'<option value="{id}">{id}</option>'
-    i = display_code(dom,current,i)
-    current = dom.next_sibling(current)
+    i = displayCode(dom,current,i)
+    current = dom.nextSibling(current)
 
-  dom.execute_void("document.querySelectorAll('pre').forEach((block) => {hljs.highlightBlock(block);});")
+  dom.executeVoid("document.querySelectorAll('pre').forEach((block) => {hljs.highlightBlock(block);});")
 
-  dom.set_attribute("ckInput","xdh:widget",dom.get_attribute("ckInput","xdh:widget_"))
+  dom.setAttribute("ckInput","xdh:widget",dom.getAttribute("ckInput","xdh:widget_"))
   dom.after("ckInput","")
   dom.inner("List", list)
 
-  dom.add_class("Retrieving","hidden")
-  dom.remove_class("Regular","hidden")
+  dom.addClass("Retrieving","hidden")
+  dom.removeClass("Regular","hidden")
 
-def ac_select(dom,id,widget=""):
+def acSelect(dom,id,widget=""):
   global target
 
   if ( widget != "" ):
-    dom.set_value("List", widget)  
+    dom.setValue("List", widget)  
 
   if target:
-    dom.add_class(target,"hidden")
-  target = dom.get_value(id)
-  dom.remove_class(target, "hidden")
+    dom.addClass(target,"hidden")
+  target = dom.getValue(id)
+  dom.removeClass(target, "hidden")
 
 
-def dl_shape(flavors):
+def dlShape(flavors):
   html = atlastk.create_HTML()
 
   for flavor in flavors:
-    html.push_tag("option")
-    html.put_attribute("value", flavor)
-    html.pop_tag()
+    html.pushTag("option")
+    html.putAttribute("value", flavor)
+    html.popTag()
 
   return html
 
-dl_flavors = ["Vanilla", "Chocolate", "Caramel"]  
+dlFlavors = ["Vanilla", "Chocolate", "Caramel", "Mint"]  
 
-def ac_dl_submit(dom, id):
-  global dl_flavors
+def acDlSubmit(dom, id):
+  global dlFlavors
 
-  flavor = dom.get_value(id)
-  dom.set_value(id, "")
-  if not flavor in dl_flavors:
-    dl_flavors.append(flavor)
-    dl_flavors.sort()
-    dom.inner("dlFlavors", dl_shape(dl_flavors))
-  dom.set_value("dlOutput", flavor)
+  flavor = dom.getValue(id)
+  dom.setValue(id, "")
+  if flavor not in dlFlavors:
+    dlFlavors.append(flavor)
+    dlFlavors.sort()
+    dom.inner("dlFlavors", dlShape(dlFlavors))
+  dom.setValue("dlOutput", flavor)
 
-def sl_embed(other):
+def slEmbed(other):
   html = atlastk.create_HTML()
 
-  html.push_tag("option")
-  html.put_attribute("selected", "selected")
-  html.put_value(other)
+  html.pushTag("option")
+  html.putAttribute("selected", "selected")
+  html.putValue(other)
 
   return html
 
-def ac_sl_add(dom):
-  dom.begin("slOthers", sl_embed(dom.get_value("slInput")))
-  dom.set_value("slInput", "")
+def acSlAdd(dom):
+  dom.begin("slOthers", slEmbed(dom.getValue("slInput")))
+  dom.setValue("slInput", "")
   dom.focus("slInput")  
 
 callbacks = {
-  "": ac_connect,
-  "Select": ac_select,
+  "": acConnect,
+  "Select": acSelect,
 
   "btSubmit": lambda dom: dom.alert("Click on button detected!"),
 
-  "pwSubmit": lambda dom, id: dom.set_value("pwOutput", dom.get_value(id)),
+  "pwSubmit": lambda dom, id: dom.setValue("pwOutput", dom.getValue(id)),
 
-  "cbSelect": lambda dom, id: dom.set_value("cbOutput", "{} ({})".format(id, dom.get_value(id))),
-  "cbSubmit": lambda dom: dom.alert(str(dom.get_values(["cbBicycle", "cbCar","cbPirogue"]))),
+  "cbSelect": lambda dom, id: dom.setValue("cbOutput", "{} ({})".format(id, dom.getValue(id))),
+  "cbSubmit": lambda dom: dom.alert(str(dom.getValues(["cbBicycle", "cbCar","cbPirogue"]))),
 
-  "rdCheck": lambda dom, id: dom.set_value("rdSelect", dom.get_value(id)),
-  "rdSelect": lambda dom, id: dom.set_value("rdRadios", dom.get_value(id)),
-  "rdReset": lambda dom: dom.set_values({"rdSelect": "None", "rdRadios": ""}),
+  "rdCheck": lambda dom, id: dom.setValue("rdSelect", dom.getValue(id)),
+  "rdSelect": lambda dom, id: dom.setValue("rdRadios", dom.getValue(id)),
+  "rdReset": lambda dom: dom.setValues({"rdSelect": "None", "rdRadios": ""}),
 
-  "dlSubmit": ac_dl_submit,
+  "dlSubmit": acDlSubmit,
 
-  "dtSelect": lambda dom, id: dom.set_value("dtOutput", dom.get_value(id)),
+  "dtSelect": lambda dom, id: dom.setValue("dtOutput", dom.getValue(id)),
 
-  "clSelect": lambda dom, id: dom.set_value("clOutput", dom.get_value(id)),
+  "clSelect": lambda dom, id: dom.setValue("clOutput", dom.getValue(id)),
 
-  "rgSlide": lambda dom: dom.set_attribute("rgOutput", "value", (dom.get_value("rgVolume"))),
+  "rgSlide": lambda dom: dom.setAttribute("rgOutput", "value", (dom.getValue("rgVolume"))),
 
-  "slSelect": lambda dom, id: dom.set_value("slOutput", dom.get_value(id)),
-  "slAdd": ac_sl_add,
-  "slToggle": lambda dom, id: dom.disable_element("slOthers") if dom.get_value(id) == 'true' else dom.enable_element("slOthers"),
-  "slRadio": lambda dom: ac_select(dom, "List", "radio")
-,
-  "ckSubmit": lambda dom, id: dom.set_value("ckOutput", dom.get_value("ckInput")),
+  "slSelect": lambda dom, id: dom.setValue("slOutput", dom.getValue(id)),
+  "slAdd": acSlAdd,
+  "slToggle": lambda dom, id: dom.disableElement("slOthers") if dom.getValue(id) == 'true' else dom.enableElement("slOthers"),
+  "slRadio": lambda dom: acSelect(dom, "List", "radio"),
+
+  "ckSubmit": lambda dom, id: dom.setValue("ckOutput", dom.getValue("ckInput")),
 }
 
 atlastk.launch(callbacks, None, open("Head.html").read())

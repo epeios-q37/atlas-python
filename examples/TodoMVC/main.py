@@ -30,7 +30,7 @@ sys.path.append("../../atlastk")
 import atlastk
 
 class TodoMVC:
-  def __init__(self):
+  def __init__(self):  # sourcery skip: remove-redundant-if
     self.exclude = None
     self.index = -1
     self.todos = []
@@ -39,23 +39,17 @@ class TodoMVC:
       self.todos.append({"label": "Todo 1", "completed": False })
       self.todos.append({"label": "Todo 2", "completed": True })
 
-  def items_left(self):
-    count = 0
-
-    for index in range(len(self.todos)):
-      if not self.todos[index]['completed']:
-        count += 1
-
-    return count
+  def itemsLeft(self):
+    return sum(not self.todos[index]['completed'] for index in range(len(self.todos)))
 
   def push(self, todo, id, xml):
-    xml.push_tag("Todo")
-    xml.put_attribute("id", id)
-    xml.put_attribute("completed", "true" if todo['completed'] else "false")
+    xml.pushTag("Todo")
+    xml.putAttribute("id", id)
+    xml.putAttribute("completed", "true" if todo['completed'] else "false")
     xml.putValue(todo['label'])
-    xml.pop_tag()
+    xml.popTag()
 
-  def display_count(self, dom, count):
+  def displayCount(self, dom, count):
     text = ""
 
     if count == 1:
@@ -63,102 +57,102 @@ class TodoMVC:
     elif count != 0:
       text = str(count) + " items left"
 
-    dom.set_value("Count", text)
+    dom.setValue("Count", text)
 
-  def handle_count(self, dom):
-    count = self.items_left()
+  def handleCount(self, dom):
+    count = self.itemsLeft()
 
     if count != len(self.todos):
-      dom.disable_element("HideClearCompleted")
+      dom.disableElement("HideClearCompleted")
     else:
-      dom.enable_element("HideClearCompleted")
+      dom.enableElement("HideClearCompleted")
 
-    self.display_count(dom, count)
+    self.displayCount(dom, count)
 
-  def display_todos(self, dom):
+  def displayTODOs(self, dom):
     xml = atlastk.create_XML("XDHTML")
 
-    xml.push_tag("Todos")
+    xml.pushTag("Todos")
 
     for index in range(len(self.todos)):
       todo = self.todos[index]
 
-      if (self.exclude == None) or (todo['completed'] != self.exclude):
+      if self.exclude is None or todo['completed'] != self.exclude:
         self.push(todo, index, xml)
 
-    xml.pop_tag()
+    xml.popTag()
 
     dom.inner("Todos", xml, "Todos.xsl")
-    self.handle_count(dom)
+    self.handleCount(dom)
 
-  def submit_new(self, dom):
-    value = dom.get_value("Input").strip()
-    dom.set_value("Input", "")
+  def submitNew(self, dom):
+    value = dom.getValue("Input").strip()
+    dom.setValue("Input", "")
 
     if value:
       self.todos.insert(0, {'label': value, 'completed': False})
-      self.display_todos(dom)
+      self.displayTODOs(dom)
 
-  def submit_modification(self, dom):
+  def submitModification(self, dom):
     index = self.index
     self.index = -1
 
-    value = dom.get_value("Input." + str(index)).strip()
-    dom.set_value("Input." + str(index), "")
+    value = dom.getValue("Input." + str(index)).strip()
+    dom.setValue("Input." + str(index), "")
 
     if value:
       self.todos[index]['label'] = value
 
-      dom.set_value("Label." + str(index), value)
+      dom.setValue("Label." + str(index), value)
 
-      dom.remove_classes({"View." + str(index): "hide", "Todo." + str(index): "editing"})
+      dom.removeClasses({"View." + str(index): "hide", "Todo." + str(index): "editing"})
     else:
       self.todos.pop(index)
-      self.displayTodos(dom)
+      self.displayTODOs(dom)
 
-def ac_connect(self, dom):
+def acConnect(self, dom):
   dom.inner("", open("Main.html").read())
   dom.focus("Input")
-  self.display_todos(dom)
-  dom.disable_elements(["HideActive", "HideCompleted"])
+  self.displayTODOs(dom)
+  dom.disableElements(["HideActive", "HideCompleted"])
 
-def ac_destroy(self, dom, id):
-  self.todos.pop(int(dom.get_mark(id)))
-  self.display_todos(dom)
+def acDestroy(self, dom, id):
+  self.todos.pop(int(dom.getMark(id)))
+  self.displayTODOs(dom)
 
-def ac_toggle(self, dom, id):
+def acToggle(self, dom, id):
   index = int(id)
   self.todos[index]['completed'] = not self.todos[index]['completed']
 
-  dom.toggle_class("Todo." + id, "completed")
-  dom.toggle_class("Todo." + id, "active")
+  dom.toggleClass("Todo." + id, "completed")
+  dom.toggleClass("Todo." + id, "active")
 
-  self.handle_count(dom)
+  self.handleCount(dom)
 
-def ac_all(self, dom):
+def acAll(self, dom):
   self.exclude = None
 
-  dom.add_class("All", "selected")
-  dom.remove_classes({"Active": "selected", "Completed": "selected"})
-  dom.disable_elements(["HideActive", "HideCompleted"])
+  dom.addClass("All", "selected")
+  dom.removeClasses({"Active": "selected", "Completed": "selected"})
+  dom.disableElements(["HideActive", "HideCompleted"])
 
-def ac_active(self, dom):
+def acActive(self, dom):
   self.exclude = True
 
-  dom.add_class("Active", "selected")
-  dom.remove_classes({"All": "selected", "Completed": "selected"})
-  dom.disable_element("HideActive")
-  dom.enable_element("HideCompleted")
+  dom.addClass("Active", "selected")
+  dom.removeClasses({"All": "selected", "Completed": "selected"})
+  dom.disableElement("HideActive")
+  dom.enableElement("HideCompleted")
 
-def ac_completed(self, dom):
+def acCompleted(self, dom):
   self.exclude = False
 
-  dom.add_class("Completed", "selected")
-  dom.remove_classes({"All": "selected", "Active": "selected"})
-  dom.disable_element("HideCompleted")
-  dom.enable_element("HideActive")
+  dom.addClass("Completed", "selected")
+  dom.removeClasses({"All": "selected", "Active": "selected"})
+  dom.disableElement("HideCompleted")
+  dom.enableElement("HideActive")
 
-def ac_clear(self, dom):
+def acClear(self, dom):
   index = len(self.todos)
 
   while index:
@@ -167,34 +161,34 @@ def ac_clear(self, dom):
     if self.todos[index]['completed']:
       self.todos.pop(index)
 
-  self.display_todos(dom)
+  self.displayTODOs(dom)
 
-def ac_edit(self, dom, id):
-  value = dom.get_mark(id)
+def acEdit(self, dom, id):
+  value = dom.getMark(id)
   self.index = int(value)
 
-  dom.add_classes({"View." + value: "hide", id: "editing"})
-  dom.set_value("Input." + value, self.todos[self.index]['label'])
+  dom.addClasses({"View." + value: "hide", id: "editing"})
+  dom.setValue("Input." + value, self.todos[self.index]['label'])
   dom.focus("Input." + value)
 
-def ac_cancel(self, dom):
+def acCancel(self, dom):
   index = str(self.index)
   self.index = -1
 
-  dom.set_value("Input." + index, "")
-  dom.remove_classes({"View." + index: "hide", "Todo." + index: "editing"})
+  dom.setValue("Input." + index, "")
+  dom.removeClasses({"View." + index: "hide", "Todo." + index: "editing"})
 
 callbacks = {
-  "": ac_connect,
-  "Submit": lambda self, dom: self.submit_new(dom) if self.index == -1 else self.submit_modification(dom),
-  "Destroy": ac_destroy,
-  "Toggle": ac_toggle,
-  "All": ac_all,
-  "Active": ac_active,
-  "Completed": ac_completed,
-  "Clear": ac_clear,
-  "Edit": ac_edit,
-  "Cancel": ac_cancel,
+  "": acConnect,
+  "Submit": lambda self, dom: self.submitNew(dom) if self.index == -1 else self.submitModification(dom),
+  "Destroy": acDestroy,
+  "Toggle": acToggle,
+  "All": acAll,
+  "Active": acActive,
+  "Completed": acCompleted,
+  "Clear": acClear,
+  "Edit": acEdit,
+  "Cancel": acCancel,
 }
 
 atlastk.launch(callbacks, TodoMVC, open("HeadFaaS.html").read())

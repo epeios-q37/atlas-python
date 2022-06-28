@@ -30,21 +30,21 @@ sys.path.append("../../atlastk")
 
 import atlastk
 
-view_mode_elements = ["Pattern", "CreateButton", "DescriptionToggling", "ViewNotes"]
+VIEW_MODE_ELEMENTS = ["Pattern", "CreateButton", "DescriptionToggling", "ViewNotes"]
 
 def put(note, id, xml ):
-  xml.push_tag("Note")
-  xml.put_attribute("id", id)
+  xml.pushTag("Note")
+  xml.putAttribute("id", id)
 
   for key in note:
-    xml.put_tag_and_value(key, note[key])
+    xml.putTagAndValue(key, note[key])
 
-  xml.pop_tag()
+  xml.popTag()
 
 class Notes:
   def __init__(self):
     self.pattern = ""
-    self.hide_descriptions = False
+    self.hideDescriptions = False
     self.index = 0
     self.notes = [
       {
@@ -65,17 +65,17 @@ class Notes:
       },
     ]
 
-  def handle_descriptions(self,dom):
-    if self.hide_descriptions:
-      dom.disable_element("ViewDescriptions")
+  def handleDescriptions(self,dom):
+    if self.hideDescriptions:
+      dom.disableElement("ViewDescriptions")
     else:
-      dom.enable_element("ViewDescriptions")
+      dom.enableElement("ViewDescriptions")
 
-  def display_list(self,dom):
+  def displayList(self,dom):
     xml = atlastk.create_XML("XDHTML")
     values = {}
 
-    xml.push_tag("Notes")
+    xml.pushTag("Notes")
 
     for index in range(len(self.notes)):
       if index == 0: # 0 skipped, as it serves as buffer for the new ones.
@@ -85,43 +85,43 @@ class Notes:
         values["Description." + str(index)] = self.notes[index]['description']
 
     dom.inner("Notes", xml, "Notes.xsl")
-    dom.set_values(values)
-    dom.enable_elements(view_mode_elements)
+    dom.setValues(values)
+    dom.enableElements(VIEW_MODE_ELEMENTS)
 
   def view(self, dom):
-    dom.enable_elements(view_mode_elements)
-    dom.set_value("Edit." + str(self.index), "")
+    dom.enableElements(VIEW_MODE_ELEMENTS)
+    dom.setValue("Edit." + str(self.index), "")
     self.index = -1
 
-def ac_connect(notes, dom):
+def acConnect(notes, dom):
   dom.inner("", open( "Main.html").read() )
-  notes.display_list(dom)
+  notes.displayList(dom)
 
-def ac_toggle_descriptions(notes, dom, id):
-  notes.hide_descriptions = dom.get_value(id)=="true"
-  notes.handle_descriptions(dom)
+def acToggleDescriptions(notes, dom, id):
+  notes.hideDescriptions = dom.getValue(id)=="true"
+  notes.handleDescriptions(dom)
 
-def ac_search(notes, dom):
-  notes.pattern = dom.get_value("Pattern").lower()
-  notes.display_list(dom)
+def acSearch(notes, dom):
+  notes.pattern = dom.getValue("Pattern").lower()
+  notes.displayList(dom)
 
-def ac_edit(notes, dom, id):
-  index = dom.get_mark(id)
+def acEdit(notes, dom, id):
+  index = dom.getMark(id)
   notes.index = int(index)
   note = notes.notes[notes.index]
 
   dom.inner("Edit." + index, open( "Note.html").read() )
-  dom.set_values({ "Title": note['title'], "Description": note['description'] })
-  dom.disable_elements(view_mode_elements)
+  dom.setValues({ "Title": note['title'], "Description": note['description'] })
+  dom.disableElements(VIEW_MODE_ELEMENTS)
   dom.focus("Title")
 
-def ac_delete(notes, dom, id):
+def acDelete(notes, dom, id):
   if dom.confirm("Are you sure you want to delete this entry?"):
-    notes.notes.pop(int(dom.get_mark(id)))
-    notes.display_list(dom)
+    notes.notes.pop(int(dom.getMark(id)))
+    notes.displayList(dom)
 
-def ac_submit(notes, dom):
-  result = dom.get_values(["Title", "Description"])
+def acSubmit(notes, dom):
+  result = dom.getValues(["Title", "Description"])
   title = result["Title"].strip()
   description = result["Description"]
 
@@ -130,18 +130,18 @@ def ac_submit(notes, dom):
 
     if notes.index == 0:
       notes.notes.insert(0, { 'title': '', 'description': ''})
-      notes.display_list( dom )
+      notes.displayList( dom )
     else:
-      dom.set_values( { "Title." + str(notes.index): title, "Description." + str(notes.index): description })
+      dom.setValues( { "Title." + str(notes.index): title, "Description." + str(notes.index): description })
       notes.view( dom )
   else:
     dom.alert("Title can not be empty!")
     dom.focus("Title")
 
-def ac_cancel(notes, dom):
+def acCancel(notes, dom):
   note = notes.notes[notes.index]
 
-  result = dom.get_values(["Title", "Description"])
+  result = dom.getValues(["Title", "Description"])
   title = result["Title"].strip()
   description = result["Description"]
 
@@ -152,13 +152,18 @@ def ac_cancel(notes, dom):
     notes.view( dom )
 
 callbacks = {	
-  "": ac_connect,
-  "ToggleDescriptions": ac_toggle_descriptions,
-  "Search": ac_search,
-  "Edit": ac_edit,
-  "Delete": ac_delete,
-  "Submit": ac_submit,
-  "Cancel": ac_cancel,
+  "": acConnect,
+  "ToggleDescriptions": acToggleDescriptions,
+  "Search": acSearch,
+  "Edit": acEdit,
+  "Delete": acDelete,
+  "Submit": acSubmit,
+  "Cancel": acCancel,
 }
 
 atlastk.launch(callbacks, Notes, open("Head.html").read())
+
+
+
+
+

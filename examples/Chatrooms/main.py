@@ -35,38 +35,38 @@ class Room:
     self.pseudos = []
     self.lock = threading.Lock()
 
-  def build_xml(self,session):
+  def buildXML(self,session):
     xml = atlastk.create_XML("XDHTML")
-    xml.push_tag("Messages")
-    xml.put_attribute("pseudo",session.pseudo)
+    xml.pushTag("Messages")
+    xml.putAttribute("pseudo",session.pseudo)
 
     with self.lock:
       index = len(self.messages) - 1
 
-      while index >= session.last_message:
+      while index >= session.lastMessage:
         message = self.messages[index]
 
-        xml.push_tag( "Message" )
-        xml.put_attribute( "id", index )
-        xml.put_attribute( "pseudo", message['pseudo'] )
-        xml.put_value( message['content'] )
-        xml.pop_tag()
+        xml.pushTag( "Message" )
+        xml.putAttribute( "id", index )
+        xml.putAttribute( "pseudo", message['pseudo'] )
+        xml.putValue( message['content'] )
+        xml.popTag()
 
         index -= 1
 
-      session.last_message = len(self.messages)
+      session.lastMessage = len(self.messages)
 
-    xml.pop_tag()
+    xml.popTag()
 
     return xml
 
-  def display_messages(self,session,dom):
+  def displayMessages(self,session,dom):
    
-    if len(self.messages) > session.last_message:
-      dom.begin("Board", self.build_xml(session), "Messages.xsl")
+    if len(self.messages) > session.lastMessage:
+      dom.begin("Board", self.buildXML(session), "Messages.xsl")
       
       
-  def handle_pseudo(self,pseudo):
+  def handlePseudo(self,pseudo):
     with self.lock:
       if pseudo in self.pseudos:
         result = False
@@ -76,7 +76,7 @@ class Room:
 
     return result
 
-  def add_message(self,pseudo,message):
+  def addMessage(self,pseudo,message):
     message = message.strip()
 
     if message:
@@ -86,7 +86,7 @@ class Room:
 class Session:
   def __init__(self):
     self.room = None
-    self.last_message = None
+    self.lastMessage = None
     self.pseudo = ""
 
 rooms = {
@@ -102,38 +102,38 @@ rooms = {
 
 rooms = {}
 
-def get_rooms():
+def getRooms():
   xml = atlastk.create_XML("Rooms")
 
   for id in rooms:
-    xml.push_tag("Room")
-    xml.put_attribute("id", id)
-    xml.put_attribute("URL", atlastk.get_app_url(id))
-    xml.put_value(rooms[id]["name"])
-    xml.pop_tag()
+    xml.pushTag("Room")
+    xml.putAttribute("id", id)
+    xml.putAttribute("URL", atlastk.getAppURL(id))
+    xml.putValue(rooms[id]["name"])
+    xml.popTag()
 
   return xml
 
-def display_rooms(dom):
-  dom.inner("Rooms",get_rooms(), "Rooms.xsl")
+def displayRooms(dom):
+  dom.inner("Rooms",getRooms(), "Rooms.xsl")
 
-def ac_connect(session,dom,id):
+def acConnect(session,dom,id):
   if id:
     dom.inner("",open("Room.html").read())
-    dom.set_content("Name",rooms[id]["name"])
+    dom.setValue("Name",rooms[id]["name"])
     session.room = rooms[id]["core"]
-    session.last_message = 0
+    session.lastMessage = 0
     dom.focus("Pseudo")
-    session.room.display_messages(session,dom)    
+    session.room.displayMessages(session,dom)    
   else:
     dom.inner("",open("Admin.html").read())
     dom.focus("Name")
-    display_rooms(dom)
+    displayRooms(dom)
 
-def ac_create(session,dom):
+def acCreate(session,dom):
   global rooms
 
-  name = dom.get_content("Name").strip()
+  name = dom.getValue("Name").strip()
 
   if not name:
     dom.alert(f"A room name can not be empty!")
@@ -141,58 +141,58 @@ def ac_create(session,dom):
     dom.alert(f"There is already a room named '{name}'")
   else:
     id = str(uuid.uuid4())
-    url = atlastk.get_app_url(id)
+    url = atlastk.getAppURL(id)
     rooms[id]={"name": name, "core": Room()}
-    display_rooms(dom)
-    dom.set_content("Name", "")
+    displayRooms(dom)
+    dom.setValue("Name", "")
 
   dom.focus("Name")
 
-def ac_qrcode(session,dom,id):
-  mark = dom.get_mark(id)
+def acQRCode(session,dom,id):
+  mark = dom.getMark(id)
 
   if mark:
-    url = atlastk.get_app_url(mark)
-    dom.inner(dom.last_child(id), f'<a href="{url}" title="{url}" target="_blank"><img src="https://api.qrserver.com/v1/create-qr-code/?size=125x125&data={url}"/></a>')
-    dom.set_mark(id,"")
+    url = atlastk.getAppURL(mark)
+    dom.inner(dom.lastChild(id), f'<a href="{url}" title="{url}" target="_blank"><img src="https://api.qrserver.com/v1/create-qr-code/?size=125x125&data={url}"/></a>')
+    dom.setMark(id,"")
 
-def ac_submit_pseudo(session,dom):
-  pseudo = dom.get_value("Pseudo").strip()
+def acSubmitPseudo(session,dom):
+  pseudo = dom.getValue("Pseudo").strip()
 
   room = session.room
 
   if not pseudo:
     dom.alert("Pseudo. can not be empty !")
-    dom.set_value("Pseudo", "")
+    dom.setValue("Pseudo", "")
     dom.focus("Pseudo")
-  elif room.handle_pseudo(pseudo.upper()):
+  elif room.handlePseudo(pseudo.upper()):
     session.pseudo = pseudo
-    dom.add_class("PseudoButton", "hidden")
-    dom.disable_element("Pseudo")
-    dom.enable_elements(["Message", "MessageButton"])
+    dom.addClass("PseudoButton", "hidden")
+    dom.disableElement("Pseudo")
+    dom.enableElements(["Message", "MessageButton"])
     dom.focus("Message")
   else:
     dom.alert("Pseudo. not available!")
-    dom.set_value("Pseudo", pseudo)
+    dom.setValue("Pseudo", pseudo)
     dom.focus("Pseudo")
 
-def ac_submit_message(session,dom):
+def acSubmitMessage(session,dom):
   room = session.room
 
-  message = dom.get_value("Message")
-  dom.set_value("Message", "")
+  message = dom.getValue("Message")
+  dom.setValue("Message", "")
   dom.focus("Message")
-  room.add_message(session.pseudo,message)
-  room.display_messages(session,dom)
-  atlastk.broadcast_action("Update")     
+  room.addMessage(session.pseudo,message)
+  room.displayMessages(session,dom)
+  atlastk.broadcastAction("Update")     
 
 CALLBACKS = {
-  "": ac_connect,
-  "Create": ac_create,
-  "QRCode": ac_qrcode,
-  "SubmitPseudo": ac_submit_pseudo,
-  "SubmitMessage": ac_submit_message,
-  "Update": lambda session,dom: session.room.display_messages(session,dom) if session.room else None,
+  "": acConnect,
+  "Create": acCreate,
+  "QRCode": acQRCode,
+  "SubmitPseudo": acSubmitPseudo,
+  "SubmitMessage": acSubmitMessage,
+  "Update": lambda session,dom: session.room.displayMessages(session,dom) if session.room else None,
 }
     
 atlastk.launch(CALLBACKS, Session, open("Head.html").read())

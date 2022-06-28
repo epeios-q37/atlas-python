@@ -221,9 +221,9 @@ class GPIO:
         break
 
     if enable:
-      dom.enable_elements(buttons)
+      dom.enableElements(buttons)
     else:
-      dom.disable_elements(buttons)
+      dom.disableElements(buttons)
 
   def _getSetting(self,wId):
     global settings
@@ -270,38 +270,38 @@ class GPIO:
     return self._getSetting(wId)[Setting.SELECTED]
 
   def _buildModeCorpus(self,xml):
-    xml.push_tag("Modes")
+    xml.pushTag("Modes")
 
     for mode in Mode.label:
-      xml.push_tag("Mode")
-      xml.put_attribute("id", mode)
-      xml.put_attribute("Label", Mode.label[mode])
-      xml.pop_tag()
+      xml.pushTag("Mode")
+      xml.putAttribute("id", mode)
+      xml.putAttribute("Label", Mode.label[mode])
+      xml.popTag()
 
-    xml.pop_tag()
+    xml.popTag()
 
   def _buildCorpus(self,xml):
-    xml.push_tag( "Corpus")
+    xml.pushTag( "Corpus")
 
     self._buildModeCorpus(xml)
 
-    xml.pop_tag()
+    xml.popTag()
 
   def _buildXML(self):
     global mapping
     xml = atlastk.createXML("XDHTML")
     self._buildCorpus(xml)
-    xml.push_tag("GPIOs")
+    xml.pushTag("GPIOs")
 
     for wId in mapping:
-      xml.push_tag("GPIO")
-      xml.put_attribute( "id", wId)
-      xml.put_attribute("Selected", self._getSelected(wId))
-      xml.put_attribute("Mode",self._getMode(wId))
-      xml.put_attribute("Value",self._getValue(wId))
-      xml.pop_tag()
+      xml.pushTag("GPIO")
+      xml.putAttribute( "id", wId)
+      xml.putAttribute("Selected", self._getSelected(wId))
+      xml.putAttribute("Mode",self._getMode(wId))
+      xml.putAttribute("Value",self._getValue(wId))
+      xml.popTag()
 
-    xml.pop_tag()
+    xml.popTag()
 
     return xml
 
@@ -317,17 +317,17 @@ class GPIO:
 
     self._setMode(wId, mode)
 
-    dom.set_value("Value." + str(wId),self._getValue(wId))
+    dom.setValue("Value." + str(wId),self._getValue(wId))
     dom.setAttribute(id,"value",self._getValue(wId))
 
     if (mode==Mode.IN):
-      dom.disable_element(id)
+      dom.disableElement(id)
       dom.setAttribute(id,"step","100")
     elif (mode==Mode.OUT):
-      dom.enable_element(id)
+      dom.enableElement(id)
       dom.setAttribute(id,"step","100")
     elif (mode==Mode.PWM):
-      dom.enable_element(id)
+      dom.enableElement(id)
       dom.setAttribute(id,"step","1")
     else:
       sys.exit("???")
@@ -369,10 +369,10 @@ def acConnect(GPIO,dom):
   GPIO.display(dom)
 
 def acSwitchMode(GPIO,dom,id):
-  GPIO.setMode(dom,getWId(id),int(dom.get_value(id)))
+  GPIO.setMode(dom,getWId(id),int(dom.getValue(id)))
   
 def acChangeValue(GPIO,dom,id):
-  GPIO.setValue(dom,getWId(id),int(dom.get_value(id)))
+  GPIO.setValue(dom,getWId(id),int(dom.getValue(id)))
 
 callbacks = {
     "_PreProcess": preProcess,

@@ -48,17 +48,17 @@ def fill(puzzle, dom):
     else:
       puzzle.blank = i
 
-  dom.set_values(values)
-  dom.toggle_class(puzzle.blank, "hidden")
+  dom.setValues(values)
+  dom.toggleClass(puzzle.blank, "hidden")
 
 
 def swap(puzzle, dom, source):
-  dom.set_values({
-    "t"+str(puzzle.blank): dom.get_value("t"+str(source)),
+  dom.setValues({
+    "t"+str(puzzle.blank): dom.getValue("t"+str(source)),
     "t"+str(source): ""
   })
 
-  dom.toggle_classes({
+  dom.toggleClasses({
     puzzle.blank: "hidden",
     source: "hidden"
   })
@@ -66,59 +66,59 @@ def swap(puzzle, dom, source):
   puzzle.blank = source
 
 
-def convert_x(pos):
+def convertX(pos):
   return pos % 4
 
 
-def convert_y(pos):
+def convertY(pos):
   return pos >> 2  # pos / 4
 
 
 def convert(pos):
-  return convert_x(pos), convert_y(pos)
+  return convertX(pos), convertY(pos)
 
 
-def draw_square(board, x, y):
-  board.push_tag("use")
-  board.put_attribute("id", y * 4 + x)
-  board.put_attribute("xdh:onevent", "Swap")
-  board.put_attribute("x", x * 100 + 24)
-  board.put_attribute("y", y * 100 + 24)
-  board.put_attribute("href", "#stone")
-  board.pop_tag()
+def drawSquare(board, x, y):
+  board.pushTag("use")
+  board.putAttribute("id", y * 4 + x)
+  board.putAttribute("xdh:onevent", "Swap")
+  board.putAttribute("x", x * 100 + 24)
+  board.putAttribute("y", y * 100 + 24)
+  board.putAttribute("href", "#stone")
+  board.popTag()
 
 
-def draw_grid(dom):
+def drawGrid(dom):
   board = atlastk.create_HTML("g")
   for x in range(0, 4):
     for y in range(0, 4):
-      draw_square(board, x, y)
+      drawSquare(board, x, y)
   dom.inner("Stones", board)
 
 
-def set_text(texts, x, y):
-  texts.push_tag("tspan")
-  texts.put_attribute("id", "t" + str(y * 4 + x))
-  texts.put_attribute("x", x * 100 + 72)
-  texts.put_attribute("y", y * 100 + 90)
-  texts.pop_tag()
+def setText(texts, x, y):
+  texts.pushTag("tspan")
+  texts.putAttribute("id", "t" + str(y * 4 + x))
+  texts.putAttribute("x", x * 100 + 72)
+  texts.putAttribute("y", y * 100 + 90)
+  texts.popTag()
 
 
-def set_texts(dom):
+def setTexts(dom):
   texts = atlastk.create_HTML("text")
   for x in range(0, 4):
     for y in range(0, 4):
-      set_text(texts, x, y)
+      setText(texts, x, y)
   dom.inner("Texts", texts)
 
 
 def scramble(puzzle, dom):
-  draw_grid(dom)
-  set_texts(dom)
+  drawGrid(dom)
+  setTexts(dom)
   fill(puzzle, dom)
 
 
-def ac_connect(self, dom):
+def acConnect(self, dom):
   dom.inner("", open("Main.html").read())
   scramble(self, dom)
 
@@ -135,7 +135,7 @@ def build(sourceIds,targetIds,sourceIdsAndValues, blank):
   return targetIdsAndValues
 
 
-def ac_swap(self, dom, id):
+def acSwap(self, dom, id):
   target = int(id)
   source = self.blank
   sourceIds = []
@@ -150,18 +150,18 @@ def ac_swap(self, dom, id):
       targetIds.append("t"+str(source))
       source += delta
       sourceIds.append("t"+str(source))
-      by = convert_y(source)
+      by = convertY(source)
   elif (iy == by):
     delta = 1 if bx < ix else -1
     while(bx != ix):
       targetIds.append("t"+str(source))
       source += delta
       sourceIds.append("t"+str(source))
-      bx = convert_x(source)
+      bx = convertX(source)
 
-  dom.set_values(build(sourceIds, targetIds, dom.get_values(sourceIds), id))
+  dom.setValues(build(sourceIds, targetIds, dom.getValues(sourceIds), id))
 
-  dom.toggle_classes({
+  dom.toggleClasses({
     self.blank: "hidden",
     target: "hidden"
   })
@@ -170,8 +170,8 @@ def ac_swap(self, dom, id):
 
 
 callbacks = {
-  "": ac_connect,
-  "Swap": ac_swap,
+  "": acConnect,
+  "Swap": acSwap,
   "Scramble": lambda self, dom, id: scramble(self, dom)
 }
 

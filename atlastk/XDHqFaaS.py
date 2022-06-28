@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-_VERSION = "0.13"
+_VERSION = "0.13.2"
 
 import XDHqSHRD
 from XDHqSHRD import getEnv
@@ -73,7 +73,7 @@ def set_supplier(supplier = None):
 	_Supplier.current = supplier
 
 _FAAS_PROTOCOL_LABEL = "4c837d30-2eb5-41af-9b3d-6c8bf01d8dbf"
-_FAAS_PROTOCOL_VERSION = "0"
+_FAAS_PROTOCOL_VERSION = "1"
 _MAIN_PROTOCOL_LABEL = "22bb5d73-924f-473f-a68a-14f41d8bfa83"
 _MAIN_PROTOCOL_VERSION = "0"
 _SCRIPTS_VERSION = "0"
@@ -81,6 +81,10 @@ _SCRIPTS_VERSION = "0"
 _FORBIDDEN_ID = -1
 _CREATION_ID = -2
 _CLOSING_ID = -3
+_HEAD_RETRIEVING_ID = -4
+
+_BROADCAST_ACTION_ID = -3
+_HEAD_SENDING_ID = -4
 
 _writeLock = threading.Lock()
 
@@ -249,7 +253,7 @@ def _ignition():
 	global _token, _url
 	with _writeLock:
 		writeString( _token)
-		writeString(_headContent)
+#		writeString(_headContent)	# Dedicated call from proxy since protocol v1
 		writeString(_wAddr)
 		writeString("")	# Currently not used; for future use.
 
@@ -292,6 +296,9 @@ def _serve(callback,userCallback,callbacks ):
 				_waitForInstance()
 				instance = None # Without this, instance will only be destroyed
 												# when 'instance" is set to a new instance.
+		elif id == _HEAD_RETRIEVING_ID:
+			writeSInt(_HEAD_SENDING_ID)
+			writeString(_headContent)
 		elif not id in _instances:
 			_report("Unknown instance of id '" + str(id) + "'!")
 			_dismiss(id)
@@ -329,7 +336,7 @@ def get_app_url(id=""):
 
 def broadcastAction(action, id = ""):
 	with _writeLock:
-		writeSInt(-3)
+		writeSInt(_BROADCAST_ACTION_ID)
 		writeString(action)
 		writeString(id)
 

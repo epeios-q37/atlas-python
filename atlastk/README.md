@@ -10,18 +10,19 @@
 
 <!--
 Si la table ci-dessous est modifiée, alors modifier également (pages du site atlastk.org) :
-- la page 'Home' ;
+- la page '_index' ;
 - la page 'Online demonstrations' ;
 -->
 
 > The [*Atlas* toolkit](https://atlastk.org) is available for:
-> | Language | Online demonstrations | Repositories | Popularity |
-> |:-:|:-:|:-:|:-:|
-> | [![Java](https://q37.info/s/jrnv4mj4.svg)](https://q37.info/s/qtnkp9w4) | [![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/3vwk3h3n) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-java) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-java) [![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-java) | [![Stars for atlas-java](https://img.shields.io/github/stars/epeios-q37/atlas-java.svg?style=social)](https://github.com/epeios-q37/atlas-java/stargazers) [![GitHub forks for atlas-](https://img.shields.io/github/forks/epeios-q37/atlas-java.svg?style=social)](https://github.com/epeios-q37/atlas-java/network/) |
-> | [![Node.js](https://q37.info/s/fh7v7kn9.svg)](https://q37.info/s/3d7hr733) | [![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/st7gccd4) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-node) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-node) [![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-node) | [![Stars for atlas-node](https://img.shields.io/github/stars/epeios-q37/atlas-node.svg?style=social)](https://github.com/epeios-q37/atlas-node/stargazers) [![GitHub forks for atlas-node](https://img.shields.io/github/forks/epeios-q37/atlas-node.svg?style=social)](https://github.com/epeios-q37/atlas-node/network/) |
-> | [![Perl](https://q37.info/s/hgnwnnn3.svg)](https://q37.info/s/4nvmwjgg) | [![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/h3h34zgq) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-perl) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-perl) [![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-perl) | [![Stars for atlas-perl](https://img.shields.io/github/stars/epeios-q37/atlas-perl.svg?style=social)](https://github.com/epeios-q37/atlas-perl/stargazers) [![GitHub forks for atlas-perl](https://img.shields.io/github/forks/epeios-q37/atlas-perl.svg?style=social)](https://github.com/epeios-q37/atlas-perl/network/) |
-> | [![Python](https://q37.info/s/94937nbb.svg)](https://q37.info/s/pd7j9k4r) | [![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/vwpsw73v) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-python) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-python) [![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-python) | [![Stars for atlas-python](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/stargazers) [![GitHub forks for atlas-python](https://img.shields.io/github/forks/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/network/) |
-> | [![Ruby](https://q37.info/s/zn4qrx9j.svg)](https://q37.info/s/gkfj3zpz) | [![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/9thdtmjg) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-ruby) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-ruby) [![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-ruby) | [![Stars for atlas-ruby](https://img.shields.io/github/stars/epeios-q37/atlas-ruby.svg?style=social)](https://github.com/epeios-q37/atlas-ruby/stargazers) [![GitHub forks for atlas-ruby](https://img.shields.io/github/forks/epeios-q37/atlas-ruby.svg?style=social)](https://github.com/epeios-q37/atlas-ruby/network/) |
+> | Language / Demo | Repositories | Popularity |
+> |:-:|:-:|:-:|
+> | [![Java](https://q37.info/s/jrnv4mj4.svg)](https://q37.info/s/qtnkp9w4)<br/>[![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/3vwk3h3n) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-java) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-java)<br/>[![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-java) | [![Stars for atlas-java](https://img.shields.io/github/stars/epeios-q37/atlas-java.svg?style=social)](https://github.com/epeios-q37/atlas-java/stargazers)<br/>[![GitHub forks for atlas-java](https://img.shields.io/github/forks/epeios-q37/atlas-java.svg?style=social)](https://github.com/epeios-q37/atlas-java/network/) |
+> | [![Node.js](https://q37.info/s/fh7v7kn9.svg)](https://q37.info/s/3d7hr733)<br/>[![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/st7gccd4) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-node) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-node)<br/>[![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-node) | [![Stars for atlas-node](https://img.shields.io/github/stars/epeios-q37/atlas-node.svg?style=social)](https://github.com/epeios-q37/atlas-node/stargazers)<br/>[![GitHub forks for atlas-node](https://img.shields.io/github/forks/epeios-q37/atlas-node.svg?style=social)](https://github.com/epeios-q37/atlas-node/network/) |
+> | [![Perl](https://q37.info/s/hgnwnnn3.svg)](https://q37.info/s/4nvmwjgg)<br/>[![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/h3h34zgq) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-perl) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-perl)<br/>[![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-perl) | [![Stars for atlas-perl](https://img.shields.io/github/stars/epeios-q37/atlas-perl.svg?style=social)](https://github.com/epeios-q37/atlas-perl/stargazers)<br/>[![GitHub forks for atlas-perl](https://img.shields.io/github/forks/epeios-q37/atlas-perl.svg?style=social)](https://github.com/epeios-q37/atlas-perl/network/) |
+> | [![Python](https://q37.info/s/94937nbb.svg)](https://q37.info/s/pd7j9k4r)<br/>[![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/vwpsw73v) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-python) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-python)<br/>[![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-python) | [![Stars for atlas-python](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/stargazers)<br/>[![GitHub forks for atlas-python](https://img.shields.io/github/forks/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/network/) |
+> | [![Ruby](https://q37.info/s/zn4qrx9j.svg)](https://q37.info/s/gkfj3zpz)<br/>[![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/9thdtmjg) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-ruby) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-ruby)<br/>[![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-ruby) | [![Stars for atlas-ruby](https://img.shields.io/github/stars/epeios-q37/atlas-ruby.svg?style=social)](https://github.com/epeios-q37/atlas-ruby/stargazers)<br/>[![GitHub forks for atlas-ruby](https://img.shields.io/github/forks/epeios-q37/atlas-ruby.svg?style=social)](https://github.com/epeios-q37/atlas-ruby/network/) |
+
 
 <ins>***WebGPIO* (*Raspberry Pi*/*ODROID-C2*)**</ins>: the *WebGPIO* application, with which you can control the *Raspberry Pi*/*ODROID-C2* (and probably other similar devices) GPIOs with your smartphone, is described in the *Raspberry Pi*/*ODROID-C2* below section.
 
@@ -53,19 +54,19 @@ BODY = """
 </fieldset>
 """
  
-def ac_connect(dom):
+def acConnect(dom):
   dom.inner("", BODY)
   dom.focus("Input")
  
-def ac_submit(dom):
-  name = dom.get_value("Input")
+def acSubmit(dom):
+  name = dom.getValue("Input")
   dom.begin("Output", f"<div>Hello, {name}!</div>")
-  dom.set_value("Input", "")
+  dom.setValue("Input", "")
   dom.focus("Input")
  
 CALLBACKS = {
-  "": ac_connect,
-  "Submit": ac_submit
+  "": acConnect,
+  "Submit": acSubmit
 }
  
 atlastk.launch(CALLBACKS)
@@ -131,6 +132,8 @@ The *Atlas* toolkit is particularly well suited for educational purposes, to wri
 
 There is also a stub to for this library at address <https://q37.info/s/zzcn3wnx>.
 
+> You will also find programs from [*The Big Book of Small Python Projects*](https://inventwithpython.com/bigbookpython/) by [Al Sweigart](http://alsweigart.com) to which a graphical user interface using the *Atlas* toolkit were added in this repository: [epeios-q37/AlSweigartTheBigBookPython](https://q37.info/s/kd3bwchj).
+
 ## Content of the repository
 
 The `atlastk` directory contains the *Python* source code of the *Atlas* toolkit, which is the directory you have to reference in `PYTHONPATH` in order to use the *Atlas* toolkit in your own program, unless you have installed the [*atlastk* package](http://q37.info/s/9srmskcm) with `pip install atlastk`.
@@ -158,7 +161,7 @@ You can also directly launch, from within the `examples` directory, `python <Nam
 
 The *Stars* application is an example where the *Atlas* *toolkit* is used to control a [*Pygame*](https://en.wikipedia.org/wiki/Pygame) based application. Of course, *Pygame* needs to be installed.
 
-The `tutorials` directory contains some [*Jupyter* notebooks](https://en.wikipedia.org/wiki/Project_Jupyter#Jupyter_Notebook) about  the *Atlas* *toolkit*. 
+The `tutorials` directory contains some [*Jupyter* notebooks](https://en.wikipedia.org/wiki/Project_Jupyter#Jupyter_Notebook) about  the *Atlas* *toolkit*.
 
 ## *Raspberry Pi*/*ODROID-C2*
 

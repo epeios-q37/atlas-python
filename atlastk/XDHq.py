@@ -108,27 +108,39 @@ class DOM:
 		return self._dom.call("Execute_1",type,script)
 
 	# Last statement of 'script' MUST be 'undefined', or the thread will be killed.
-	def execute_void(self,script):
+	def executeVoid(self,script):
 		return self._execute(_VOID,script)
 
-	def execute_string(self,script):
+	execute_void = executeVoid
+
+	def executeString(self,script):
 		return self._execute(_STRING,script)
 
-	def execute_strings(self,script):
+	execute_string = executeString
+
+	def executeStrings(self,script):
 		return self._execute(_STRINGS,script)
+
+	execute_strings = executeStrings
 
 	def _raw_send(self,type,data):
 		return self._dom.call("RawSend_1",type,data)
 
 	# Last statement of 'data' MUST be 'undefined', or the thread will be killed.
-	def raw_send_void(self,data):
+	def rawSendVoid(self,data):
 		return self._raw_send(_VOID,data)
 
-	def raw_send_string(self,data):
+	raw_send_void = rawSendVoid
+
+	def rawSendString(self,data):
 		return self._raw_send(_STRING,data)
 
-	def raw_send_strings(self,data):
+	raw_send_string = rawSendString
+
+	def rawSendStrings(self,data):
 		return self._raw_send(_STRINGS,data)
+
+	raw_send_strings = rawSendStrings	
 
 	def flush(self):	# Returns when all the pending commands were executed.
 		self._dom.call("Flush_1",_STRING)
@@ -148,20 +160,20 @@ class DOM:
 		# It also serves to do some synchronisation.
 		self._dom.call("HandleLayout_1",_STRING,variant,id,xml if isinstance(xml,str) else xml.toString(),xsl)
 
-	def prepend_layout(self,id,html):	# Deprecated!
+	def prependLayout(self,id,html):	# Deprecated!
 		self._handleLayout("Prepend",id,html,"")
 
-	prependLayout = prepend_layout	# Deprecated!
+	prepend_layout = prependLayout	# Deprecated!
 
-	def set_layout(self,id,html):	# Deprecated!
+	def setLayout(self,id,html):	# Deprecated!
 		self._handleLayout("Set",id,html,"")
 
-	setLayout = set_layout	# Deprecated!
+	set_layout = setLayout	# Deprecated!
 
-	def append_layout(self,id,html):	# Deprecated!
+	def appendLayout(self,id,html):	# Deprecated!
 		self._handleLayout("Append",id,html,"")
 
-	appendLayout = append_layout	# Deprecated!
+	append_layout = appendLayout	# Deprecated!
 
 	def _handleLayoutXSL(self,variant,id,xml,xsl):	# Deprecated!
 		xslURL = xsl
@@ -171,20 +183,20 @@ class DOM:
 
 		self._handleLayout(variant,id,xml,xslURL )
 
-	def prepend_layout_XSL(self,id,xml,xsl):	# Deprecated!
+	def prependLayoutXSL(self,id,xml,xsl):	# Deprecated!
 		self._handleLayoutXSL("Prepend",id,xml,xsl)
 
-	prependLayoutXSL = prepend_layout_XSL	# Deprecated!
+	prepend_layout_XSL = prependLayoutXSL	# Deprecated!
 
-	def set_layout_XSL(self,id,xml,xsl):	# Deprecated!
+	def setLayoutXSL(self,id,xml,xsl):	# Deprecated!
 		self._handleLayoutXSL("Set",id,xml,xsl)
 
-	setLayoutXSL = set_layout_XSL	# Deprecated!
+	set_layout_XSL = setLayoutXSL	# Deprecated!
 
-	def append_layout_XSL(self,id,xml,xsl):	# Deprecated!
+	def appendLayoutXSL(self,id,xml,xsl):	# Deprecated!
 		self._handleLayoutXSL("Append",id,xml,xsl)
 
-	appendLayoutXSL = append_layout_XSL	# Deprecated!
+	append_layout_XSL = appendLayoutXSL	# Deprecated!
 
 	def _layout(self,variant,id,xml,xsl):
 		if xsl:
@@ -207,159 +219,151 @@ class DOM:
 	def after(self,id,xml,xsl=""):
 		self._layout("afterend",id,xml,xsl)
 
-	def get_contents(self,ids):	# Deprecated!
+	def getContents(self,ids):	# Deprecated!
 		return _unsplit(ids,self._dom.call("GetContents_1",_STRINGS,ids))
 
-	getContents = get_contents	# Deprecated!
+	get_contents = getContents	# Deprecated!
 
-	def get_content( self,id):	# Deprecated!
+	def getContent( self,id):	# Deprecated!
 		return self.getContents([id])[id]
 
-	getContent = get_content	# Deprecated!
+	get_content = getContent	# Deprecated!
 
-	def get_values(self,ids):
+	def getValues(self,ids):
 		return _unsplit(ids,self._dom.call("GetValues_1",_STRINGS,ids))
 
-	def get_value( self,id):
+	get_values = getValues
+
+	def getValue( self,id):
 		return self.get_values([id])[id]
 
-	def get_marks(self,ids):
+	get_value =  getValue
+
+	def getMarks(self,ids):
 		return _unsplit(ids,self._dom.call("GetMarks_1",_STRINGS,ids))
 
-	def get_mark( self,id):
+	get_marks = getMarks
+
+	def getMark( self,id):
 		return self.get_marks([id])[id]
 
-	def set_contents(self,ids_and_contents):	# Deprecated!
+	get_mark = getMark
+
+	def setContents(self,ids_and_contents):	# Deprecated!
 		[ids,contents] = _split(ids_and_contents)
 
 		self._dom.call("SetContents_1",_VOID,ids,contents)
 
-	setContents = set_contents	# Deprecated!
+	set_contents = setContents	# Deprecated!
 
-	def set_content(self,id,content):	# Deprecated!
+	def setContent(self,id,content):	# Deprecated!
 		self.set_contents({id: content})
 
-	setContent = set_content	# Deprecated!
+	set_content = setContent	# Deprecated!
 
-	def set_values(self,ids_and_values):
+	def setValues(self,ids_and_values):
 		[ids,values] = _split(ids_and_values)
 
 		self._dom.call("SetValues_1",_VOID,ids,values)
 
-	def set_value(self,id,value):
+	set_values = setValues
+
+	def setValue(self,id,value):
 		self.set_values({id: value})
 
-	def set_marks(self,ids_and_marks):
+	set_value = setValue
+
+	def setMarks(self,ids_and_marks):
 		[ids,marks] = _split(ids_and_marks)
 
 		self._dom.call("SetMarks_1",_VOID,ids,marks)
 
-	def set_mark(self,id,mark):
+	set_marks = setMarks
+
+	def setMark(self,id,mark):
 		self.set_marks({id: mark})
 
-	"""
-	# Following 4 methods will either be removed or redesigned.
-
-	# Will become a variation of 'createElementNS(…)',
-	# with a optional list of attributes.
-	def createElement(self,name,id = "" ):
-		return self._dom.call( "CreateElement_1",_STRING,2,name,id,0 )
-
-	# Will become 'prependChild(…)',with variations.
-	def insertChild(self,child,id):
-		self._dom.call( "InsertChild_1",_VOID,2,child,id,0 )
-
-	# NOTA: The 'CSSRule' related methods will be probably removed.
-	# Enabling/disabling styles are easier to use.
-	def insertCSSRule(self,rule,index,id=""):
-		self._dom.call("InsertCSSRule_1",_VOID,3,id,rule,str(index),0)
-
-	def appendCSSRule(self,rule,id=""):
-		return int(self._dom.call("AppendCSSRule_1",_STRING,2,id,rule,0))
-
-	def removeCSSRule(self,index,id=""):
-		self._dom.call("RemoveCSSRule_1",_VOID,2,id,str(index),0)
-	"""
+	set_mark = setMark
 
 	def _handleClasses(self,variant,idsAndClasses):
 		[ids,classes] = _split(idsAndClasses)
 
 		self._dom.call("HandleClasses_1",_VOID,variant,ids,classes)
 
-	def add_classes(self,ids_and_classes):
+	def addClasses(self,ids_and_classes):
 		self._handleClasses("Add",ids_and_classes)
 
-	addClasses = add_classes
+	add_classes = addClasses
 
-	def remove_classes(self,ids_and_classes):
+	def removeClasses(self,ids_and_classes):
 		self._handleClasses("Remove",ids_and_classes)
 
-	removeClasses = remove_classes		
+	remove_classes = removeClasses		
 
-	def toggle_classes(self,ids_and_classes):
+	def toggleClasses(self,ids_and_classes):
 		self._handleClasses("Toggle",ids_and_classes)
 
-	toggleClasses = toggle_classes
+	toggle_classes = toggleClasses
 
-	def add_class(self,id,clas ):
+	def addClass(self,id,clas ):
 		self.addClasses({id: clas})
 
-	addClass = add_class
+	add_class = addClass
 
-	def remove_class(self,id,class_ ):
+	def removeClass(self,id,class_ ):
 		self.removeClasses({id: class_})
 
-	removeClass	= remove_class
+	remove_class	= removeClass
 
-	def toggle_class(self,id,clas ):
+	def toggleClass(self,id,clas ):
 		self.toggleClasses({id: clas})
 
-	toggleClass = toggle_class
+	toggle_class = toggleClass
 
-	def enable_elements(self,ids):
+	def enableElements(self,ids):
 		self._dom.call("EnableElements_1",_VOID,ids )
 
-	enableElements = enable_elements		
+	enable_elements = enableElements		
 
-	def enable_element(self,id):
+	def enableElement(self,id):
 		self.enableElements([id] )
 
-	enableElement = enable_element		
+	enable_element = enableElement		
 
-	def disable_elements(self,ids):
+	def disableElements(self,ids):
 		self._dom.call("DisableElements_1",_VOID,ids )
 
-	disableElements = disable_elements		
+	disable_elements = disableElements		
 
-	def disable_element(self,id):
+	def disableElement(self,id):
 		self.disableElements([id])
 
-	disableElement = disable_element
+	disable_element = disableElement
 
-	def set_attribute(self,id,name,value ):
+	def setAttribute(self,id,name,value ):
 		self._dom.call("SetAttribute_1",_VOID,id,name,str(value) )
 
-	setAttribute = set_attribute		
+	set_attribute = setAttribute		
 
-	def get_attribute(self,id,name):
+	def getAttribute(self,id,name):
 		return self._dom.call("GetAttribute_1",_STRING,id,name )
 
-	getAttribute = get_attribute		
+	get_attribute = getAttribute		
 
-	def remove_attribute(self,id,name ):
+	def removeAttribute(self,id,name ):
 		self._dom.call("RemoveAttribute_1",_VOID,id,name )
 
-	removeAttribute = remove_attribute
+	remove_attribute = removeAttribute
 
-	def set_property(self,id,name,value ):
+	def setProperty(self,id,name,value ):
 		self._dom.call("SetProperty_1",_VOID,id,name,value )
 
-	setProperty = set_property		
+	set_property = setProperty		
 
-	def get_property(self,id,name ):
+	def getProperty(self,id,name ):
 		return self._dom.call("GetProperty_1",_STRING,id,name )
 
-	getProperty = get_property		
+	get_property = getProperty		
 
 	def focus(self,id):
 		self._dom.call("Focus_1",_VOID,id)
@@ -367,22 +371,32 @@ class DOM:
 	def parent(self,id):
 		return self._dom.call("Parent_1",_STRING,id)
 
-	def first_child(self,id):
+	def firstChild(self,id):
 		return self._dom.call("FirstChild_1",_STRING,id)
 
-	def last_child(self,id):
+	first_child = firstChild
+
+	def lastChild(self,id):
 		return self._dom.call("LastChild_1",_STRING,id)
 
-	def previous_sibling(self,id):
+	last_child = lastChild
+
+	def previousSibling(self,id):
 		return self._dom.call("PreviousSibling_1",_STRING,id)
 
-	def next_sibling(self,id):
+	previous_sibling = previousSibling		
+
+	def nextSibling(self,id):
 		return self._dom.call("NextSibling_1",_STRING,id)
 
-	def scroll_to(self,id):
+	next_sibling = nextSibling
+
+	def scrollTo(self,id):
 		self._dom.call("ScrollTo_1",_VOID,id)
 
-	def debug_log(self,switch=True):
+	scroll_to = scrollTo
+
+	def debugLog(self,switch=True):
 		self._dom.call("DebugLog_1",_VOID,"true" if switch else "false")
 
 	def log(self,message):

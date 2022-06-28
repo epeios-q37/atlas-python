@@ -10,14 +10,14 @@
 
 <!--
 Si la table ci-dessous est modifiée, alors modifier également (pages du site atlastk.org) :
-- la page 'Home' ;
+- la page '_index' ;
 - la page 'Online demonstrations' ;
 -->
 
 > The [*Atlas* toolkit](https://atlastk.org) is available for:
 > | Language / Demo | Repositories | Popularity |
 > |:-:|:-:|:-:|
-> | [![Java](https://q37.info/s/jrnv4mj4.svg)](https://q37.info/s/qtnkp9w4)<br/>[![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/3vwk3h3n) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-java) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-java)<br/>[![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-java) | [![Stars for atlas-java](https://img.shields.io/github/stars/epeios-q37/atlas-java.svg?style=social)](https://github.com/epeios-q37/atlas-java/stargazers)<br/>[![GitHub forks for atlas-](https://img.shields.io/github/forks/epeios-q37/atlas-java.svg?style=social)](https://github.com/epeios-q37/atlas-java/network/) |
+> | [![Java](https://q37.info/s/jrnv4mj4.svg)](https://q37.info/s/qtnkp9w4)<br/>[![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/3vwk3h3n) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-java) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-java)<br/>[![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-java) | [![Stars for atlas-java](https://img.shields.io/github/stars/epeios-q37/atlas-java.svg?style=social)](https://github.com/epeios-q37/atlas-java/stargazers)<br/>[![GitHub forks for atlas-java](https://img.shields.io/github/forks/epeios-q37/atlas-java.svg?style=social)](https://github.com/epeios-q37/atlas-java/network/) |
 > | [![Node.js](https://q37.info/s/fh7v7kn9.svg)](https://q37.info/s/3d7hr733)<br/>[![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/st7gccd4) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-node) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-node)<br/>[![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-node) | [![Stars for atlas-node](https://img.shields.io/github/stars/epeios-q37/atlas-node.svg?style=social)](https://github.com/epeios-q37/atlas-node/stargazers)<br/>[![GitHub forks for atlas-node](https://img.shields.io/github/forks/epeios-q37/atlas-node.svg?style=social)](https://github.com/epeios-q37/atlas-node/network/) |
 > | [![Perl](https://q37.info/s/hgnwnnn3.svg)](https://q37.info/s/4nvmwjgg)<br/>[![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/h3h34zgq) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-perl) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-perl)<br/>[![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-perl) | [![Stars for atlas-perl](https://img.shields.io/github/stars/epeios-q37/atlas-perl.svg?style=social)](https://github.com/epeios-q37/atlas-perl/stargazers)<br/>[![GitHub forks for atlas-perl](https://img.shields.io/github/forks/epeios-q37/atlas-perl.svg?style=social)](https://github.com/epeios-q37/atlas-perl/network/) |
 > | [![Python](https://q37.info/s/94937nbb.svg)](https://q37.info/s/pd7j9k4r)<br/>[![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/vwpsw73v) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-python) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-python)<br/>[![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-python) | [![Stars for atlas-python](https://img.shields.io/github/stars/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/stargazers)<br/>[![GitHub forks for atlas-python](https://img.shields.io/github/forks/epeios-q37/atlas-python.svg?style=social)](https://github.com/epeios-q37/atlas-python/network/) |
@@ -54,19 +54,19 @@ BODY = """
 </fieldset>
 """
  
-def ac_connect(dom):
+def acConnect(dom):
   dom.inner("", BODY)
   dom.focus("Input")
  
-def ac_submit(dom):
-  name = dom.get_value("Input")
+def acSubmit(dom):
+  name = dom.getValue("Input")
   dom.begin("Output", f"<div>Hello, {name}!</div>")
-  dom.set_value("Input", "")
+  dom.setValue("Input", "")
   dom.focus("Input")
  
 CALLBACKS = {
-  "": ac_connect,
-  "Submit": ac_submit
+  "": acConnect,
+  "Submit": acSubmit
 }
  
 atlastk.launch(CALLBACKS)

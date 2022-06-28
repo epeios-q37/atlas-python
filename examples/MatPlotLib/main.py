@@ -375,21 +375,21 @@ def example10():
 
 def ac_connect(dom):
   dom.inner("", BODY)
-  dom.disable_element("Ready")
+  dom.disableElement("Ready")
 
   for example in range(1,AMOUNT+1):
     dom.end("Plots", f'<fieldset class="hide" id="example{example}">Please wait ({example}/{AMOUNT})…</fieldset>')
     dom.inner(f"example{example}", f"<legend>Example {example}</legend>{run(example)}")
     dom.flush()
-    dom.scroll_to(f'example{example}')
+    dom.scrollTo(f'example{example}')
     dom.end("Buttons",f'<button id="{example}" xdh:onevent="Display">{example}</button>')
 
-  dom.enable_element("Ready")
-  dom.remove_class(f"example1", "hide")
+  dom.enableElement("Ready")
+  dom.removeClass(f"example1", "hide")
 
 def ac_display(dom,id):
-  dom.add_classes(_hiding)
-  dom.remove_class(f"example{id}","hide")
+  dom.addClasses(_hiding)
+  dom.removeClass(f"example{id}","hide")
 
 
 _hiding = {}

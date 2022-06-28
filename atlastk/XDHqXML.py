@@ -31,38 +31,38 @@ class XML:
 		self._write("dummy")
 		self._write(rootTag)
 
-	def push_tag(self,tag):
+	def pushTag(self,tag):
 		self._xml += ">"
 		self._write(tag)
 
-	pushTag = push_tag
+	push_tag = pushTag
 
-	def pop_tag(self):
+	def popTag(self):
 		self._xml += "<"
 
-	popTag = pop_tag
+	pop_tag = popTag
 	
-	def put_attribute(self,name,value):
+	def putAttribute(self,name,value):
 		self._xml += "A"
 		self._write(name)
 		self._write(str(value))
 
-	putAttribute = put_attribute
+	put_attribute = putAttribute
 	
-	def put_value(self,value):
+	def putValue(self,value):
 		self._xml += "V"
 		self._write(str(value))
 
-	putValue = put_value		
+	put_value = putValue		
 
-	def put_tag_and_value(self,tag,value):
+	def putTagAndValue(self,tag,value):
 		self.pushTag(tag)
 		self.putValue(value)
 		self.popTag()
 
-	putTagAndValue = put_tag_and_value
+	put_tag_and_value = putTagAndValue
 
-	def to_string(self):
+	def toString(self):
 		return self._xml
 
-	toString = to_string		
+	to_string = toString		

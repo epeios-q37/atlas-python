@@ -46,29 +46,29 @@ body = """
 </fieldset>
 """
 
-def ac_connect(dom):
+def acConnect(dom):
   dom.inner("", body )
   dom.focus( "input")
 
-def ac_submit(dom):
-  dom.alert("Hello, {}!".format(dom.get_value("input")))
+def acSubmit(dom):
+  dom.alert("Hello, {}!".format(dom.getValue("input")))
   dom.focus( "input")
 
-def ac_clear(dom):
+def acClear(dom):
   if dom.confirm("Are you sure?"):
-    dom.set_value("input", "" )
+    dom.setValue("input", "" )
   dom.focus( "input")
 
-def ac_error(dom):
+def acError(dom):
   if dom.confirm("Clicking OK will quit the program (dev testing purpose)!"):
     os._exit(-1)
   dom.focus( "input")
 
 callbacks = {
-  "": ac_connect,
-  "Submit": ac_submit,
-  "Clear": ac_clear,
-  "Error": ac_error
+  "": acConnect,
+  "Submit": acSubmit,
+  "Clear": acClear,
+  "Error": acError
 }
 
 atlastk.launch(callbacks, None, head)

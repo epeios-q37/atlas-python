@@ -35,43 +35,43 @@ lock = threading.Lock()
 
 class Chatroom:
   def __init__(self):
-    self.last_message = 0
+    self.lastMessage = 0
     self.pseudo = ""
 
-  def build_xml(self):
-    xml = atlastk.create_XML("XDHTML")
-    xml.push_tag( "Messages" )
-    xml.put_attribute( "pseudo", self.pseudo )
+  def buildXML(self):
+    xml = atlastk.createXML("XDHTML")
+    xml.pushTag( "Messages" )
+    xml.putAttribute( "pseudo", self.pseudo )
 
     global messages, pseudos
 
     with lock:
       index = len( messages ) - 1
 
-      while index >= self.last_message:
+      while index >= self.lastMessage:
         message = messages[index]
 
-        xml.push_tag( "Message" )
-        xml.put_attribute( "id", index )
-        xml.put_attribute( "pseudo", message['pseudo'] )
-        xml.put_value( message['content'] )
-        xml.pop_tag()
+        xml.pushTag( "Message" )
+        xml.putAttribute( "id", index )
+        xml.putAttribute( "pseudo", message['pseudo'] )
+        xml.putValue( message['content'] )
+        xml.popTag()
 
         index -= 1
 
-      self.last_message = len(messages)
+      self.lastMessage = len(messages)
 
-    xml.pop_tag()
+    xml.popTag()
 
     return xml
 
-  def display_messages(self, dom):
+  def displayMessages(self, dom):
     global messages
     
-    if len(messages) > self.last_message:
-      dom.begin("Board", self.build_xml(), "Messages.xsl")
+    if len(messages) > self.lastMessage:
+      dom.begin("Board", self.buildXML(), "Messages.xsl")
 
-  def handle_pseudo(self, pseudo):
+  def handlePseudo(self, pseudo):
     global pseudos
 
     with lock:
@@ -83,7 +83,7 @@ class Chatroom:
 
     return result
 
-  def add_message(self, pseudo, message):
+  def addMessage(self, pseudo, message):
     global messages
     message = message.strip()
 
@@ -92,45 +92,45 @@ class Chatroom:
       with lock:
         messages.append({'pseudo': pseudo, 'content': message})
 
-def ac_connect(chatroom, dom):
+def acConnect(chatroom, dom):
   dom.inner("", open("Main.html").read())
   dom.focus("Pseudo")
-  chatroom.display_messages(dom)
+  chatroom.displayMessages(dom)
   
-def ac_submit_pseudo(chatroom, dom):
-  pseudo = dom.get_value("Pseudo").strip()
+def acSubmitPseudo(chatroom, dom):
+  pseudo = dom.getValue("Pseudo").strip()
 
   if not pseudo:
     dom.alert("Pseudo. can not be empty !")
-    dom.set_value("Pseudo", "")
+    dom.setValue("Pseudo", "")
     dom.focus("Pseudo")
-  elif chatroom.handle_pseudo(pseudo.upper()):
+  elif chatroom.handlePseudo(pseudo.upper()):
     chatroom.pseudo = pseudo
-    dom.add_class("PseudoButton", "hidden")
-#		dom.disable_elements(["Pseudo", "PseudoButton"])
-    dom.disable_element("Pseudo")
-    dom.enable_elements(["Message", "MessageButton"])
-#		dom.set_value("Pseudo", pseudo)
+    dom.addClass("PseudoButton", "hidden")
+#		dom.disableElements(["Pseudo", "PseudoButton"])
+    dom.disableElement("Pseudo")
+    dom.enableElements(["Message", "MessageButton"])
+#		dom.setValue("Pseudo", pseudo)
     dom.focus("Message")
     print("\t>>>> New user: " + pseudo)
   else:
     dom.alert("Pseudo. not available!")
-    dom.set_value("Pseudo", pseudo)
+    dom.setValue("Pseudo", pseudo)
     dom.focus("Pseudo")
 
-def ac_submit_message(chatroom, dom):
-  message = dom.get_value("Message")
-  dom.set_value("Message", "")
+def acSubmitMessage(chatroom, dom):
+  message = dom.getValue("Message")
+  dom.setValue("Message", "")
   dom.focus("Message")
-  chatroom.add_message(chatroom.pseudo, message)
-  chatroom.display_messages(dom)
-  atlastk.broadcast_action("Update")
+  chatroom.addMessage(chatroom.pseudo, message)
+  chatroom.displayMessages(dom)
+  atlastk.broadcastAction("Update")
 
 callbacks = {
-    "": ac_connect,
-    "SubmitPseudo": ac_submit_pseudo,
-    "SubmitMessage": ac_submit_message,
-    "Update": lambda chatroom, dom: chatroom.display_messages(dom),
+    "": acConnect,
+    "SubmitPseudo": acSubmitPseudo,
+    "SubmitMessage": acSubmitMessage,
+    "Update": lambda chatroom, dom: chatroom.displayMessages(dom),
   }
     
 atlastk.launch(callbacks, Chatroom, open("Head.html").read())

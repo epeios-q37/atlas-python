@@ -65,12 +65,12 @@ def acConnect(Poppy,dom):
 
 def acMove(Poppy,dom,id):
   global poppy
-  poppy.goto_position({id: int(dom.get_value(id))},0,wait=True)
+  poppy.goto_position({id: int(dom.getValue(id))},0,wait=True)
 
 def set( dom, motor, position ):
   global poppy
   poppy.goto_position({motor: position},0,wait=False)
-  dom.set_value( motor, position )
+  dom.setValue( motor, position )
 	
 def reset( dom, motor ):
   set(dom, motor, 0)

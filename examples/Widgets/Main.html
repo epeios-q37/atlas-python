@@ -32,7 +32,7 @@ callbacks = {
   <pre class="lang-html"></pre>
   <pre class="lang-python">
 callbacks = {
-  "pwSubmit": lambda dom, id: dom.set_value("pwOutput", dom.get_value(id)),
+  "pwSubmit": lambda dom, id: dom.setValue("pwOutput", dom.getValue(id)),
 } </pre>
 </fieldset>
 <fieldset class="hidden" id="checkbox">
@@ -63,8 +63,8 @@ callbacks = {
   <pre class="lang-html"></pre>
   <pre class="lang-python">
 callbacks = {
-  "cbSelect": lambda dom, id: dom.set_value("cbOutput", "{} ({})".format(id, dom.get_value(id))),
-  "cbSubmit": lambda dom: dom.alert(str(dom.get_values(["cbBicycle", "cbCar","cbPirogue"]))),
+  "cbSelect": lambda dom, id: dom.setValue("cbOutput", "{} ({})".format(id, dom.getValue(id))),
+  "cbSubmit": lambda dom: dom.alert(str(dom.getValues(["cbBicycle", "cbCar","cbPirogue"]))),
 } </pre>
 </fieldset>
 <fieldset class="hidden" id="radio">
@@ -95,9 +95,9 @@ callbacks = {
   <pre class="lang-xml"></pre>
   <pre class="lang-python">
 callbacks = {
-  "rdCheck": lambda dom, id: dom.set_value("rdSelect", dom.get_value(id)),
-  "rdSelect": lambda dom, id: dom.set_value("rdRadios", dom.get_value(id)),
-  "rdReset": lambda dom: dom.set_values({"rdSelect": "None", "rdRadios": ""}),
+  "rdCheck": lambda dom, id: dom.setValue("rdSelect", dom.getValue(id)),
+  "rdSelect": lambda dom, id: dom.setValue("rdRadios", dom.getValue(id)),
+  "rdReset": lambda dom: dom.setValues({"rdSelect": "None", "rdRadios": ""}),
 } </pre>
 </fieldset>
 <fieldset class="hidden" id="datalist">
@@ -108,6 +108,7 @@ callbacks = {
         <option value="Caramel"></option>
         <option value="Chocolate"></option>
         <option value="Vanilla"></option>
+        <option value="Mint"></option>
       </datalist>
     </span>
     <span>Selected flavor: </span>
@@ -119,23 +120,23 @@ callbacks = {
   </fieldset>
   <pre class="lang-html"></pre>
   <pre class="lang-python">
-dl_flavors = ["Vanilla", "Chocolate", "Caramel"]  
+dlFlavors = ["Vanilla", "Chocolate", "Caramel", "Mint"]  
 
 
-def ac_dl_submit(dom, id):
-  global dl_flavors
+def acDlSubmit(dom, id):
+  global dlFlavors
 
-  flavor = dom.get_value(id)
-  dom.set_value(id, "")
-  if not flavor in dl_flavors:
-    dl_flavors.append(flavor)
-    dl_flavors.sort()
-    dom.inner("dlFlavors", dl_shape(dl_flavors))
-  dom.set_value("dlOutput", flavor)
+  flavor = dom.getValue(id)
+  dom.setValue(id, "")
+  if not flavor in dlFlavors:
+    dlFlavors.append(flavor)
+    dlFlavors.sort()
+    dom.inner("dlFlavors", dlShape(dlFlavors))
+  dom.setValue("dlOutput", flavor)
 
 
 callbacks = {
-  "dlSubmit": ac_dl_submit,
+  "dlSubmit": acDlSubmit,
 } </pre>
 </fieldset>
 <fieldset class="hidden" id="date">
@@ -149,7 +150,7 @@ callbacks = {
   <pre class="lang-html"></pre>
   <pre class="lang-python">
 callbacks = {
-  "dtSelect": lambda dom, id: dom.set_value("dtOutput", dom.get_value(id)),
+  "dtSelect": lambda dom, id: dom.setValue("dtOutput", dom.getValue(id)),
 } </pre>
 </fieldset>
 <fieldset class="hidden" id="color">
@@ -163,7 +164,7 @@ callbacks = {
   <pre class="lang-html"></pre>
   <pre class="lang-python">
 callbacks = {
-  "clSelect": lambda dom, id: dom.set_value("clOutput", dom.get_value(id)),
+  "clSelect": lambda dom, id: dom.setValue("clOutput", dom.getValue(id)),
 } </pre>
 </fieldset>
 <fieldset class="hidden" id="range/meter">
@@ -176,7 +177,7 @@ callbacks = {
   <pre class="lang-html"></pre>
   <pre class="lang-python">
 callbacks = {
-  "rgSlide": lambda dom: dom.set_attribute("rgOutput", "value", (dom.get_value("rgVolume"))),
+  "rgSlide": lambda dom: dom.setAttribute("rgOutput", "value", (dom.getValue("rgVolume"))),
 } </pre>
 </fieldset>
 <fieldset class="hidden" id="select">
@@ -214,22 +215,22 @@ callbacks = {
   </fieldset>
   <pre class="lang-html"></pre>
   <pre class="lang-python">
-def sl_embed(other):
+def slEmbed(other):
   html = atlastk.create_HTML()
-  html.push_tag("option")
-  html.put_attribute("selected", "selected")
-  html.put_value(other)
+  html.pushTag("option")
+  html.putAttribute("selected", "selected")
+  html.putValue(other)
   return html
 
-def ac_sl_add(dom):
-  dom.begin("slOthers", sl_embed(dom.get_value("slInput")))
-  dom.set_value("slInput", "")
+def acSlAdd(dom):
+  dom.begin("slOthers", slEmbed(dom.getValue("slInput")))
+  dom.setValue("slInput", "")
   dom.focus("slInput")  
   
 callbacks = {
-  "slSelect": lambda dom, id: dom.set_value("slOutput", dom.get_value(id)),
-  "slAdd": ac_sl_add,
-  "slToggle": lambda dom, id: dom.disable_element("slOthers") if dom.get_value(id) == 'true' else dom.enable_element("slOthers"),
+  "slSelect": lambda dom, id: dom.setValue("slOutput", dom.getValue(id)),
+  "slAdd": acSlAdd,
+  "slToggle": lambda dom, id: dom.disableElement("slOthers") if dom.getValue(id) == 'true' else dom.enableElement("slOthers"),
 } </pre>
 </fieldset>
 <fieldset class="hidden" id="CKEditor">
@@ -246,6 +247,6 @@ callbacks = {
   <pre class="lang-html"></pre>
   <pre class="lang-python">
 callbacks = {
-  "ckSubmit": lambda dom, id: dom.set_value("ckOutput", dom.get_value("ckInput")),
+  "ckSubmit": lambda dom, id: dom.setValue("ckOutput", dom.getValue("ckInput")),
 } </pre>
 </fieldset>

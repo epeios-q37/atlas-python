@@ -39,7 +39,7 @@ class RGB:
 
 def set(dom, id, value):
   if value != None:
-    dom.set_value(id, value)
+    dom.setValue(id, value)
 
 def acConnect(RGB,dom):
   global rPin, gPin, bPin
@@ -65,7 +65,7 @@ def acSelect(RGB, dom, id):
 
 def getPin(dom, id):
   pin = None
-  value = dom.get_value(id).strip()
+  value = dom.getValue(id).strip()
 
   try:
     pin = int(value)
@@ -75,7 +75,7 @@ def getPin(dom, id):
 
   if value  and ( pin == None ):
     dom.alert("Invalid pin number!")
-    dom.set_value(id, "")
+    dom.setValue(id, "")
     dom.focus(id)
   elif pin != None:
     GPIOq.softPWMCreate(pin)
