@@ -82,10 +82,11 @@ Thanks to [*Replit*](https://q37.info/s/mxmgq3qm), an [online IDE](https://q37.i
 
 To see more examples, like the following [*TodoMVC*](http://todomvc.com/), simply:
 - go [here](https://q37.info/s/vwpsw73v) (also accessible with the [![Run on Repl.it](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/vwpsw73v) button at the top of this page),
-- click on the green `run` button,
+- click on the green `Run` button,
+- choose the *Python* entry (this clones the corresponding *GitHub* repository),
 - choose the demonstration to launch,
-- open the then displayed URL in a browser (should be clickable), 
-- … and, as you wish, run your own tests directly in your browser, by modifying the code of the examples or by writing your own code.
+- wait for the application to open, 
+- … and, as you wish, fork the *Replit* repository and run your own tests directly in your browser, by modifying the code of the examples or by writing your own code.
 
 [![TodoMVC](https://q37.info/download/TodoMVC.gif "The TodoMVC application made with the Atlas toolkit")](https://q37.info/s/vwpsw73v)
 
@@ -136,7 +137,17 @@ There is also a stub to for this library at address <https://q37.info/s/zzcn3wnx
 
 ## Content of the repository
 
-The `atlastk` directory contains the *Python* source code of the *Atlas* toolkit, which is the directory you have to reference in `PYTHONPATH` in order to use the *Atlas* toolkit in your own program, unless you have installed the [*atlastk* package](http://q37.info/s/9srmskcm) with `pip install atlastk`.
+The `atlastk` directory contains the *Python* source code of the *Atlas* toolkit, which is the directory you have to reference in `PYTHONPATH` in order to use the *Atlas* toolkit in your own program, unless you have installed the [*atlastk* package](http://q37.info/s/9srmskcm) (`pip install atlastk`).
+
+You can also retrieve the `atlastk.zip` file, and add to your source code :
+
+```python
+__import__("sys").path.append("<path to>/atlastk.zip")
+
+import atlastk
+```
+
+If the `atlastk.zip` file is in the current folder, replace `<path-to>/atlastk.zip` with `./atlastk.zip` and not only `atlastk.zip`.
 
 In the `examples` directory, you will found following examples:
 
@@ -156,8 +167,7 @@ In the `examples` directory, you will found following examples:
 
 Other examples are detailed in the next section.
 
-Except for the *ErgoJr*, *GPIO* and *RGB* applications, which are detailed in the next section, to run an example, launch, from within the repository, `python main.py`, and select the example you want to run.  
-You can also directly launch, from within the `examples` directory, `python <Name>/` (don't forget the final `/`), where `<Name>` is the name of the example (`Blank`, `Chatroom`…).
+Except for the *ErgoJr*, *GPIO* and *RGB* applications, which are detailed in the next section, to run an example, launch, from within the `examples` directory, `python <Name>/` (don't forget the final `/`), where `<Name>` is the name of the example (`Blank`, `Chatroom`…).
 
 The *Stars* application is an example where the *Atlas* *toolkit* is used to control a [*Pygame*](https://en.wikipedia.org/wiki/Pygame) based application. Of course, *Pygame* needs to be installed.
 
