@@ -137,7 +137,7 @@ There is also a stub to for this library at address <https://q37.info/s/zzcn3wnx
 
 ## Content of the repository
 
-The `atlastk` directory contains the *Python* source code of the *Atlas* toolkit, which is the directory you have to reference in `PYTHONPATH` in order to use the *Atlas* toolkit in your own program, unless you have installed the [*atlastk* package](http://q37.info/s/9srmskcm) (`pip install atlastk`).
+The `atlastk` directory contains the *Python* source code of the *Atlas* toolkit, which is the directory you have to reference in `PYTHONPATH` in order to use the *Atlas* toolkit in your own program, unless you have installed the [*atlastk* package](http://q37.info/s/9srmskcm) (`pip install atlastk`…).
 
 You can also retrieve the `atlastk.zip` file, and add to your source code :
 

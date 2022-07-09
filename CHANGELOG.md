@@ -3,6 +3,12 @@
 - Common to **all** bindings,
 - does **not** concern the native code.
 
+## 2022-07-01
+- *Java*, *Perl*, *Ruby*:
+  -  implementing *FaaS* protocol v1,
+  -  switching to v0.13.1,
+- *Node*: switching to v0.13.3;
+
 ## 2022-06-28
 - *Python*:
   - the *camelCase* naming is now the official one (*snake_case* naming remains available),
