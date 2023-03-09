@@ -50,7 +50,7 @@ def clean(s,i):
 def displayCode(dom,element,i):
   source = dom.firstChild(element);
   code,i = clean(dom.getValue(source),i)
-  dom.setValue(dom.nextSibling(source),html.escape(code))
+  dom.setValue(dom.nextSibling(dom.firstChild(dom.nextSibling(dom.firstChild(dom.nextSibling(source))))), html.escape(code))
 
   return i
 
@@ -115,6 +115,15 @@ def acDlSubmit(dom, id):
     dom.inner("dlFlavors", dlShape(dlFlavors))
   dom.setValue("dlOutput", flavor)
 
+def acRgSubmit(dom, id):
+  value = dom.getValue(id)
+
+  dom.setValues({
+    "rgRange": value,
+    "rgNumber": value,
+    "rgMeter": value
+  })
+
 def slEmbed(other):
   html = atlastk.create_HTML()
 
@@ -129,7 +138,7 @@ def acSlAdd(dom):
   dom.setValue("slInput", "")
   dom.focus("slInput")  
 
-callbacks = {
+CALLBACKS = {
   "": acConnect,
   "Select": acSelect,
 
@@ -150,7 +159,7 @@ callbacks = {
 
   "clSelect": lambda dom, id: dom.setValue("clOutput", dom.getValue(id)),
 
-  "rgSlide": lambda dom: dom.setAttribute("rgOutput", "value", (dom.getValue("rgVolume"))),
+  "rgSubmit": acRgSubmit,
 
   "slSelect": lambda dom, id: dom.setValue("slOutput", dom.getValue(id)),
   "slAdd": acSlAdd,
@@ -160,4 +169,4 @@ callbacks = {
   "ckSubmit": lambda dom, id: dom.setValue("ckOutput", dom.getValue("ckInput")),
 }
 
-atlastk.launch(callbacks, None, open("Head.html").read())
+atlastk.launch(CALLBACKS, None, open("Head.html").read())

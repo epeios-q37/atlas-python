@@ -1,4 +1,5 @@
-<iframe style="border: none;" src="FaaSDesc.php?text=WW91IHdpbGwgc2VlIGhlcmUgc29tZSB3aWRnZXRzIGluIGFjdGlvbi4gQ29ycmVzcG9uZGluZyBIVE1MIGNvZGUgd2lsbCBiZSBkaXNwbGF5ZWQu"></iframe>
+<iframe style="border: none;"
+  src="FaaSDesc.php?text=WW91IHdpbGwgc2VlIGhlcmUgc29tZSB3aWRnZXRzIGluIGFjdGlvbi4gQ29ycmVzcG9uZGluZyBIVE1MIGNvZGUgd2lsbCBiZSBkaXNwbGF5ZWQu"></iframe>
 <div>
   <center id="Regular" class="hidden">
     <select id="List" xdh:onevent="Select">
@@ -9,17 +10,26 @@
     <output id="RetrievedWidget">(please wait…)</output>
     <span> widget HTML code. </span>
   </div>
-  <br/>
+  <br />
 </div>
 <fieldset class="hidden" id="button">
   <fieldset>
     <button xdh:onevent="btSubmit">A button</button>
   </fieldset>
-  <pre class="lang-html"></pre>
-  <pre class="lang-python">
-callbacks = {
+  <fieldset>
+    <legend>Source code</legend>
+    <fieldset>
+      <legend>HTML</legend>
+      <pre class="lang-html"></pre>
+    </fieldset>
+    <fieldset>
+      <legend>Python</legend>
+      <pre class="lang-python">
+CALLBACKS = {
   "btSubmit": lambda dom: dom.alert("Click on button detected!"),
-} </pre>
+}      </pre>
+    </fieldset>
+  </fieldset>
 </fieldset>
 <fieldset class="hidden" id="password">
   <fieldset>
@@ -29,24 +39,39 @@ callbacks = {
       <span>Type a password and hit the <span style="font-weight: bold;">Enter</span> key</span>
     </output>
   </fieldset>
-  <pre class="lang-html"></pre>
-  <pre class="lang-python">
-callbacks = {
+  <fieldset>
+    <legend>Source code</legend>
+    <fieldset>
+      <legend>HTML</legend>
+      <pre class="lang-html"></pre>
+    </fieldset>
+    <fieldset>
+      <legend>Python</legend>
+      <pre class="lang-python">
+CALLBACKS = {
   "pwSubmit": lambda dom, id: dom.setValue("pwOutput", dom.getValue(id)),
-} </pre>
+}      </pre>
+    </fieldset>
+  </fieldset>
 </fieldset>
 <fieldset class="hidden" id="checkbox">
   <fieldset>
     <div>
       <p>Specify the type of vehicle you own:</p>
-      <input type="checkbox" id="cbBicycle" xdh:onevent="cbSelect"/>
-      <label for="cbBicycle">Bicycle</label>
+      <label>
+        <input type="checkbox" id="cbBicycle" xdh:onevent="cbSelect" />
+        <span>Bicycle</span>
+      </label>
       <br />
-      <input type="checkbox" id="cbCar" xdh:onevent="cbSelect"/>
-      <label for="cbCar">Car</label>
+      <label>
+        <input type="checkbox" id="cbCar" xdh:onevent="cbSelect" />
+        <span>Car</span>
+      </label>
       <br />
-      <input type="checkbox" id="cbPirogue" xdh:onevent="cbSelect"/>
-      <label for="cbPirogue">Pirogue</label>
+      <label>
+        <input type="checkbox" id="cbPirogue" xdh:onevent="cbSelect" />
+        <span>Pirogue</span>
+      </label>
     </div>
     <p></p>
     <div>
@@ -60,45 +85,72 @@ callbacks = {
       <button xdh:onevent="cbSubmit">Submit</button>
     </div>
   </fieldset>
-  <pre class="lang-html"></pre>
-  <pre class="lang-python">
-callbacks = {
+  <fieldset>
+    <legend>Source code</legend>
+    <fieldset>
+      <legend>HTML</legend>
+      <pre class="lang-html"></pre>
+    </fieldset>
+    <fieldset>
+      <legend>Python</legend>
+      <pre class="lang-python">
+CALLBACKS = {
   "cbSelect": lambda dom, id: dom.setValue("cbOutput", "{} ({})".format(id, dom.getValue(id))),
   "cbSubmit": lambda dom: dom.alert(str(dom.getValues(["cbBicycle", "cbCar","cbPirogue"]))),
-} </pre>
+}      </pre>
+    </fieldset>
+  </fieldset>
 </fieldset>
 <fieldset class="hidden" id="radio">
   <fieldset>
     <div>
       <div>How to contact you:</p>
-      <span id="rdRadios" xdh:radio="rdContact">
-        <label><input type="radio" name="rdContact" value="Email" xdh:onevent="rdCheck"/><span>Email</span></label>
-        <label><input type="radio" name="rdContact" value="Phone" xdh:onevent="rdCheck"/><span>Phone</span></label>
-        <label><input type="radio" name="rdContact" value="Mail" xdh:onevent="rdCheck"/><span>Mail (post)</span></label>
-      </span>
-      <span>&nbsp;</span>
-      <span>
-        <button xdh:onevent="rdReset">Reset</button>
-      </span>
-    </div>
-    <p></p>
-    <div>
-    <span>Selected contact method: </span>
-      <select id="rdSelect" xdh:onevent="rdSelect">
-        <option selected="" disabled="" value="None">Check above or select below</option>
-        <option value="Email">Email</option>
-        <option value="Phone">Phone</option>
-        <option value="Mail">Mail (post)</option>
-      </select>
-    </div>
+        <span id="rdRadios" xdh:radio="rdContact" xdh:onevent="rdCheck">
+          <label>
+            <input type="radio" name="rdContact" value="Email" />
+            <span>Email</span>
+          </label>
+          <label>
+            <input type="radio" name="rdContact" value="Phone" />
+            <span>Phone</span>
+          </label>
+          <label>
+            <input type="radio" name="rdContact" value="Mail" />
+            <span>Mail (post)</span>
+          </label>
+        </span>
+        <span>&nbsp;</span>
+        <span>
+          <button xdh:onevent="rdReset">Reset</button>
+        </span>
+      </div>
+      <p></p>
+      <div>
+        <span>Selected contact method: </span>
+        <select id="rdSelect" xdh:onevent="rdSelect">
+          <option selected="" disabled="" value="None">Check above or select below</option>
+          <option value="Email">Email</option>
+          <option value="Phone">Phone</option>
+          <option value="Mail">Mail (post)</option>
+        </select>
+      </div>
   </fieldset>
-  <pre class="lang-xml"></pre>
-  <pre class="lang-python">
-callbacks = {
+  <fieldset>
+    <legend>Source code</legend>
+    <fieldset>
+      <legend>HTML</legend>
+      <pre class="lang-html"></pre>
+    </fieldset>
+    <fieldset>
+      <legend>Python</legend>
+      <pre class="lang-python">
+CALLBACKS = {
   "rdCheck": lambda dom, id: dom.setValue("rdSelect", dom.getValue(id)),
   "rdSelect": lambda dom, id: dom.setValue("rdRadios", dom.getValue(id)),
   "rdReset": lambda dom: dom.setValues({"rdSelect": "None", "rdRadios": ""}),
-} </pre>
+}      </pre>
+    </fieldset>
+  </fieldset>
 </fieldset>
 <fieldset class="hidden" id="datalist">
   <fieldset>
@@ -118,8 +170,15 @@ callbacks = {
       </span>
     </output>
   </fieldset>
-  <pre class="lang-html"></pre>
-  <pre class="lang-python">
+  <fieldset>
+    <legend>Source code</legend>
+    <fieldset>
+      <legend>HTML</legend>
+      <pre class="lang-html"></pre>
+    </fieldset>
+    <fieldset>
+      <legend>Python</legend>
+      <pre class="lang-python">
 dlFlavors = ["Vanilla", "Chocolate", "Caramel", "Mint"]  
 
 
@@ -135,9 +194,11 @@ def acDlSubmit(dom, id):
   dom.setValue("dlOutput", flavor)
 
 
-callbacks = {
+CALLBACKS = {
   "dlSubmit": acDlSubmit,
-} </pre>
+}      </pre>
+    </fieldset>
+  </fieldset>
 </fieldset>
 <fieldset class="hidden" id="date">
   <fieldset>
@@ -147,11 +208,20 @@ callbacks = {
       <span>Click on the date selector</span>
     </output>
   </fieldset>
-  <pre class="lang-html"></pre>
-  <pre class="lang-python">
-callbacks = {
+  <fieldset>
+    <legend>Source code</legend>
+    <fieldset>
+      <legend>HTML</legend>
+      <pre class="lang-html"></pre>
+    </fieldset>
+    <fieldset>
+      <legend>Python</legend>
+      <pre class="lang-python">
+CALLBACKS = {
   "dtSelect": lambda dom, id: dom.setValue("dtOutput", dom.getValue(id)),
-} </pre>
+}      </pre>
+    </fieldset>
+  </fieldset>
 </fieldset>
 <fieldset class="hidden" id="color">
   <fieldset>
@@ -161,24 +231,53 @@ callbacks = {
       <span>Click on the color selector</span>
     </output>
   </fieldset>
-  <pre class="lang-html"></pre>
-  <pre class="lang-python">
-callbacks = {
+  <fieldset>
+    <legend>Source code</legend>
+    <fieldset>
+      <legend>HTML</legend>
+      <pre class="lang-html"></pre>
+    </fieldset>
+    <fieldset>
+      <legend>Python</legend>
+      <pre class="lang-python">
+CALLBACKS = {
   "clSelect": lambda dom, id: dom.setValue("clOutput", dom.getValue(id)),
-} </pre>
+}      </pre>
+    </fieldset>
+  </fieldset>
 </fieldset>
 <fieldset class="hidden" id="range/meter">
-  <fieldset>
-    <label for="rgVolume">Volume</label>
-    <input type="range" id="rgVolume" min="0" max="10" xdh:onevent="rgSlide">
-    <meter id="rgOutput" min="0" max="10" low="5" high="7" optimum="4" value="5">
-    </meter>
+  <fieldset style="display: flex; flex-direction: row; align-items: center; gap: 5px;">
+    <label style="display: flex; align-items: center;">
+      <span>Volume: </span>
+      <input type="range" id="rgRange"  xdh:onevent="rgSubmit" min="0" max="15" value="5"/>
+    </label>
+    <input type="number" id="rgNumber"  xdh:onevent="rgSubmit" min="0" max="15" value="5" size="2"/>
+    <meter id="rgMeter" min="0" max="15" low="5" high="10" optimum="3" value="5"/>
   </fieldset>
-  <pre class="lang-html"></pre>
-  <pre class="lang-python">
-callbacks = {
-  "rgSlide": lambda dom: dom.setAttribute("rgOutput", "value", (dom.getValue("rgVolume"))),
-} </pre>
+  <fieldset>
+    <legend>Source code</legend>
+    <fieldset>
+      <legend>HTML</legend>
+      <pre class="lang-html"></pre>
+    </fieldset>
+    <fieldset>
+      <legend>Python</legend>
+      <pre class="lang-python">
+def acRgSubmit(dom, id):
+  value = dom.getValue(id)
+
+  dom.setValues({
+    "rgRange": value,
+    "rgNumber": value,
+    "rgMeter": value
+  })        
+
+  CALLBACKS = {
+  "rgSubmit": acRgSubmit,
+}      </pre>
+    </fieldset>
+  </fieldset>
 </fieldset>
 <fieldset class="hidden" id="select">
   <fieldset>
@@ -207,14 +306,22 @@ callbacks = {
       <input id="slInput" xdh:onevent="slAdd" placeholder="Other dinausor to add" />
       <label>
         <input type="checkbox" xdh:onevent="slToggle" />
-        <b>Deactivate</b>
+        <strong>Deactivate</strong>
       </label>
     </div>
     <p></p>
-    <div>Select the above <a href="#" target="_self" xdh:onevent="slRadio">radio widget</a> to see how to programmatically select an item from a list box.</div>
+    <div>Select the above <a href="#" target="_self" xdh:onevent="slRadio">radio widget</a> to see how to
+      programmatically select an item from a list box.</div>
   </fieldset>
-  <pre class="lang-html"></pre>
-  <pre class="lang-python">
+  <fieldset>
+    <legend>Source code</legend>
+    <fieldset>
+      <legend>HTML</legend>
+      <pre class="lang-html"></pre>
+    </fieldset>
+    <fieldset>
+      <legend>Python</legend>
+      <pre class="lang-python">
 def slEmbed(other):
   html = atlastk.create_HTML()
   html.pushTag("option")
@@ -227,11 +334,13 @@ def acSlAdd(dom):
   dom.setValue("slInput", "")
   dom.focus("slInput")  
   
-callbacks = {
+CALLBACKS = {
   "slSelect": lambda dom, id: dom.setValue("slOutput", dom.getValue(id)),
   "slAdd": acSlAdd,
   "slToggle": lambda dom, id: dom.disableElement("slOthers") if dom.getValue(id) == 'true' else dom.enableElement("slOthers"),
-} </pre>
+}      </pre>
+    </fieldset>
+  </fieldset>
 </fieldset>
 <fieldset class="hidden" id="CKEditor">
   <fieldset>
@@ -244,9 +353,18 @@ callbacks = {
       </output>
     </fieldset>
   </fieldset>
-  <pre class="lang-html"></pre>
-  <pre class="lang-python">
-callbacks = {
+  <fieldset>
+    <legend>Source code</legend>
+    <fieldset>
+      <legend>HTML</legend>
+      <pre class="lang-html"></pre>
+    </fieldset>
+    <fieldset>
+      <legend>Python</legend>
+      <pre class="lang-python">
+CALLBACKS = {
   "ckSubmit": lambda dom, id: dom.setValue("ckOutput", dom.getValue("ckInput")),
-} </pre>
+}      </pre>
+    </fieldset>
+  </fieldset>
 </fieldset>
