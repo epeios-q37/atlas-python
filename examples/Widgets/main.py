@@ -27,9 +27,7 @@ import os, sys
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append("../../atlastk")
 
-import atlastk, html
-
-target = ""
+import atlastk, html, re
 
 """
 From here and up to and including the 'acConnect' function,
@@ -37,59 +35,39 @@ to simplify the writing of the program, there are a lot a quirks
 which should not be used by regular developers.
 """
 
-def clean(s,i):
-  pattern = f' id="_CGN{i}"'
+def clean(s):
+  return re.sub(' id="_CGN.*?"', '', s).strip(" \n").replace ("    <", "<").replace("xdh:widget_", "xdh:widget")
 
-  while pattern in s:
-    s = s.replace(pattern, "")
-    i += 1
-    pattern = f' id="_CGN{i}"'
 
-  return s.strip(" \n").replace ("    <","<").replace("xdh:widget_","xdh:widget"),i
+def displayCode(dom, element):
+# source = dom.nextSibling(dom.firstChild(element));
+  source = dom.executeString(f"getOrGenerateId(getElement('{element}').firstElementChild.nextElementSibling);")
+  code = clean(dom.getValue(source))
+  # target = dom.nextSibling(dom.firstChild(dom.nextSibling(dom.firstChild(dom.nextSibling(dom.nextSibling(source))))))
+  target = dom.executeString(f"getOrGenerateId(getElement('{source}').nextElementSibling.nextElementSibling.firstElementChild.nextElementSibling.firstElementChild.nextElementSibling);")
+  dom.setValue(target, html.escape(code))
 
-def displayCode(dom,element,i):
-  source = dom.firstChild(element);
-  code,i = clean(dom.getValue(source),i)
-  dom.setValue(dom.nextSibling(dom.firstChild(dom.nextSibling(dom.firstChild(dom.nextSibling(source))))), html.escape(code))
-
-  return i
 
 def acConnect(dom):
-  global target
-
   dom.inner("", open("Main.html").read())
-  current = dom.nextSibling(dom.nextSibling(dom.firstChild("")))
-  i = 0
+  last = dom.nextSibling(dom.nextSibling(dom.firstChild("")))
+  current = dom.lastChild(dom.parent(last))
 
-  target = ""
-  list = "<option disabled selected value> -- Select a widget -- </option>"
-
-  while current != "":
-    id = dom.getAttribute(current,"id")
-    dom.setValue("RetrievedWidget", id)
-    list += f'<option value="{id}">{id}</option>'
-    i = displayCode(dom,current,i)
-    current = dom.nextSibling(current)
+  while True:
+    widget = dom.getAttribute(current, "id")
+    dom.setValue("RetrievedWidget", widget)
+    displayCode(dom,current)
+    dom.removeClass(widget, "hidden")
+    if current == last:
+      break
+    current = dom.previousSibling(current)
 
   dom.executeVoid("document.querySelectorAll('pre').forEach((block) => {hljs.highlightBlock(block);});")
 
-  dom.setAttribute("ckInput","xdh:widget",dom.getAttribute("ckInput","xdh:widget_"))
-  dom.after("ckInput","")
-  dom.inner("List", list)
+  dom.addClass("Retrieving", "hidden")
 
-  dom.addClass("Retrieving","hidden")
-  dom.removeClass("Regular","hidden")
-
-def acSelect(dom,id,widget=""):
-  global target
-
-  if ( widget != "" ):
-    dom.setValue("List", widget)  
-
-  if target:
-    dom.addClass(target,"hidden")
-  target = dom.getValue(id)
-  dom.removeClass(target, "hidden")
+  dom.setAttribute("ckInput", "xdh:widget", dom.getAttribute("ckInput", "xdh:widget_"))
+  dom.after("ckInput", "")
 
 
 def dlShape(flavors):
@@ -104,6 +82,7 @@ def dlShape(flavors):
 
 dlFlavors = ["Vanilla", "Chocolate", "Caramel", "Mint"]  
 
+
 def acDlSubmit(dom, id):
   global dlFlavors
 
@@ -115,6 +94,7 @@ def acDlSubmit(dom, id):
     dom.inner("dlFlavors", dlShape(dlFlavors))
   dom.setValue("dlOutput", flavor)
 
+
 def acRgSubmit(dom, id):
   value = dom.getValue(id)
 
@@ -124,8 +104,9 @@ def acRgSubmit(dom, id):
     "rgMeter": value
   })
 
+
 def slEmbed(other):
-  html = atlastk.create_HTML()
+  html = atlastk.createHTML()
 
   html.pushTag("option")
   html.putAttribute("selected", "selected")
@@ -133,21 +114,22 @@ def slEmbed(other):
 
   return html
 
+
 def acSlAdd(dom):
   dom.begin("slOthers", slEmbed(dom.getValue("slInput")))
   dom.setValue("slInput", "")
   dom.focus("slInput")  
 
+
 CALLBACKS = {
   "": acConnect,
-  "Select": acSelect,
 
   "btSubmit": lambda dom: dom.alert("Click on button detected!"),
 
   "pwSubmit": lambda dom, id: dom.setValue("pwOutput", dom.getValue(id)),
 
   "cbSelect": lambda dom, id: dom.setValue("cbOutput", "{} ({})".format(id, dom.getValue(id))),
-  "cbSubmit": lambda dom: dom.alert(str(dom.getValues(["cbBicycle", "cbCar","cbPirogue"]))),
+  "cbSubmit": lambda dom: dom.alert(str(dom.getValues(["cbBicycle", "cbCar", "cbPirogue"]))),
 
   "rdCheck": lambda dom, id: dom.setValue("rdSelect", dom.getValue(id)),
   "rdSelect": lambda dom, id: dom.setValue("rdRadios", dom.getValue(id)),
@@ -164,9 +146,10 @@ CALLBACKS = {
   "slSelect": lambda dom, id: dom.setValue("slOutput", dom.getValue(id)),
   "slAdd": acSlAdd,
   "slToggle": lambda dom, id: dom.disableElement("slOthers") if dom.getValue(id) == 'true' else dom.enableElement("slOthers"),
-  "slRadio": lambda dom: acSelect(dom, "List", "radio"),
+  "slRadio": lambda dom: dom.scrollTo("radio"),
 
   "ckSubmit": lambda dom, id: dom.setValue("ckOutput", dom.getValue("ckInput")),
 }
+
 
 atlastk.launch(CALLBACKS, None, open("Head.html").read())
