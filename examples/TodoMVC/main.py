@@ -112,6 +112,7 @@ class TodoMVC:
 
 def acConnect(self, dom):
   dom.inner("", open("Main.html").read())
+  dom.enableElement("XDHFullWidth")
   dom.focus("Input")
   self.displayTODOs(dom)
   dom.disableElements(["HideActive", "HideCompleted"])

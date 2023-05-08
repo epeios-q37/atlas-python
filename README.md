@@ -1,4 +1,4 @@
-> **[Find out](https://q37.info/s/sqtv9trv) how the *Atlas* toolkit can reduce your children's exposure to the harmful effects of social media.**
+> **Less social media and more digital empowerment for our kids**: [**#Spartacus**](https://q37.info/s/sqtv9trv)
 
 # *Python* version of the *Atlas* toolkit
 

@@ -95,6 +95,7 @@ class Notes:
 
 def acConnect(notes, dom):
   dom.inner("", open( "Main.html").read() )
+  dom.enableElement("XDHFullWidth")
   notes.displayList(dom)
 
 def acToggleDescriptions(notes, dom, id):
