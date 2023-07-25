@@ -1,4 +1,4 @@
-> **Find out how the *Atlas* toolkit is used to reduce the impact of social media on our kids: [*Zelbinium*](https://q37.info/s/sqtv9trv)!** 
+> **Cyberaddiction, cyberbullying...: [*Zelbinium*](https://q37.info/s/sqtv9trv), so that smartphones no longer put our children in danger!**
 
 # *Python* version of the *Atlas* toolkit
 
