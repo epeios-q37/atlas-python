@@ -105,37 +105,36 @@ CALLBACKS = {
 <fieldset class="hidden" id="radio">
   <legend class="widget">radio</legend>
   <fieldset>
+    <div>How to contact you:</p>
+      <span id="rdRadios" xdh:radio="rdContact" xdh:onevent="rdCheck">
+        <label>
+          <input type="radio" name="rdContact" value="Email" />
+          <span>Email</span>
+        </label>
+        <label>
+          <input type="radio" name="rdContact" value="Phone" />
+          <span>Phone</span>
+        </label>
+        <label>
+          <input type="radio" name="rdContact" value="Mail" />
+          <span>Mail (post)</span>
+        </label>
+      </span>
+      <span>&nbsp;</span>
+      <span>
+        <button xdh:onevent="rdReset">Reset</button>
+      </span>
+    </div>
+    <p></p>
     <div>
-      <div>How to contact you:</p>
-        <span id="rdRadios" xdh:radio="rdContact" xdh:onevent="rdCheck">
-          <label>
-            <input type="radio" name="rdContact" value="Email" />
-            <span>Email</span>
-          </label>
-          <label>
-            <input type="radio" name="rdContact" value="Phone" />
-            <span>Phone</span>
-          </label>
-          <label>
-            <input type="radio" name="rdContact" value="Mail" />
-            <span>Mail (post)</span>
-          </label>
-        </span>
-        <span>&nbsp;</span>
-        <span>
-          <button xdh:onevent="rdReset">Reset</button>
-        </span>
-      </div>
-      <p></p>
-      <div>
-        <span>Selected contact method: </span>
-        <select id="rdSelect" xdh:onevent="rdSelect">
-          <option selected="" disabled="" value="None">Check above or select below</option>
-          <option value="Email">Email</option>
-          <option value="Phone">Phone</option>
-          <option value="Mail">Mail (post)</option>
-        </select>
-      </div>
+      <span>Selected contact method: </span>
+      <select id="rdSelect" xdh:onevent="rdSelect">
+        <option selected="" disabled="" value="None">Check above or select below</option>
+        <option value="Email">Email</option>
+        <option value="Phone">Phone</option>
+        <option value="Mail">Mail (post)</option>
+      </select>
+    </div>
   </fieldset>
   <hr />
   <details>
@@ -261,7 +260,7 @@ CALLBACKS = {
       <input type="range" id="rgRange" xdh:onevent="rgSubmit" min="0" max="15" value="5" />
     </label>
     <input type="number" id="rgNumber" xdh:onevent="rgSubmit" min="0" max="15" value="5" size="2" />
-    <meter id="rgMeter" min="0" max="15" low="5" high="10" optimum="3" value="5" />
+    <meter id="rgMeter" min="0" max="15" low="5" high="10" optimum="3" value="5"></meter>
   </fieldset>
   <hr />
   <details>
@@ -321,7 +320,7 @@ CALLBACKS = {
       </label>
     </div>
     <p></p>
-    <div>Select the above <a href="#" target="_self" xdh:onevent="slRadio">radio widget</a> to see how to
+    <div>See the above <a href="#" target="_self" xdh:onevent="slRadio">radio widget</a> to see how to
       programmatically select an item from a list box.</div>
   </fieldset>
   <hr />

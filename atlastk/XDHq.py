@@ -219,15 +219,19 @@ class DOM:
 	def after(self,id,xml,xsl=""):
 		self._layout("afterend",id,xml,xsl)
 
-	def getContents(self,ids):	# Deprecated!
+	# Deprecated
+	def getContents(self,ids):
 		return _unsplit(ids,self._dom.call("GetContents_1",_STRINGS,ids))
 
-	get_contents = getContents	# Deprecated!
+	# Deprecated
+	get_contents = getContents
 
-	def getContent( self,id):	# Deprecated!
+	# Deprecated
+	def getContent( self,id):
 		return self.getContents([id])[id]
 
-	get_content = getContent	# Deprecated!
+	# Deprecated
+	get_content = getContent
 
 	def getValues(self,ids):
 		return _unsplit(ids,self._dom.call("GetValues_1",_STRINGS,ids))
@@ -249,17 +253,21 @@ class DOM:
 
 	get_mark = getMark
 
-	def setContents(self,ids_and_contents):	# Deprecated!
+	# Deprecated
+	def setContents(self,ids_and_contents):
 		[ids,contents] = _split(ids_and_contents)
 
 		self._dom.call("SetContents_1",_VOID,ids,contents)
 
-	set_contents = setContents	# Deprecated!
+	# Deprecated
+	set_contents = setContents
 
-	def setContent(self,id,content):	# Deprecated!
+	# Deprecated
+	def setContent(self,id,content):
 		self.set_contents({id: content})
 
-	set_content = setContent	# Deprecated!
+	# Deprecated
+	set_content = setContent
 
 	def setValues(self,ids_and_values):
 		[ids,values] = _split(ids_and_values)

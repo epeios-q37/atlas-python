@@ -66,7 +66,7 @@ broadcast_action = broadcastAction
 
 
 def _call(func, userObject, dom, id, action):
-	amount = len(inspect.getargspec(func).args)
+	amount = len(inspect.getfullargspec(func).args)
 	args = []
 
 	if ( not(userObject)) :

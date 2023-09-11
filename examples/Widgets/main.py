@@ -31,8 +31,8 @@ import atlastk, html, re
 
 """
 From here and up to and including the 'acConnect' function,
-to simplify the writing of the program, there are a lot a quirks
-which should not be used by regular developers.
+to simplify the writing of the program, there are a lot of quirks
+which should not be used in regular applications.
 """
 
 def clean(s):
