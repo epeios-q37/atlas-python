@@ -1,5 +1,3 @@
-> **Cyberaddiction, cyberbullying, pedocriminality…: [*Zelbinium*](https://q37.info/s/sqtv9trv), let smartphones be the solution, not the problem!**
-
 # *Python* version of the *Atlas* toolkit
 
 [![Run on Repl.it](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/vwpsw73v)  [![About online demonstrations](https://img.shields.io/badge/about-online%20demonstrations-informational)](https://q37.info/s/sssznrb4)
@@ -25,9 +23,10 @@ Si la table ci-dessous est modifiée, alors modifier également (pages du site a
 > | [![Ruby](https://q37.info/s/zn4qrx9j.svg)](https://q37.info/s/gkfj3zpz)<br/>[![Run on Replit](https://q37.info/s/kpm7xhfm.png)](https://q37.info/s/9thdtmjg) | [![Framagit](https://q37.info/s/z4hsg7wc.svg)](https://framagit.org/epeios-q37/atlas-ruby) [![GitHub](https://q37.info/s/jqrxkdh3.svg)](https://github.com/epeios-q37/atlas-ruby)<br/>[![GitLab](https://q37.info/s/m4djpmm9.svg)](https://gitlab.com/epeios-q37/atlas-ruby) | [![Stars for atlas-ruby](https://img.shields.io/github/stars/epeios-q37/atlas-ruby.svg?style=social)](https://github.com/epeios-q37/atlas-ruby/stargazers)<br/>[![GitHub forks for atlas-ruby](https://img.shields.io/github/forks/epeios-q37/atlas-ruby.svg?style=social)](https://github.com/epeios-q37/atlas-ruby/network/) | [![PeerTube](https://q37.info/s/dsvp4n7j.svg)](https://q37.info/s/fj3trgds)<br/>[![YouTube](https://q37.info/s/xgq4zgdr.svg)](https://q37.info/s/zgb4d9v3) |
 
 
+> Take also a look to the [*Zelbinium*](http://zelbinium.q37.info) project, which uses the *Python* version of the *Atlas* toolkit to prevent smartphone-related risks among teenagers.
+
 <ins>***WebGPIO* (*Raspberry Pi*/*ODROID-C2*)**</ins>: the *WebGPIO* application, with which you can control the *Raspberry Pi*/*ODROID-C2* (and probably other similar devices) GPIOs with your smartphone, is described in the *Raspberry Pi*/*ODROID-C2* below section.
 
-Take also a look to [*Zelbinium*,](http://zelbinium.q37org), a project using the *Atlas* toolkit to prevent smartphone-related risks among teenagers.
 
 ---
 
