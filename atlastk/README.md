@@ -1,4 +1,4 @@
-> **Cyberaddiction, cyberbullying, pedocriminality…: [*Zelbinium*](https://q37.info/s/sqtv9trv), or how the *Atlas* toolkit helps to prevent the risks related to smartphone use!**
+> **Cyberaddiction, cyberbullying, pedocriminality…: [*Zelbinium*](https://q37.info/s/sqtv9trv), let smartphones be the solution, not the problem!**
 
 # *Python* version of the *Atlas* toolkit
 
@@ -27,7 +27,7 @@ Si la table ci-dessous est modifiée, alors modifier également (pages du site a
 
 <ins>***WebGPIO* (*Raspberry Pi*/*ODROID-C2*)**</ins>: the *WebGPIO* application, with which you can control the *Raspberry Pi*/*ODROID-C2* (and probably other similar devices) GPIOs with your smartphone, is described in the *Raspberry Pi*/*ODROID-C2* below section.
 
-
+Take also a look to [*Zelbinium*,](http://zelbinium.q37org), a project using the *Atlas* toolkit to prevent smartphone-related risks among teenagers.
 
 ---
 
