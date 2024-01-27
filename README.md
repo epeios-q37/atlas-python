@@ -33,7 +33,7 @@ Click the animation to see a screencast of programming this ["Hello, World!" pro
 Same video on [*Peertube*](https://en.wikipedia.org/wiki/PeerTube): <https://s.q37.info/qfcng9j4>.
 
 <details>
-<summary>Source code</summary>
+<summary>Click to see the corresponding source code</summary>
 
 ```python
 import atlastk
