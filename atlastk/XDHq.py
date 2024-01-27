@@ -102,7 +102,7 @@ class DOM:
 	getAction = get_action
 
 	def isQuitting(self):
-		return self._dom.isQuitting();
+		return self._dom.isQuitting()
 
 	def _execute(self,type,script):
 		return self._dom.call("Execute_1",type,script)
