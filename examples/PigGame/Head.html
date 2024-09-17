@@ -1,6 +1,4 @@
 <title>The 🐷 game</title>
-<link rel="icon" type="image/png"
-  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAMFBMVEUEAvyEhsxERuS8urQsKuycnsRkYtzc2qwUFvRUVtysrrx0ctTs6qTMyrSUksQ0NuyciPBdAAABHklEQVR42mNgwAa8zlxjDd2A4POfOXPmzZkFCAH2M8fNzyALzDlzg2ENssCbMwkMOsgCa858YOjBKxBzRoHhD7LAHiBH5swCT9HQ6A9ggZ4zp7YCrV0DdM6pBpAAG5Blc2aBDZA68wCsZPuZU0BDH07xvHOmAGKKvgMP2NA/Zw7ADIYJXGDgLQeBBSCBFu0aoAPYQUadMQAJAE29zwAVWMCWpgB08ZnDQGsbGhpsgCqBQHNfzRkDEIPlzFmo0T5nzoMovjPHoAK8Zw5BnA5yDosDSAVYQOYMKIDZzkoDzagAsjhqzjRAfXTmzAQgi/vMQZA6pjtAvhEk0E+ATWRRm6YBZuScCUCNN5szH1D4TGdOoSrggtiNAH3vBBjwAQCglIrSZkf1MQAAAABJRU5ErkJggg==" />
 <style>
   .hidden {
     visibility: hidden;
@@ -18,7 +16,7 @@
 
   .marker {
     width: 3ex;
-    color:sandybrown;
+    color: sandybrown;
   }
 
   .meter-container {
@@ -52,7 +50,7 @@
     font-family: cursive;
     width: 100%;
     background-color: lightgreen;
-}
+  }
 
   .score-text {
     width: 3ch;
@@ -70,7 +68,7 @@
   @keyframes fadeIn {
     0% {
       opacity: 0;
-      transform: scale(0) rotate(-240deg); 
+      transform: scale(0) rotate(-240deg);
     }
 
     100% {
@@ -94,15 +92,14 @@
 
   .winner {
     font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
+    text-align: center;
     font-size: larger;
     letter-spacing: 5px;
     font-family: cursive;
     width: 100%;
     background-color: lightgreen;
-    background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+    background: linear-gradient(to right, #6666ff, #0099ff, #00ff00, #ff3399, #6666ff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -112,13 +109,15 @@
   }
 
   @keyframes rainbow_animation {
-      0%,100% {
-          background-position: 0 0;
-      }
 
-      50% {
-          background-position: 100% 0;
-      }
+    0%,
+    100% {
+      background-position: 0 0;
+    }
+
+    50% {
+      background-position: 100% 0;
+    }
   }
 </style>
 <style id="DisplayMarkerA">
@@ -144,5 +143,3 @@
     display: initial;
   }
 </style>
-
-

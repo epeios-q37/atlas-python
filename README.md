@@ -6,7 +6,7 @@ The *Atlas* toolkit is available for:
 
 To see the *Atlas* toolkit in action:
 
-[![Version 0.13](https://img.shields.io/static/v1.svg?&color=blue&labelColor=red&label=online&message=demonstrations&style=for-the-badge)](https://s.q37.info/sssznrb4)
+[![Online demonstrations](https://img.shields.io/static/v1.svg?&color=blue&labelColor=red&label=online&message=demonstrations&style=for-the-badge)](https://s.q37.info/sssznrb4)
 
 </div>
 
@@ -22,8 +22,6 @@ To see the *Atlas* toolkit in action:
 [![Version 0.13](https://img.shields.io/static/v1.svg?&color=90b4ed&label=Version&message=0.13&style=for-the-badge)](http://github.com/epeios-q37/atlas-python/) [![license: MIT](https://img.shields.io/github/license/epeios-q37/atlas-python?color=yellow&style=for-the-badge)](https://github.com/epeios-q37/atlas-python/blob/master/LICENSE) [![Documentation](https://img.shields.io/static/v1?label=documentation&message=atlastk.org&color=ff69b4&style=for-the-badge)](https://atlastk.org) [![Version](https://img.shields.io/pypi/v/atlastk?style=for-the-badge&color=90b4ed&label=PyPi)](http://s.q37.info/9srmskcm)
 
 </div>
-
-
 
 ## A GUI with *Python* in a couple of minutes
 
@@ -117,9 +115,7 @@ And simply by running them on a local computer connected to internet, applicatio
 
 The *Atlas* toolkit is particularly well suited for educational purposes, to write modern programming exercises, i.e. with a true graphical interface instead of the usual outdated textual one. More about this can be found [here](https://s.q37.info/cbms43s9).
 
-*Python* is much more powerful then *Excel* macros to automate (boring) tasks, and you can also work with *PDF*, *Word*, *Google* files…. And with the *Atlas* toolkit, you have much more possibilities then with *VBA* forms. There are some examples [here](https://s.q37.info/97p44nh4).  
-
-There is also a stub to for this library at address <https://s.q37.info/zzcn3wnx>.
+*Python* is much more powerful then *Excel* macros to automate (boring) tasks, and you can also work with *PDF*, *Word*, *Google* files…. And with the *Atlas* toolkit, you have much more possibilities then with *VBA* forms. There are some examples [here](https://s.q37.info/97p44nh4).
 
 > You will also find programs from [*The Big Book of Small Python Projects*](https://inventwithpython.com/bigbookpython/) by [Al Sweigart](http://alsweigart.com) to which a graphical user interface using the *Atlas* toolkit were added in this repository: [epeios-q37/AlSweigartTheBigBookPython](https://s.q37.info/kd3bwchj).
 
