@@ -1,6 +1,8 @@
 # MicroController Remove Server (runs on the µcontroller)
 
-MCRQ = "74.208.77.149"
+MCRQ_ADDRESS_ = "mcrq.q37.info"
+# MCRQ_ADDRESS_ = "192.168.1.87" # dev
+MCRQ_PORT_ = 53810
 
 import socket, sys, threading
 
@@ -74,27 +76,25 @@ def getString_():
     return ""
   
 
-def exit_(message):
-  print(message, file=sys.stderr)
+def exit_(message=None):
+  if message:
+    print(message, file=sys.stderr)
   sys.exit(-1)
 
 
 def init_():
   global socket_
 
-  pAddr = MCRQ
-  pPort = 53810
-
   socket_ = socket.socket()
   
-  print("Connection to '" + str(pAddr) + ":" + str(pPort) + "'…")
+  print("Connection to McRq server…", end="", flush=True)
 
   try:
-    socket_.connect((pAddr,pPort))
+    socket_.connect(socket.getaddrinfo(MCRQ_ADDRESS_, MCRQ_PORT_)[0][-1])
   except:
-    exit_("Unable to connect to '" + str(pAddr) + ":" + str(pPort) + "'!")
+    exit_("FAILURE!!!")
   else:
-    print("Connected to '" + str(pAddr) + ":" + str(pPort) + "'.")
+    print("\r                                         \r",end="")
   
 
 def handshake_():
@@ -115,7 +115,12 @@ def handshake_():
 
 
 def ignition_():
-  print("Token handling to come…")
+  writeString_("DummtToken")
+
+  error = getString_()
+
+  if error:
+    exit_(error)
 
 
 def connect():

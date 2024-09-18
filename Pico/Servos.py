@@ -39,6 +39,22 @@ BODY = """
     <span>&nbsp;</span>
     <button xdh:onevent="Test">Test</button>
   </label>
+  <label xdh:mark="X1" style="display: flex; align-items: center;">
+    <span>X1:&nbsp;</span>
+    <input xdh:onevent="Slide" id="X1S" type="range" min="-45" max="45" step="1" value="0">
+    <span>&nbsp;</span>
+    <input xdh:onevent="Adjust" id="X1N" type="number" min="-45" max="45" value="0" step="5" size="3">
+    <span>&nbsp;</span>
+    <button xdh:onevent="Test">Test</button>
+  </label>
+  <label xdh:mark="X2" style="display: flex; align-items: center;">
+    <span>X2:&nbsp;</span>
+    <input xdh:onevent="Slide" id="X2S" type="range" min="-45" max="45" step="1" value="0">
+    <span>&nbsp;</span>
+    <input xdh:onevent="Adjust" id="X2N" type="number" min="-45" max="45" value="0" step="5" size="3">
+    <span>&nbsp;</span>
+    <button xdh:onevent="Test">Test</button>
+  </label>
   <div style="height: 10px;"></div>
   <div style="display: flex;width: 100%; justify-content: center">
     <button xdh:onevent="Reset">Reset</button>
@@ -98,24 +114,30 @@ LL_PIN = 10
 LF_PIN = 11
 RL_PIN = 12
 RF_PIN = 13
+X1_PIN = 14
+X2_PIN = 15
 
 lf = Servo(LF_PIN)
 ll = Servo(LL_PIN)
 rl = Servo(RL_PIN)
 rf = Servo(RF_PIN)
+x1 = Servo(X1_PIN)
+x2 = Servo(X2_PIN)
 
 def test(servo):
   servo.move(90)  # tourne le servo à 0°
   servo.move(45)  # tourne le servo à 0°
-  time.sleep(1)
+  time.sleep(0.5)
   servo.move(135)  # tourne le servo à 45°
-  time.sleep(1)
+  time.sleep(0.5)
   servo.move(90)  # tourne le servo à 0°
 
 lf.move(90)
 ll.move(90)
 rl.move(90)
 rf.move(90)
+x1.move(90)
+x2.move(90)
 """
 
 
@@ -161,11 +183,17 @@ def acReset(dom):
     "RLS": 0,
     "RFN": 0,
     "RFS": 0,
+    "X1N": 0,
+    "X1S": 0,
+    "X2N": 0,
+    "X2S": 0,
   })
   move_("lf",0)
   move_("ll",0)
   move_("rl",0)
   move_("rf",0)
+  move_("x1",0)
+  move_("x2",0)
   
 
 CALLBACKS = {

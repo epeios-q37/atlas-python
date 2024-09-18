@@ -253,7 +253,6 @@ def update_(dom, R, G, B):
     if ( leds[led] == "true" ):
       command += f'{led}: ({R},{G},{B}), '
 
-  print(command + "})")
   mcrcq.execute(command + "})")
 
 
