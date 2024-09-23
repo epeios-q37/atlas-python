@@ -1,0 +1,50 @@
+<fieldset style="width: 100%">
+  <div style="display:flex; justify-content: space-evenly;">
+    <div style="display: flex; flex-direction: column;">
+      <button xdh:onevent="Reset">Reset</button>
+      <button xdh:onevent="Test">Test</button>
+    </div>
+    <div style="display: flex; flex-direction: column;">
+      <label>
+        <input id="Reset" checked="checked" type="checkbox">
+        <span>Reset before execute</span>
+      </label>
+      <label>
+        <input id="Ask" type="checkbox">
+        <span>Do not ask for confirmation before saving</span>
+      </label>
+    </div>
+  </div>
+  <fieldset>
+    <legend>Editor</legend>
+    <div class="macro" xdh:mark="Buffer">
+      <label>
+        <span>Name:&nbsp;</span>
+        <input id="Name">
+      </label>
+      <label>
+        <span>Desc.:&nbsp;</span>
+        <input id="Description" type="text">
+      </label>
+      <div>
+        <button xdh:onevent="Execute">Execute</button>
+      </div>
+      <textarea id="Content" xdh:onevent="Execute"></textarea>
+      <div>
+        <button xdh:onevent="Expand">Expand</button>
+        <button xdh:onevent="Save">Save</button>
+      </div>
+    </div>
+  </fieldset>
+  <div style="margin: 25px 0px 0px 0px; display: flex; justify-content: space-evenly">
+    <button xdh:onevent="HideContents">Show/Hide contents</button>
+    <div>
+      <select id="Files">
+      </select>
+      <button xdh:onevent="LoadFromFile">Load</button>
+    </div>
+    <button xdh:onevent="SaveToFile">Save to file</button>
+  </div>
+  <fieldset id="Macros"></fieldset>
+</fieldset>
+  

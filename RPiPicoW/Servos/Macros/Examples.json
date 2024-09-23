@@ -1,0 +1,22 @@
+{
+  "F": {
+    "Description": "Forward",
+    "Content": "l-3:r L20:R20 l:r3 L-20:R-20"
+  },
+  "B": {
+    "Description": "Back again",
+    "Content": "l-3:r L-20:R-20 l:r3 L20:R20"
+  },
+  "RFB": {
+    "Description": "Repeat forward then back",
+    "Content": "5$F 5$B l:r:L:R"
+  },
+  "_": {
+    "Description": "Internal use",
+    "Content": "%10 r20 l50 r40 l-40 l40 %1 l-40 l40 l-40 % l50 r20 l r"
+  },
+  "Funny": {
+    "Description": "",
+    "Content": "%10 r20 l50 r40 l-40 l40 %1 l-40 l40 l-40 % l50 r20 l r"
+  }
+}

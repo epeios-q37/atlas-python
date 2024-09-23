@@ -1,0 +1,73 @@
+<div class="color-tables" style="display: none">
+  <input id="hsv-h" type="number">
+  <input id="hsv-s" type="number">
+  <input id="hsv-v" type="number">
+  <input id="hsl-h" type="number">
+  <input id="hsl-s" type="number">
+  <input id="hsl-l" type="number">
+  <input id="rgb-r" type="number">
+  <input id="rgb-g" type="number">
+  <input id="rgb-b" type="number">
+</div>
+<fieldset>
+  <div style="display: flex; width: 100%; justify-content: space-around; height: 100px;">
+  <fieldset style="display:flex; flex-direction: column; padding: 20px 20px; align-content: space-around">
+    <div style="display: flex; justify-content: space-between">
+    <label>
+      <span>4</span>
+      <input id="3" checked="checked" type="checkbox">
+    </label>
+    <label>
+      <input id="2" checked="checked" type="checkbox">
+      <span>3</span>
+    </label>
+    </div>
+    <div style="display: flex;justify-content: space-between">
+    <label>
+      <span>1</span>
+      <input id="0" checked="checked" type="checkbox">
+    </label>
+    <label>
+      <input id="1" checked="checked" type="checkbox">
+      <span>2</span>
+    </label>
+    </div>
+  </fieldset>
+  <fieldset style="display: flex; flex-direction: column; align-content: space-between">
+    <button xdh:onevent="All">All</button>
+    <button xdh:onevent="None">None</button>
+    <div style="height: 10px"></div>
+    <button xdh:onevent="Reset">Reset</button>
+  </fieldset>
+  </div>
+  <fieldset style="display: flex; flex-direction: column; align-content: space-between">
+  <div>
+    <label style="display: flex; align-items: center;">
+    <span>R:&nbsp;</span>
+    <input id="SR" style="width: 100%" type="range" min="0" max="255" step="1" xdh:onevent="Slide" value="0">
+    <span>&nbsp;</span>
+    <input id="NR" xdh:onevent="Adjust" type="number" min="0" max="255" step="5" value="0"  size="3">
+    </label>
+    <label style="display: flex; align-items: center;">
+    <span>V:&nbsp;</span>
+    <input id="SG" style="width: 100%" type="range" min="0" max="255" step="1" xdh:onevent="Slide" value="0">
+    <span>&nbsp;</span>
+    <input id="NG" xdh:onevent="Adjust" type="number" min="0" max="255" step="5" value="0"  size="3">
+    </label>
+    <label style="display: flex; align-items: center;">
+    <span>B:&nbsp;</span>
+    <input id="SB"  style="width: 100%"type="range" min="0" max="255" step="1" xdh:onevent="Slide" value="0">
+    <span>&nbsp;</span>
+    <input id="NB" xdh:onevent="Adjust" type="number" min="0" max="255" step="5" value="0"  size="3">
+    </label>
+  </div>
+  </fieldset>
+</span>
+<fieldset style="display: flex; justify-content: center; flex-direction: column">
+  <div id="color-wheel-container" xdh:onevent="Select"></div>
+  <label class="label-checkbox" style="display: flex; justify-content: center;">
+  <input type="checkbox" checked onchange="colorWheel.wheelReflectsSaturation = this.checked; colorWheel.redraw()">
+  <span>wheel reflects saturation</span>
+  </label>
+</fieldset>
+</fieldset>
