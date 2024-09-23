@@ -1,7 +1,7 @@
 import os, sys, time, io, json, datetime
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
-sys.path.append("../atlastk")
+sys.path.append("../../atlastk")
 
 import mcrcq, atlastk
 
@@ -42,7 +42,7 @@ def acConnect(dom):
 
 def acToggle(dom,id):
   [x, y] = dom.getMark(id).split()
-  mcrcq.execute(f"matrix.plot({x},{y},{1 if dom.getValue(id) == "true" else 0}).draw()")
+  mcrcq.execute(f"matrix.plot({x},{y},{1 if dom.getValue(id) == 'true' else 0}).draw()")
 
 
 CALLBACKS = {
