@@ -5,26 +5,8 @@ sys.path.extend(("..","../../atlastk"))
 
 import mcrcq, atlastk
 
-BODY = """
-<fieldset>
-  <fieldset id="Matrix" style="display: grid; grid-template-columns: repeat(16, auto)">
-  </fieldset>
-  <fieldset style="display: flex; justify-content: space-evenly">
-    <label style="display: flex; align-items: center;">
-      <span>Brightness:&nbsp;</span>
-      <input xdh:onevent="Brightness" type="range" min="0" max="15" value="0">
-    </label>
-    <label>
-      <span>Blink:</span>
-    <select xdh:onevent="Blink">
-      <option value="0">None</option>
-      <option value="0.5">0.5 Hz</option>
-      <option value="1">1 Hz</option>
-      <option value="2">2 Hz</option>
-    </select>
-      </label>
-  </fieldset>
-</fieldset>"""
+with open('Body.html', 'r') as file:
+  BODY = file.read()
 
 with open('mc_init.py', 'r') as file:
   INIT = file.read()
@@ -40,13 +22,37 @@ def acConnect(dom):
 
   dom.inner("Matrix", html)
 
+
+def plot(x,y,ink=True):
+  mcrcq.execute(f"matrix.plot({x},{y},{1 if ink else 0}).render()")
+
+
+def clear():
+  mcrcq.execute(f"matrix.clear()")
+
 def acToggle(dom,id):
   [x, y] = dom.getMark(id).split()
-  mcrcq.execute(f"matrix.plot({x},{y},{1 if dom.getValue(id) == 'true' else 0}).draw()")
+  plot(x,y, dom.getValue(id) == "true")
+
+def draw(motif):
+  clear()
+
+  mcrcq.execute(f"matrix.draw(\"{motif}\").render()")
+
+
+def acMotif(dom):
+  draw("0FF0300C4002866186614002300C0FF0")
+  time.sleep(1)
+  draw("000006000300FFFFFFFF030006000000")
+  time.sleep(1)
+  draw("00001824420000000018244200000000")
+
 
 
 CALLBACKS = {
   "": acConnect,
+  "Test": lambda: mcrcq.execute("test()"),
+  "Motif": acMotif,
   "Toggle": acToggle,
   "Brightness": lambda dom, id: mcrcq.execute(f"matrix.set_brightness({dom.getValue(id)})"),
   "Blink": lambda dom, id: mcrcq.execute(f"matrix.set_blink_rate({dom.getValue(id)})"),
@@ -55,7 +61,5 @@ CALLBACKS = {
 mcrcq.connect()
 
 mcrcq.execute(INIT)
-
-mcrcq.execute("test()")
 
 atlastk.launch(CALLBACKS)

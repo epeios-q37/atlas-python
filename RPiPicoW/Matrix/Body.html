@@ -1,0 +1,23 @@
+<fieldset></fieldset>
+  <fieldset id="Matrix" style="display: grid; grid-template-columns: repeat(16, auto)">
+  </fieldset>
+  <fieldset style="display: flex; justify-content: space-evenly">
+    <label style="display: flex; align-items: center;">
+      <span>Brightness:&nbsp;</span>
+      <input xdh:onevent="Brightness" type="range" min="0" max="15" value="0">
+    </label>
+    <label>
+      <span>Blink:</span>
+      <select xdh:onevent="Blink">
+        <option value="0">None</option>
+        <option value="0.5">0.5 Hz</option>
+        <option value="1">1 Hz</option>
+        <option value="2">2 Hz</option>
+      </select>
+    </label>
+  </fieldset>
+  <fieldset>
+    <button xdh:onevent="Test">Test</button>
+    <button xdh:onevent="Motif">Motif</button>
+  </fieldset>
+</fieldset>

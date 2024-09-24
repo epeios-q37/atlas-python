@@ -64,7 +64,7 @@ class Matrix:
     bit = (self.buffer[x] >> y) & 1
     return True if bit > 0 else False
 
-  def draw(self):
+  def render(self):
     buffer = bytearray(len(self.buffer) + 1)
     buffer[1:] = self.buffer
     buffer[0] = 0x00
@@ -84,6 +84,15 @@ class Matrix:
   def clear(self):
     for i in range(0, len(self.buffer)): self.buffer[i] = 0x00
     return self
+  
+  def draw(self, motif):
+    for y, c in enumerate(motif):
+      for x in range(4):
+          if int(c, 16) & (1 << (3 -x)):
+            self.plot(x + 4 * (y % 4),7 - (y >> 2))
+
+    return self
+
 
 i2c = I2C(0, scl=Pin(5), sda=Pin(4))
 print(i2c.scan())
@@ -95,14 +104,14 @@ def test():
   for y in range(7, -1, -1):
     for x in range(16):
       matrix.plot(x,y)
-    matrix.draw();
+    matrix.render();
     time.sleep(.06)
     matrix.clear()
 
   for x in range(16):
     for y in range(8):
       matrix.plot(x,y)
-    matrix.draw();
+    matrix.render();
     time.sleep(.06)
     matrix.clear()
 
@@ -110,7 +119,7 @@ def test():
     for y in range(8):
       matrix.plot(x,y)
 
-  matrix.draw()
+  matrix.render()
 
   for b in range(0, 16):
     matrix.set_brightness(b)
@@ -120,6 +129,6 @@ def test():
     matrix.set_brightness(b)
     time.sleep(0.05)
 
-  matrix.clear().draw()
+  matrix.clear().render()
 
 

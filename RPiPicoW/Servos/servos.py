@@ -410,7 +410,7 @@ def acHideContents(dom):
 
   
 def acSaveToFile(dom):
-  with open(f"Macros/{datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.json", "w") as file: 
+  with open(f"Macros/{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.json", "w") as file: 
     file.write(json.dumps(macros, indent=2)) # type: ignore
   
   updateFileList(dom)
@@ -419,7 +419,7 @@ def acSaveToFile(dom):
 def acLoadFromFile(dom):
   global macros
 
-  with open(f"Macros/{dom.getValue("Files")}", "r") as file:
+  with open(f"Macros/{dom.getValue('Files')}", "r") as file:
     macros = json.load(file)
 
   if "_" in macros:

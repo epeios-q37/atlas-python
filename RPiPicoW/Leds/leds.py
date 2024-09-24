@@ -15,11 +15,13 @@ with open('Head.html', 'r') as file:
 C_INIT = """
 import neopixel, machine
 
-p = machine.Pin(16)
+pI = machine.Pin(16)
+pE = machine.Pin(7)
 
-n = neopixel.NeoPixel(p, 4)
+nI = neopixel.NeoPixel(pI, 4)
+nE = neopixel.NeoPixel(pE, 192)
 
-def set(leds):
+def set(leds, n):
   for led in leds:
     n[led] = leds[led]
   n.write()
@@ -46,14 +48,19 @@ def getAllValues_(R, G, B):
   mcrcq.execute(C_SET.format("0", R, G, B))
 
 def update_(dom, R, G, B):
-  leds = dom.getValues(["0", "1", "2", "3"])
   command = "set({"
 
-  for led in leds:
-    if ( leds[led] == "true" ):
-      command += f'{led}: ({R},{G},{B}), '
+  for led in range(4):
+    command += f'{led}: ({R},{G},{B}), '
 
-  mcrcq.execute(command + "})")
+  mcrcq.execute(command + "},nI)")
+
+  command = "set({"
+
+  for led in range(192):
+    command += f'{led}: ({R},{G},{B}), '
+
+  mcrcq.execute(command + "},nE)")
 
 
 def acConnect(dom):

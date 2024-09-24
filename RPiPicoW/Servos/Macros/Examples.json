@@ -11,12 +11,8 @@
     "Description": "Repeat forward then back",
     "Content": "5$F 5$B l:r:L:R"
   },
-  "_": {
-    "Description": "Internal use",
-    "Content": "%10 r20 l50 r40 l-40 l40 %1 l-40 l40 l-40 % l50 r20 l r"
-  },
-  "Funny": {
-    "Description": "",
-    "Content": "%10 r20 l50 r40 l-40 l40 %1 l-40 l40 l-40 % l50 r20 l r"
+  "Dance": {
+    "Description": "Let's rocking!",
+    "Content": "%7 L-25 R-25 L:R L-25:R25 L25:R-25 L-15:R15 l20:r-20 r0 l0 r-15:R15:l5 r0:R0 l10:L15 R-10:r-15 l0:L15 R15:r0 L-15:R-15 l-15: l0:L-15 R15:L15:r-25 R-15:L-15 R10:L10:r:l r20:l20 r:l l:r40 L-15:R-15 l-25:r0 R25:r30 R-25:r-30 %2 r30 r-30 R30:r30 r-30 % l:r:R:L"
   }
 }
