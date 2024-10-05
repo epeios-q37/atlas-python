@@ -3,7 +3,7 @@ import os, sys, time, io, json, datetime
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.extend(("..","../../atlastk"))
 
-import mcrcq, atlastk
+import ucuq, atlastk
 
 MACRO_MARKER_ = '$'
 
@@ -72,12 +72,12 @@ def move_(servo, angle, step = None):
 
   command += ")"
 
-  mcrcq.execute(command)
+  black.execute(command)
    
 
 def reset_(dom):
   step = 5
-  mcrcq.execute(f"""
+  black.execute(f"""
 move([
   ("lf", 0),
   ("ll", 0),
@@ -129,7 +129,7 @@ def updateFileList(dom):
 def acConnect(dom):
   dom.inner("", BODY)
   displayMacros(dom)
-  mcrcq.execute(MC_INIT)
+  black.execute(MC_INIT)
   reset_(dom)
   updateFileList(dom)
 
@@ -326,7 +326,7 @@ def acExecute(dom, id):
   if dom.getValue("Reset") == "true":
     reset_(dom)
 
-  mcrcq.execute(getCommands(dom, moves))
+  black.execute(getCommands(dom, moves))
 
 
 def acSave(dom):
@@ -442,6 +442,6 @@ CALLBACKS = {
    "LoadFromFile": acLoadFromFile,
 }
 
-mcrcq.connect()
+black = ucuq.UCUq("Black")
 
 atlastk.launch(CALLBACKS, headContent = HEAD)

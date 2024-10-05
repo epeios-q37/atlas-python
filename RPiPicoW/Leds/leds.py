@@ -3,7 +3,7 @@ import os, sys
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.extend(("..","../../atlastk"))
 
-import atlastk, mcrcq
+import atlastk, ucuq
 
 with open('Body.html', 'r') as file:
   BODY = file.read()
@@ -15,13 +15,11 @@ with open('Head.html', 'r') as file:
 C_INIT = """
 import neopixel, machine
 
-pI = machine.Pin(16)
-pE = machine.Pin(7)
+n = neopixel.NeoPixel(machine.Pin({}), {})
 
-nI = neopixel.NeoPixel(pI, 4)
-nE = neopixel.NeoPixel(pE, 192)
+def set(leds):
+  global n
 
-def set(leds, n):
   for led in leds:
     n[led] = leds[led]
   n.write()
@@ -44,8 +42,7 @@ def getSValues_(R, G, B):
   return getValues_("S", R, G, B)
 
 def getAllValues_(R, G, B):
-  return getNValues_(R, G, B) | getSValues_(R, G, B);
-  mcrcq.execute(C_SET.format("0", R, G, B))
+  return getNValues_(R, G, B) | getSValues_(R, G, B)
 
 def update_(dom, R, G, B):
   command = "set({"
@@ -53,20 +50,23 @@ def update_(dom, R, G, B):
   for led in range(4):
     command += f'{led}: ({R},{G},{B}), '
 
-  mcrcq.execute(command + "},nI)")
+  black.execute(command + "})")
 
   command = "set({"
 
-  for led in range(192):
+  for led in range(128):
     command += f'{led}: ({R},{G},{B}), '
 
-  mcrcq.execute(command + "},nE)")
+  red.execute(command + "})")
+  yellow.execute(command + "})")
 
 
 def acConnect(dom):
   dom.inner("", BODY)
   dom.executeVoid("setColorWheel()")
-  mcrcq.execute(C_INIT)
+  black.execute(C_INIT.format(16,4))
+  red.execute(C_INIT.format(2,128))
+  yellow.execute(C_INIT.format(2,128))
   dom.executeVoid(f"colorWheel.rgb = [0, 0, 0]")
   update_(dom, 0, 0, 0)
   
@@ -110,6 +110,13 @@ def acNone(dom):
       "3": "false",
     })   
 
+def connect_(id):
+  device = ucuq.UCUq()
+
+  if not device.connect(id):
+    print(f"Device '{id}' not available.")
+
+  return device
 
 
 CALLBACKS = {
@@ -122,6 +129,12 @@ CALLBACKS = {
   "Reset": acReset
 }
 
-mcrcq.connect()
+try:
+  black = ucuq.UCUq("Black")
+except ucuq.Error:
+  print(black)
+
+red = connect_("Red")
+yellow = connect_("Yellow")
 
 atlastk.launch(CALLBACKS, headContent=HEAD)

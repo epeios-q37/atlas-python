@@ -3,7 +3,7 @@ import os, sys
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.extend(("..","../../atlastk"))
 
-import atlastk, mcrcq
+import atlastk, ucuq
 
 import math
 
@@ -36,14 +36,14 @@ ratio = 0.5
 
 def acConnect(dom):
   dom.inner("", BODY)
-  mcrcq.execute(INIT.format(0))
+  felix.execute(INIT.format(0))
 
 def acPlay(dom,id):
   if pinNotSet:
     dom.alert("Please select a pin number!")
   else:
     freq = int(baseFreq*math.pow(math.pow(2,1.0/12), int(id)))
-    mcrcq.execute(f"buzzer(BuzzerObj,{freq},{ratio})")
+    felix.execute(f"buzzer(BuzzerObj,{freq},{ratio})")
 
 def acSetRatio(dom, id):
   global ratio
@@ -70,7 +70,7 @@ def acSetPin(dom, id):
     
   if pin:
     pinNotSet = False
-    mcrcq.execute(f"BuzzerObj=PWM(Pin({pin}))")
+    felix.execute(f"BuzzerObj=PWM(Pin({pin}))")
 
 CALLBACKS = {
   "": acConnect,
@@ -79,6 +79,6 @@ CALLBACKS = {
   "SetPin": acSetPin
 }
 
-mcrcq.connect()
+felix = ucuq.UCUq("Black")
 
 atlastk.launch(CALLBACKS, headContent=HEAD)

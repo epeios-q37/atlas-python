@@ -1,0 +1,15 @@
+ {
+  "Selector": [
+    "9f855a48-191b-4fd4-8c1f-b89ca9e3fdbb",
+    {
+      "Black": "Black",
+      "Red": "Red",
+      "Yellow": "Yellow"
+    }
+  ],
+  "Proxy": {
+    "Host": "ucuq.q37.info",
+    "Host_dev": "192.168.1.87",
+    "Port": "53800"
+  }
+ }
