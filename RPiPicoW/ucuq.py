@@ -2,15 +2,20 @@ import os, json, socket, sys, threading, io, datetime
 from inspect import getframeinfo, stack
 
 with open(("/home/csimon/q37/epeios/tools/ucuq/frontend/wrappers/PYH/" if "Q37_EPEIOS" in os.environ else "../") + "ucuq.json", "r") as config:
-  CONFIG = json.load(config)
+  CONFIG_ = json.load(config)
 
-SELECTOR = CONFIG["Selector"]
+SELECTOR_ = CONFIG_["Selector"]
 
 UCUQ_DEFAULT_HOST_ = "ucuq.q37.info"
 UCUQ_DEFAULT_PORT_ = "53800"
 
-UCUQ_HOST_ = CONFIG["Proxy"]["Host"] if "Proxy" in CONFIG and "Host" in CONFIG["Proxy"] and CONFIG["Proxy"]["Host"] else UCUQ_DEFAULT_HOST_
-UCUQ_PORT_ = CONFIG["Proxy"]["Port"] if "Proxy" in CONFIG and "Port" in CONFIG["Proxy"] and CONFIG["Proxy"]["Port"] else UCUQ_DEFAULT_PORT_
+UCUQ_HOST_ = CONFIG_["Proxy"]["Host"] if "Proxy" in CONFIG_ and "Host" in CONFIG_["Proxy"] and CONFIG_["Proxy"]["Host"] else UCUQ_DEFAULT_HOST_
+
+# only way to test if the entry contains a valid int.
+try:
+  UCUQ_PORT_ = int(CONFIG_["Proxy"]["Port"])
+except:
+  UCUQ_PORT_ = int(UCUQ_DEFAULT_PORT_)
 
 PROTOCOL_LABEL_ = "c37cc83e-079f-448a-9541-5c63ce00d960"
 PROTOCOL_VERSION_ = "0"
@@ -99,9 +104,9 @@ def init_():
   print("Connection to UCUq server…", end="", flush=True)
 
   try:
-    s.connect(socket.getaddrinfo(UCUQ_HOST_, UCUQ_PORT_)[0][-1])
-  except:
-    exit_("FAILURE!!!")
+    s.connect((UCUQ_HOST_, UCUQ_PORT_))
+  except Exception as e:
+    raise e
   else:
     print("\r                                         \r",end="")
 
@@ -128,7 +133,7 @@ def handshake_(socket):
 
 
 def getTokenAndId_(alias):
-  return SELECTOR[0], SELECTOR[1][alias]
+  return SELECTOR_[0], SELECTOR_[1][alias]
 
 
 def ignition_(socket, alias):

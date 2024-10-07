@@ -129,10 +129,7 @@ CALLBACKS = {
   "Reset": acReset
 }
 
-try:
-  black = ucuq.UCUq("Black")
-except ucuq.Error:
-  print(black)
+black = ucuq.UCUq("Black")
 
 red = connect_("Red")
 yellow = connect_("Yellow")
