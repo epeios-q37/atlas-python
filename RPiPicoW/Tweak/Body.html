@@ -1,0 +1,57 @@
+<fieldset style="display: flex; flex-direction: column">
+  <legend>PWM</legend>
+  <div>
+    <label>
+      <span>Pin:</span>
+      <input id="Pin" type="number" size="2" value="15">
+    </label>
+    <span class="switch-container">
+      <label class="switch">
+        <input type="checkbox" xdh:onevent="Switch">
+        <span class="slider round"></span>
+      </label>
+    </span>
+  </div>
+  <div xdh:radio="duty" id="Duty" xdh:onevent="Select"
+    style="display: grid; grid-template-columns: repeat(3, max-content);">
+    <label style="display: flex; justify-content: right;">Freq. (Hz):&nbsp;</label>
+    <span>
+      <input id="Freq" xdh:onevents="(click|Freq)(change|Freq)" type="number" size="7" value="50">
+    </span>
+    <output id="TrueFreq">N/A</output>
+    <label style="display: flex; justify-content: space-between;">
+      <input name="duty" type="radio" value="Ratio" checked="checked">
+      <span>Ratio (/65535):&nbsp;</span>
+    </label>
+    <span>
+      <input id="Ratio" xdh:onevents="(click|Ratio)(change|Ratio)" type="number" size="5" min="0" max="65535" disabled="disabled" value="7000">
+      <select id="RatioStep" xdh:onevent="RatioStep">
+        <optgroup label="Select step">
+          <option value="1">1</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="1000">1000</option>
+        </optgroup>
+      </select>
+    </span>
+    <output id="TrueRatio">N/A</output>
+    <label style="display: flex; justify-content: space-between;">
+      <input name="duty" type="radio" value="Width">
+      <span>Width (ms):&nbsp;</span>
+    </label>
+    <span>
+      <input id="Width" xdh:onevents="(click|Width)(change|Width)" type=number size="5" min="0" disabled="disabled" step=".1">
+      <select id="WidthStep" xdh:onevent="WidthStep">
+        <optgroup label="Select step">
+          <option value=".1">0.1</option>
+          <option value=".2">0.2</option>
+          <option value=".5">0.5</option>
+          <option value="1">1</option>
+        </optgroup>
+      </select>
+    </span>
+    <output id="TrueWidth">N/A</output>
+  </div>
+</fieldset>

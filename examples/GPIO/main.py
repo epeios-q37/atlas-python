@@ -313,7 +313,7 @@ class GPIO:
     self._handleModeButtons(dom)
 
   def setMode(self,dom,wId,mode):
-    id = "Value."+str(wId);
+    id = "Value."+str(wId)
 
     self._setMode(wId, mode)
 
