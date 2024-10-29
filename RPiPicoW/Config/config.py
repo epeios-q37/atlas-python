@@ -1,4 +1,7 @@
-import os, json
+import os, sys, json
+
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+sys.path.extend(("..","../../atlastk"))
 
 import atlastk
 
