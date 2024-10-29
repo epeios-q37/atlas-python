@@ -78,6 +78,6 @@ CALLBACKS = {
   "SetPin": acSetPin
 }
 
-felix = ucuq.UCUq("Black")
+felix = ucuq.UCUq("")
 
 atlastk.launch(CALLBACKS, headContent=HEAD)
