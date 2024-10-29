@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, time
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 sys.path.extend(("..","../../atlastk"))
@@ -18,32 +18,29 @@ LOUDSPEAKER_PIN = 6
 with open('Body.html', 'r') as file:
   BODY = file.read()
 
-INIT = """
-from machine import Pin, PWM
-from time import sleep
-
-def buzzer(buzzerPinObject,frequency,ratio):
-    buzzerPinObject.duty_u16(int(65536*ratio))
-    buzzerPinObject.freq(frequency)
-    sleep(0.5)
-    buzzerPinObject.duty_u16(int(65536*0))
-"""
-
 pinNotSet = True
 
+pwm = None
 baseFreq = 440.0*math.pow(math.pow(2,1.0/12), -16)
 ratio = 0.5
 
 def acConnect(dom):
   dom.inner("", BODY)
-  felix.execute(INIT.format(0))
+
 
 def acPlay(dom,id):
+  global pwm
+
   if pinNotSet:
     dom.alert("Please select a pin number!")
   else:
     freq = int(baseFreq*math.pow(math.pow(2,1.0/12), int(id)))
-    felix.execute(f"buzzer(BuzzerObj,{freq},{ratio})")
+    pwm.duty_u16(int(ratio*65535))
+    pwm.freq(freq)
+    felix.addCommand("time.sleep(0.5)")
+    pwm.duty_u16(0)
+    felix.render()
+
 
 def acSetRatio(dom, id):
   global ratio
@@ -52,8 +49,9 @@ def acSetRatio(dom, id):
 
   dom.setValue("RatioSlide" if id == "RatioValue" else "RatioValue", ratio)
 
+
 def acSetPin(dom, id):
-  global pinNotSet
+  global pinNotSet, pwm
 
   rawPin = dom.getValue(id)
   pin = None
@@ -70,7 +68,8 @@ def acSetPin(dom, id):
     
   if pin:
     pinNotSet = False
-    felix.execute(f"BuzzerObj=PWM(Pin({pin}))")
+    pwm = ucuq.PWM(felix, pin)
+    felix.render()
 
 CALLBACKS = {
   "": acConnect,

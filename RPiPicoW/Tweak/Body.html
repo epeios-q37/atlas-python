@@ -1,10 +1,38 @@
 <fieldset style="display: flex; flex-direction: column">
   <legend>PWM</legend>
-  <div>
-    <label>
-      <span>Pin:</span>
-      <input id="Pin" type="number" size="2" value="15">
-    </label>
+  <div style="display: flex; justify-content: space-between;">
+    <fieldset id="ModeBox" style="display: flex;">
+      <div style="align-content: center;">
+        <select id="Mode" xdh:onevent="Mode">
+          <option selected="Selected" disabled="disabled" value="">Select mode</option>
+          <option value="Straight">Straight</option>
+          <option value="PCA9685">PCA9685</option>
+        </select>
+      </div>
+      <div>
+        <div class="straight">
+          <label>
+            <span>Pin:</span>
+            <input id="Pin" type="number" size="2" value="10" min="0" max="99">
+          </label>
+        </div>
+        <div class="pca9685">
+          <fieldset>
+            <label>
+              <span>SDA:</span>
+              <input id="SDA" type="number" size="2" value="13" min="0" max="99">
+            </label>
+            <label>
+              <span>SCL:</span>
+              <input id="SCL" type="number" size="2" value="14" min="0" max="99">
+            </label>
+            <label>
+              <span>Driver:</span>
+              <input id="Driver" size="2" value="4">
+            </label>
+          </fieldset>
+        </div>
+    </fieldset>
     <span class="switch-container">
       <label class="switch">
         <input type="checkbox" xdh:onevent="Switch">
@@ -24,7 +52,8 @@
       <span>Ratio (/65535):&nbsp;</span>
     </label>
     <span>
-      <input id="Ratio" xdh:onevents="(click|Ratio)(change|Ratio)" type="number" size="5" min="0" max="65535" disabled="disabled" value="7000">
+      <input id="Ratio" xdh:onevents="(click|Ratio)(change|Ratio)" type="number" size="5" min="0" max="65535"
+        disabled="disabled" value="7000">
       <select id="RatioStep" xdh:onevent="RatioStep">
         <optgroup label="Select step">
           <option value="1">1</option>
@@ -42,13 +71,14 @@
       <span>Width (ms):&nbsp;</span>
     </label>
     <span>
-      <input id="Width" xdh:onevents="(click|Width)(change|Width)" type=number size="5" min="0" disabled="disabled" step=".1">
+      <input id="Width" xdh:onevents="(click|Width)(change|Width)" type=number size="5" min="0" disabled="disabled"
+        step=".01">
       <select id="WidthStep" xdh:onevent="WidthStep">
         <optgroup label="Select step">
+          <option value=".01">0.01</option>
+          <option value=".02">0.02</option>
+          <option value=".05">0.05</option>
           <option value=".1">0.1</option>
-          <option value=".2">0.2</option>
-          <option value=".5">0.5</option>
-          <option value="1">1</option>
         </optgroup>
       </select>
     </span>

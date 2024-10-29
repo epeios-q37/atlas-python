@@ -1,17 +1,12 @@
- {
-  "Selector": [
-    "9f855a48-191b-4fd4-8c1f-b89ca9e3fdbb",
-    {
-      "Black": "Black",
-      "White": "White",
-      "Red": "Red",
-      "Yellow": "Yellow",
-      "Blue": "Blue"
-    }
-  ],
+{
+  "Device": {
+    "Token": "9f855a48-191b-4fd4-8c1f-b89ca9e3fdbb",
+    "Id": "Black"
+  },
   "Proxy": {
     "Host_prod": "ucuq.q37.info",
+    "Host_dev": "192.168.1.87",
     "Host": "ucuq.q37.info",
     "Port": "53800"
   }
- }
+}

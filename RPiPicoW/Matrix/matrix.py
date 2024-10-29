@@ -13,9 +13,6 @@ with open('Head.html', 'r') as file:
 with open('Body.html', 'r') as file:
   BODY = file.read()
 
-with open('mc_init.py', 'r') as file:
-  INIT_MATRIX = file.read()
-
 MATRIXES = (
   "0FF0300C4002866186614002300C0FF",
   "000006000300FFFFFFFF030006",
@@ -39,18 +36,38 @@ MATRIXES = (
   "00003ffc40025ffa2ff417e8081007e",
 )
 
-INIT_LED = """
-import neopixel, machine
+def test():
+  for y in range(8):
+    for x in range(16):
+      matrix.plot(x,y)
+    matrix.render()
+    # time.sleep(.06)
+    matrix.clear()
 
-n = neopixel.NeoPixel(machine.Pin({}), {})
+  for x in range(16):
+    for y in range(8):
+      matrix.plot(x,y)
+    matrix.render()
+    # time.sleep(.06)
+    matrix.clear()
 
-def set(leds):
-  global n
+  for x in range(16):
+    for y in range(8):
+      matrix.plot(x,y)
 
-  for led in leds:
-    n[led] = leds[led]
-  n.write()
-"""
+  matrix.render()
+
+  for b in range(0, 16):
+    matrix.setBrightness(b)
+    device.render()
+    # time.sleep(0.05)
+
+  for b in range(15, -1, -1):
+    matrix.setBrightness(b)
+    device.render()
+    # time.sleep(0.05)
+
+  matrix.clear()
 
 
 def drawOnGUI(dom, motif = pattern):
@@ -91,23 +108,7 @@ def setHexa(dom, motif = pattern):
 
 
 def drawOnMatrix(motif = pattern):
-  felix.execute(f"matrix.clear().draw('{motif}').render()", "binascii.hexlify(matrix.buffer)")
-
-def drawOnLeds(motif):
-  rightCommand = "set({"
-  leftCommand = "set({"
-
-  for i, c in enumerate(motif.ljust(32,"0")):
-    for o in range(4):
-      subCommand = f'{( ( ( i >> 2 ) + ( i % 2 ) ) << 2 ) + o + ( ( i >> 2 ) << 2 )}: ({0},{3 if int(c, 16) & ( 1 << (3 - o) ) else 0},{0}), '
-      if ( ( ( i >> 1 ) % 2 ) == 0 ):
-        leftCommand += subCommand
-      else:
-        rightCommand += subCommand
-
-  left.execute(leftCommand + "})")
-  right.execute(rightCommand + "})")
-
+  matrix.draw(motif)
 
 def draw(dom, motif = pattern):
   global pattern
@@ -115,8 +116,6 @@ def draw(dom, motif = pattern):
   pattern = motif
   
   drawOnMatrix(motif)
-
-  drawOnLeds(motif)
 
   drawOnGUI(dom, motif)
 
@@ -134,11 +133,11 @@ def acConnect(dom):
 
 
 def plot(x,y,ink=True):
-  felix.execute(f"matrix.plot({x},{y},{1 if ink else 0}).render()")
-
+  matrix.plot(x,y)
+  matrix.render()
 
 def clear():
-  felix.execute(f"matrix.clear()")
+  matrix.clear()
 
 
 def acToggle(dom, id):
@@ -166,8 +165,6 @@ def acHexa(dom):
 
   drawOnMatrix(motif := dom.getValue("Hexa"))
 
-  drawOnLeds(motif)
-
   drawOnGUI(dom, motif)
 
   pattern = motif
@@ -178,6 +175,17 @@ def acAll(dom):
     draw(dom, matrix)
     time.sleep(0.5)
 
+
+def acBrightness(dom, id):
+  matrix.setBrightness(int(dom.getValue(id)))
+  device.render()
+
+def acBlinkRate(dom, id):
+  matrix.setBlinkRate(float(dom.getValue(id)))
+  device.render()
+
+def acDraw(dom, id):
+  draw(dom,MATRIXES[int(dom.getMark(id))])
 
 def connect_(id):
   device = ucuq.UCUq()
@@ -190,22 +198,21 @@ def connect_(id):
 
 CALLBACKS = {
   "": acConnect,
-  "Test": lambda: felix.execute("test()"),
+  "Test": lambda: test(),
   "All": acAll,
   "Toggle": acToggle,
-  "Brightness": lambda dom, id: felix.execute(f"matrix.set_brightness({dom.getValue(id)})"),
-  "Blink": lambda dom, id: felix.execute(f"matrix.set_blink_rate({dom.getValue(id)})"),
+  "Brightness": acBrightness,
+  "Blink": acBlinkRate,
   "Hexa": acHexa,
-  "Draw": lambda dom, id: draw(dom,MATRIXES[int(dom.getMark(id))])
+  "Draw": acDraw
 }
 
-felix = ucuq.UCUq("Black")
+device = ucuq.UCUq("")
+matrix = ucuq.HT16K33(device, 4, 5)
+matrix.clear()
+matrix.setBrightness(0)
+matrix.setBlinkRate(0)
+device.render()
 
-left = connect_("Yellow")
-right = connect_("Red")
-
-felix.execute(INIT_MATRIX)
-left.execute(INIT_LED.format(2, 64))
-right.execute(INIT_LED.format(2, 64))
 
 atlastk.launch(CALLBACKS, headContent=HEAD)

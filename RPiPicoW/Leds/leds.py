@@ -11,19 +11,7 @@ with open('Body.html', 'r') as file:
 with open('Head.html', 'r') as file:
   HEAD = file.read()
 
-
-C_INIT = """
-import neopixel, machine
-
-n = neopixel.NeoPixel(machine.Pin({}), {})
-
-def set(leds):
-  global n
-
-  for led in leds:
-    n[led] = leds[led]
-  n.write()
-"""
+leds = None
 
 def convert_(hex):
   return int(int(hex,16) * 100 / 256)
@@ -45,31 +33,14 @@ def getAllValues_(R, G, B):
   return getNValues_(R, G, B) | getSValues_(R, G, B)
 
 def update_(dom, R, G, B):
-  command = "set({"
-
-  for led in range(4):
-    command += f'{led}: ({R},{G},{B}), '
-
-  black.execute(command + "})")
-
-  command = "set({"
-
-  for led in range(128):
-    command += f'{led}: ({R},{G},{B}), '
-
-  red.execute(command + "})")
-  yellow.execute(command + "})")
-
+  leds.fill((int(R), int(G), int(B)))
+  leds.write()
 
 def acConnect(dom):
   dom.inner("", BODY)
   dom.executeVoid("setColorWheel()")
-  black.execute(C_INIT.format(16,4))
-  red.execute(C_INIT.format(2,128))
-  yellow.execute(C_INIT.format(2,128))
   dom.executeVoid(f"colorWheel.rgb = [0, 0, 0]")
   update_(dom, 0, 0, 0)
-  
   
 def acSelect(dom):
   R, G, B = dom.getValues(["rgb-r", "rgb-g", "rgb-b"]).values()
@@ -90,25 +61,8 @@ def acAdjust(dom):
 
 def acReset(dom):
   dom.executeVoid(f"colorWheel.rgb = [0, 0, 0]")
+  dom.setValues(getAllValues_(0, 0, 0))
   update_(dom, 0, 0, 0)
-
-def acAll(dom):
-  dom.setValues(
-    {
-      "0": "true",
-      "1": "true",
-      "2": "true",
-      "3": "true",
-    })   
-
-def acNone(dom):
-  dom.setValues(
-    {
-      "0": "false",
-      "1": "false",
-      "2": "false",
-      "3": "false",
-    })   
 
 def connect_(id):
   device = ucuq.UCUq()
@@ -124,14 +78,11 @@ CALLBACKS = {
   "Select": acSelect,
   "Slide": acSlide,
   "Adjust": acAdjust,
-  "All": acAll,
-  "None": acNone,
   "Reset": acReset
 }
 
-black = ucuq.UCUq("Black")
+device = ucuq.UCUq("")
+leds = ucuq.WS2812(device, 16, 4)
 
-red = connect_("Red")
-yellow = connect_("Yellow")
 
 atlastk.launch(CALLBACKS, headContent=HEAD)

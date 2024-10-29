@@ -5,19 +5,33 @@ sys.path.extend(("..","../../atlastk"))
 
 import ucuq, atlastk
 
+TARGET = "" # if "", retrieved from config file.
+
 MACRO_MARKER_ = '$'
 
-DEFAULT_STEP = 10
+DEFAULT_SPEED = 10
 
 contentsHidden = True
 
 macros = {}
 
-servos = {
-  "l": "lf",
-  "L": "ll",
-  "r": "rf",
-  "R": "rl"
+# Hardware modes
+M_STRAIGHT = "Straight"
+M_PCA ="PCA"
+
+# Config keys
+HARDWARE_KEY = "Hardware"
+HARDWARE_MODE_SUBKEY = "mode"
+SPECS_KEY = "Specs"
+TWEAK_KEY = "Tweak"
+
+CONFIG_KEYS = {
+  HARDWARE_KEY: {
+    M_STRAIGHT: ["pin"],
+    M_PCA: ["sda", "scl", "channel"]
+  },
+  SPECS_KEY: ["freq", "u16_min", "u16_max", "range"],
+  TWEAK_KEY: ["angle", "offset", "invert"]
 }
 
 with open('Body.html', 'r') as file:
@@ -25,9 +39,6 @@ with open('Body.html', 'r') as file:
 
 with open('Head.html', 'r') as file:
   HEAD = file.read()
-
-with open('mc_init.py', 'r') as file:
-  MC_INIT = file.read()
 
 MACRO_HTML="""
 <div class="macro" xdh:mark="Macro{}" style="margin-bottom: 3px;">
@@ -50,57 +61,15 @@ MACRO_HTML="""
 </div>
 """
 
+servos = {}
+pca = None
 
-def resetStacks():
-  global stacks
-
-  stacks = {
-    "l": [],
-    "L": [],
-    "R": [],
-    "r": []
-  }
-
-stage = 0
-moves = []
-
-def move_(servo, angle, step = None):
-  command = f"move([(\"{servo.lower()}\", {int(angle)})]"
-
-  if step != None:
-    command += f",{step}"
-
-  command += ")"
-
-  black.execute(command)
-   
 
 def reset_(dom):
-  step = 5
-  black.execute(f"""
-move([
-  ("lf", 0),
-  ("ll", 0),
-  ("rl", 0),
-  ("rf", 0),
-  ("x1", 0),
-  ("x2", 0),
-], {step})
-""")
-  dom.setValues({
-    "LFN": 0,
-    "LFS": 0,
-    "LLN": 0,
-    "LLS": 0,
-    "RLN": 0,
-    "RLS": 0,
-    "RFN": 0,
-    "RFS": 0,
-    "X1N": 0,
-    "X1S": 0,
-    "X2N": 0,
-    "X2S": 0,
-  })
+  for servo in servos:
+    servos[servo].reset()
+
+  device.render()
 
 
 def displayMacros(dom):
@@ -129,16 +98,20 @@ def updateFileList(dom):
 def acConnect(dom):
   dom.inner("", BODY)
   displayMacros(dom)
-  black.execute(MC_INIT)
-  reset_(dom)
   updateFileList(dom)
 
 
-def acTest(dom):
-  for servo in ["lf", "ll", "rl", "rf"]:
-    move_(servo, 30, 5)
-    move_(servo, -30, 5)
-    move_(servo, 0, 5)
+def acTest():
+  for servo in servos:
+    device.servoMoves([(servos[servo], 15)])
+    device.render()
+    time.sleep(0.25)
+    device.servoMoves([(servos[servo], -15)])
+    device.render()
+    time.sleep(0.25)
+    device.servoMoves([(servos[servo], 0)])
+    device.render()
+    time.sleep(0.25)
 
 
 def acReset(dom):
@@ -203,18 +176,28 @@ def getMacro(token):
 
 def getMoves(token):
   moves = []
-  step = None
+  speed = None
 
   with io.StringIO(token[0]) as stream:
     while char := stream.read(1):
-      if not char.isalpha():
+      if not char.isalnum():
         raise Exception(f"Servo id expected ({token[1]})!")
       
       servo = char
+
+      char = stream.read(1)
+
+      while char and ( char.isalnum() or char == '_' ):
+        servo += char
+        char = stream.read(1)
+
+      if not servo in servos:
+        raise Exception(f"No servo of id '{servo}'  ({token[1]})")
+        
       angle = 0
       sign = 1
 
-      if char := stream.read(1):
+      if char:
         if char in "+-":
           if char == '-':
             sign = -1
@@ -225,7 +208,7 @@ def getMoves(token):
         angle = angle * 10 + int(char)
         char = stream.read(1)
 
-      moves.append((servo, angle * sign))
+      moves.append((servos[servo], angle * sign))
 
       if not char:
         break
@@ -234,28 +217,28 @@ def getMoves(token):
         if char != ':':
           raise Exception(f"Servo move can only be followed by '%' ({token[1]})!")
       else:
-        step = 0
+        speed = ""
 
         while (char := stream.read(1)) and char.isdigit():
-          step = step * 10 + int(char)
+          speed += char
 
         if char:
-          raise Exception("Unexpected char at end of servo moves ({token[1]})!")
+          raise Exception(f"Unexpected char at end of servo moves ({token[1]})!")
         
-    return { "moves": moves, "step": str(step) if step else None if step == None else ""}
+    return { "moves": moves, "speed": speed}
   
 
-def getStep(token):
-  step = 0
+def getSpeed(token):
+  speed = 0
 
   with io.StringIO(token[0]) as stream:
     if stream.read(1) != '%':
       raise Exception(f"Unexpected error ({token[1]})!")
     
     while (char := stream.read(1)) and char.isdigit():
-      step = step * 10 + int(char)
+      speed = speed * 10 + int(char)
 
-  return { "value": step if step else DEFAULT_STEP }
+  return { "value": speed if speed else DEFAULT_SPEED }
 
 
 def tokenize(string):
@@ -274,44 +257,29 @@ def getAST(tokens):
     if token[0][0].isdigit() or token[0][0] == MACRO_MARKER_:
       ast.append(("macro", getMacro(token)))
     elif token[0][0] == '%':
-      ast.append(("step", getStep(token)))
+      ast.append(("speed", getSpeed(token)))
     else:
       ast.append(("action",getMoves(token)))
 
   return ast
 
 
-def getCommand(moves, step, currentStep):
-  command = "move([\n"
-
-  for move in moves:
-    command += f"(\"{servos[move[0]]}\",{move[1]}),"
-
-  command += "]," + ( step if step else str(currentStep) if step == None else str(DEFAULT_STEP) ) + ")"
-
-  return command
-
-
-def getCommands(dom, string, step = DEFAULT_STEP):
-  commands = ""
-
+def execute(dom, string, speed = DEFAULT_SPEED):
   try:
     ast = getAST(tokenize(string))
 
     for item in ast:
       match item[0]:
         case "action":
-          commands += getCommand(item[1]["moves"], item[1]["step"], step) + '\n'
+          tempSpeed = item[1]["speed"]
+          device.servoMoves(item[1]["moves"], ( speed if tempSpeed == None else ( int(tempSpeed) if tempSpeed != "" else DEFAULT_SPEED)) /10)
         case "macro":
           for _ in range(item[1]["amount"]):
-            commands += getCommands(dom, macros[item[1]["name"]]["Content"], step)
-        case "step":
-          step = item[1]["value"]
+            execute(dom, macros[item[1]["name"]]["Content"], speed)
+        case "speed":
+          speed = item[1]["value"]
   except Exception as err:
     dom.alert(err)
-    commands = ""
-  
-  return commands
 
 
 def acExecute(dom, id):
@@ -326,7 +294,8 @@ def acExecute(dom, id):
   if dom.getValue("Reset") == "true":
     reset_(dom)
 
-  black.execute(getCommands(dom, moves))
+  execute(dom, moves)
+  device.render()
 
 
 def acSave(dom):
@@ -442,6 +411,70 @@ CALLBACKS = {
    "LoadFromFile": acLoadFromFile,
 }
 
-black = ucuq.UCUq("Black")
+device = ucuq.UCUq(TARGET, dryRun=False)
+
+command = ""
+
+def getServoSetup(key, subkey, preset, motor):
+  if ( key in motor ) and ( subkey in motor[key] ):
+    return motor [key][subkey]
+  else:
+    return preset[key][subkey]
+
+
+def getServosSetups(target):
+  setup = {}
+
+  with open("servos.json", "r") as file:
+    config = json.load(file)[target]
+
+  preset = config["Preset"]
+  motors = config["Motors"]
+
+  for label in motors:
+    setup[label] = {}
+
+    motor = motors[label]
+
+    for key in CONFIG_KEYS:
+      setup[label][key] = {}
+
+      if key == HARDWARE_KEY:
+        mode = getServoSetup(key, HARDWARE_MODE_SUBKEY, motor, preset)
+
+        setup[label][key][HARDWARE_MODE_SUBKEY] = mode
+
+        for subkey in CONFIG_KEYS[key][mode]:
+          setup[label][key][subkey] = getServoSetup(key, subkey, preset, motor)
+      else:
+        for subkey in CONFIG_KEYS[key]:
+          setup[label][key][subkey] = getServoSetup(key, subkey, preset, motor)
+      
+
+  return setup
+
+def createServos(device):
+  global servos, pca
+
+  setups = getServosSetups(target := device.getDeviceId())
+
+  for label in setups:
+    servo = setups[label]
+    hardware = servo[HARDWARE_KEY]
+    specs = servo[SPECS_KEY]
+    tweak = servo[TWEAK_KEY]
+    if hardware[HARDWARE_MODE_SUBKEY] == M_STRAIGHT:
+      pwm = ucuq.PWM(device, hardware["pin"], specs["freq"])
+    elif hardware["mode"] == "PCA":
+      if not pca:
+        pca =  ucuq.PCA9685(device, hardware["sda"], hardware["scl"], specs["freq"])
+      pwm = ucuq.PCA9685Channel(device, pca, hardware["channel"])
+    else:
+      raise Exception("Unknown hardware mode!")
+    servos[label] = ucuq.Servo(device, pwm, ucuq.Servo.Specs(specs["u16_min"], specs["u16_max"], specs["range"]), tweak = ucuq.Servo.Tweak(tweak["angle"],tweak["offset"], tweak["invert"]))
+
+  device.render()
+
+createServos(device)
 
 atlastk.launch(CALLBACKS, headContent = HEAD)
