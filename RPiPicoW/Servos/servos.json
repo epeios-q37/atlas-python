@@ -1,0 +1,197 @@
+{
+  "Black": {
+    "Preset": {
+      "Hardware": {
+        "mode": "Straight"
+      },
+      "Specs": {
+        "freq": 50,
+        "u16_min": 1639,
+        "u16_max": 8192,
+        "range": 180
+      },
+      "Tweak":
+      {
+        "angle": 90,
+        "offset": 0,
+        "invert": false
+      }
+    },
+    "Motors": {
+      "l": {
+        "Hardware": {
+          "pin": 11
+        },
+        "Tweak": {
+          "offset": -115
+        }
+      },
+      "L": {
+        "Hardware": {
+          "pin": 10
+        }
+      },
+      "R": {
+        "Hardware": {
+          "pin": 12
+        },
+        "Tweak": {
+          "offset": -55
+        }
+      },
+      "r": {
+        "Hardware": {
+          "pin": 13
+        }
+      }
+    }
+  },
+  "White": {
+    "Preset": {
+      "Hardware": {
+        "mode": "Straight"
+      },
+      "Specs": {
+        "freq": 50,
+        "u16_min": 1639,
+        "u16_max": 8192,
+        "range": 180
+      },
+      "Tweak":
+      {
+        "angle": 90,
+        "offset": 0,
+        "invert": false
+      }
+    },
+    "Motors": {
+      "L": {
+        "Hardware": {
+          "pin": 10
+        },
+        "Tweak": {
+        "offset": 85
+        }
+      },
+      "l": {
+        "Hardware": {
+          "pin": 11
+        },
+        "Tweak": {
+          "offset": 185
+        }
+      },
+      "R": {
+        "Hardware": {
+          "pin": 12
+        },
+        "Tweak": {
+          "offset": 225
+        }
+      },
+      "r": {
+        "Hardware": {
+          "pin": 13
+        },
+        "Tweak": {
+          "offset": 35
+        }
+      }
+    }
+  },
+  "Blue": {
+    "_comment": "F: Front; B: Back; L: Left; R: Right; a, b, c the motors from the body to the extremity.",
+    "Preset": {
+      "Hardware": {
+        "mode": "PCA",
+        "sda": 13,
+        "scl": 14
+      },
+      "Specs": {
+        "freq": 50,
+        "u16_min": 1632,
+        "u16_max": 8800,
+        "range": 180
+      },
+      "Tweak": {
+        "angle": 90,
+        "offset": 0,
+        "invert": false
+      }
+    },
+    "Motors": {
+      "FLa": {
+        "Hardware": {
+          "channel": 0
+        }
+      },
+      "FLb": {
+        "Hardware": {
+          "channel": 1
+        },
+        "Tweak": {
+          "invert": true
+        }
+      },
+      "FLc": {
+        "Hardware": {
+          "channel": 2
+        }
+      },
+      "BLc": {
+        "Hardware": {
+          "channel": 5
+        }
+      },
+      "BLb": {
+        "Hardware": {
+          "channel": 6
+        },
+        "Tweak": {
+          "invert": true
+        }
+      },
+      "BLa": {
+        "Hardware": {
+          "channel": 7
+        }
+      },
+      "BRa": {
+        "Hardware": {
+          "channel": 8
+        }
+      },
+      "BRb": {
+        "Hardware": {
+          "channel": 9
+        }
+      },
+      "BRc": {
+        "Hardware": {
+          "channel": 10
+        },
+        "Tweak": {
+          "invert": true
+        }
+      },
+      "FRc": {
+        "Hardware": {
+          "channel": 13
+        },
+        "Tweak": {
+          "invert": true
+        }
+      },
+      "FRb": {
+        "Hardware": {
+          "channel": 14
+        }
+      },
+      "FRa": {
+        "Hardware": {
+          "channel": 15
+        }
+      }
+    }
+  }
+}

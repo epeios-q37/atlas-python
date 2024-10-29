@@ -1,0 +1,18 @@
+{
+  "F": {
+    "Description": "Forward",
+    "Content": "l-3:r L+20:R+20 l:r+3 L-20:R-20"
+  },
+  "B": {
+    "Description": "Back",
+    "Content": "l-3:r L-20:R-20 l:r+3 L+20:R+20"
+  },
+  "RFB": {
+    "Description": "Repeat forward then back",
+    "Content": "5$F 5$B l:r:L:R"
+  },
+  "Dance": {
+    "Description": "Let's rocking!",
+    "Content": "L-25 R-25 L:R L-25:R+25 L+23:R-23 L-15:R+15 l+20:r-20 r l r-15:R+15:l+5 r:R l+10:L+15 R-10:r-15 l:L+15 R+15:r L-15:R-15 l-15: l:L-15 R+15:L-15:r-25 R-15:L-15 R+10:L+10:r:l r+20:l+20 r:l l:r+40 L-15:R-15 l-25:r R+25:L+25:r+30 R-25:L-25:r-30 %20 r+30 r-30 R+30:r+30 r-30 % l:r:R:L"
+  }
+}
