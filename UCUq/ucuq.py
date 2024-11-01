@@ -42,7 +42,7 @@ A_ERROR_ = 1
 A_PUZZLED_ = 2
 A_DISCONNECTED = 3
 
-def GetUUID():
+def GetUUID_():
   global uuid_
 
   uuid_ += 1
@@ -222,12 +222,12 @@ class UCUq_:
     return self.getTokenAndDeviceId()[1]
 
 
-  def upload(self, scripts):
+  def upload(self, modules):
     if self.dryRun_:
-      print(scripts)
+      print(modules)
     else:
       writeString_(self.socket_, R_UPLOAD_)
-      writeStrings_(self.socket_, scripts)
+      writeStrings_(self.socket_, modules)
 
       if ( answer := readUInt_(self.socket_) ) == A_OK_:
         pass
@@ -301,8 +301,8 @@ class UCUq_:
 class UCUq(UCUq_):
   def __init__(self, deviceId = None, dryRun = False):
     super().__init__(deviceId, dryRun)
-    self.pendingScripts = ["Init"]
-    self.handledScripts = []
+    self.pendingModules = ["Init"]
+    self.handledModules = []
     self.commands = []
 
 
@@ -310,9 +310,9 @@ class UCUq(UCUq_):
     super().connect(deviceId)
 
 
-  def addScript(self, script):
-    if not script in self.pendingScripts and not script in self.handledScripts:
-      self.pendingScripts.append(script)
+  def addModule(self, module):
+    if not module in self.pendingModules and not module in self.handledModules:
+      self.pendingModules.append(module)
 
 
   def addCommand(self, command):
@@ -322,10 +322,10 @@ class UCUq(UCUq_):
   def render(self, expression = ""):
     result = ""
 
-    if self.pendingScripts:
-      super().upload(self.pendingScripts)
-      self.handledScripts.extend(self.pendingScripts)
-      self.pendingScripts = []
+    if self.pendingModules:
+      super().upload(self.pendingModules)
+      self.handledModules.extend(self.pendingModules)
+      self.pendingModules = []
 
     if self.commands:
       result = super().execute('\n'.join(self.commands), expression)
@@ -335,7 +335,7 @@ class UCUq(UCUq_):
 
 
   def servoMoves(self, moves, speed = 1):
-    self.addScript("ServoMoves")
+    self.addModule("ServoMoves")
 
     command = "servoMoves([\n"
 
@@ -353,10 +353,10 @@ class UCUq(UCUq_):
 
 
 class Core_:
-  def __init__(self, ucuq, script = ""):
+  def __init__(self, ucuq, module = ""):
     self.ucuq = ucuq
-    if script:
-      self.ucuq.addScript(script)
+    if module:
+      self.ucuq.addModule(module)
     self.id = None
 
   
@@ -366,7 +366,7 @@ class Core_:
 
   
   def init(self):
-    self.id = GetUUID()
+    self.id = GetUUID_()
 
   
   def execute(self, script, expr = ""):
@@ -686,6 +686,7 @@ class WS2812(Core_):
     self.addCommand(f"{self.getObject()}.setitem({index}, {json.dumps(val)})")
                        
   def fill(self, val):
+    print("Val: ", val)
     self.addCommand(f"{self.getObject()}.fill({json.dumps(val)})")
 
   def write(self):

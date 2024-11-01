@@ -7,11 +7,6 @@ import atlastk, ucuq
 
 import math
 
-HEAD = """
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/beautiful-piano@0.0.6/styles.min.css"></link>
-  <script src="https://cdn.jsdelivr.net/npm/beautiful-piano@0.0.6/dist/piano.min.js"></script>
-"""
-
 BUZZER_PIN = 2
 LOUDSPEAKER_PIN = 6
 
@@ -77,6 +72,12 @@ CALLBACKS = {
   "SetRatio": acSetRatio,
   "SetPin": acSetPin
 }
+
+HEAD = """
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/beautiful-piano@0.0.6/styles.min.css"></link>
+  <script src="https://cdn.jsdelivr.net/npm/beautiful-piano@0.0.6/dist/piano.min.js"></script>
+"""
+
 
 felix = ucuq.UCUq("")
 

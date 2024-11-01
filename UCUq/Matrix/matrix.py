@@ -13,7 +13,7 @@ with open('Head.html', 'r') as file:
 with open('Body.html', 'r') as file:
   BODY = file.read()
 
-MATRIXES = (
+MATRICES = (
   "0FF0300C4002866186614002300C0FF",
   "000006000300FFFFFFFF030006",
   "00004002200410080810042003c",
@@ -92,15 +92,15 @@ def drawLittleMatrix(motif):
   return html
 
 
-def drawLittleMatrixes(dom, matrixes):
+def drawLittleMatrices(dom, matrices):
   html = ""
 
-  for i, matrix in enumerate(matrixes):
+  for i, matrix in enumerate(matrices):
     html += f"<fieldset xdh:mark=\"{i}\" style=\"cursor: pointer;\" class=\"little-matrix\" xdh:onevent=\"Draw\">"\
       + drawLittleMatrix(matrix)\
       +"</fieldset>"
 
-  dom.inner("LittleMatrixes", html)
+  dom.inner("LittleMatrices", html)
 
 
 def setHexa(dom, motif = pattern):
@@ -129,7 +129,7 @@ def acConnect(dom):
 
   dom.executeVoid("patchHexaInput();")
 
-  drawLittleMatrixes(dom,MATRIXES)
+  drawLittleMatrices(dom,MATRICES)
 
 
 def plot(x,y,ink=True):
@@ -171,7 +171,7 @@ def acHexa(dom):
 
 
 def acAll(dom):
-  for matrix in MATRIXES:
+  for matrix in MATRICES:
     draw(dom, matrix)
     time.sleep(0.5)
 
@@ -185,7 +185,7 @@ def acBlinkRate(dom, id):
   device.render()
 
 def acDraw(dom, id):
-  draw(dom,MATRIXES[int(dom.getMark(id))])
+  draw(dom,MATRICES[int(dom.getMark(id))])
 
 def connect_(id):
   device = ucuq.UCUq()
