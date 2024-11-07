@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
- """
+"""
 
 import XDHq, XDHqSHRD
 from threading import Thread, Lock
@@ -103,7 +103,7 @@ def worker(userCallback,dom,callbacks):
 	userObject = None
 
 	if ( userCallback != None ):
-		if ( not(inspect.isclass(userCallback)) and len(inspect.getargspec(userCallback).args) == 1 ):
+		if ( not(inspect.isclass(userCallback)) and len(inspect.getfullargspec(userCallback).args) == 1 ):
 			args.append(dom)
 
 		userObject = userCallback(*args)
