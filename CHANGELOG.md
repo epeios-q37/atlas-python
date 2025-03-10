@@ -3,10 +3,15 @@
 - Common to **all** bindings,
 - does **not** concern the native code.
 
+## 2025-02
+- *Python*:
+   - the *launch()* function has now an optional parameter which takes the result of the *globals()* function, allowing the callback functions to be deduced from the name of the actions,
+  - switching to v0.13.4;
+
 ## 2023-09-11
 - *Python* :
   - using undeprecated `inspect.getfullargspec` method instead of the no more available `inspect.getargspec` one;
-  - switching to v0.13.3.
+  - switching to v0.13.3;
 
 ## 2022-07-01
 - *Java*, *Perl*, *Ruby*:
