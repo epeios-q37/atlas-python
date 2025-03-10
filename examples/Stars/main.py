@@ -135,7 +135,7 @@ def acToggle(dom):
   dom.toggleClass("Simple", "hidden")
   dom.toggleClass("Expert", "hidden")
 
-callbacks = {
+CALLBACKS = {
   "": acConnect,
   "Center": acCenter,
   "Right": acRight,
@@ -149,8 +149,10 @@ callbacks = {
   "Toggle": acToggle,
 }
 
+ATK_HEAD = open("Head.html").read()
+
 def atlas():
-  atlastk.launch(callbacks, None, open("Head.html").read())
+  atlastk.launch(CALLBACKS, globals=globals())
 
 def main():
   global pos;

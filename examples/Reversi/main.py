@@ -335,4 +335,8 @@ CALLBACKS = {
   f"visibility: {'hidden' if dom.getValue(id) == 'HH' else 'visible'};"),
 }
 
-atlastk.launch(CALLBACKS, Reversi, open("Head.html").read())
+ATK_HEAD = open("Head.html").read()
+
+ATK_USER = Reversi
+
+atlastk.launch(CALLBACKS, globals=globals())

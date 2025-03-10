@@ -37,11 +37,13 @@ def acShowInput(dom):
   dom.removeClass("Input", "hidden")
   dom.focus("Pattern")
 
-callbacks = {
+CALLBACKS = {
   "": acConnect,
   "Submit": lambda dom, id: dom.setValue("Pattern", dom.getValue("Pattern").upper() ),
   "HideInput": lambda dom, id: dom.addClass("Input", "hidden"),
   "ShowInput": acShowInput,
 }
 
-atlastk.launch(callbacks, None, open("Head.html").read())
+ATK_HEAD = open("Head.html").read()
+
+atlastk.launch(CALLBACKS, globals=globals())

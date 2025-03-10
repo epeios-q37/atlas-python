@@ -31,6 +31,29 @@ from XDHq import set_supplier, get_app_url, l
 setSupplier = set_supplier
 getAppURL = get_app_url
 
+# Options entries
+O_CALLBACKS_PREFIX_ = "CallbacksPrefix"
+O_CONNECT_ACTION_AFFIX_ = "ConnectActionName"
+O_PREPROCESS_ACTION_NAME_ = "PreprocessActionName"
+O_POSTPROCESS_ACTION_NAME_ = "PostprocessActionName"
+
+DEFAULT_CALLBACK_PREFIX = "atk"
+
+options_ = {
+  # Prefix of the name of a callback corresponding to an action
+  # if absent from callbacks dict.
+  # If 'None' or '', callbacks for the actions must be in callbacks dict.
+  O_CALLBACKS_PREFIX_: DEFAULT_CALLBACK_PREFIX,
+  # The affix for the connect action.
+  O_CONNECT_ACTION_AFFIX_: "",
+  # NOTA: there is no default callback name for below 2 actions.
+  # They must be specifically defined in the callbacks dict.
+  # Name of the preprocessing action.
+  O_PREPROCESS_ACTION_NAME_: "_Preprocess",
+  # Name of the postprocessing action.
+  O_POSTPROCESS_ACTION_NAME_: "_Postprocess"
+}
+
 if sys.version_info[0] == 2:
 	import __builtin__ as builtins
 else:
@@ -69,20 +92,20 @@ def _call(func, userObject, dom, id, action):
 	amount = len(inspect.getfullargspec(func).args)
 	args = []
 
-	if ( not(userObject)) :
+	if not(userObject):
 		amount += 1
 
-	if ( amount == 4 ):
-		args.insert(0,action)
+	if amount == 4:
+		args.insert(0, action)
 
-	if( amount >= 3 ):
-		args.insert(0,id)
+	if amount >= 3:
+		args.insert(0, id)
 
-	if( amount >= 2 ):
-		args.insert(0,dom)
+	if amount >= 2:
+		args.insert(0 ,dom)
 
-	if( userObject and (amount >= 1 )):
-		args.insert(0,userObject)
+	if userObject and ( amount >= 1 ):
+		args.insert(0, userObject)
 
 	return func(*args)
 
@@ -98,7 +121,7 @@ def _is_jupyter():
 	except NameError:
 			return False      # Probably standard Python interpreter
 
-def worker(userCallback,dom,callbacks):
+def worker(userCallback, dom, callbacks, callingGlobals):
 	args=[]
 	userObject = None
 
@@ -107,7 +130,7 @@ def worker(userCallback,dom,callbacks):
 			args.append(dom)
 
 		userObject = userCallback(*args)
-	
+
 	while True:
 		[action,id] = dom.getAction()
 
@@ -120,17 +143,32 @@ def worker(userCallback,dom,callbacks):
 			if XDHqSHRD.isDev():
 				dom.debugLog(True)
 
-		if action == "" or not "_PreProcess" in callbacks or _call(callbacks["_PreProcess"],userObject, dom, id, action):
-			if ( action in callbacks ):
-				if _call(callbacks[action], userObject, dom, id, action ) and "_PostProcess" in callbacks:
-					_call(callbacks["_PostProcess"],userObject, dom, id, action)
+		if action == ""\
+			or not options_[O_PREPROCESS_ACTION_NAME_] in callbacks\
+			or _call(callbacks[options_[O_PREPROCESS_ACTION_NAME_]], userObject, dom, id, action) in [None, True]:
+
+			callback = None
+
+			if action in callbacks:
+				callback = callbacks[action]
+			elif options_[O_CALLBACKS_PREFIX_]:
+				callbackName = options_[O_CALLBACKS_PREFIX_] + ( options_[O_CONNECT_ACTION_AFFIX_] if action == "" else action )
+
+				if callbackName in callingGlobals:
+					callback = callingGlobals[callbackName]
+			
+			if callback:
+				dom.callbackReturnValue = _call(callback, userObject, dom, id, action )
+				
+				if options_[O_POSTPROCESS_ACTION_NAME_] in callbacks:
+					_call(callbacks[options_[O_POSTPROCESS_ACTION_NAME_]],userObject, dom, id, action)
 			else:
 				dom.alert("\tDEV ERROR: missing callback for '" + action + "' action!") 
 	
 	# l() # Exiting thread, closing corresponding instance.
 
-def _callback(userCallback,callbacks,instance):
-	thread = Thread(target=worker, args=(userCallback, XDHq.DOM(instance), callbacks))
+def _callback(userCallback, callbacks, callingGlobals, instance):
+	thread = Thread(target=worker, args=(userCallback, XDHq.DOM(instance), callbacks, callingGlobals))
 	thread.daemon = True
 	thread.start()
 	return thread
@@ -173,20 +211,39 @@ if _is_jupyter():
 			_thread = None
 
 
-def _launch(callbacks, userCallback, headContent):
+def _launch(callbacks, callingGlobals, userCallback, headContent):
+	if callbacks == None:
+		callbacks = {}
+
+	if callingGlobals == None:
+		callingGlobals = {}
+
 	try:
-		XDHq.launch(_callback,userCallback,callbacks,headContent)
+		XDHq.launch(_callback, userCallback, callbacks, callingGlobals, headContent)
 	except socket.timeout:
 		pass
 
-def launch(callbacks, userCallback = None, headContent = None):
+
+def retrieve_(var, id, globals):
+  if ( var == None ) and ( id in globals ):
+    return globals[id]
+  
+  return var	
+	
+
+def launch(callbacks = None, *, globals = None,  userCallback = None, headContent = None):
+	if globals != None:
+		callbacks = retrieve_(callbacks, "ATK_CALLBACKS", globals)
+		userCallback = retrieve_(userCallback, "ATK_USER", globals)
+		headContent = retrieve_(headContent, "ATK_HEAD", globals)
+
 	if _is_jupyter():
 		global _intraLock, _thread
 
 		terminate()
 		
 		_intraLock.acquire()
-		_thread = Thread(target=_launch, args=(callbacks, userCallback, headContent))
+		_thread = Thread(target=_launch, args=(callbacks, globals, userCallback, headContent))
 		_thread.daemon = True
 		_thread.start()
 
@@ -196,6 +253,17 @@ def launch(callbacks, userCallback = None, headContent = None):
 		_intraLock.release()
 		return iframe
 	else:
-		_launch(callbacks, userCallback, headContent)
+		_launch(callbacks, globals, userCallback, headContent)
 
+def options(options = None):
+  if options != None:
+    global options_
+
+    for key in options:
+      if not key in options_:
+        raise Exception(f"Unknown option '{key}'!")
+      else:
+        options_[key] = options[key]
+
+  return options_
 

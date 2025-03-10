@@ -179,7 +179,7 @@ def acCancel(self, dom):
   dom.setValue("Input." + index, "")
   dom.removeClasses({"View." + index: "hide", "Todo." + index: "editing"})
 
-callbacks = {
+CALLBACKS = {
   "": acConnect,
   "Submit": lambda self, dom: self.submitNew(dom) if self.index == -1 else self.submitModification(dom),
   "Destroy": acDestroy,
@@ -192,4 +192,8 @@ callbacks = {
   "Cancel": acCancel,
 }
 
-atlastk.launch(callbacks, TodoMVC, open("HeadFaaS.html").read())
+ATK_HEAD = open("HeadFaaS.html").read()
+
+ATK_USER = TodoMVC
+
+atlastk.launch(CALLBACKS, globals=globals())

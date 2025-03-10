@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-_VERSION = "0.13.3"
+_VERSION = "0.13.4"
 
 import XDHqSHRD
 from XDHqSHRD import getEnv
@@ -271,7 +271,7 @@ def _ignition():
 
 		_supply(_url)
 
-def _serve(callback,userCallback,callbacks ):
+def _serve(callback, userCallback, callbacks, callingGlobals):
 	while True:
 		id = readSInt()
 		
@@ -283,9 +283,9 @@ def _serve(callback,userCallback,callbacks ):
 			if id in _instances:
 				_report("Instance of id '" + str(id) + "' exists but should not !")
 
-			_instances[id] = _Instance(lambda instance : callback(userCallback, callbacks, instance), id)
+			_instances[id] = _Instance(lambda instance : callback(userCallback, callbacks, callingGlobals, instance), id)
 		elif id == _CLOSING_ID:	# Value instructing that a session is closed.
-			id = readSInt();
+			id = readSInt()
 
 			if not id in _instances:
 				_report("Instance of id '" + str(id) + "' not available for destruction!")
@@ -312,7 +312,7 @@ def _serve(callback,userCallback,callbacks ):
 				_waitForInstance()
 
 
-def launch(callback, userCallback, callbacks, headContent):
+def launch(callback, userCallback, callbacks, callingGlobals, headContent):
 	global _headContent, _instances
 
 	if headContent is None:
@@ -329,7 +329,7 @@ def launch(callback, userCallback, callbacks, headContent):
 
 	_ignition()
 
-	_serve(callback,userCallback,callbacks)
+	_serve(callback, userCallback, callbacks, callingGlobals)
 
 def get_app_url(id=""):
 	return _url + ("&_id=" + str(id) if id else "") 

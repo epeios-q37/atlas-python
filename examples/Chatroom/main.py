@@ -126,11 +126,15 @@ def acSubmitMessage(chatroom, dom):
   chatroom.displayMessages(dom)
   atlastk.broadcastAction("Update")
 
-callbacks = {
-    "": acConnect,
-    "SubmitPseudo": acSubmitPseudo,
-    "SubmitMessage": acSubmitMessage,
-    "Update": lambda chatroom, dom: chatroom.displayMessages(dom),
-  }
+CALLBACKS = {
+  "": acConnect,
+  "SubmitPseudo": acSubmitPseudo,
+  "SubmitMessage": acSubmitMessage,
+  "Update": lambda chatroom, dom: chatroom.displayMessages(dom),
+}
+
+ATK_HEAD = open("Head.html").read()
+
+ATK_USER = Chatroom
     
-atlastk.launch(callbacks, Chatroom, open("Head.html").read())
+atlastk.launch(CALLBACKS, globals=globals())

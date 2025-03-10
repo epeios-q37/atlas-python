@@ -194,5 +194,9 @@ CALLBACKS = {
   "SubmitMessage": acSubmitMessage,
   "Update": lambda session,dom: session.room.displayMessages(session,dom) if session.room else None,
 }
+
+ATK_HEAD = open("Head.html").read()
+
+ATK_USER = Session
     
-atlastk.launch(CALLBACKS, Session, open("Head.html").read())
+atlastk.launch(CALLBACKS, globals=globals())

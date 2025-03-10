@@ -514,4 +514,8 @@ CALLBACKS = {
 
 uploadDices()
 
-atlastk.launch(CALLBACKS, User, open("Head.html").read())
+ATK_HEAD = open("Head.html").read()
+
+ATK_USER = User
+
+atlastk.launch(CALLBACKS, globals=globals())

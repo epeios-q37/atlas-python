@@ -42,12 +42,14 @@ def acClear(dom):
     dom.setValue("input", "" )
   dom.focus( "input")
 
-callbacks = {
+CALLBACKS = {
   "": acConnect,
   "Submit": acSubmit,
   "Clear": acClear,
 }
+
+ATK_HEAD = open("Head.html").read()
     
-atlastk.launch(callbacks, None, open("Head.html").read())
+atlastk.launch(CALLBACKS, globals=globals())
 
 

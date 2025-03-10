@@ -374,7 +374,7 @@ def acSwitchMode(GPIO,dom,id):
 def acChangeValue(GPIO,dom,id):
   GPIO.setValue(dom,getWId(id),int(dom.getValue(id)))
 
-callbacks = {
+CALLBACKS = {
     "_PreProcess": preProcess,
     "": acConnect,
     "SwitchMode": acSwitchMode,
@@ -391,5 +391,9 @@ callbacks = {
 GPIOq.setup()
 
 syncSettings()
+
+ATK_HEAD = open("Head.html").read()
     
-atlastk.launch(callbacks, GPIO, open("Head.html").read())
+ATK_USER = GPIO
+
+atlastk.launch(CALLBACKS, globals=globals())

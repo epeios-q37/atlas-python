@@ -30,7 +30,7 @@ BODY = """
 </fieldset>
 """
 
-HEAD = """
+ATK_HEAD = """
 <title>MatPlotLib with the Atlas Toolkit</title>
 <style>
   fieldset {margin: auto; text-align: center;}
@@ -128,14 +128,14 @@ def example3():
 
   # and plot everything
   fig = plt.figure()
-  ax = fig.gca(projection='3d')
+  ax = fig.add_subplot(projection='3d')
   ax.voxels(voxels, facecolors=colors, edgecolor='k')
 
   return getSVG(plt)
 
 def example4():
   fig = plt.figure()
-  ax = fig.gca(projection='3d')
+  ax = fig.add_subplot(projection='3d')
 
   X, Y = np.mgrid[0:6*np.pi:0.25, 0:4*np.pi:0.25]
   Z = np.sqrt(np.abs(np.cos(X) + np.cos(Y)))
@@ -307,7 +307,7 @@ def example7():
   ax.triplot(triang, lw=0.5, color='white')
 
   levels = np.arange(0., 1., 0.025)
-  cmap = cm.get_cmap(name='terrain', lut=None)
+  cmap = plt.get_cmap(name='terrain', lut=None)
   ax.tricontourf(tri_refi, z_test_refi, levels=levels, cmap=cmap)
   ax.tricontour(tri_refi, z_test_refi, levels=levels,
                 colors=['0.25', '0.5', '0.5', '0.5', '0.5'],
@@ -373,7 +373,7 @@ def example10():
   return getSVG(plt)
 
 
-def ac_connect(dom):
+def atk(dom):
   dom.inner("", BODY)
   dom.disableElement("Ready")
 
@@ -387,7 +387,7 @@ def ac_connect(dom):
   dom.enableElement("Ready")
   dom.removeClass(f"example1", "hide")
 
-def ac_display(dom,id):
+def atkDisplay(dom,id):
   dom.addClasses(_hiding)
   dom.removeClass(f"example{id}","hide")
 
@@ -397,4 +397,4 @@ _hiding = {}
 for i in range(1, AMOUNT+1):
   _hiding[f"example{i}"] = "hide"
 
-atlastk.launch({"": ac_connect, "Display": ac_display},None,HEAD)
+atlastk.launch(globals=globals())

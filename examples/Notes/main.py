@@ -152,7 +152,7 @@ def acCancel(notes, dom):
   else:
     notes.view( dom )
 
-callbacks = {	
+CALLBACKS = {	
   "": acConnect,
   "ToggleDescriptions": acToggleDescriptions,
   "Search": acSearch,
@@ -162,7 +162,11 @@ callbacks = {
   "Cancel": acCancel,
 }
 
-atlastk.launch(callbacks, Notes, open("Head.html").read())
+ATK_HEAD = open("Head.html").read()
+
+ATK_USER = Notes
+
+atlastk.launch(CALLBACKS, globals=globals())
 
 
 

@@ -151,5 +151,7 @@ CALLBACKS = {
   "ckSubmit": lambda dom, id: dom.setValue("ckOutput", dom.getValue("ckInput")),
 }
 
+ATK_HEAD = open("Head.html").read()
 
-atlastk.launch(CALLBACKS, None, open("Head.html").read())
+
+atlastk.launch(CALLBACKS, globals=globals())

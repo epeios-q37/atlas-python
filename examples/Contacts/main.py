@@ -226,7 +226,11 @@ CALLBACKS = {
   "Cancel": acCancel
 }
 
+ATK_HEAD = open("Head.html").read()
+
+ATK_USER = Board
+
 for key in EMPTY_CONTACT.keys():
   fields.append(key)
 
-atlastk.launch(CALLBACKS,Board,open("Head.html").read())
+atlastk.launch(CALLBACKS, globals=globals())

@@ -24,7 +24,7 @@ SOFTWARE.
 
 import setuptools
 
-version = "0.13.3"
+version = "0.13.4"
 
 with open("README.md", "r") as fh:
     long_description = fh.read()

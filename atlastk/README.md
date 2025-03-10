@@ -10,10 +10,9 @@ To see the *Atlas* toolkit in action:
 
 </div>
 
-> Take also a look to the [*Zelbinium*](http://zelbinium.q37.info) project, which uses the *Python* version of the *Atlas* toolkit to prevent smartphone-related risks among teenagers.
-
-<ins>***WebGPIO* (*Raspberry Pi*/*ODROID-C2*)**</ins>: the *WebGPIO* application, with which you can control the *Raspberry Pi*/*ODROID-C2* (and probably other similar devices) GPIOs with your smartphone, is described in the *Raspberry Pi*/*ODROID-C2* below section.
-
+> [*Zelbinium*](http://zelbinium.q37.info): IT for all (especially for teenagers).
+>
+> Use the *Atlas* toolkit to remotely control microcontrollers like the *ESP32*, *ESP8266*, *Raspberry Pi Pico (2) W*: [*UCUq*.](https://s.q37.info/7zrtt9xc).
 
 # *Python* version of the *Atlas* toolkit
 
@@ -52,22 +51,17 @@ BODY = """
 </fieldset>
 """
  
-def acConnect(dom):
+def atk(dom): # Callback called on new connections.
   dom.inner("", BODY)
   dom.focus("Input")
  
-def acSubmit(dom):
+def atkSubmit(dom): # Callback for the 'Submit' action, hence the name.
   name = dom.getValue("Input")
   dom.begin("Output", f"<div>Hello, {name}!</div>")
   dom.setValue("Input", "")
   dom.focus("Input")
  
-CALLBACKS = {
-  "": acConnect,
-  "Submit": acSubmit
-}
- 
-atlastk.launch(CALLBACKS)
+atlastk.launch(globals=globals())
 ```
 
 </details>
@@ -84,7 +78,7 @@ python Hello/
 
 ## *Android* devices
 
-Programs made with the *Atlas* toolkit work perfectly on your [*Android*](https://en.wikipedia.org/wiki/Android_(operating_system)) devices (smartphone or tablet) using the [*Termux*](https://termux.com/) application. Simply install (``pkg intall …``) the *git* and *python* packages. That's all!
+Applications made with the *Atlas* toolkit work perfectly on your [*Android*](https://en.wikipedia.org/wiki/Android_(operating_system)) devices (smartphone or tablet) using the [*Termux*](https://termux.com/) application. Simply install (``pkg intall …``) the *git* and *python* packages. That's all!
 
 ## *Jupyter* notebooks
 
@@ -113,7 +107,7 @@ The *Atlas* toolkit is written in pure *Python*, with no native code and no depe
 
 And simply by running them on a local computer connected to internet, applications using the *Atlas* toolkit will be accessible from the entire internet on laptops, smartphones, tablets…
 
-The *Atlas* toolkit is particularly well suited for educational purposes, to write modern programming exercises, i.e. with a true graphical interface instead of the usual outdated textual one. More about this can be found [here](https://s.q37.info/cbms43s9).
+The *Atlas* toolkit is particularly well suited for educational purposes, to write modern programming exercises, i.e. with a true graphical interface instead of the usual old-looking textual one. More about this can be found [here](https://s.q37.info/cbms43s9).
 
 *Python* is much more powerful then *Excel* macros to automate (boring) tasks, and you can also work with *PDF*, *Word*, *Google* files…. And with the *Atlas* toolkit, you have much more possibilities then with *VBA* forms. There are some examples [here](https://s.q37.info/97p44nh4).
 

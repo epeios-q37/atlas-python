@@ -134,10 +134,14 @@ def acRestart(core, dom):
 
   reset(core, dom)
 
-callbacks = {
+CALLBACKS = {
   "": acConnect,
   "Submit": acSubmit,
   "Restart": acRestart
 }
 
-atlastk.launch(callbacks, Core, open("Head.html").read())
+ATK_HEAD = open("Head.html").read()
+
+ATK_USER = Core
+
+atlastk.launch(CALLBACKS, globals=globals())

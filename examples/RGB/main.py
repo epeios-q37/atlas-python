@@ -94,7 +94,7 @@ def acBlue(RGB, dom, id):
   global bPin
   bPin = getPin(dom, id)
 
-callbacks = {
+CALLBACKS = {
     "": acConnect,
     "Select": acSelect,
     "Red": acRed,
@@ -104,4 +104,8 @@ callbacks = {
 
 GPIOq.setup()
 
-atlastk.launch(callbacks, RGB,open("Head.html").read())
+ATK_HEAD = open("Head.html").read()
+
+ATK_USER = RGB
+
+atlastk.launch(CALLBACKS, globals=globals())

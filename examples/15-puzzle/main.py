@@ -118,13 +118,12 @@ def scramble(puzzle, dom):
   fill(puzzle, dom)
 
 
-def acConnect(self, dom):
+def atk(self, dom):
   dom.inner("", open("Main.html").read())
   scramble(self, dom)
 
 
 def build(sourceIds,targetIds,sourceIdsAndValues, blank):
-
   targetIdsAndValues = {}
 
   for i in range(len(sourceIds)):
@@ -135,7 +134,7 @@ def build(sourceIds,targetIds,sourceIdsAndValues, blank):
   return targetIdsAndValues
 
 
-def acSwap(self, dom, id):
+def atkSwap(self, dom, id):
   target = int(id)
   source = self.blank
   sourceIds = []
@@ -168,12 +167,10 @@ def acSwap(self, dom, id):
 
   self.blank = target
 
+atkScramble = lambda self, dom, id: scramble(self, dom)
 
-callbacks = {
-  "": acConnect,
-  "Swap": acSwap,
-  "Scramble": lambda self, dom, id: scramble(self, dom)
-}
+ATK_HEAD = open("Head.html").read()
 
+ATK_USER = Puzzle
 
-atlastk.launch(callbacks, Puzzle, open("Head.html").read())
+atlastk.launch(globals=globals())

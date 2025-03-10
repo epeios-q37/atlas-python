@@ -84,10 +84,14 @@ def acReset(Poppy,dom):
   reset( dom, "m5")
   reset( dom, "m6")
 	
-callbacks = {
-		"": acConnect,
-		"Move": acMove,
-		"Reset": acReset,
-	}
+CALLBACKS = {
+  "": acConnect,
+  "Move": acMove,
+  "Reset": acReset,
+}
+
+ATK_HEAS = open("Head.html").read()
+
+ATK_USER = Poppy
 	
-atlastk.launch(callbacks, Poppy, open("Head.html").read())
+atlastk.launch(CALLBACKS, globals=globals())
