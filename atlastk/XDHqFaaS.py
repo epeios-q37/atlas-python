@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-_VERSION = "0.13.4"
+_VERSION = "0.13.5"
 
 import XDHqSHRD
 from XDHqSHRD import getEnv
@@ -67,7 +67,7 @@ def _supply(url):
 		supplier = _Supplier._actions[supplier](url) if isinstance(supplier, str) else supplier(url)
 
 		if not supplier:
-			break;
+			break
 			
 def set_supplier(supplier = None):
 	_Supplier.current = supplier
@@ -354,6 +354,9 @@ class DOM_FaaS:
 			writeSInt(self.instance.getId())
 			writeString("#StandBy_1")
 
+	def getL10n(self, *kargs, **kwargs):
+		return self.instance.getL10n(*kargs, **kwargs)
+
 	def getAction(self):
 		if self._firstLaunch:
 			self._firstLaunch = False
@@ -367,6 +370,7 @@ class DOM_FaaS:
 		_instanceDataRead()
 
 		return [action,id]
+	
 
 	def call(self, command, type, *args):
 		if self.instance.quit:

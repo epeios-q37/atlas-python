@@ -43,23 +43,17 @@ if __name__ == "__main__":
   </fieldset>
   """
 
-  def acConnect(dom):
+  def atk(dom):
     dom.inner("", BODY )
     dom.focus( "input")
 
-  def acSubmit(dom):
+  def atkSubmit(dom):
     dom.alert("Hello, {}!".format(dom.getValue("input")))
     dom.focus( "input")
 
-  def acClear(dom):
+  def atkClear(dom):
     if dom.confirm("Are you sure?"):
       dom.setValue("input", "" )
     dom.focus( "input")
 
-  callbacks = {
-    "": acConnect,
-    "Submit": acSubmit,
-    "Clear": acClear,
-  }
-
-  launch(callbacks, None, HEAD)
+  launch(globals=globals())

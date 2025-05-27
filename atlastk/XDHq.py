@@ -25,7 +25,7 @@ SOFTWARE.
 """
 
 import XDHqFaaS,XDHqSHRD,XDHqXML
-from XDHqFaaS import launch, set_supplier, get_app_url, setBye, l
+from XDHqFaaS import set_supplier, get_app_url, setBye, l
 
 import os,sys
 from collections import OrderedDict
@@ -47,6 +47,12 @@ _STRING = XDHqSHRD.RT_STRING
 _STRINGS = XDHqSHRD.RT_STRINGS
 XML = XDHqXML.XML
 
+def launch(callback, userCallback, callbacks, callingGlobals, headContent, l10n):
+	global _l10n
+
+	_l10n = l10n
+
+	return XDHqFaaS.launch(callback, userCallback, callbacks, callingGlobals, headContent)
 
 def _split(keysAndValues):
 	keys = []
@@ -95,6 +101,30 @@ def _readXSLAsset(path):
 class DOM:
 	def __init__(self,instance):
 		self._dom = XDHqFaaS.DOM_FaaS(instance)
+
+	def getL10n(self, *args, **kwargs):
+		if not _l10n:
+			return ""
+
+		lang = self.language
+
+		indice = _l10n[0].index(lang) if lang in _l10n[0] else None
+
+		if indice == None:
+			lang = lang[:2]
+			
+			indice = _l10n[0].index(lang) if lang in _l10n[0] else 0
+
+		if len(args):
+			if len(kwargs):
+				raise Exception("getL10n() accepts either args or kwargs, not both.")
+
+			if len(args) == 1:
+				return _l10n[args[0]][indice]
+			else:
+				return [_l10n[arg][indice] for arg in args]
+		elif len(kwargs):
+			return {key: _l10n[value][indice] for key, value in kwargs.items()}	
 
 	def get_action(self):
 		return self._dom.getAction()

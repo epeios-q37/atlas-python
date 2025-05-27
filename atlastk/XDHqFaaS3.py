@@ -66,7 +66,7 @@ def writeUInt(socket, value, bye):
 	_send(socket, result, bye)
 
 def writeString(socket, string, bye):
-	bString = bytes(string, "utf-8")
+	bString = bytes(str(string), "utf-8")
 	writeUInt(socket, len(bString), bye)
 	_send(socket, bString, bye)
 

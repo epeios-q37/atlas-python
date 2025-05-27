@@ -24,7 +24,7 @@ SOFTWARE.
 
 import XDHq, XDHqSHRD
 from threading import Thread, Lock
-import inspect, time, socket, signal, sys, os
+import inspect, types, socket, signal, sys, os
 
 from XDHq import set_supplier, get_app_url, l
 
@@ -78,13 +78,21 @@ def createXML(root_tag):
 
 create_XML = createXML	
 
-
 def createHTML(root_tag=""):	# If 'root_tag' is empty, there will be no root tag in the tree.
 	return XDHq.XML(root_tag)
 
 create_HTML = createHTML
 
-broadcastAction = XDHq.broadcastAction
+removePattern_ = lambda string, pattern: string[len(pattern):] if string.startswith(pattern) else string
+
+def broadcastAction(action, id = ""):
+	assert isinstance(action, (str, types.FunctionType))
+
+	if isinstance(action, types.FunctionType):
+		action = removePattern_(action.__name__, options_[O_CALLBACKS_PREFIX_])
+
+	return XDHq.broadcastAction(action, id)
+
 broadcast_action = broadcastAction
 
 
@@ -142,6 +150,9 @@ def worker(userCallback, dom, callbacks, callingGlobals):
 
 			if XDHqSHRD.isDev():
 				dom.debugLog(True)
+
+			dom.language = id[:id.find(';')]
+			id = id[id.find(';')+1:]
 
 		if action == ""\
 			or not options_[O_PREPROCESS_ACTION_NAME_] in callbacks\
@@ -211,7 +222,7 @@ if _is_jupyter():
 			_thread = None
 
 
-def _launch(callbacks, callingGlobals, userCallback, headContent):
+def _launch(callbacks, callingGlobals, userCallback, headContent, l10n):
 	if callbacks == None:
 		callbacks = {}
 
@@ -219,7 +230,7 @@ def _launch(callbacks, callingGlobals, userCallback, headContent):
 		callingGlobals = {}
 
 	try:
-		XDHq.launch(_callback, userCallback, callbacks, callingGlobals, headContent)
+		XDHq.launch(_callback, userCallback, callbacks, callingGlobals, headContent, l10n)
 	except socket.timeout:
 		pass
 
@@ -236,6 +247,7 @@ def launch(callbacks = None, *, globals = None,  userCallback = None, headConten
 		callbacks = retrieve_(callbacks, "ATK_CALLBACKS", globals)
 		userCallback = retrieve_(userCallback, "ATK_USER", globals)
 		headContent = retrieve_(headContent, "ATK_HEAD", globals)
+		l10n = retrieve_(None, "ATK_L10N", globals)
 
 	if _is_jupyter():
 		global _intraLock, _thread
@@ -243,7 +255,7 @@ def launch(callbacks = None, *, globals = None,  userCallback = None, headConten
 		terminate()
 		
 		_intraLock.acquire()
-		_thread = Thread(target=_launch, args=(callbacks, globals, userCallback, headContent))
+		_thread = Thread(target=_launch, args=(callbacks, globals, userCallback, headContent, l10n))
 		_thread.daemon = True
 		_thread.start()
 
@@ -253,7 +265,7 @@ def launch(callbacks = None, *, globals = None,  userCallback = None, headConten
 		_intraLock.release()
 		return iframe
 	else:
-		_launch(callbacks, globals, userCallback, headContent)
+		_launch(callbacks, globals, userCallback, headContent, l10n)
 
 def options(options = None):
   if options != None:
@@ -267,3 +279,5 @@ def options(options = None):
 
   return options_
 
+def isDev():
+	return XDHqSHRD.isDev()

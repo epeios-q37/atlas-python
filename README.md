@@ -10,9 +10,7 @@ To see the *Atlas* toolkit in action:
 
 </div>
 
-> [*Zelbinium*](http://zelbinium.q37.info): IT for all (especially for teenagers).
->
-> Use the *Atlas* toolkit to remotely control microcontrollers like the *ESP32*, *ESP8266*, *Raspberry Pi Pico (2) W*: [*UCUq*](https://s.q37.info/7zrtt9xc).
+
 
 # *Python* version of the *Atlas* toolkit
 
@@ -69,8 +67,6 @@ atlastk.launch(globals=globals())
 ### See for yourself right now - it's quick and easy!
 
 ```shell
-# You can replace 'github.com' with 'framagit.org' or 'gitlab.com'.
-# DON'T copy/paste this and above line!
 git clone http://github.com/epeios-q37/atlas-python
 cd atlas-python/examples
 python Hello/
